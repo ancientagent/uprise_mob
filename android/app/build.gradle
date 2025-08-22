@@ -82,6 +82,7 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     enableHermes: true,  // clean and rebuild if changing
+    nodeExecutableAndArgs: ["C:\\tools\\node-v20.19.0-win-x64\\node.exe"]
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -196,9 +197,13 @@ android {
 
 dependencies {
     implementation project(':react-native-splash-screen')
+    implementation project(':scalableviewer')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    
+    // Temporarily excluded to get APK building
+    // implementation project(':react-native-track-player')
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation 'com.facebook.fresco:animated-gif:2.6.0'
