@@ -17,6 +17,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Sanity-check the wrapper is present & safe
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+
       - name: Set up JDK 11 (Temurin)
         uses: actions/setup-java@v4
         with:
@@ -27,6 +31,11 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
+      # Make sure AGP has the exact SDK components it needs
+      - name: Install Android SDK components
+        run: |
+          sdkmanager --install "platform-tools" "platforms;android-31" "build-tools;31.0.0" || true
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -36,36 +45,42 @@ jobs:
       - name: Install JS deps
         run: yarn install --frozen-lockfile
 
-      - name: Make gradlew executable (Linux CI)
+      # Ensure gradlew is executable and has LF endings on Linux runners
+      - name: Prepare Gradle wrapper (Linux)
         working-directory: android
         run: |
+          test -f gradlew || (echo "::error ::android/gradlew is missing"; exit 1)
           chmod +x gradlew
-          # fix possible CRLF on Windows-committed wrapper
           sed -i 's/\r$//' gradlew
 
-      - name: Print tool versions
+      - name: Print tool versions & tree
         working-directory: android
         run: |
           java -version
           node -v
           yarn -v
           ./gradlew -v
+          echo "== android directory =="
+          ls -la
+          echo "== app directory =="
+          ls -la app || true
 
       - name: Build Android Debug APK
         working-directory: android
         env:
-          # keep Metro compatibility if RN scripts touch it
           NODE_OPTIONS: --openssl-legacy-provider
-        run: ./gradlew --no-daemon clean assembleDebug
+        run: ./gradlew --no-daemon --stacktrace --info clean assembleDebug
 
+      # While diagnosing, don't fail the job on missing artifacts
       - name: Upload APK
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: app-debug-apk
           path: android/app/build/outputs/apk/debug/*.apk
-          if-no-files-found: error
+          if-no-files-found: warn
 
-      - name: Upload Gradle reports (optional)
+      - name: Upload Gradle reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -74,3 +89,4 @@ jobs:
             android/**/build/reports/**
             android/**/build/outputs/**/*
           if-no-files-found: warn
+
