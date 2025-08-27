@@ -75,6 +75,11 @@ jobs:
       - name: Install JS deps
         run: npm install --legacy-peer-deps
 
+      - name: Dump RN autolink config
+        run: |
+         npx --yes react-native config | tee rn-config.json
+         command -v jq >/dev/null 2>&1 && jq '.dependencies | keys' rn-config.json || cat rn-config.json
+
       - name: Build Android Debug APK
         working-directory: android
         env:
