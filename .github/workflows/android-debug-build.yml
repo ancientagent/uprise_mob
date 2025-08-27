@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Download cmdline-tools (no Java requirement yet)
+      # Download cmdline-tools
       - name: Install Android cmdline-tools
         run: |
           set -euxo pipefail
@@ -26,7 +26,7 @@ jobs:
           mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
           mv /tmp/cmdtools/cmdline-tools/* "$ANDROID_SDK_ROOT/cmdline-tools/latest/"
 
-      # ✅ JDK 17 ONLY for sdkmanager (classfile version 61)
+      # JDK 17 ONLY for sdkmanager
       - name: Set up JDK 17 (Temurin) for SDK install
         uses: actions/setup-java@v4
         with:
@@ -36,16 +36,21 @@ jobs:
       - name: Install Android SDK components (api 31, build-tools 31.0.0)
         env:
           ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
+          ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
         run: |
           set -euxo pipefail
-          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --licenses
-          "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --install \
+          # avoid sdkmanager warnings
+          mkdir -p "$HOME/.android" && touch "$HOME/.android/repositories.cfg"
+          # accept all licenses
+          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --licenses --sdk_root="$ANDROID_SDK_ROOT"
+          # install packages (pipe yes again just in case)
+          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --install \
             "platform-tools" \
             "platforms;android-31" \
             "build-tools;31.0.0"
           "$ANDROID_SDK_ROOT/platform-tools/adb" version || true
 
-      # ⬅️ Switch back to Java 11 for Gradle/AGP 7.0.x
+      # Switch back to Java 11 for Gradle/AGP 7.0.x
       - name: Set up JDK 11 (Temurin) for Gradle
         uses: actions/setup-java@v4
         with:
