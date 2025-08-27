@@ -131,13 +131,13 @@ def nativeArchitectures = project.getProperties().get("reactNativeDebugArchitect
 
 android {
 
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId "com.app.uprise"
         vectorDrawables.useSupportLibrary = true
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 45
         versionName "1.0"
         multiDexEnabled true
