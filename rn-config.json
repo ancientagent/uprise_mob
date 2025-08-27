@@ -631,7 +631,7 @@
         "android": {
           "sourceDir": "/workspaces/uprise_mob/node_modules/react-native-screens/android",
           "folder": "/workspaces/uprise_mob/node_modules/react-native-screens",
-          "packageImportPath": "import undefined.RNScreensPackage;",
+          "packageImportPath": "import com.swmansion.rnscreens.RNScreensPackage;",
           "packageInstance": "new RNScreensPackage()",
           "buildTypes": []
         }

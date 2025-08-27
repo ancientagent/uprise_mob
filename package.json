@@ -9,7 +9,7 @@
     "pods": "cd ios && pod install",
     "test": "jest",
     "lint": "eslint .",
-    "postinstall": "node scripts/fix-rn-video-gradle.js"
+    "postinstall": "node scripts/patch-screens-if-needed.js"
   },
   "dependencies": {
     "@homielab/react-native-auto-scroll": "^0.0.8",
@@ -58,7 +58,7 @@
     "react-native-places-input": "^1.1.7",
     "react-native-reanimated": "^2.2.4",
     "react-native-safe-area-context": "^3.4.1",
-    "react-native-screens": "^3.15.0",
+    "react-native-screens": "3.10.1",
     "react-native-slider": "^0.11.0",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-splash-screen": "^3.3.0",
@@ -105,5 +105,8 @@
     "jetifier": "^2.0.0",
     "metro-react-native-babel-preset": "0.66.2",
     "react-test-renderer": "17.0.2"
+  },
+  "overrides": {
+    "react-native-screens": "3.10.1"
   }
 }
