@@ -14,13 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 11 (Temurin)
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '11'
-
-      # ✅ Robust Android SDK setup (no external action)
+      # Download cmdline-tools (no Java requirement yet)
       - name: Install Android cmdline-tools
         run: |
           set -euxo pipefail
@@ -32,7 +26,14 @@ jobs:
           mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
           mv /tmp/cmdtools/cmdline-tools/* "$ANDROID_SDK_ROOT/cmdline-tools/latest/"
 
-      - name: Install Android SDK components
+      # ✅ JDK 17 ONLY for sdkmanager (classfile version 61)
+      - name: Set up JDK 17 (Temurin) for SDK install
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android SDK components (api 31, build-tools 31.0.0)
         env:
           ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
         run: |
@@ -43,6 +44,13 @@ jobs:
             "platforms;android-31" \
             "build-tools;31.0.0"
           "$ANDROID_SDK_ROOT/platform-tools/adb" version || true
+
+      # ⬅️ Switch back to Java 11 for Gradle/AGP 7.0.x
+      - name: Set up JDK 11 (Temurin) for Gradle
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
 
       - name: Normalize gradlew (LF + +x) for Linux CI
         run: |
