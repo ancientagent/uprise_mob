@@ -31,3 +31,87 @@
 
 ### Summary
 Successfully executed CCPM pilot workflow in Codespaces using GitHub CLI. Created 1 epic and 5 tasks with proper labels and linkages.
+
+---
+
+## 2025-08-27 04:24 UTC - Android CI Debug Build Stabilization (Codespaces)
+
+### Context
+- **Branch**: feat/ccpm-framework
+- **Workflow**: Android Debug Build 
+- **Task**: CI fix + artifact retrieval for Android Debug Build
+- **Initial Run**: 17257070069 (failed - SDK license issues)
+
+### Issues Identified and Fixed
+
+1. **SDK License Acceptance Failure** (Run 17257070069)
+   - **Issue**: Interactive `yes` command timeout during license acceptance
+   - **Fix**: Replaced interactive license acceptance with prewritten license files
+   - **Commit**: 10cc1dc - "ci(android): fix SDK license acceptance with prewritten license files"
+
+2. **Package Manager Cache Issue** (Run 17257135637)
+   - **Issue**: Missing yarn.lock file, workflow used yarn with cache
+   - **Fix**: Switched to npm install without caching
+   - **Commit**: 1b1f2c1 - "ci(android): switch from yarn to npm install, remove cache"
+
+3. **Dependency Conflict** (Run 17257153465)
+   - **Issue**: npm peer dependency conflicts with react-native packages
+   - **Fix**: Added --legacy-peer-deps flag to npm install
+   - **Commit**: 087bc7c - "ci(android): use --legacy-peer-deps for npm install"
+
+4. **Android SDK Path Conflict** (Run 17257165900, 17257212779)
+   - **Issue**: System ANDROID_HOME conflicts with custom ANDROID_SDK_ROOT
+   - **Fix**: Explicitly set ANDROID_HOME in gradle build step
+   - **Commit**: e931ce9 - "ci(android): override ANDROID_HOME in build step"
+
+### Final Status
+- **Latest Run**: 17257212779 (failed at gradle build step)
+- **Progress**: Successfully fixed SDK installation, npm install, and path conflicts
+- **Remaining Issue**: react-native-video package compatibility (Gradle 7.0.2 + deprecated `provided()` method)
+
+### Workflow Improvements Applied
+- Manual cmdline-tools installation with prewritten license files
+- Dual JDK setup (JDK 17 for sdkmanager, JDK 11 for Gradle)
+- Proper Android SDK environment variable management
+- Legacy npm dependency resolution for React Native 0.66.4
+
+### Next Steps
+- Address react-native-video compatibility or find alternative
+- Complete build process to generate APK artifacts
+- Test artifact download functionality
+
+---
+
+## 2025-08-28 20:50 UTC - Fixed Android Debug Build CI Keystore Issue
+
+### Context
+- **Branch**: feat/ccpm-framework
+- **PR**: #7 
+- **Failed Run**: 17307438532
+- **Root Cause**: Missing debug.keystore file causing signing failure
+
+### Issue Diagnosed
+- **Failure Point**: :app:validateSigningDebug task
+- **Error**: `Keystore file '/home/runner/work/uprise_mob/uprise_mob/android/app/debug.keystore' not found for signing config 'debug'`
+- **Not a SDK dependency issue**: react-native-video and react-native-track-player were already properly disabled via react-native.config.js
+
+### Fix Applied
+1. **Generated debug.keystore**: Created standard Android debug keystore using keytool
+   - Location: `android/app/debug.keystore`
+   - Keystore password: `android`
+   - Key alias: `androiddebugkey`
+   - Key password: `android`
+   - Validity: 10,000 days
+
+2. **Enhanced CI workflow**: Added RN config artifact and improved logging
+   - Added RN config upload artifact for forensics
+   - Enhanced Gradle build with --stacktrace --info flags
+
+### Files Modified
+- `android/app/debug.keystore` (generated)
+- `.github/workflows/android-debug-build.yml` (enhanced)
+
+### Status
+- Ready for CI testing
+- Build should now pass :app:validateSigningDebug task
+- All SDK 31 compatibility already maintained
