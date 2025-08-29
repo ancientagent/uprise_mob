@@ -190,68 +190,8 @@ jobs:
           force-avd-creation: true
           disable-animations: true
           emulator-options: "-no-window -no-snapshot -noaudio -no-boot-anim -gpu swiftshader_indirect"
-          script: |
+          script: "set -eu; trap 'adb logcat -v time -d > ./smoke-logcat.txt 2>/dev/null || true; adb shell dumpsys activity activities > ./smoke-dumpsys.txt 2>/dev/null || true; adb shell pm list packages > ./smoke-pm.txt 2>/dev/null || true' EXIT; echo '== List downloaded APKs =='; ls -R ./ci-apk || true; echo '== Select APK =='; APK=\"$(find ./ci-apk -type f -name '*.apk' | head -n1 || true)\"; if [ -z \"${APK}\" ]; then echo 'ERROR: No APK found in ./ci-apk' | tee ./smoke-error.txt; exit 1; fi; echo \"Using APK: $APK\"; echo '== ADB & device status =='; adb version || true; adb devices; adb wait-for-device; echo '== Wait for full boot =='; BOOT_OK=0; for i in $(seq 1 180); do BOOT_PROP=\"$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')\"; [ \"$BOOT_PROP\" = \"1\" ] && BOOT_OK=1 && break; sleep 1; done; [ \"$BOOT_OK\" -eq 1 ] || { echo 'ERROR: emulator did not fully boot in time' | tee ./smoke-error.txt; exit 1; }; echo '== Ensure clean install =='; (adb shell pm list packages | grep -q com.app.uprise && adb shell pm uninstall com.app.uprise) || true; echo '== Install APK =='; adb install -r -d -t \"$APK\"; echo '== Verify package installed =='; adb shell pm list packages | grep com.app.uprise > ./smoke-pm.txt || true; cat ./smoke-pm.txt || true; echo '== Clear logcat, then launch main activity =='; adb logcat -c || true; adb shell am start -W -n com.app.uprise/.MainActivity || true; echo '== Let app settle and capture logs =='; sleep 25; adb logcat -v time -d > ./smoke-logcat.txt || true; echo '== Dump activity stacks (dumpsys) =='; adb shell dumpsys activity activities > ./smoke-dumpsys.txt || true; echo '== Done =='"
             #!/usr/bin/env sh
-            set -eu
-            trap 'echo "[trap] collecting diagnostics"; adb logcat -v time -d > ./smoke-logcat.txt 2>/dev/null || true; adb shell dumpsys activity activities > ./smoke-dumpsys.txt 2>/dev/null || true; adb shell pm list packages > ./smoke-pm.txt 2>/dev/null || true' EXIT
-
-            echo "== List downloaded APKs =="
-            ls -R ./ci-apk || true
-
-            echo "== Select APK =="
-            APK="$(find ./ci-apk -type f -name '*.apk' | head -n1 || true)"
-            if [ -z "${APK:-}" ]; then
-              echo "ERROR: No APK found in ./ci-apk" | tee ./smoke-error.txt
-              exit 1
-            fi
-            echo "Using APK: $APK"
-
-            echo "== ADB & device status =="
-            adb version || true
-            adb devices
-            adb wait-for-device
-
-            echo "== Wait for full boot =="
-            BOOT_OK=0
-            # Try up to 180 seconds for sys.boot_completed=1
-            for i in $(seq 1 180); do
-              BOOT_PROP="$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')"
-              if [ "$BOOT_PROP" = "1" ]; then
-                BOOT_OK=1
-                break
-              fi
-              sleep 1
-            done
-            if [ "$BOOT_OK" -ne 1 ]; then
-              echo "ERROR: emulator did not fully boot in time" | tee ./smoke-error.txt
-              exit 1
-            fi
-
-            echo "== Ensure clean install =="
-            (adb shell pm list packages | grep -q com.app.uprise && adb shell pm uninstall com.app.uprise) || true
-
-            echo "== Install APK =="
-            adb install -r -d -t "$APK"
-
-            echo "== Verify package installed =="
-            adb shell pm list packages | grep com.app.uprise > ./smoke-pm.txt || true
-            cat ./smoke-pm.txt || true
-
-            echo "== Clear logcat, then launch main activity =="
-            adb logcat -c || true
-            adb shell am start -W -n com.app.uprise/.MainActivity || true
-
-            echo "== Let app settle and capture logs =="
-            sleep 25
-            adb logcat -v time -d > ./smoke-logcat.txt || true
-
-            echo "== Dump activity stacks (dumpsys) =="
-            adb shell dumpsys activity activities > ./smoke-dumpsys.txt || true
-
-            echo "== Done =="
-
-
-
       - name: Upload smoke test artifacts
         if: always()
         uses: actions/upload-artifact@v4
