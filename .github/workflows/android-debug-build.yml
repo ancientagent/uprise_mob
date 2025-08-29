@@ -39,15 +39,15 @@ jobs:
           ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
         run: |
           set -euxo pipefail
-          # avoid sdkmanager warnings
           mkdir -p "$HOME/.android" && touch "$HOME/.android/repositories.cfg"
-          # create licenses directory and accept all common licenses
           mkdir -p "$ANDROID_SDK_ROOT/licenses"
-          echo -e "8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e\n24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_SDK_ROOT/licenses/android-sdk-license"
+          printf "%s\n" \
+            "8933bad161af4178b1185d1a37fbf41ea5269c55" \
+            "d56f5187479451eabf01fb78af6dfcb131a6481e" \
+            "24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_SDK_ROOT/licenses/android-sdk-license"
           echo "601085b94cd77f0b54ff86406957099ebe79c4d6" > "$ANDROID_SDK_ROOT/licenses/android-googletv-license"
           echo "33b6a2b64607f11b759f320ef9dff4ae5c47d97a" > "$ANDROID_SDK_ROOT/licenses/google-gdk-license"
           echo "d975f751698a77b662f1254ddbeed3901e976f5a" > "$ANDROID_SDK_ROOT/licenses/intel-android-extra-license"
-          # install packages directly
           "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --install \
             "platform-tools" \
             "platforms;android-31" \
@@ -95,8 +95,8 @@ jobs:
 
       - name: Dump RN autolink config
         run: |
-         npx --yes react-native config | tee rn-config.json
-         command -v jq >/dev/null 2>&1 && jq '.dependencies | keys' rn-config.json || cat rn-config.json
+          npx --yes react-native config | tee rn-config.json
+          command -v jq >/dev/null 2>&1 && jq '.dependencies | keys' rn-config.json || cat rn-config.json
 
       - name: Upload RN config
         if: always()
@@ -126,8 +126,7 @@ jobs:
         run: ./gradlew --no-daemon lintDebug || true
 
       - name: Unit tests (JS)
-        run: |
-          npm test --silent || true
+        run: npm test --silent || true
 
       - name: Build Android Debug APK
         working-directory: android
@@ -154,53 +153,106 @@ jobs:
             android/**/build/outputs/**
           if-no-files-found: warn
 
-  android-smoke-test:
-    name: Android Smoke Test (API 31)
+  smoke-test:
+    name: Android Smoke Test (API 30)
+    needs: build
     runs-on: ubuntu-latest
-    needs: android-build   # wait for the build job to finish
-    timeout-minutes: 20
+    timeout-minutes: 25
+
+    defaults:
+      run:
+        shell: bash -Eeuo pipefail
+
     steps:
-      - name: Checkout code
+      - name: Checkout (shallow)
         uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: '17'
-
-      - name: Verify Java version
-        run: |
-          java -version
-          echo "JAVA_HOME=$JAVA_HOME"
+          fetch-depth: 1
 
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
+          # keep this name in sync with your build job’s upload step
           name: app-debug-apk
-          path: ./ci-apk
+          path: ci-apk
+          merge-multiple: true
 
-      - name: Boot emulator, install & launch app
+      - name: Select APK
+        id: select-apk
+        run: |
+          ls -R ./ci-apk || true
+          APK="$(find ./ci-apk -type f -name '*debug*.apk' | head -n1 || true)"
+          if [[ -z "${APK:-}" ]]; then
+            echo "No APK found under ./ci-apk"
+            exit 1
+          fi
+          echo "APK=$APK" | tee -a "$GITHUB_ENV"
+
+      - name: Run emulator + install + launch
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 31
+          api-level: 30
+          target: default
           arch: x86_64
-          profile: pixel_5
-          target: google_apis
           force-avd-creation: true
           disable-animations: true
-          emulator-options: "-no-window -no-snapshot -noaudio -no-boot-anim -gpu swiftshader_indirect"
-          script: "set -eu; trap 'adb logcat -v time -d > ./smoke-logcat.txt 2>/dev/null || true; adb shell dumpsys activity activities > ./smoke-dumpsys.txt 2>/dev/null || true; adb shell pm list packages > ./smoke-pm.txt 2>/dev/null || true' EXIT; echo '== List downloaded APKs =='; ls -R ./ci-apk || true; echo '== Select APK =='; APK=\"$(find ./ci-apk -type f -name '*.apk' | head -n1 || true)\"; if [ -z \"${APK}\" ]; then echo 'ERROR: No APK found in ./ci-apk' | tee ./smoke-error.txt; exit 1; fi; echo \"Using APK: $APK\"; echo '== ADB & device status =='; adb version || true; adb devices; adb wait-for-device; echo '== Wait for full boot =='; BOOT_OK=0; for i in $(seq 1 180); do BOOT_PROP=\"$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')\"; [ \"$BOOT_PROP\" = \"1\" ] && BOOT_OK=1 && break; sleep 1; done; [ \"$BOOT_OK\" -eq 1 ] || { echo 'ERROR: emulator did not fully boot in time' | tee ./smoke-error.txt; exit 1; }; echo '== Ensure clean install =='; (adb shell pm list packages | grep -q com.app.uprise && adb shell pm uninstall com.app.uprise) || true; echo '== Install APK =='; adb install -r -d -t \"$APK\"; echo '== Verify package installed =='; adb shell pm list packages | grep com.app.uprise > ./smoke-pm.txt || true; cat ./smoke-pm.txt || true; echo '== Clear logcat, then launch main activity =='; adb logcat -c || true; adb shell am start -W -n com.app.uprise/.MainActivity || true; echo '== Let app settle and capture logs =='; sleep 25; adb logcat -v time -d > ./smoke-logcat.txt || true; echo '== Dump activity stacks (dumpsys) =='; adb shell dumpsys activity activities > ./smoke-dumpsys.txt || true; echo '== Done =='"
-            #!/usr/bin/env sh
-      - name: Upload smoke test artifacts
-        if: always()
+          # stability-first; no KVM / nested virt assumptions
+          emulator-options: "-no-snapshot -noaudio -no-window -gpu swiftshader_indirect -accel off"
+          script: |
+            set -Eeuo pipefail
+            adb kill-server || true
+            adb start-server
+            export ANDROID_SERIAL=emulator-5554
+
+            echo "== Wait for device =="
+            for i in {1..30}; do
+              adb wait-for-device || true
+              BOOTED="$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')"
+              if [[ "$BOOTED" == "1" ]]; then
+                echo "Emulator booted."
+                break
+              fi
+              echo "…waiting for boot ($i/30)"; sleep 10
+            done
+            adb shell settings put global window_animation_scale 0 || true
+            adb shell settings put global transition_animation_scale 0 || true
+            adb shell settings put global animator_duration_scale 0 || true
+            adb shell input keyevent 82 || true
+            adb devices
+
+            echo "== Install APK =="
+            adb install -r "$APK"
+
+            echo "== Start app =="
+            timeout 5s adb logcat -c || true
+            # capture logcat for 2 minutes in background
+            ( timeout 120s adb logcat *:I > smoke-logcat.txt ) &
+            LOGCAT_PID=$!
+
+            adb shell am start -W -n com.app.uprise/.MainActivity || true
+            sleep 10
+
+            echo "== Collect diagnostics =="
+            adb shell dumpsys activity > dumpsys.txt || true
+            adb shell pm list packages > pm-packages.txt || true
+
+            # require the 'Displayed … MainActivity' line to appear
+            if ! grep -m1 "ActivityTaskManager: Displayed com.app.uprise/.MainActivity" smoke-logcat.txt; then
+              echo "Did not find launch confirmation in logcat"
+              # show tail for debugging
+              tail -n 200 smoke-logcat.txt || true
+              exit 2
+            fi
+
+            # wait for logcat capture to finish cleanly
+            wait $LOGCAT_PID || true
+
+      - name: Upload smoke artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: android-smoke-artifacts
+          name: smoke-artifacts
+          if-no-files-found: ignore
           path: |
-            ./smoke-logcat.txt
-            ./smoke-dumpsys.txt
-            ./smoke-pm.txt
-            ./smoke-error.txt
-          if-no-files-found: warn
-
+            smoke-logcat.txt
+            dumpsys.txt
+            pm-packages.txt
