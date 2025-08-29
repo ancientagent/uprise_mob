@@ -93,8 +93,12 @@ jobs:
           fi
 
       - name: Build Debug APK
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
         run: |
           cd android
+          unset ANDROID_SDK_ROOT
+          export ANDROID_HOME="$HOME/android-sdk"
           ./gradlew --no-daemon clean assembleDebug --stacktrace
 
       - name: Upload APK artifact
