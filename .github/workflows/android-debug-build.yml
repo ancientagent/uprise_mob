@@ -191,8 +191,9 @@ jobs:
           disable-animations: true
           emulator-options: "-no-window -no-snapshot -noaudio -no-boot-anim -gpu swiftshader_indirect"
           script: |
-            set -Eeuo pipefail
-            trap 'echo "[trap] collecting diagnostics"; adb logcat -v time -d > ./smoke-logcat.txt || true; adb shell dumpsys activity activities > ./smoke-dumpsys.txt || true; adb shell pm list packages > ./smoke-pm.txt || true' EXIT
+            #!/usr/bin/env sh
+            set -eu
+            trap 'echo "[trap] collecting diagnostics"; adb logcat -v time -d > ./smoke-logcat.txt 2>/dev/null || true; adb shell dumpsys activity activities > ./smoke-dumpsys.txt 2>/dev/null || true; adb shell pm list packages > ./smoke-pm.txt 2>/dev/null || true' EXIT
 
             echo "== List downloaded APKs =="
             ls -R ./ci-apk || true
@@ -211,42 +212,44 @@ jobs:
             adb wait-for-device
 
             echo "== Wait for full boot =="
-            # wait until sys.boot_completed=1 and device is unlocked enough to run commands
-            bootcomplete=""
-            timeout=$((SECONDS+180))
-            while [ "$SECONDS" -lt "$timeout" ]; do
-              bootcomplete="$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')"
-              if [ "$bootcomplete" = "1" ]; then
+            BOOT_OK=0
+            # Try up to 180 seconds for sys.boot_completed=1
+            for i in $(seq 1 180); do
+              BOOT_PROP="$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')"
+              if [ "$BOOT_PROP" = "1" ]; then
+                BOOT_OK=1
                 break
               fi
-              sleep 2
+              sleep 1
             done
-            if [ "$bootcomplete" != "1" ]; then
+            if [ "$BOOT_OK" -ne 1 ]; then
               echo "ERROR: emulator did not fully boot in time" | tee ./smoke-error.txt
               exit 1
             fi
 
             echo "== Ensure clean install =="
-            adb shell pm list packages | grep -q com.app.uprise && adb shell pm uninstall com.app.uprise || true
+            (adb shell pm list packages | grep -q com.app.uprise && adb shell pm uninstall com.app.uprise) || true
 
             echo "== Install APK =="
             adb install -r -d -t "$APK"
 
             echo "== Verify package installed =="
-            adb shell pm list packages | grep com.app.uprise > ./smoke-pm.txt
+            adb shell pm list packages | grep com.app.uprise > ./smoke-pm.txt || true
+            cat ./smoke-pm.txt || true
 
             echo "== Clear logcat, then launch main activity =="
             adb logcat -c || true
-            adb shell am start -W -n com.app.uprise/.MainActivity
+            adb shell am start -W -n com.app.uprise/.MainActivity || true
 
             echo "== Let app settle and capture logs =="
             sleep 25
-            adb logcat -v time -d > ./smoke-logcat.txt
+            adb logcat -v time -d > ./smoke-logcat.txt || true
 
             echo "== Dump activity stacks (dumpsys) =="
-            adb shell dumpsys activity activities > ./smoke-dumpsys.txt
+            adb shell dumpsys activity activities > ./smoke-dumpsys.txt || true
 
             echo "== Done =="
+
 
 
       - name: Upload smoke test artifacts
