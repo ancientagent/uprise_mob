@@ -190,7 +190,7 @@ jobs:
           force-avd-creation: true
           disable-animations: true
           script: |
-            set -euxo pipefail
+            set -eux
 
             echo "== List downloaded APKs =="
             ls -R ./ci-apk || true
