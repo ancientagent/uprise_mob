@@ -191,43 +191,20 @@ jobs:
           disable-animations: true
           script: |
             set -eux
-
-            echo "== List downloaded APKs =="
-            ls -R ./ci-apk || true
-
-            echo "== Select APK =="
-            APK="$(find ./ci-apk -type f -name '*.apk' | head -n1)"
-            test -n "$APK" || { echo "ERROR: No APK found in ./ci-apk" | tee ./smoke-error.txt; exit 1; }
+            echo "== List downloaded APKs ==" && ls -R ./ci-apk || true
+            echo "== Select and use APK ==" && APK="$(find ./ci-apk -type f -name '*.apk' | head -n1)" && test -n "$APK" || { echo "ERROR: No APK found in ./ci-apk" | tee ./smoke-error.txt; exit 1; }
             echo "Using APK: $APK"
-
-            echo "== ADB & device status =="
-            adb version || true
-            adb devices
-            adb wait-for-device
-
-            echo "== Ensure clean install =="
-            adb shell pm list packages | grep com.app.uprise || true
+            echo "== ADB & device status ==" && adb version || true
+            adb devices && adb wait-for-device
+            echo "== Ensure clean install ==" && adb shell pm list packages | grep com.app.uprise || true
             adb shell pm uninstall com.app.uprise || true
-
-            echo "== Install APK =="
-            adb install -r -d -t "$APK"
-
-            echo "== Verify package installed =="
-            adb shell pm list packages | grep com.app.uprise > ./smoke-pm.txt || true
+            echo "== Install APK ==" && adb install -r -d -t "$APK"
+            echo "== Verify package installed ==" && adb shell pm list packages | grep com.app.uprise > ./smoke-pm.txt || true
             cat ./smoke-pm.txt || true
-
-            echo "== Launch main activity explicitly =="
-            adb shell am start -W -n com.app.uprise/.MainActivity || true
-
-            echo "== Let app settle and capture logs =="
-            sleep 30
-            adb logcat -v time -d > ./smoke-logcat.txt || true
-
-            echo "== Dump activity stacks (dumpsys) =="
-            adb shell dumpsys activity activities > ./smoke-dumpsys.txt || true
-
-            echo "== Done =="
-            exit 0
+            echo "== Launch main activity explicitly ==" && adb shell am start -W -n com.app.uprise/.MainActivity || true
+            echo "== Let app settle and capture logs ==" && sleep 30 && adb logcat -v time -d > ./smoke-logcat.txt || true
+            echo "== Dump activity stacks (dumpsys) ==" && adb shell dumpsys activity activities > ./smoke-dumpsys.txt || true
+            echo "== Done ==" && exit 0
 
       - name: Upload smoke test artifacts
         if: always()
