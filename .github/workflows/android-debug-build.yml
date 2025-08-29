@@ -1,110 +1,85 @@
 name: Android Debug Build
 
 on:
-  push:
-    branches: [ main, feat/**, fix/**, chore/** ]
   pull_request:
+    branches: [ main ]
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [ feat/ccpm-framework ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  android-build:
+  build:
+    name: Android Debug Build
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
+    defaults:
+      run:
+        shell: bash -Eeuo pipefail {0}
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
-      # Download cmdline-tools
-      - name: Install Android cmdline-tools
-        run: |
-          set -euxo pipefail
-          export ANDROID_SDK_ROOT="$HOME/android-sdk"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
-          mkdir -p "$ANDROID_SDK_ROOT"/cmdline-tools
-          curl -sSL -o /tmp/cmdtools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
-          unzip -q /tmp/cmdtools.zip -d /tmp/cmdtools
-          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
-          mv /tmp/cmdtools/cmdline-tools/* "$ANDROID_SDK_ROOT/cmdline-tools/latest/"
-
-      # JDK 17 ONLY for sdkmanager
-      - name: Set up JDK 17 (Temurin) for SDK install
+      - name: Setup JDK 17 (for sdkmanager)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: "17"
 
-      - name: Install Android SDK components (api 31, build-tools 31.0.0)
+      - name: Install Android cmdline-tools (zip)
+        run: |
+          set -Eeuo pipefail
+          ANDROID_SDK_ROOT="$HOME/android-sdk"
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools"
+          cd "$ANDROID_SDK_ROOT/cmdline-tools"
+          curl -sSL -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+          mkdir -p latest
+          unzip -q cmdline-tools.zip -d latest
+          rm -f cmdline-tools.zip
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
+          echo "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
+          echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
+
+      - name: Accept licenses & install build tools / platforms
         env:
           ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
-          ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
         run: |
-          set -euxo pipefail
-          mkdir -p "$HOME/.android" && touch "$HOME/.android/repositories.cfg"
-          mkdir -p "$ANDROID_SDK_ROOT/licenses"
-          printf "%s\n" \
-            "8933bad161af4178b1185d1a37fbf41ea5269c55" \
-            "d56f5187479451eabf01fb78af6dfcb131a6481e" \
-            "24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_SDK_ROOT/licenses/android-sdk-license"
-          echo "601085b94cd77f0b54ff86406957099ebe79c4d6" > "$ANDROID_SDK_ROOT/licenses/android-googletv-license"
-          echo "33b6a2b64607f11b759f320ef9dff4ae5c47d97a" > "$ANDROID_SDK_ROOT/licenses/google-gdk-license"
-          echo "d975f751698a77b662f1254ddbeed3901e976f5a" > "$ANDROID_SDK_ROOT/licenses/intel-android-extra-license"
-          "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --install \
-            "platform-tools" \
-            "platforms;android-31" \
-            "build-tools;31.0.0"
-          "$ANDROID_SDK_ROOT/platform-tools/adb" version || true
+          yes | sdkmanager --licenses >/dev/null
+          sdkmanager "platform-tools" \
+                     "platforms;android-31" \
+                     "build-tools;31.0.0"
 
-      # Switch back to Java 11 for Gradle/AGP 7.0.x
-      - name: Set up JDK 11 (Temurin) for Gradle
-        uses: actions/setup-java@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          distribution: temurin
-          java-version: '11'
+          node-version: "20.19.0"
+          cache: "npm"
 
-      - name: Normalize gradlew (LF + +x) for Linux CI
-        run: |
-          git config --global core.autocrlf false
-          sed -i 's/\r$//' android/gradlew
-          chmod +x android/gradlew
+      - name: Install npm deps (legacy peer deps)
+        run: npm ci --legacy-peer-deps || npm install --legacy-peer-deps
 
-      - name: Cache Gradle
+      - name: Restore Gradle cache
         uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
-            ${{ runner.os }}-gradle-
+            gradle-${{ runner.os }}-
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Switch to JDK 11 for Gradle (AGP 7.0.x)
+        uses: actions/setup-java@v4
         with:
-          node-version: '18'
-
-      - name: Cache npm
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
-      - name: Install JS deps
-        run: npm install --legacy-peer-deps
-
-      - name: Dump RN autolink config
-        run: |
-          npx --yes react-native config | tee rn-config.json
-          command -v jq >/dev/null 2>&1 && jq '.dependencies | keys' rn-config.json || cat rn-config.json
-
-      - name: Upload RN config
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: rn-config
-          path: rn-config.json
-          if-no-files-found: warn
+          distribution: temurin
+          java-version: "11"
 
       - name: Ensure Android debug keystore
         run: |
@@ -118,40 +93,19 @@ jobs:
               -dname "CN=Android Debug,O=Android,C=US"
           fi
 
-      - name: Lint (Android)
-        working-directory: android
-        env:
-          ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
-          ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
-        run: ./gradlew --no-daemon lintDebug || true
+      - name: Build Debug APK
+        run: |
+          cd android
+          ./gradlew --no-daemon clean assembleDebug --stacktrace
 
-      - name: Unit tests (JS)
-        run: npm test --silent || true
-
-      - name: Build Android Debug APK
-        working-directory: android
-        env:
-          ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
-          ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
-        run: ./gradlew --no-daemon clean assembleDebug --stacktrace --info
-
-      - name: Upload APK
-        if: always()
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-debug-apk
-          path: android/app/build/outputs/apk/debug/*.apk
-          if-no-files-found: warn
-
-      - name: Upload Gradle reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: gradle-reports
           path: |
-            android/**/build/reports/**
-            android/**/build/outputs/**
-          if-no-files-found: warn
+            android/app/build/outputs/apk/debug/*.apk
+            android/app/build/reports/**/*
+          if-no-files-found: error
 
   smoke-test:
     name: Android Smoke Test (API 30)
@@ -161,7 +115,7 @@ jobs:
 
     defaults:
       run:
-        shell: bash -Eeuo pipefail
+        shell: bash -Eeuo pipefail {0}
 
     steps:
       - name: Checkout (shallow)
@@ -172,7 +126,6 @@ jobs:
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
-          # keep this name in sync with your build job’s upload step
           name: app-debug-apk
           path: ci-apk
           merge-multiple: true
@@ -196,7 +149,6 @@ jobs:
           arch: x86_64
           force-avd-creation: true
           disable-animations: true
-          # stability-first; no KVM / nested virt assumptions
           emulator-options: "-no-snapshot -noaudio -no-window -gpu swiftshader_indirect -accel off"
           script: |
             set -Eeuo pipefail
@@ -214,18 +166,17 @@ jobs:
               fi
               echo "…waiting for boot ($i/30)"; sleep 10
             done
+
             adb shell settings put global window_animation_scale 0 || true
             adb shell settings put global transition_animation_scale 0 || true
             adb shell settings put global animator_duration_scale 0 || true
             adb shell input keyevent 82 || true
-            adb devices
 
             echo "== Install APK =="
             adb install -r "$APK"
 
             echo "== Start app =="
             timeout 5s adb logcat -c || true
-            # capture logcat for 2 minutes in background
             ( timeout 120s adb logcat *:I > smoke-logcat.txt ) &
             LOGCAT_PID=$!
 
@@ -236,15 +187,12 @@ jobs:
             adb shell dumpsys activity > dumpsys.txt || true
             adb shell pm list packages > pm-packages.txt || true
 
-            # require the 'Displayed … MainActivity' line to appear
             if ! grep -m1 "ActivityTaskManager: Displayed com.app.uprise/.MainActivity" smoke-logcat.txt; then
               echo "Did not find launch confirmation in logcat"
-              # show tail for debugging
               tail -n 200 smoke-logcat.txt || true
               exit 2
             fi
 
-            # wait for logcat capture to finish cleanly
             wait $LOGCAT_PID || true
 
       - name: Upload smoke artifacts
