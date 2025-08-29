@@ -185,3 +185,16 @@ adb shell curl http://localhost:8081/status
 2. Test on multiple devices
 3. Monitor crash reports
 4. Gradual rollout with feature flags
+
+## Local Smoke Testing
+
+### Local Smoke (PowerShell)
+1) Ensure SDK tools on PATH for the session:
+   - %UserProfile%\AppData\Local\Android\Sdk\platform-tools
+   - %UserProfile%\AppData\Local\Android\Sdk\cmdline-tools\latest\bin
+2) Build: `./gradlew --no-daemon clean :app:assembleDebug`
+3) Boot emulator; wait for `sys.boot_completed=1` in a loop.
+4) Clean uninstall: `adb shell pm list packages | findstr /i uprise` → `adb uninstall <pkg>`
+5) Install: `adb install -r app\build\outputs\apk\debug\app-debug.apk`
+6) Launch: detect component via `aapt dump badging` (fallback `com.app.uprise/.MainActivity`)
+7) Confirm in logcat: look for `ActivityTaskManager: Displayed <component>`
