@@ -53,10 +53,8 @@ jobs:
         env:
           ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
         run: |
-          yes | sdkmanager --licenses >/dev/null
-          sdkmanager "platform-tools" \
-                     "platforms;android-31" \
-                     "build-tools;31.0.0"
+          yes | sdkmanager --licenses || true
+          sdkmanager --install "platform-tools" "platforms;android-31" "build-tools;31.0.0"
 
       - name: Setup Node
         uses: actions/setup-node@v4
