@@ -197,10 +197,7 @@ jobs:
 
             echo "== Select APK =="
             APK="$(find ./ci-apk -type f -name '*.apk' | head -n1)"
-            if [ -z "$APK" ]; then
-              echo "ERROR: No APK found in ./ci-apk" | tee ./smoke-error.txt
-              exit 1
-            fi
+            test -n "$APK" || { echo "ERROR: No APK found in ./ci-apk" | tee ./smoke-error.txt; exit 1; }
             echo "Using APK: $APK"
 
             echo "== ADB & device status =="
