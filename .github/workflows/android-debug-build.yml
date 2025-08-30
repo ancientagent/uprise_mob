@@ -154,7 +154,7 @@ jobs:
           disable-animations: true
           emulator-options: "-no-snapshot -noaudio -no-window -gpu swiftshader_indirect -accel off"
           script: |
-            set -Eeuo pipefail
+            set -e
             adb kill-server || true
             adb start-server
             export ANDROID_SERIAL=emulator-5554
