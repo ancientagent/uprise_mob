@@ -22,11 +22,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup JDK 11
+      - name: Setup JDK 17 (for Android SDK)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -38,6 +38,12 @@ jobs:
 
       - name: Accept licenses
         run: yes | sdkmanager --licenses
+
+      - name: Switch to JDK 11 (for Gradle)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -87,11 +93,11 @@ jobs:
           name: app-debug-apk
           path: ./apk
 
-      - name: Setup JDK 11
+      - name: Setup JDK 17 (for Android SDK)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
 
       - name: Setup Android SDK for emulator
         uses: android-actions/setup-android@v3
