@@ -28,13 +28,57 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          packages: "platforms;android-31 build-tools;31.0.0 platform-tools"
+      - name: Prepare Android SDK (isolated, AGP 7.0.x safe)
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+        run: |
+          set -e
 
-      - name: Accept licenses
-        run: yes | sdkmanager --licenses
+          # Isolate SDK so AGP doesn't see newer "33x/34x/..." tool labels
+          rm -rf "$ANDROID_SDK_ROOT"
+          mkdir -p "$ANDROID_SDK_ROOT"
+
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > ./android/local.properties
+
+          # Pin an older cmdline-tools revision compatible with AGP 7.0.x
+          # (8512546 is known-good; avoid latest which emits newer repo XML/labels)
+          CT_REV=8512546
+          curl -sSL "https://dl.google.com/android/repository/commandlinetools-linux-${CT_REV}_latest.zip" -o cmdtools.zip
+          unzip -q cmdtools.zip -d "$ANDROID_SDK_ROOT"
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/bin" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/lib" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/source.properties" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/NOTICE.txt" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+
+          # Accept licenses non-interactively
+          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --licenses >/dev/null
+
+          # Install ONLY what AGP 7.0.4 needs
+          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" \
+            "platform-tools" \
+            "platforms;android-31" \
+            "build-tools;31.0.0"
+
+          echo "=== Installed build-tools ==="
+          ls -1 "$ANDROID_SDK_ROOT/build-tools" || true
+
+          # Guard: fail if anything other than 31.0.0 is present
+          BT_COUNT=$(ls -1 "$ANDROID_SDK_ROOT/build-tools" | wc -l | tr -d ' ')
+          if [ "$BT_COUNT" != "1" ] || [ ! -d "$ANDROID_SDK_ROOT/build-tools/31.0.0" ]; then
+            echo "Unexpected build-tools present. Found:"
+            ls -1 "$ANDROID_SDK_ROOT/build-tools" || true
+            exit 1
+          fi
+
+      - name: Print versions
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+        run: |
+          echo "JAVA:" && java -version
+          echo "Gradle wrapper:" && ./android/gradlew -v
+          echo "SDK Root: $ANDROID_SDK_ROOT"
+          "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --list | head -n 20 || true
 
       - name: Switch to JDK 11 (for Gradle)
         uses: actions/setup-java@v4
@@ -55,6 +99,8 @@ jobs:
 
       - name: Build Debug and Release APKs
         working-directory: android
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
         run: |
           export JAVA_TOOL_OPTIONS=""
           ./gradlew :app:clean :app:assembleDebug :app:assembleRelease --no-daemon --stacktrace
@@ -96,13 +142,41 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Android SDK for emulator
-        uses: android-actions/setup-android@v3
-        with:
-          packages: "platforms;android-31 system-images;android-31;google_apis;x86_64 platform-tools emulator build-tools;31.0.0"
+      - name: Prepare Android SDK for emulator (isolated, AGP 7.0.x safe)
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+        run: |
+          set -e
+
+          # Isolate SDK so AGP doesn't see newer "33x/34x/..." tool labels
+          rm -rf "$ANDROID_SDK_ROOT"
+          mkdir -p "$ANDROID_SDK_ROOT"
+
+          # Pin an older cmdline-tools revision compatible with AGP 7.0.x
+          CT_REV=8512546
+          curl -sSL "https://dl.google.com/android/repository/commandlinetools-linux-${CT_REV}_latest.zip" -o cmdtools.zip
+          unzip -q cmdtools.zip -d "$ANDROID_SDK_ROOT"
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/bin" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/lib" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/source.properties" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/NOTICE.txt" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+
+          # Accept licenses non-interactively
+          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --licenses >/dev/null
+
+          # Install emulator requirements + ONLY build-tools 31.0.0
+          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" \
+            "platform-tools" \
+            "platforms;android-31" \
+            "build-tools;31.0.0" \
+            "emulator" \
+            "system-images;android-31;google_apis;x86_64"
 
       - name: Run smoke test on emulator
         uses: reactivecircus/android-emulator-runner@v2
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
         with:
           api-level: 31
           target: google_apis
