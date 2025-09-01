@@ -219,6 +219,7 @@ jobs:
         shell: bash
         env:
           JAVA_HOME: ${{ steps.j17.outputs.path }}
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
         run: |
           set -euo pipefail
           yes | "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" \
