@@ -96,8 +96,50 @@ jobs:
 
       - name: Install TrackPlayer stub (TEMP for CI)
         run: |
-          # Copy TrackPlayer stub to node_modules for CI builds
-          cp -r ci-stubs/react-native-track-player node_modules/
+          # Create TrackPlayer stub for CI builds
+          mkdir -p node_modules/react-native-track-player
+          cat > node_modules/react-native-track-player/package.json << 'EOF'
+          {
+            "name": "react-native-track-player",
+            "version": "0.0.0-stub",
+            "description": "Temporary stub for react-native-track-player (CI build only)",
+            "main": "index.js",
+            "private": true
+          }
+          EOF
+          cat > node_modules/react-native-track-player/index.js << 'EOF'
+          // TEMP STUB: react-native-track-player disabled for CI build
+          const TrackPlayer = {
+            setupPlayer: async () => console.log('TrackPlayer stub: setupPlayer called'),
+            stop: async () => console.log('TrackPlayer stub: stop called'),
+            getTrack: async () => null,
+            getState: async () => 'idle',
+            getPosition: async () => 0,
+            play: async () => {},
+            pause: async () => {},
+            reset: async () => {},
+            add: async () => {},
+            skip: async () => {},
+            skipToNext: async () => {},
+            skipToPrevious: async () => {},
+            remove: async () => {},
+            destroy: async () => {},
+            updateOptions: async () => {},
+            updateMetadataForTrack: async () => {},
+            getQueue: async () => [],
+            getCurrentTrack: async () => null,
+            getDuration: async () => 0,
+            getBufferedPosition: async () => 0,
+            getVolume: async () => 1,
+            setVolume: async () => {},
+            getRate: async () => 1,
+            setRate: async () => {},
+            seekTo: async () => {},
+            setRepeatMode: async () => {},
+            getRepeatMode: async () => 0,
+          };
+          export default TrackPlayer;
+          EOF
           echo "TrackPlayer stub installed for CI build"
 
       - name: Make Gradle wrapper executable
