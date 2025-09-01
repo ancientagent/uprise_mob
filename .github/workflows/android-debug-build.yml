@@ -170,11 +170,12 @@ jobs:
           retention-days: 7
 
   smoke-test:
-    name: Smoke Test (API 31)
+    name: Android Smoke Test (API 31)
     needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    
+    runs-on: ubuntu-22.04
+    timeout-minutes: 35
+    env:
+      ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -183,134 +184,104 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-debug-apk
-          path: ./apk
-
-      - name: Setup JDK 17 (for Android SDK)
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Prepare Android SDK for emulator (isolated, AGP 7.0.x safe)
-        env:
-          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
-        run: |
-          set -e
-
-          # Isolate SDK so AGP doesn't see newer "33x/34x/..." tool labels
-          rm -rf "$ANDROID_SDK_ROOT"
-          mkdir -p "$ANDROID_SDK_ROOT"
-
-          # Pin an older cmdline-tools revision compatible with AGP 7.0.x
-          CT_REV=8512546
-          curl -sSL "https://dl.google.com/android/repository/commandlinetools-linux-${CT_REV}_latest.zip" -o cmdtools.zip
-          unzip -q cmdtools.zip -d "$ANDROID_SDK_ROOT"
-          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
-          mv "$ANDROID_SDK_ROOT/cmdline-tools/bin" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
-          mv "$ANDROID_SDK_ROOT/cmdline-tools/lib" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
-          mv "$ANDROID_SDK_ROOT/cmdline-tools/source.properties" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
-          mv "$ANDROID_SDK_ROOT/cmdline-tools/NOTICE.txt" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
-
-          # Accept licenses non-interactively
-          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --licenses >/dev/null
-
-          # Install emulator requirements + ONLY build-tools 31.0.0
-          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" \
-            "platform-tools" \
-            "platforms;android-31" \
-            "build-tools;31.0.0" \
-            "emulator" \
-            "system-images;android-31;google_apis;x86_64"
+          path: ./apk_debug
 
       - name: Run smoke test on emulator
         uses: reactivecircus/android-emulator-runner@v2
-        env:
-          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
         with:
           api-level: 31
           target: google_apis
           arch: x86_64
-          avd-name: test-emulator
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
+          profile: pixel_5
+          ram-size: 2048M
+          disk-size: 4096M
+          force-avd-creation: true
           disable-animations: true
+          emulator-options: >
+            -no-snapshot -wipe-data -noaudio -no-boot-anim
+            -camera-back none -camera-front none
           script: |
-            # Wait for boot completion
-            echo "Waiting for device boot..."
+            set -e
+            echo "=== Wait for device ==="
             adb wait-for-device
-            timeout 120 bash -c 'while [[ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" != "1" ]]; do sleep 2; echo "Boot status: $(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')"; done'
-            echo "sys.boot_completed=1"
-            
-            # Install APK
-            echo "Installing APK..."
-            APK_PATH=$(find ./apk -name "*.apk" | head -1)
-            if [ -z "$APK_PATH" ]; then
-              echo "ERROR: No APK found in ./apk directory"
-              exit 1
-            fi
-            echo "Found APK: $APK_PATH"
-            adb install -r "$APK_PATH"
-            echo "Install ... Success"
-            
-            # Detect and launch app (com.app.uprise is the detected app ID)
-            APP_ID="com.app.uprise"
-            echo "Launching app: $APP_ID"
-            
-            # Try direct launch first
-            if adb shell am start -n "$APP_ID/.MainActivity" 2>&1 | tee launch.log | grep -E "(Starting:|Error:)"; then
-              if grep -q "Error:" launch.log; then
-                echo "Direct launch failed, trying monkey..."
-                adb shell monkey -p "$APP_ID" -c android.intent.category.LAUNCHER 1
-              fi
-            fi
-            
-            # Wait for app to stabilize
-            sleep 5
-            
-            # Capture diagnostics
-            echo "=== Package Info ==="
-            adb shell pm list packages | grep -i uprise || echo "No uprise packages found"
-            
-            echo "=== Running Activities ==="
-            adb shell dumpsys activity activities | grep -E "(mFocusedActivity|mResumedActivity)" | head -5
-            
-            echo "=== Logcat (last 40 lines) ==="
-            adb logcat -d | tail -40
-            
-      - name: Save smoke test logs
+
+            echo "=== Wait for sys.boot_completed ==="
+            BOOT_OK=0
+            for i in $(seq 1 240); do
+              v=$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
+              if [ "$v" = "1" ]; then BOOT_OK=1; break; fi
+              sleep 2
+            done
+            [ "$BOOT_OK" = "1" ] || { echo "Emulator never booted (sys.boot_completed)"; exit 1; }
+
+            echo "=== Wait for bootanim stopped ==="
+            for i in $(seq 1 240); do
+              s=$(adb shell getprop init.svc.bootanim 2>/dev/null | tr -d '\r')
+              if [ "$s" = "stopped" ]; then break; fi
+              sleep 2
+            done
+
+            echo "=== Install debug APK ==="
+            APK="$(ls apk_debug/*.apk | head -n1)"
+            echo "Installing $APK"
+            adb install -r "$APK"
+
+            echo "=== Detect applicationId ==="
+            APP_ID=$(grep -m1 'applicationId ' android/app/build.gradle | sed -E 's/.*applicationId[[:space:]]+"([^"]+)".*/\1/')
+            [ -n "$APP_ID" ] || APP_ID="com.app.uprise"
+            echo "APP_ID=$APP_ID"
+
+            echo "=== Launch MainActivity ==="
+            adb shell am start -n "$APP_ID"/.MainActivity || adb shell monkey -p "$APP_ID" -c android.intent.category.LAUNCHER 1
+            sleep 8
+
+            echo "=== Markers ==="
+            echo "sys.boot_completed=$(adb shell getprop sys.boot_completed | tr -d '\r')"
+            echo "pm path: $(adb shell pm path "$APP_ID" | tr -d '\r' || true)"
+            adb shell dumpsys activity top | head -n 120 || true
+
+      - name: Collect smoke logs
         if: always()
         run: |
+          set -e
           adb logcat -d > logcat.txt || true
-          adb shell dumpsys > dumpsys.txt || true
-          adb shell getprop > props.txt || true
-        continue-on-error: true
-        
-      - name: Upload smoke-logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: smoke-logs
-          path: |
-            launch.log
-            logcat.txt
-          retention-days: 3
-          
-      - name: Upload smoke-diags
+          adb shell dumpsys package "$APP_ID" > dumpsys_package.txt 2>/dev/null || true
+          adb shell dumpsys activity activities > dumpsys_activity.txt 2>/dev/null || true
+          adb shell settings list global > settings_global.txt 2>/dev/null || true
+          adb shell getprop > getprop.txt 2>/dev/null || true
+
+      - name: Upload smoke logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: smoke-diags
           path: |
-            dumpsys.txt
-            props.txt
-          retention-days: 3
+            logcat.txt
+            dumpsys_package.txt
+            dumpsys_activity.txt
+            settings_global.txt
+            getprop.txt
 
-      - name: Upload ids
+      - name: Upload smoke summary
+        if: always()
+        run: |
+          tail -n 200 logcat.txt | tee SMOKE_TAIL.txt || true
+        shell: bash
+
+      - name: Upload smoke markers
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-logs
+          path: SMOKE_TAIL.txt
+
+      - name: Upload IDs artifact
         if: always()
         run: |
           echo "${{ github.run_id }}" > RUN_ID.txt
           echo "${{ github.job }}" > JOB_ID.txt
-        
-      - name: Upload IDs artifact
+
+      - name: Upload run IDs
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -318,7 +289,6 @@ jobs:
           path: |
             RUN_ID.txt
             JOB_ID.txt
-          retention-days: 3
 
       - name: Report IDs
         if: always()
