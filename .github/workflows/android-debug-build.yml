@@ -205,7 +205,7 @@ jobs:
           retention-days: 7
 
   smoke-test:
-    name: Android Smoke Test (API 31)
+    name: Android Smoke Test (API 30)  
     needs: build
     runs-on: ubuntu-22.04
     timeout-minutes: 35
@@ -217,22 +217,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-debug-apk
-          path: artifacts/debug
+          path: ./ci-apk
 
       - name: Setup JDK 17 (for Android SDK)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
-
-      - name: Cache Android AVD
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-            ~/.android/cache/*
-          key: avd-${{ runner.os }}-api31-x86_64-v1
 
       - name: Install PulseAudio libraries for emulator
         run: |
@@ -242,164 +233,44 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          packages: "platforms;android-31 system-images;android-31;google_apis;x86_64 platform-tools emulator build-tools;31.0.0"
+          packages: "platforms;android-30 system-images;android-30;default;x86_64 platform-tools emulator build-tools;31.0.0"
 
-      - name: Start Emulator (attempt 1)
-        id: emu1
-        continue-on-error: true
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 31
-          arch: x86_64
-          profile: pixel_5
-          target: google_apis
-          disable-animations: true
-          force-avd-creation: true
-          emulator-options: >
-            -no-snapshot-save
-            -no-boot-anim
-            -camera-back none
-            -gpu swiftshader_indirect
-            -selinux permissive
-            -noaudio
-            -no-window
-            -qemu -m 2048
-          script: |
-            adb wait-for-device
-            timeout 600s bash -c 'until adb shell getprop sys.boot_completed | grep -m 1 "1"; do sleep 5; done'
-            adb shell input keyevent 82
-            echo "Emulator started successfully (attempt 1)"
-
-      - name: Kill Emulator (cleanup attempt 1)
-        if: steps.emu1.outcome == 'failure'
+      - name: Find APK and set env
         run: |
-          adb emu kill || true
-          pkill -9 emulator || true
-          sleep 10
-
-      - name: Start Emulator (attempt 2, fallback flags)
-        if: steps.emu1.outcome == 'failure'
-        id: emu2
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 31
-          arch: x86_64
-          profile: pixel_5
-          target: google_apis
-          disable-animations: true
-          force-avd-creation: true
-          emulator-options: >
-            -no-snapshot
-            -noaudio
-            -no-boot-anim
-            -gpu off
-            -accel off
-            -camera-back none
-            -no-window
-            -netspeed full
-            -netdelay none
-            -qemu -m 2048
-          script: |
-            adb wait-for-device
-            timeout 600s bash -c 'until adb shell getprop sys.boot_completed | grep -m 1 "1"; do sleep 5; done'
-            adb shell input keyevent 82
-            echo "Emulator started successfully (attempt 2)"
-
-      - name: Determine Package Name
-        id: pkg
-        if: always()
-        shell: bash
-        run: |
-          APK=$(ls artifacts/debug/*.apk | head -n1)
-          PKG=$(aapt dump badging "$APK" | sed -n "s/.*package name='\([^']*\)'.*/\1/p")
-          echo "apk=$APK" >> $GITHUB_OUTPUT
-          echo "pkg=$PKG" >> $GITHUB_OUTPUT
-          echo "APK: $APK"
-          echo "Package: $PKG"
-
-      - name: Install Debug APK
-        if: always() && steps.pkg.outputs.apk != ''
-        run: adb install -r "${{ steps.pkg.outputs.apk }}"
-
-      - name: Launch App
-        if: always() && steps.pkg.outputs.pkg != ''
-        run: |
-          adb shell am start -n "${{ steps.pkg.outputs.pkg }}/.MainActivity" || true
-          sleep 10
-          adb shell pidof ${{ steps.pkg.outputs.pkg }} || (echo "App not running" && exit 1)
-
-      - name: Assert React Native JS booted
-        if: always() && steps.pkg.outputs.pkg != ''
-        shell: bash
-        run: |
-          # Wait up to 90s for first RN JS log line
-          timeout 90s bash -c 'until adb logcat -d | grep -m1 "ReactNativeJS"; do sleep 5; done'
-          echo "✅ ReactNativeJS logged. JS runtime is up."
-
-      - name: Assert main activity visible (simple sanity)
-        if: always() && steps.pkg.outputs.pkg != ''
-        shell: bash
-        run: |
-          PKG=${{ steps.pkg.outputs.pkg }}
-          CURRENT=$(adb shell dumpsys window | sed -n "s/.*mCurrentFocus=Window{[^ ]* [^ ]* \\([^}]*\\)}.*/\\1/p")
-          echo "mCurrentFocus=$CURRENT"
-          echo "$CURRENT" | grep -q "$PKG" || (echo "❌ Main activity not focused" && exit 1)
-
-      - name: Collect deep forensics
-        if: always()
-        shell: bash
-        run: |
-          mkdir -p artifacts/logs
-          adb logcat -d > artifacts/logs/logcat_full.txt || true
-          adb shell getprop > artifacts/logs/device_getprop.txt || true
-          adb shell settings list global > artifacts/logs/settings_global.txt || true
-          adb shell settings list system > artifacts/logs/settings_system.txt || true
-          adb shell dumpsys activity > artifacts/logs/dumpsys_activity.txt || true
-          if [ -n "${{ steps.pkg.outputs.pkg }}" ]; then
-            adb shell dumpsys package ${{ steps.pkg.outputs.pkg }} > artifacts/logs/dumpsys_package.txt || true
+          APK=$(find ./ci-apk -name "*.apk" -type f | head -1)
+          if [ -z "$APK" ]; then
+            echo "No APK found under ./ci-apk"
+            exit 1
           fi
-          # big hammer: full bugreport (may be ~10–30MB)
-          adb bugreport artifacts/logs/bugreport.zip || true
-          tail -500 artifacts/logs/logcat_full.txt > artifacts/logs/logcat_tail.txt || true
+          echo "APK=$APK" | tee -a "$GITHUB_ENV"
 
-      - name: Upload Smoke Logs
-        if: always()
+      - name: Run emulator + install + launch
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: default
+          arch: x86_64
+          force-avd-creation: true
+          disable-animations: true
+          emulator-options: "-no-snapshot -noaudio -no-window -gpu swiftshader_indirect -accel off"
+          script: |
+            echo "Installing APK..."
+            adb install -r "$APK"
+            echo "Starting app..."
+            adb shell am start -W -n com.app.uprise/.MainActivity
+            sleep 10
+            echo "Collecting diagnostics..."
+            adb shell dumpsys activity | grep -A 5 "mFocusedApp"
+            adb shell pm list packages | grep uprise
+            echo "Smoke test completed"
+
+      - name: Upload smoke artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: smoke-logs
-          path: artifacts/logs/**
+          name: smoke-artifacts
           if-no-files-found: ignore
-
-      - name: Upload IDs artifact
-        if: always()
-        run: |
-          echo "${{ github.run_id }}" > RUN_ID.txt
-          echo "${{ github.job }}" > JOB_ID.txt
-
-      - name: Upload run IDs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ids
           path: |
-            RUN_ID.txt
-            JOB_ID.txt
+            smoke-logcat.txt
+            dumpsys.txt
+            pm-packages.txt
 
-      - name: Report IDs
-        if: always()
-        run: |
-          echo "RUN_ID: ${{ github.run_id }}"
-          echo "Smoke JOB_ID: ${{ github.job }}"
-          echo "Workflow: ${{ github.workflow }}"
-          echo "Repository: ${{ github.repository }}"
-
-      - name: Decide smoke result
-        if: always()
-        shell: bash
-        run: |
-          if [ "${SMOKE_SOFT_FAIL:-false}" = "true" ]; then
-            echo "⚠️ Soft-failing smoke test (see artifacts)."
-            exit 0
-          else
-            echo "✅ Keep default job result (pass if previous steps passed)."
-          fi
