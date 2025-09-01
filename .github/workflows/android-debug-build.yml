@@ -94,6 +94,12 @@ jobs:
       - name: Install Node dependencies
         run: npm install --legacy-peer-deps
 
+      - name: Install TrackPlayer stub (TEMP for CI)
+        run: |
+          # Copy TrackPlayer stub to node_modules for CI builds
+          cp -r ci-stubs/react-native-track-player node_modules/
+          echo "TrackPlayer stub installed for CI build"
+
       - name: Make Gradle wrapper executable
         run: chmod +x ./android/gradlew
 
