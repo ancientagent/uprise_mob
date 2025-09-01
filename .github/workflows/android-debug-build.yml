@@ -1,5 +1,9 @@
 name: Android Build & Smoke Test
 
+env:
+  NODE_OPTIONS: --openssl-legacy-provider
+  ADB_INSTALL_TIMEOUT: 20
+
 on:
   workflow_dispatch:
   push:
@@ -207,7 +211,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-debug-apk
-          path: ./apk_debug
+          path: artifacts/debug
 
       - name: Setup JDK 17 (for Android SDK)
         uses: actions/setup-java@v4
@@ -215,63 +219,118 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Cache Android AVD
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+            ~/.android/cache/*
+          key: avd-${{ runner.os }}-api31-x86_64-v1
+
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
           packages: "platforms;android-31 system-images;android-31;google_apis;x86_64 platform-tools emulator build-tools;31.0.0"
 
-      - name: Start Android emulator and test
+      - name: Start Emulator (attempt 1)
+        id: emu1
+        continue-on-error: true
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 31
+          arch: x86_64
+          profile: pixel_5
+          target: google_apis
+          disable-animations: true
+          force-avd-creation: true
+          emulator-options: >
+            -no-snapshot-save
+            -no-boot-anim
+            -camera-back none
+            -gpu swiftshader_indirect
+            -selinux permissive
+            -qemu -m 2048
+          script: |
+            adb wait-for-device
+            timeout 600s bash -c 'until adb shell getprop sys.boot_completed | grep -m 1 "1"; do sleep 5; done'
+            adb shell input keyevent 82
+            echo "Emulator started successfully (attempt 1)"
+
+      - name: Kill Emulator (cleanup attempt 1)
+        if: steps.emu1.outcome == 'failure'
         run: |
-          set -e
-          echo "=== Create AVD ==="
-          echo "no" | avdmanager create avd -n test-emulator -k "system-images;android-31;google_apis;x86_64" --force
-          
-          echo "=== Start emulator ==="
-          $ANDROID_HOME/emulator/emulator -avd test-emulator -no-window -no-audio -no-boot-anim -camera-back none -camera-front none -accel on &
-          
-          echo "=== Wait for emulator boot ==="
-          adb wait-for-device
-          timeout 600 bash -c 'until adb shell getprop sys.boot_completed | grep -q 1; do sleep 5; echo "Waiting for boot..."; done'
-          
-          echo "=== Disable animations ==="
-          adb shell settings put global window_animation_scale 0
-          adb shell settings put global transition_animation_scale 0
-          adb shell settings put global animator_duration_scale 0
-          
-          echo "=== Install Debug APK ==="
-          APK_PATH="$(find apk_debug -name "*.apk" | head -1)"
-          echo "Installing APK: $APK_PATH"
-          adb install -r "$APK_PATH"
-          
-          echo "=== Extract package name ==="
-          PKG=$(aapt dump badging "$APK_PATH" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p")
-          echo "Package name: $PKG"
-          
-          echo "=== Launch app ==="
-          adb shell am start -n "$PKG/.MainActivity" || true
+          adb emu kill || true
+          pkill -9 emulator || true
           sleep 10
-          
-          echo "=== Verify app is running ==="
-          adb shell pidof $PKG || (echo "App not running" && exit 1)
-          
-          echo "=== Capture logs and dumpsys ==="
+
+      - name: Start Emulator (attempt 2, fallback flags)
+        if: steps.emu1.outcome == 'failure'
+        id: emu2
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 31
+          arch: x86_64
+          profile: pixel_5
+          target: google_apis
+          disable-animations: true
+          force-avd-creation: true
+          emulator-options: >
+            -no-snapshot
+            -noaudio
+            -no-boot-anim
+            -gpu off
+            -accel off
+            -camera-back none
+            -netspeed full
+            -netdelay none
+            -qemu -m 2048
+          script: |
+            adb wait-for-device
+            timeout 600s bash -c 'until adb shell getprop sys.boot_completed | grep -m 1 "1"; do sleep 5; done'
+            adb shell input keyevent 82
+            echo "Emulator started successfully (attempt 2)"
+
+      - name: Determine Package Name
+        id: pkg
+        if: always()
+        shell: bash
+        run: |
+          APK=$(ls artifacts/debug/*.apk | head -n1)
+          PKG=$(aapt dump badging "$APK" | sed -n "s/.*package name='\([^']*\)'.*/\1/p")
+          echo "apk=$APK" >> $GITHUB_OUTPUT
+          echo "pkg=$PKG" >> $GITHUB_OUTPUT
+          echo "APK: $APK"
+          echo "Package: $PKG"
+
+      - name: Install Debug APK
+        if: always() && steps.pkg.outputs.apk != ''
+        run: adb install -r "${{ steps.pkg.outputs.apk }}"
+
+      - name: Launch App
+        if: always() && steps.pkg.outputs.pkg != ''
+        run: |
+          adb shell am start -n "${{ steps.pkg.outputs.pkg }}/.MainActivity" || true
+          sleep 10
+          adb shell pidof ${{ steps.pkg.outputs.pkg }} || (echo "App not running" && exit 1)
+
+      - name: Capture logcat & dumpsys
+        if: always()
+        run: |
           mkdir -p artifacts/logs
           adb logcat -d > artifacts/logs/logcat.txt || true
           adb shell dumpsys activity > artifacts/logs/dumpsys_activity.txt || true
-          adb shell dumpsys package > artifacts/logs/dumpsys_package.txt || true
-          
-          echo "=== Save log tail for quick review ==="
-          tail -500 artifacts/logs/logcat.txt > smoke_log_tail.txt || true
-        timeout-minutes: 15
+          if [ -n "${{ steps.pkg.outputs.pkg }}" ]; then
+            adb shell dumpsys package ${{ steps.pkg.outputs.pkg }} > artifacts/logs/dumpsys_package.txt || true
+          fi
+          tail -500 artifacts/logs/logcat.txt > artifacts/logs/logcat_tail.txt || true
 
-      - name: Upload smoke logs (always)
+      - name: Upload Smoke Logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: smoke-logs
-          path: |
-            smoke_log_tail.txt
-            artifacts/logs/**
+          path: artifacts/logs/**
           if-no-files-found: ignore
 
       - name: Upload IDs artifact
