@@ -206,6 +206,8 @@ jobs:
 
       - name: Ensure build-tools for apksigner/aapt
         shell: bash
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME_17_X64 }}
         run: |
           if ! command -v apksigner >/dev/null 2>&1; then
             yes | ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager "build-tools;30.0.3" > /dev/null
