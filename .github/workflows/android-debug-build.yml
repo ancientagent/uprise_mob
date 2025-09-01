@@ -86,13 +86,31 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
 
-      - name: Setup Node.js
+      - name: Use Node 18 (with npm cache)
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 18
+          cache: 'npm'
+
+      - name: Prime Gradle cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            android/.gradle
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      - name: Ensure Gradle build cache on (stable for RN 0.66)
+        run: |
+          mkdir -p ~/.gradle
+          echo "org.gradle.caching=true" >> ~/.gradle/gradle.properties
+          echo "org.gradle.parallel=false" >> ~/.gradle/gradle.properties
           
       - name: Install Node dependencies
-        run: npm install --legacy-peer-deps
+        run: npm ci --legacy-peer-deps
 
       - name: Install TrackPlayer stub (TEMP for CI)
         run: |
@@ -155,6 +173,12 @@ jobs:
           ./gradlew :app:clean :app:assembleDebug :app:assembleRelease --no-daemon --stacktrace
         timeout-minutes: 20
 
+      - name: Print artifact sizes
+        run: |
+          echo "APK sizes:"
+          ls -lh android/app/build/outputs/apk/debug/*.apk || true
+          ls -lh android/app/build/outputs/apk/release/*.apk || true
+
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
@@ -190,7 +214,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Android SDK for emulator
+      - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
           packages: "platforms;android-31 system-images;android-31;google_apis;x86_64 platform-tools emulator build-tools;31.0.0"
@@ -203,86 +227,42 @@ jobs:
           arch: x86_64
           profile: pixel_5
           ram-size: 2048M
-          disk-size: 4096M
-          force-avd-creation: true
+          boot-timeout: 900
           disable-animations: true
-          emulator-options: >
-            -no-snapshot -wipe-data -noaudio -no-boot-anim
-            -camera-back none -camera-front none
+          emulator-options: "-no-snapshot -no-boot-anim -camera-back none -camera-front none -accel on"
           script: |
-            set -e
-            echo "=== Wait for device ==="
             adb wait-for-device
+            adb shell getprop sys.boot_completed
+            adb shell settings put global window_animation_scale 0
+            adb shell settings put global transition_animation_scale 0
+            adb shell settings put global animator_duration_scale 0
+            # Install & launch debug APK
+            APK_PATH="$(ls -1 apk_debug/*.apk 2>/dev/null || ls -1 app-debug-*.apk 2>/dev/null || true)"
+            if [ -z "$APK_PATH" ]; then
+              echo "Debug APK not found in expected artifact folder; listing available:"
+              find . -name "*.apk"
+              exit 1
+            fi
+            adb install -r "$APK_PATH"
+            # App ID may be com.app.uprise
+            APP_ID="com.app.uprise"
+            adb shell am start -n "${APP_ID}/.MainActivity" || adb shell monkey -p "${APP_ID}" -c android.intent.category.LAUNCHER 1
+            # Markers
+            adb shell getprop sys.boot_completed
+            adb shell pm list packages | grep "${APP_ID}" || true
+            adb logcat -d | tail -n 400 > smoke_log_tail.txt
 
-            echo "=== Wait for sys.boot_completed ==="
-            BOOT_OK=0
-            for i in $(seq 1 240); do
-              v=$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
-              if [ "$v" = "1" ]; then BOOT_OK=1; break; fi
-              sleep 2
-            done
-            [ "$BOOT_OK" = "1" ] || { echo "Emulator never booted (sys.boot_completed)"; exit 1; }
-
-            echo "=== Wait for bootanim stopped ==="
-            for i in $(seq 1 240); do
-              s=$(adb shell getprop init.svc.bootanim 2>/dev/null | tr -d '\r')
-              if [ "$s" = "stopped" ]; then break; fi
-              sleep 2
-            done
-
-            echo "=== Install debug APK ==="
-            APK="$(ls apk_debug/*.apk | head -n1)"
-            echo "Installing $APK"
-            adb install -r "$APK"
-
-            echo "=== Detect applicationId ==="
-            APP_ID=$(grep -m1 'applicationId ' android/app/build.gradle | sed -E 's/.*applicationId[[:space:]]+"([^"]+)".*/\1/')
-            [ -n "$APP_ID" ] || APP_ID="com.app.uprise"
-            echo "APP_ID=$APP_ID"
-
-            echo "=== Launch MainActivity ==="
-            adb shell am start -n "$APP_ID"/.MainActivity || adb shell monkey -p "$APP_ID" -c android.intent.category.LAUNCHER 1
-            sleep 8
-
-            echo "=== Markers ==="
-            echo "sys.boot_completed=$(adb shell getprop sys.boot_completed | tr -d '\r')"
-            echo "pm path: $(adb shell pm path "$APP_ID" | tr -d '\r' || true)"
-            adb shell dumpsys activity top | head -n 120 || true
-
-      - name: Collect smoke logs
-        if: always()
-        run: |
-          set -e
-          adb logcat -d > logcat.txt || true
-          adb shell dumpsys package "$APP_ID" > dumpsys_package.txt 2>/dev/null || true
-          adb shell dumpsys activity activities > dumpsys_activity.txt 2>/dev/null || true
-          adb shell settings list global > settings_global.txt 2>/dev/null || true
-          adb shell getprop > getprop.txt 2>/dev/null || true
-
-      - name: Upload smoke logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: smoke-diags
-          path: |
-            logcat.txt
-            dumpsys_package.txt
-            dumpsys_activity.txt
-            settings_global.txt
-            getprop.txt
-
-      - name: Upload smoke summary
-        if: always()
-        run: |
-          tail -n 200 logcat.txt | tee SMOKE_TAIL.txt || true
-        shell: bash
-
-      - name: Upload smoke markers
+      - name: Upload smoke logs (always)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: smoke-logs
-          path: SMOKE_TAIL.txt
+          path: |
+            smoke_log_tail.txt
+            **/connected/**/logcat*.txt
+            **/getprop.txt
+            **/dumpsys_activity.txt
+          if-no-files-found: ignore
 
       - name: Upload IDs artifact
         if: always()
