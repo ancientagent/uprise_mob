@@ -288,11 +288,19 @@ jobs:
           echo "Installing APK..."
           adb install -r "$APK"
 
+      - name: Detect package name
+        id: package
+        shell: bash
+        run: |
+          PKG=$(aapt dump badging "$APK" | sed -n "s/.*package name='\([^']*\)'.*/\1/p" | head -n1)
+          echo "Detected package: $PKG"
+          echo "name=$PKG" >> $GITHUB_OUTPUT
+
       - name: Launch App
         shell: bash  
         run: |
           echo "Starting app..."
-          adb shell am start -W -n com.app.uprise/.MainActivity
+          adb shell am start -W -n "${{ steps.package.outputs.name }}/.MainActivity"
           sleep 10
 
       - name: Assert React Native JS initialized
@@ -305,9 +313,10 @@ jobs:
       - name: Assert main activity has focus
         shell: bash
         run: |
+          PKG="${{ steps.package.outputs.name }}"
           CURRENT=$(adb shell dumpsys window | sed -n "s/.*mCurrentFocus=Window{[^ ]* [^ ]* \\([^}]*\\)}.*/\\1/p")
           echo "mCurrentFocus=$CURRENT"
-          echo "$CURRENT" | grep -q "com.app.uprise" || (echo "❌ Main activity not focused" && exit 1)
+          echo "$CURRENT" | grep -q "$PKG" || (echo "❌ Main activity not focused" && exit 1)
 
       - name: Collect deep diagnostics
         if: always()
@@ -324,9 +333,9 @@ jobs:
           adb shell settings list system > artifacts/logs/settings_system.txt || true
           adb shell dumpsys activity > artifacts/logs/dumpsys_activity.txt || true
           adb shell dumpsys window > artifacts/logs/dumpsys_window.txt || true
-          adb shell dumpsys package "com.app.uprise" > artifacts/logs/dumpsys_package.txt || true
-          # App process tracking
-          adb shell pidof "com.app.uprise" > artifacts/logs/app_pid.txt || true
+          adb shell dumpsys package "${{ steps.package.outputs.name }}" > artifacts/logs/dumpsys_package.txt || true
+          # App process tracking  
+          adb shell pidof "${{ steps.package.outputs.name }}" > artifacts/logs/app_pid.txt || true
           # One heavy artifact for deep dive (10–30MB typical)
           adb bugreport artifacts/logs/bugreport.zip || true
 
