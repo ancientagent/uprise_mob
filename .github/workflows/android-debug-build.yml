@@ -167,6 +167,7 @@ jobs:
       - name: Build Debug & Release (stable flags)
         env:
           ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+          NODE_OPTIONS: --openssl-legacy-provider
           GRADLE_OPTS: "-Dorg.gradle.daemon=true -Dorg.gradle.jvmargs='-Xmx3g -XX:+HeapDumpOnOutOfMemoryError' -Dorg.gradle.workers.max=2"
         run: |
           set -e
@@ -219,7 +220,7 @@ jobs:
         with:
           packages: "platforms;android-31 system-images;android-31;google_apis;x86_64 platform-tools emulator build-tools;31.0.0"
 
-      - name: Start Android emulator
+      - name: Start Android emulator and test
         run: |
           set -e
           echo "=== Create AVD ==="
@@ -237,25 +238,30 @@ jobs:
           adb shell settings put global transition_animation_scale 0
           adb shell settings put global animator_duration_scale 0
           
-          echo "=== Install and test APK ==="
+          echo "=== Install Debug APK ==="
           APK_PATH="$(find apk_debug -name "*.apk" | head -1)"
           echo "Installing APK: $APK_PATH"
           adb install -r "$APK_PATH"
           
+          echo "=== Extract package name ==="
+          PKG=$(aapt dump badging "$APK_PATH" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p")
+          echo "Package name: $PKG"
+          
           echo "=== Launch app ==="
-          APP_ID="com.app.uprise"
-          adb shell am start -n "${APP_ID}/.MainActivity" || adb shell monkey -p "${APP_ID}" -c android.intent.category.LAUNCHER 1
-          sleep 5
+          adb shell am start -n "$PKG/.MainActivity" || true
+          sleep 10
           
-          echo "=== Collect markers ==="
-          echo "sys.boot_completed=$(adb shell getprop sys.boot_completed | tr -d '\r')"
-          echo "Install ... Success"
-          adb shell pm list packages | grep "${APP_ID}" || echo "App not found"
-          echo "ActivityTaskManager:" 
-          adb shell dumpsys activity activities | grep -E "(mFocusedActivity|mResumedActivity)" | head -3 || echo "No active activities"
+          echo "=== Verify app is running ==="
+          adb shell pidof $PKG || (echo "App not running" && exit 1)
           
-          echo "=== Save logs ==="
-          adb logcat -d | tail -400 > smoke_log_tail.txt
+          echo "=== Capture logs and dumpsys ==="
+          mkdir -p artifacts/logs
+          adb logcat -d > artifacts/logs/logcat.txt || true
+          adb shell dumpsys activity > artifacts/logs/dumpsys_activity.txt || true
+          adb shell dumpsys package > artifacts/logs/dumpsys_package.txt || true
+          
+          echo "=== Save log tail for quick review ==="
+          tail -500 artifacts/logs/logcat.txt > smoke_log_tail.txt || true
         timeout-minutes: 15
 
       - name: Upload smoke logs (always)
@@ -265,9 +271,7 @@ jobs:
           name: smoke-logs
           path: |
             smoke_log_tail.txt
-            **/connected/**/logcat*.txt
-            **/getprop.txt
-            **/dumpsys_activity.txt
+            artifacts/logs/**
           if-no-files-found: ignore
 
       - name: Upload IDs artifact

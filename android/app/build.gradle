@@ -85,7 +85,9 @@ apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.grad
 project.ext.react = [
     entryFile     : "index.js",
     enableHermes  : true,  // clean and rebuild if changing
-    bundleInDebug : true
+    bundleInDebug : true,
+    bundleCommand: "bundle --legacy",  // safe legacy mode
+    nodeExecutableAndArgs: ["node", "--openssl-legacy-provider"]
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
