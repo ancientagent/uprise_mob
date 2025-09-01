@@ -101,6 +101,7 @@ jobs:
         working-directory: android
         env:
           ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+          NODE_OPTIONS: --openssl-legacy-provider
         run: |
           export JAVA_TOOL_OPTIONS=""
           ./gradlew :app:clean :app:assembleDebug :app:assembleRelease --no-daemon --stacktrace
