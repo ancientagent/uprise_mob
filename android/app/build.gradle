@@ -86,7 +86,7 @@ project.ext.react = [
     entryFile     : "index.js",
     enableHermes  : true,  // clean and rebuild if changing
     bundleInDebug : true,
-    bundleCommand: "bundle --legacy",  // safe legacy mode
+    bundleCommand: "bundle",
     nodeExecutableAndArgs: ["node", "--openssl-legacy-provider"]
 ]
 
