@@ -275,12 +275,15 @@ jobs:
             adb shell input keyevent 82
             echo "Emulator booted successfully"
 
-      - name: APK metadata  
+      - name: Ensure build-tools present (for aapt)
         shell: bash
         run: |
-          mkdir -p artifacts/logs
-          APK="$APK"
-          aapt dump badging "$APK" | tee artifacts/logs/apk_badging.txt
+          if ! command -v aapt >/dev/null 2>&1; then
+            echo "aapt not found; installing build-tools 30.0.3"
+            yes | ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager "build-tools;30.0.3" > /dev/null
+            echo "PATH update"
+            echo "${ANDROID_SDK_ROOT}/build-tools/30.0.3" >> $GITHUB_PATH
+          fi
 
       - name: Install Debug APK
         shell: bash
@@ -288,20 +291,51 @@ jobs:
           echo "Installing APK..."
           adb install -r "$APK"
 
-      - name: Detect package name
-        id: package
+      - name: Determine package + launchable activity (robust)
+        id: pkg
         shell: bash
         run: |
-          PKG=$(aapt dump badging "$APK" | sed -n "s/.*package name='\([^']*\)'.*/\1/p" | head -n1)
-          echo "Detected package: $PKG"
-          echo "name=$PKG" >> $GITHUB_OUTPUT
+          set -euo pipefail
+          APK="$(ls artifacts/debug/*.apk | head -n1)"
+          echo "apk=$APK" >> $GITHUB_OUTPUT
 
-      - name: Launch App
-        shell: bash  
+          # Generate APK metadata for logs
+          mkdir -p artifacts/logs
+          if command -v aapt >/dev/null 2>&1; then
+            aapt dump badging "$APK" | tee artifacts/logs/apk_badging.txt
+          fi
+
+          # Prefer aapt, fallback to apkanalyzer
+          if command -v aapt >/dev/null 2>&1; then
+            PKG=$(aapt dump badging "$APK" | sed -n "s/.*package name='\([^']*\)'.*/\1/p" | head -n1)
+          else
+            if command -v apkanalyzer >/dev/null 2>&1; then
+              PKG=$(apkanalyzer manifest application-id "$APK")
+            else
+              echo "Neither aapt nor apkanalyzer found"; exit 1
+            fi
+          fi
+          echo "pkg=$PKG" >> $GITHUB_OUTPUT
+          echo "Detected package: $PKG"
+
+          # Resolve real launchable activity from the package
+          # (uses the default LAUNCHER activity exposed by the app)
+          ACT=$(adb shell cmd package resolve-activity -c android.intent.category.LAUNCHER "$PKG" \
+                | sed -n "s/.*name=//p" | tr -d '\r' | head -n1)
+          if [ -z "$ACT" ]; then
+            # Fallback: common RN default
+            ACT="$PKG/.MainActivity"
+            echo "Fallback to $ACT"
+          fi
+          echo "act=$ACT" >> $GITHUB_OUTPUT
+          echo "Launchable activity: $ACT"
+
+      - name: Launch App (using resolved activity)
+        shell: bash
         run: |
-          echo "Starting app..."
-          adb shell am start -W -n "${{ steps.package.outputs.name }}/.MainActivity"
+          adb shell am start -n "${{ steps.pkg.outputs.act }}" || true
           sleep 10
+          adb shell pidof "${{ steps.pkg.outputs.pkg }}" || (echo "App not running" && exit 1)
 
       - name: Assert React Native JS initialized
         shell: bash
@@ -313,7 +347,7 @@ jobs:
       - name: Assert main activity has focus
         shell: bash
         run: |
-          PKG="${{ steps.package.outputs.name }}"
+          PKG="${{ steps.pkg.outputs.pkg }}"
           CURRENT=$(adb shell dumpsys window | sed -n "s/.*mCurrentFocus=Window{[^ ]* [^ ]* \\([^}]*\\)}.*/\\1/p")
           echo "mCurrentFocus=$CURRENT"
           echo "$CURRENT" | grep -q "$PKG" || (echo "❌ Main activity not focused" && exit 1)
@@ -333,9 +367,9 @@ jobs:
           adb shell settings list system > artifacts/logs/settings_system.txt || true
           adb shell dumpsys activity > artifacts/logs/dumpsys_activity.txt || true
           adb shell dumpsys window > artifacts/logs/dumpsys_window.txt || true
-          adb shell dumpsys package "${{ steps.package.outputs.name }}" > artifacts/logs/dumpsys_package.txt || true
+          adb shell dumpsys package "${{ steps.pkg.outputs.pkg }}" > artifacts/logs/dumpsys_package.txt || true
           # App process tracking  
-          adb shell pidof "${{ steps.package.outputs.name }}" > artifacts/logs/app_pid.txt || true
+          adb shell pidof "${{ steps.pkg.outputs.pkg }}" > artifacts/logs/app_pid.txt || true
           # One heavy artifact for deep dive (10–30MB typical)
           adb bugreport artifacts/logs/bugreport.zip || true
 
@@ -388,13 +422,16 @@ jobs:
             | tail -n 40 \
             | sed 's/^/- /' >> "$SUM" || true
 
-          # APK + pkg
+          # APK + pkg info
           if [ -f artifacts/logs/apk_badging.txt ]; then
             VER=$(sed -n "s/.*versionName='\([^']*\)'.*/\1/p" artifacts/logs/apk_badging.txt | head -n1)
-            PKG=$(sed -n "s/.*package name='\([^']*\)'.*/\1/p" artifacts/logs/apk_badging.txt | head -n1)
             echo "" >> "$SUM"
-            echo "**APK**: \`$PKG\`  —  **versionName**: \`$VER\`" >> "$SUM"
+            echo "**APK versionName**: \`$VER\`" >> "$SUM"
           fi
+          
+          echo "" >> "$SUM"
+          echo "**Resolved Package:** \`${{ steps.pkg.outputs.pkg }}\`" >> "$SUM"
+          echo "**Launch Activity:** \`${{ steps.pkg.outputs.act }}\`" >> "$SUM"
 
           echo "" >> "$SUM"
           echo "_Full logs available in the **smoke-logs** artifact (includes bugreport)._ " >> "$SUM"
