@@ -55,6 +55,18 @@ jobs:
           "${{ steps.j17.outputs.path }}/bin/java" -version
 
 
+      - name: Setup Android SDK (Ubuntu)
+        uses: android-actions/setup-android@v3
+
+      - name: Guard: Print Android SDK paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT:-<unset>}"
+          echo "ANDROID_HOME=${ANDROID_HOME:-<unset>}"
+          command -v sdkmanager || true
+          command -v adb || true
+
       - name: Prepare Android SDK (isolated, AGP 7.0.x safe)
         env:
           ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
@@ -219,13 +231,19 @@ jobs:
         shell: bash
         env:
           JAVA_HOME: ${{ steps.j17.outputs.path }}
-          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
         run: |
           set -euo pipefail
+          export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
+          if [ -z "${ANDROID_SDK_ROOT}" ] || [ ! -d "${ANDROID_SDK_ROOT}" ]; then
+            echo "❌ ANDROID_SDK_ROOT not set or invalid"; exit 1
+          fi
+
           yes | "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" \
-            "build-tools;30.0.3" "platform-tools" "platforms;android-30" > /dev/null
+            "platform-tools" "platforms;android-30" "emulator" "build-tools;30.0.3" > /dev/null
+
           echo "${ANDROID_SDK_ROOT}/build-tools/30.0.3" >> $GITHUB_PATH
-          "${ANDROID_SDK_ROOT}/build-tools/30.0.3/apksigner" version || echo "apksigner installed"
+
+          "${ANDROID_SDK_ROOT}/build-tools/30.0.3/apksigner" -version
 
       - name: Gather APK metadata (debug + release)
         id: apkmeta
@@ -352,6 +370,15 @@ jobs:
       - name: Setup Android SDK (macOS)
         uses: android-actions/setup-android@v3
 
+      - name: Guard: Print Android SDK paths (macOS)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT:-<unset>}"
+          echo "ANDROID_HOME=${ANDROID_HOME:-<unset>}"
+          command -v sdkmanager || true
+          command -v adb || true
+
       - name: Download Debug APK
         uses: actions/download-artifact@v4
         with:
@@ -410,10 +437,15 @@ jobs:
           JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
           set -euo pipefail
+          export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
+          if [ -z "${ANDROID_SDK_ROOT}" ] || [ ! -d "${ANDROID_SDK_ROOT}" ]; then
+            echo "❌ ANDROID_SDK_ROOT not set or invalid"; exit 1
+          fi
+
           yes | "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" \
-            "build-tools;30.0.3" "platform-tools" "platforms;android-30" > /dev/null
+            "platform-tools" "platforms;android-30" "build-tools;30.0.3" > /dev/null
+
           echo "${ANDROID_SDK_ROOT}/build-tools/30.0.3" >> $GITHUB_PATH
-          echo "✅ Build tools installed for smoke test"
 
       - name: Install Debug APK
         shell: bash
