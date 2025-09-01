@@ -273,26 +273,70 @@ jobs:
             adb wait-for-device
             timeout 600s bash -c 'until adb shell getprop sys.boot_completed | grep -m1 "1"; do sleep 5; done'
             adb shell input keyevent 82
-            
-            echo "Installing APK..."
-            adb install -r "$APK"
-            echo "Starting app..."
-            adb shell am start -W -n com.app.uprise/.MainActivity
-            sleep 10
-            echo "Collecting diagnostics..."
-            adb shell dumpsys activity | grep -A 5 "mFocusedApp"
-            adb shell pm list packages | grep uprise
-            echo "Smoke test completed"
+            echo "Emulator booted successfully"
 
-      - name: Upload smoke artifacts
+      - name: APK metadata  
+        shell: bash
+        run: |
+          mkdir -p artifacts/logs
+          APK="$APK"
+          aapt dump badging "$APK" | tee artifacts/logs/apk_badging.txt
+
+      - name: Install Debug APK
+        shell: bash
+        run: |
+          echo "Installing APK..."
+          adb install -r "$APK"
+
+      - name: Launch App
+        shell: bash  
+        run: |
+          echo "Starting app..."
+          adb shell am start -W -n com.app.uprise/.MainActivity
+          sleep 10
+
+      - name: Assert React Native JS initialized
+        shell: bash
+        run: |
+          # Wait up to 90s for the first JS log
+          timeout 90s bash -c 'until adb logcat -d | grep -m1 "ReactNativeJS"; do sleep 5; done'
+          echo "✅ ReactNativeJS detected in logcat"
+
+      - name: Assert main activity has focus
+        shell: bash
+        run: |
+          CURRENT=$(adb shell dumpsys window | sed -n "s/.*mCurrentFocus=Window{[^ ]* [^ ]* \\([^}]*\\)}.*/\\1/p")
+          echo "mCurrentFocus=$CURRENT"
+          echo "$CURRENT" | grep -q "com.app.uprise" || (echo "❌ Main activity not focused" && exit 1)
+
+      - name: Collect deep diagnostics
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/logs
+          # Full logcat since boot
+          adb logcat -d > artifacts/logs/logcat_full.txt || true
+          # Trim RN-only lines for quick read
+          grep -i "ReactNative" artifacts/logs/logcat_full.txt > artifacts/logs/logcat_reactnative.txt || true
+          # System state
+          adb shell getprop > artifacts/logs/device_getprop.txt || true
+          adb shell settings list global > artifacts/logs/settings_global.txt || true
+          adb shell settings list system > artifacts/logs/settings_system.txt || true
+          adb shell dumpsys activity > artifacts/logs/dumpsys_activity.txt || true
+          adb shell dumpsys window > artifacts/logs/dumpsys_window.txt || true
+          adb shell dumpsys package "com.app.uprise" > artifacts/logs/dumpsys_package.txt || true
+          # App process + ANR traces (if any)
+          adb shell pidof "com.app.uprise" > artifacts/logs/app_pid.txt || true
+          adb shell ls -l /data/anr/ > artifacts/logs/anr_dir.txt || true
+          # One heavy artifact for deep dive (10–30MB typical)
+          adb bugreport artifacts/logs/bugreport.zip || true
+
+      - name: Upload smoke logs
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: smoke-artifacts
-          if-no-files-found: ignore
-          path: |
-            smoke-logcat.txt
-            dumpsys.txt
-            pm-packages.txt
+          name: smoke-logs
+          path: artifacts/logs/**
 
       - name: Guardrail - assert emulator config
         if: always()
