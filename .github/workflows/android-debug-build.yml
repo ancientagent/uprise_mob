@@ -256,6 +256,8 @@ jobs:
             -camera-back none
             -gpu swiftshader_indirect
             -selinux permissive
+            -noaudio
+            -no-window
             -qemu -m 2048
           script: |
             adb wait-for-device
@@ -288,6 +290,7 @@ jobs:
             -gpu off
             -accel off
             -camera-back none
+            -no-window
             -netspeed full
             -netdelay none
             -qemu -m 2048
