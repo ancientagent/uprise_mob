@@ -58,7 +58,7 @@ jobs:
       - name: Setup Android SDK (Ubuntu)
         uses: android-actions/setup-android@v3
 
-      - name: Guard: Print Android SDK paths
+      - name: Guard Print Android SDK paths
         shell: bash
         run: |
           set -euo pipefail
@@ -370,7 +370,7 @@ jobs:
       - name: Setup Android SDK (macOS)
         uses: android-actions/setup-android@v3
 
-      - name: Guard: Print Android SDK paths (macOS)
+      - name: Guard Print Android SDK paths (macOS)
         shell: bash
         run: |
           set -euo pipefail
