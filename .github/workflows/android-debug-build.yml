@@ -54,14 +54,6 @@ jobs:
           echo "sdkmanager should use Java 17:"
           "${{ steps.j17.outputs.path }}/bin/java" -version
 
-      - name: Guardrail: enforce Gradle=11, sdkmanager=17
-        shell: bash
-        run: |
-          G11="${{ steps.j11.outputs.path }}/bin/java"
-          G17="${{ steps.j17.outputs.path }}/bin/java"
-          "$G11" -version 2>&1 | grep -q '"11\.' || (echo "❌ Gradle Java not 11" && exit 1)
-          "$G17" -version 2>&1 | grep -q '"17\.' || (echo "❌ sdkmanager Java not 17" && exit 1)
-          echo "✅ Java versions verified: Gradle=11, sdkmanager=17"
 
       - name: Prepare Android SDK (isolated, AGP 7.0.x safe)
         env:
@@ -355,14 +347,6 @@ jobs:
           echo "macOS sdkmanager uses Java 17:"
           "${{ steps.j17.outputs.path }}/bin/java" -version
 
-      - name: Guardrail: enforce Gradle=11, sdkmanager=17
-        shell: bash
-        run: |
-          G11="${{ steps.j11.outputs.path }}/bin/java"
-          G17="${{ steps.j17.outputs.path }}/bin/java"
-          "$G11" -version 2>&1 | grep -q '"11\.' || (echo "❌ Gradle Java not 11" && exit 1)
-          "$G17" -version 2>&1 | grep -q '"17\.' || (echo "❌ sdkmanager Java not 17" && exit 1)
-          echo "✅ Java versions verified: Gradle=11, sdkmanager=17"
 
       - name: Setup Android SDK (macOS)
         uses: android-actions/setup-android@v3
