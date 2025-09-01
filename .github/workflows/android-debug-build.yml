@@ -325,11 +325,26 @@ jobs:
           adb shell dumpsys activity > artifacts/logs/dumpsys_activity.txt || true
           adb shell dumpsys window > artifacts/logs/dumpsys_window.txt || true
           adb shell dumpsys package "com.app.uprise" > artifacts/logs/dumpsys_package.txt || true
-          # App process + ANR traces (if any)
+          # App process tracking
           adb shell pidof "com.app.uprise" > artifacts/logs/app_pid.txt || true
-          adb shell ls -l /data/anr/ > artifacts/logs/anr_dir.txt || true
           # One heavy artifact for deep dive (10–30MB typical)
           adb bugreport artifacts/logs/bugreport.zip || true
+
+      - name: Collect ANR & tombstones (if any)
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/logs
+          adb shell ls -l /data/anr/ > artifacts/logs/anr_dir.txt 2>/dev/null || true
+          # Pull ANRs if readable (emulators often allow)
+          for f in $(adb shell ls /data/anr/ 2>/dev/null | tr -d '\r'); do
+            adb shell cat "/data/anr/$f" > "artifacts/logs/anr_$f" 2>/dev/null || true
+          done
+          # Tombstones
+          adb shell ls -l /data/tombstones/ > artifacts/logs/tombstones_dir.txt 2>/dev/null || true
+          for f in $(adb shell ls /data/tombstones/ 2>/dev/null | tr -d '\r'); do
+            adb shell cat "/data/tombstones/$f" > "artifacts/logs/$f" 2>/dev/null || true
+          done
 
       - name: Upload smoke logs
         if: always()
@@ -337,6 +352,43 @@ jobs:
         with:
           name: smoke-logs
           path: artifacts/logs/**
+
+      - name: Summarize smoke results
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/logs
+          LOG=artifacts/logs/logcat_full.txt
+          RN=artifacts/logs/logcat_reactnative.txt
+          SUM="$GITHUB_STEP_SUMMARY"
+
+          echo "## Smoke Summary" >> "$SUM"
+          echo "" >> "$SUM"
+
+          # RN JS presence
+          if grep -q "ReactNativeJS" "$RN" 2>/dev/null; then
+            echo "✅ **ReactNativeJS detected** (JS runtime initialized)" >> "$SUM"
+          else
+            echo "❌ **No ReactNativeJS logs detected** (JS may not have started)" >> "$SUM"
+          fi
+
+          # Main failures to highlight
+          echo "" >> "$SUM"
+          echo "### Notable log signals" >> "$SUM"
+          grep -E "FATAL EXCEPTION|Process .* has died|ANR|E ReactNative|E AndroidRuntime" "$LOG" \
+            | tail -n 40 \
+            | sed 's/^/- /' >> "$SUM" || true
+
+          # APK + pkg
+          if [ -f artifacts/logs/apk_badging.txt ]; then
+            VER=$(sed -n "s/.*versionName='\([^']*\)'.*/\1/p" artifacts/logs/apk_badging.txt | head -n1)
+            PKG=$(sed -n "s/.*package name='\([^']*\)'.*/\1/p" artifacts/logs/apk_badging.txt | head -n1)
+            echo "" >> "$SUM"
+            echo "**APK**: \`$PKG\`  —  **versionName**: \`$VER\`" >> "$SUM"
+          fi
+
+          echo "" >> "$SUM"
+          echo "_Full logs available in the **smoke-logs** artifact (includes bugreport)._ " >> "$SUM"
 
       - name: Guardrail - assert emulator config
         if: always()
