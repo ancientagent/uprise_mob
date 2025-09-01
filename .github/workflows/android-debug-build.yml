@@ -32,11 +32,36 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup JDK 17 (for Android SDK)
+      - name: Setup Java 11 (Gradle)
+        id: j11
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Setup Java 17 (sdkmanager tools)
+        id: j17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
+
+      - name: Verify Java toolchains
+        shell: bash
+        run: |
+          echo "Gradle should use Java 11:"
+          "${{ steps.j11.outputs.path }}/bin/java" -version
+          echo "sdkmanager should use Java 17:"
+          "${{ steps.j17.outputs.path }}/bin/java" -version
+
+      - name: Guardrail: enforce Gradle=11, sdkmanager=17
+        shell: bash
+        run: |
+          G11="${{ steps.j11.outputs.path }}/bin/java"
+          G17="${{ steps.j17.outputs.path }}/bin/java"
+          "$G11" -version 2>&1 | grep -q '"11\.' || (echo "❌ Gradle Java not 11" && exit 1)
+          "$G17" -version 2>&1 | grep -q '"17\.' || (echo "❌ sdkmanager Java not 17" && exit 1)
+          echo "✅ Java versions verified: Gradle=11, sdkmanager=17"
 
       - name: Prepare Android SDK (isolated, AGP 7.0.x safe)
         env:
@@ -84,17 +109,11 @@ jobs:
       - name: Print versions
         env:
           ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+          JAVA_HOME: ${{ steps.j11.outputs.path }}
         run: |
-          echo "JAVA:" && java -version
+          echo "JAVA (Gradle):" && java -version
           echo "Gradle wrapper:" && ./android/gradlew -v
           echo "SDK Root: $ANDROID_SDK_ROOT"
-          "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --list | head -n 20 || true
-
-      - name: Switch to JDK 11 (for Gradle)
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '11'
 
       - name: Use Node 18 (with npm cache)
         uses: actions/setup-node@v4
@@ -207,12 +226,13 @@ jobs:
       - name: Ensure build-tools for apksigner/aapt
         shell: bash
         env:
-          JAVA_HOME: ${{ env.JAVA_HOME_17_X64 }}
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
-          if ! command -v apksigner >/dev/null 2>&1; then
-            yes | ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager "build-tools;30.0.3" > /dev/null
-            echo "${ANDROID_SDK_ROOT}/build-tools/30.0.3" >> $GITHUB_PATH
-          fi
+          set -euo pipefail
+          yes | "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" \
+            "build-tools;30.0.3" "platform-tools" "platforms;android-30" > /dev/null
+          echo "${ANDROID_SDK_ROOT}/build-tools/30.0.3" >> $GITHUB_PATH
+          "${ANDROID_SDK_ROOT}/build-tools/30.0.3/apksigner" version || echo "apksigner installed"
 
       - name: Gather APK metadata (debug + release)
         id: apkmeta
@@ -313,11 +333,36 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Java 11
+      - name: Setup Java 11 (primary)
+        id: j11
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '11'
+
+      - name: Setup Java 17 (sdkmanager tools)
+        id: j17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Verify Java toolchains
+        shell: bash
+        run: |
+          echo "macOS Gradle (if needed) uses Java 11:"
+          "${{ steps.j11.outputs.path }}/bin/java" -version
+          echo "macOS sdkmanager uses Java 17:"
+          "${{ steps.j17.outputs.path }}/bin/java" -version
+
+      - name: Guardrail: enforce Gradle=11, sdkmanager=17
+        shell: bash
+        run: |
+          G11="${{ steps.j11.outputs.path }}/bin/java"
+          G17="${{ steps.j17.outputs.path }}/bin/java"
+          "$G11" -version 2>&1 | grep -q '"11\.' || (echo "❌ Gradle Java not 11" && exit 1)
+          "$G17" -version 2>&1 | grep -q '"17\.' || (echo "❌ sdkmanager Java not 17" && exit 1)
+          echo "✅ Java versions verified: Gradle=11, sdkmanager=17"
 
       - name: Setup Android SDK (macOS)
         uses: android-actions/setup-android@v3
@@ -374,15 +419,16 @@ jobs:
       
 
       
-      - name: Ensure build-tools present (for aapt)
+      - name: Ensure build-tools (smoke)
         shell: bash
+        env:
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
-          if ! command -v aapt >/dev/null 2>&1; then
-            echo "aapt not found; installing build-tools 30.0.3"
-            yes | ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager "build-tools;30.0.3" > /dev/null
-            echo "PATH update"
-            echo "${ANDROID_SDK_ROOT}/build-tools/30.0.3" >> $GITHUB_PATH
-          fi
+          set -euo pipefail
+          yes | "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" \
+            "build-tools;30.0.3" "platform-tools" "platforms;android-30" > /dev/null
+          echo "${ANDROID_SDK_ROOT}/build-tools/30.0.3" >> $GITHUB_PATH
+          echo "✅ Build tools installed for smoke test"
 
       - name: Install Debug APK
         shell: bash
