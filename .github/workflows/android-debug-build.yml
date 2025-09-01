@@ -225,6 +225,15 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Cache Android AVD
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+            ~/.android/cache/*
+          key: avd-${{ runner.os }}-api30-x86_64-v1
+
       - name: Install PulseAudio libraries for emulator
         run: |
           sudo apt-get update -qq
@@ -244,16 +253,27 @@ jobs:
           fi
           echo "APK=$APK" | tee -a "$GITHUB_ENV"
 
-      - name: Run emulator + install + launch
+      - name: Start Emulator (API 30 simple)
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30
-          target: default
           arch: x86_64
-          force-avd-creation: true
+          profile: pixel_5
           disable-animations: true
-          emulator-options: "-no-snapshot -noaudio -no-window -gpu swiftshader_indirect -accel off"
+          force-avd-creation: true
+          emulator-options: >
+            -no-snapshot
+            -noaudio
+            -no-window
+            -gpu swiftshader_indirect
+            -accel off
+            -camera-back none
+            -qemu -m 2048
           script: |
+            adb wait-for-device
+            timeout 600s bash -c 'until adb shell getprop sys.boot_completed | grep -m1 "1"; do sleep 5; done'
+            adb shell input keyevent 82
+            
             echo "Installing APK..."
             adb install -r "$APK"
             echo "Starting app..."
@@ -273,4 +293,20 @@ jobs:
             smoke-logcat.txt
             dumpsys.txt
             pm-packages.txt
+
+      - name: Guardrail - assert emulator config
+        if: always()
+        shell: bash
+        run: |
+          WF=".github/workflows/android-debug-build.yml"
+          echo "Checking $WF for fixed emulator config…"
+          grep -q "api-level: 30" "$WF" || (echo "❌ api-level not 30"; exit 1)
+          grep -q "arch: x86_64" "$WF" || (echo "❌ arch not x86_64"; exit 1)
+          grep -q "profile: pixel_5" "$WF" || (echo "❌ profile not pixel_5"; exit 1)
+          grep -q "\-no-snapshot" "$WF" || (echo "❌ -no-snapshot missing"; exit 1)
+          grep -q "\-noaudio" "$WF" || (echo "❌ -noaudio missing"; exit 1)
+          grep -q "\-no-window" "$WF" || (echo "❌ -no-window missing"; exit 1)
+          grep -q "swiftshader_indirect" "$WF" || (echo "❌ gpu swiftshader_indirect missing"; exit 1)
+          grep -q "\-accel off" "$WF" || (echo "❌ -accel off missing"; exit 1)
+          echo "✅ Emulator config guardrail passed."
 
