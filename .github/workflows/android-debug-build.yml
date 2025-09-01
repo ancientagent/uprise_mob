@@ -86,10 +86,11 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
 
-      - name: Setup Node.js
+      - name: Use Node 18 (with npm cache)
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 18
+          cache: 'npm'
 
       - name: Prime Gradle cache
         uses: actions/cache@v4
@@ -102,11 +103,13 @@ jobs:
           restore-keys: |
             gradle-${{ runner.os }}-
 
-      - name: Ensure Gradle build cache on (stable for RN 0.66)
+      - name: Ensure Gradle build cache on
         run: |
           mkdir -p ~/.gradle
-          echo "org.gradle.caching=true" >> ~/.gradle/gradle.properties
-          echo "org.gradle.parallel=false" >> ~/.gradle/gradle.properties
+          {
+            echo "org.gradle.caching=true"
+            echo "org.gradle.parallel=false"
+          } >> ~/.gradle/gradle.properties
           
       - name: Install Node dependencies
         run: npm install --legacy-peer-deps
@@ -162,20 +165,19 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x ./android/gradlew
 
-      - name: Build Debug and Release APKs
-        working-directory: android
+      - name: Build Debug & Release (stable flags)
         env:
           ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
-          NODE_OPTIONS: --openssl-legacy-provider
+          GRADLE_OPTS: "-Dorg.gradle.daemon=true -Dorg.gradle.jvmargs='-Xmx3g -XX:+HeapDumpOnOutOfMemoryError' -Dorg.gradle.workers.max=2"
         run: |
-          export JAVA_TOOL_OPTIONS=""
-          ./gradlew :app:clean :app:assembleDebug :app:assembleRelease --no-daemon --stacktrace
-        timeout-minutes: 20
+          set -e
+          cd android
+          ./gradlew :app:assembleDebug  --build-cache --no-parallel --stacktrace
+          ./gradlew :app:assembleRelease --build-cache --no-parallel --stacktrace
 
       - name: Print artifact sizes
         run: |
-          echo "APK sizes:"
-          ls -lh android/app/build/outputs/apk/debug/*.apk || true
+          ls -lh android/app/build/outputs/apk/debug/*.apk  || true
           ls -lh android/app/build/outputs/apk/release/*.apk || true
 
       - name: Upload Debug APK
