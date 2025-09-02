@@ -231,6 +231,7 @@ jobs:
         shell: bash
         env:
           JAVA_HOME: ${{ steps.j17.outputs.path }}   # keep dual-JDK design
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
         run: |
           set -euo pipefail
           export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
