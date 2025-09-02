@@ -239,12 +239,10 @@ jobs:
             echo "❌ ANDROID_SDK_ROOT not set or invalid"; exit 1
           fi
 
-          yes | "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" \
-            "platform-tools" "platforms;android-30" "emulator" "build-tools;30.0.3" > /dev/null
+          # Use the build-tools version already installed (31.0.0)
+          echo "${ANDROID_SDK_ROOT}/build-tools/31.0.0" >> "$GITHUB_PATH"
 
-          echo "${ANDROID_SDK_ROOT}/build-tools/30.0.3" >> "$GITHUB_PATH"
-
-          "${ANDROID_SDK_ROOT}/build-tools/30.0.3/apksigner" -version
+          "${ANDROID_SDK_ROOT}/build-tools/31.0.0/apksigner" version
 
       - name: Gather APK metadata (debug + release)
         id: apkmeta
