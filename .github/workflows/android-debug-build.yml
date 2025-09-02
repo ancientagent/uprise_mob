@@ -484,10 +484,9 @@ jobs:
             -no-boot-anim
             -gpu swiftshader_indirect
             -camera-back none
-            -qemu -m 1024
-            -skin 720x1280
-            -dpi-device 320
+            -memory 1024
             -netfast
+            -no-metrics
           script: |
             echo "Emulator starting..."
         timeout-minutes: 12
