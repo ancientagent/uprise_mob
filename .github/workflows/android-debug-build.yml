@@ -230,10 +230,10 @@ jobs:
       - name: Ensure build-tools for apksigner/aapt
         shell: bash
         env:
-          JAVA_HOME: ${{ steps.j17.outputs.path }}
-          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+          JAVA_HOME: ${{ steps.j17.outputs.path }}   # keep dual-JDK design
         run: |
           set -euo pipefail
+          export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
           if [ -z "${ANDROID_SDK_ROOT}" ] || [ ! -d "${ANDROID_SDK_ROOT}" ]; then
             echo "❌ ANDROID_SDK_ROOT not set or invalid"; exit 1
           fi
@@ -241,7 +241,7 @@ jobs:
           yes | "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" \
             "platform-tools" "platforms;android-30" "emulator" "build-tools;30.0.3" > /dev/null
 
-          echo "${ANDROID_SDK_ROOT}/build-tools/30.0.3" >> $GITHUB_PATH
+          echo "${ANDROID_SDK_ROOT}/build-tools/30.0.3" >> "$GITHUB_PATH"
 
           "${ANDROID_SDK_ROOT}/build-tools/30.0.3/apksigner" -version
 
@@ -437,6 +437,7 @@ jobs:
           JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
           set -euo pipefail
+          export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
           if [ -z "${ANDROID_SDK_ROOT}" ] || [ ! -d "${ANDROID_SDK_ROOT}" ]; then
             echo "❌ ANDROID_SDK_ROOT not set or invalid"; exit 1
           fi
@@ -444,7 +445,7 @@ jobs:
           yes | "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" \
             "platform-tools" "platforms;android-30" "build-tools;30.0.3" > /dev/null
 
-          echo "${ANDROID_SDK_ROOT}/build-tools/30.0.3" >> $GITHUB_PATH
+          echo "${ANDROID_SDK_ROOT}/build-tools/30.0.3" >> "$GITHUB_PATH"
 
       - name: Install Debug APK
         shell: bash
