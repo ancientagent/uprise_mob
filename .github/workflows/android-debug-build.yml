@@ -491,7 +491,7 @@ jobs:
             echo "Emulator starting..."
         timeout-minutes: 12
       
-      - name: Stabilize ADB connection (fast-fail)
+      - name: Stabilize ADB connection (fast-fail, portable)
         shell: bash
         run: |
           set -euo pipefail
@@ -505,14 +505,24 @@ jobs:
           adb start-server
           adb version || true
 
-          # Give the emulator up to 120s to appear at all
-          if ! timeout 120s bash -c 'until adb devices | grep -E "emulator-[0-9]+\s+(device|offline)"; do sleep 2; done'; then
-            echo "❌ Emulator never appeared on adb within 120s"; exit 1
-          fi
+          # Portable 120s wait (no `timeout`)
+          start_ts=$(date +%s)
+          while true; do
+            if adb devices | grep -E "emulator-[0-9]+\s+(device|offline)" >/dev/null 2>&1; then
+              break
+            fi
+            now=$(date +%s)
+            elapsed=$(( now - start_ts ))
+            if [ "$elapsed" -ge 120 ]; then
+              echo "❌ Emulator never appeared on adb within 120s"
+              exit 1
+            fi
+            sleep 2
+          done
 
           # Try to move from 'offline' → 'device' quickly; bail if it won't
           for attempt in 1 2 3 4 5; do
-            state="$(adb devices | awk "/emulator-/{print \$2}" | head -n1 || true)"
+            state="$(adb devices | awk '/emulator-/{print $2}' | head -n1 || true)"
             if [ "$state" = "device" ]; then
               echo "✅ ADB device is online"; break
             fi
@@ -522,22 +532,33 @@ jobs:
             adb reconnect offline || true; sleep 2
           done
 
-          state="$(adb devices | awk "/emulator-/{print \$2}" | head -n1 || true)"
+          state="$(adb devices | awk '/emulator-/{print $2}' | head -n1 || true)"
           if [ "$state" != "device" ]; then
             echo "❌ ADB device stuck in state=$state after recover attempts"; exit 1
           fi
 
           adb devices -l
 
-      - name: Wait for boot (strict)
+      - name: Wait for boot (strict 6m, portable)
         shell: bash
         run: |
           set -euo pipefail
           adb wait-for-device
-          # Strict boot wait: give 6 minutes max; we already did connection work
-          if ! timeout 360s bash -c 'until adb shell getprop sys.boot_completed | grep -m1 "^1$"; do sleep 3; done'; then
-            echo "❌ sys.boot_completed not reached within 6 minutes"; exit 1
-          fi
+
+          start_ts=$(date +%s)
+          while true; do
+            if adb shell getprop sys.boot_completed 2>/dev/null | grep -qx '1'; then
+              break
+            fi
+            now=$(date +%s)
+            elapsed=$(( now - start_ts ))
+            if [ "$elapsed" -ge 360 ]; then
+              echo "❌ sys.boot_completed not reached within 6 minutes"
+              exit 1
+            fi
+            sleep 3
+          done
+
           adb shell input keyevent 82 || true
           echo "✅ Emulator booted (macOS HVF, slim AVD)"
 
