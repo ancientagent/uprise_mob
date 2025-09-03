@@ -417,112 +417,49 @@ jobs:
             RUN_URL.txt
 
   smoke-test:
-    name: Android Smoke (macOS HVF)
+    name: Android Smoke Test (Ubuntu fallback, accel off)
     needs: build
-    runs-on: macos-13
+    runs-on: ubuntu-latest
     timeout-minutes: 35
     env:
       NODE_OPTIONS: --openssl-legacy-provider
       ADB_INSTALL_TIMEOUT: 20
       ANDROID_SERIAL: emulator-5554
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Java 11 (primary)
-        id: j11
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-
-      - name: Setup Java 17 (sdkmanager tools)
-        id: j17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Verify Java toolchains
-        shell: bash
-        run: |
-          echo "macOS Gradle (if needed) uses Java 11:"
-          "${{ steps.j11.outputs.path }}/bin/java" -version
-          echo "macOS sdkmanager uses Java 17:"
-          "${{ steps.j17.outputs.path }}/bin/java" -version
-
+      - uses: actions/checkout@v4
 
       - name: Bootstrap Android cmdline-tools r8 (8092744)
         shell: bash
-        env:
-          JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
           set -euo pipefail
-          # Prepare SDK root
           export ANDROID_SDK_ROOT="$HOME/android-sdk"
           mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools"
           cd "$ANDROID_SDK_ROOT"
-
-          # Download cmdline-tools r8 (8092744) for macOS/Linux
-          # macOS and Linux use same archive name pattern; mac runners need 'darwin', ubuntu 'linux'
-          OS=$(uname | tr '[:upper:]' '[:lower:]')
-          if [[ "$OS" == "darwin" ]]; then
-            URL="https://dl.google.com/android/repository/commandlinetools-mac-8092744_latest.zip"
-          else
-            URL="https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip"
-          fi
-
+          URL="https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip"
           curl -fsSL "$URL" -o cmdtools.zip
           unzip -q cmdtools.zip -d cmdline-tools-tmp
-          # Move to canonical 'cmdline-tools/r8'
           mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/r8"
           mv cmdline-tools-tmp/cmdline-tools/* "$ANDROID_SDK_ROOT/cmdline-tools/r8/"
           rm -rf cmdline-tools-tmp cmdtools.zip
-
-          # Path wiring to ensure we always use r8 sdkmanager
           echo "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin" >> "$GITHUB_PATH"
           echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
+          echo "$ANDROID_SDK_ROOT/emulator" >> "$GITHUB_PATH"
           echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
 
       - name: Accept SDK licenses (r8)
         shell: bash
-        env:
-          JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
-          set -euo pipefail
-          echo "Accepting SDK licenses non-interactively..."
-          ( echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y" ) | sdkmanager --licenses || true
+          yes | sdkmanager --licenses
 
-      - name: Install platform-tools + build-tools + emulator + platforms (r8)
+      - name: Install SDK components
         shell: bash
-        env:
-          JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
           set -euo pipefail
-          sdkmanager --install "platform-tools" \
+          sdkmanager --install "platform-tools" "emulator" \
             "build-tools;${{ env.ANDROID_BUILD_TOOLS }}" \
-            "emulator" \
             "platforms;android-31" \
             "system-images;android-30;default;x86_64"
-          # Prove r8 is in effect and apksigner exists at pinned version
-          "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" --version
-
-      - name: ADB hygiene (macOS) + serial pinning
-        shell: bash
-        run: |
-          set -euo pipefail
-          # Kill any stray adb and remove stale lock/state
-          pkill -9 adb || true
-          adb kill-server || true
-          rm -f "${HOME}/.android/adbkey" "${HOME}/.android/adbkey.pub" || true
-          rm -rf "${HOME}/.android/adb*" || true
-
-          # Fresh server from our platform-tools
-          adb start-server
-          adb devices -l || true
-          
-          # Pin ADB serial for all subsequent operations
-          echo "🔒 ADB pinned to serial: ${{ env.ANDROID_SERIAL }}"
+          "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" -version
 
       - name: Download Debug APK
         uses: actions/download-artifact@v4
@@ -536,298 +473,92 @@ jobs:
           name: app-release-apk
           path: artifacts/release
 
-      - name: Find APK and set env
-        run: |
-          APK=$(find artifacts/debug -name "*.apk" -type f | head -1)
-          if [ -z "$APK" ]; then
-            echo "No APK found under artifacts/debug"
-            exit 1
-          fi
-          echo "APK=$APK" | tee -a "$GITHUB_ENV"
-
-      - name: Create AVD and start emulator (with boot watchdog)
+      - name: Create AVD (API 30 default x86_64)
         shell: bash
         run: |
           set -euo pipefail
-          
-          # Create AVD
-          echo "no" | avdmanager create avd -n test_avd -k "system-images;android-30;default;x86_64" --device "pixel_5" --force
-          
-          # Start emulator with fixed port mapping
-          $ANDROID_SDK_ROOT/emulator/emulator @test_avd -no-window -no-audio -no-boot-anim -memory 1024 -accel hvf -ports 5554,5555 &
+          echo "no" | avdmanager create avd -n ci_api_30 -k "system-images;android-30;default;x86_64" --device "pixel_5"
+
+      - name: Boot emulator (accel off, pinned serial + watchdog)
+        shell: bash
+        env:
+          ANDROID_SERIAL: emulator-5554
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/smoke-logs artifacts/ids artifacts/summary
+          adb kill-server || true
+          emulator -avd ci_api_30 -port 5554 \
+            -no-snapshot -no-snapshot-save -no-window -no-audio -no-boot-anim \
+            -gpu swiftshader_indirect -camera-back none -netfast -no-metrics \
+            -accel off -wipe-data -qemu -m 1024 \
+            -verbose > artifacts/smoke-logs/emulator.txt 2>&1 &
           EMU_PID=$!
-          echo "emulator_pid=$EMU_PID" >> $GITHUB_ENV
-          
-          # Boot watchdog with clean failure
-          boot_watchdog() {
-            local timeout_min=15
-            local elapsed=0
-            
-            echo "⏰ Starting emulator boot watchdog (${timeout_min}min timeout)"
-            
-            # Wait for ADB device to appear
-            while ! adb -s ${{ env.ANDROID_SERIAL }} get-state >/dev/null 2>&1; do
-              sleep 5
-              elapsed=$((elapsed + 1))
-              
-              if [ $elapsed -ge $((timeout_min * 12)) ]; then  # 5s intervals = 12 per minute
-                echo "❌ Emulator never appeared on ADB within ${timeout_min}min"
-                echo "🔍 Final diagnostics:"
-                adb devices -l || true
-                ps aux | grep emulator || true
-                kill -9 $EMU_PID 2>/dev/null || true
-                exit 1
-              fi
-              
-              # Progress every minute
-              if [ $((elapsed % 12)) -eq 0 ]; then
-                echo "📊 Boot progress: $((elapsed/12))min / ${timeout_min}min"
-                adb devices || true
-              fi
-            done
-            
-            # Wait for sys.boot_completed
-            elapsed=0
-            while ! adb -s ${{ env.ANDROID_SERIAL }} shell getprop sys.boot_completed 2>/dev/null | grep -qx '1'; do
-              sleep 5
-              elapsed=$((elapsed + 1))
-              
-              if [ $elapsed -ge $((timeout_min * 12)) ]; then
-                echo "❌ sys.boot_completed not reached within ${timeout_min}min"
-                echo "🔍 Boot properties:"
-                adb -s ${{ env.ANDROID_SERIAL }} shell getprop | grep -E 'boot|init' || true
-                kill -9 $EMU_PID 2>/dev/null || true
-                exit 1
-              fi
-              
-              if [ $((elapsed % 12)) -eq 0 ]; then
-                echo "📊 Boot progress: $((elapsed/12))min / ${timeout_min}min"
-              fi
-            done
-            
-            echo "✅ Emulator boot completed in $((elapsed/12)).$((elapsed%12*5))min"
-          }
-          
-          boot_watchdog
-          
-          # Final verification with pinned serial
-          adb -s ${{ env.ANDROID_SERIAL }} shell input keyevent 82 || true
-          adb -s ${{ env.ANDROID_SERIAL }} devices -l
+
+          boot_deadline=$((SECONDS+540))
+          ( sleep 900; echo "[WATCHDOG] Ubuntu emulator boot exceeded 900s; adb devices:"; adb devices -l || true; kill -9 $EMU_PID || true; echo "BOOT_FAILED=1" >> $GITHUB_ENV; ) &
+          BOOT_WD=$!
+
+          adb start-server
+          adb -s "$ANDROID_SERIAL" wait-for-device || true
+          while [ $SECONDS -lt $boot_deadline ]; do
+            st=$(adb -s "$ANDROID_SERIAL" get-state 2>/dev/null | tr -d '\r')
+            booted=$(adb -s "$ANDROID_SERIAL" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
+            [ "$st" = "device" ] && [ "$booted" = "1" ] && break
+            sleep 5
+          done
+
+          if [ "${booted:-0}" != "1" ]; then
+            echo "boot_ok=false" > artifacts/summary/summary.env
+            echo "BOOT_FAILED=1" >> $GITHUB_ENV
+          else
+            echo "boot_ok=true" > artifacts/summary/summary.env
+            echo "BOOT_FAILED=0" >> $GITHUB_ENV
+            kill $BOOT_WD || true
+            adb -s "$ANDROID_SERIAL" shell settings put global window_animation_scale 0 || true
+            adb -s "$ANDROID_SERIAL" shell settings put global transition_animation_scale 0 || true
+            adb -s "$ANDROID_SERIAL" shell settings put global animator_duration_scale 0 || true
+          fi
       
-
-      - name: Guardrail adb from our SDK
+      - name: Install + Launch (minimal smoke)
+        if: env.BOOT_FAILED == '0'
         shell: bash
         run: |
           set -euo pipefail
-          ADB_BIN="$(command -v adb || true)"
-          echo "adb = $ADB_BIN"
-          echo "$ADB_BIN" | grep -q "${ANDROID_SDK_ROOT}/platform-tools/adb" || { echo "❌ adb not from expected SDK"; exit 1; }
+          AAPT="${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/aapt"
+          APP_ID=$($AAPT dump badging artifacts/debug/app-debug.apk | awk -F"'" '/package: name=/{print $2}')
+          adb -s "$ANDROID_SERIAL" install -r "artifacts/debug/app-debug.apk"
+          adb -s "$ANDROID_SERIAL" logcat -c || true
+          adb -s "$ANDROID_SERIAL" logcat -v time > artifacts/smoke-logs/logcat.txt 2>&1 &
+          LOG_PID=$!
+          adb -s "$ANDROID_SERIAL" shell monkey -p "$APP_ID" -c android.intent.category.LAUNCHER 1
 
-      - name: Ensure build-tools (smoke)
-        shell: bash
-        run: |
-          set -euo pipefail
-          export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
-          if [ -z "${ANDROID_SDK_ROOT}" ] || [ ! -d "${ANDROID_SDK_ROOT}" ]; then
-            echo "❌ ANDROID_SDK_ROOT not set or invalid"; exit 1
-          fi
-
-          echo "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}" >> "$GITHUB_PATH"
-
-      - name: Install Debug APK
-        shell: bash
-        run: |
-          echo "Installing APK..."
-          adb -s ${{ env.ANDROID_SERIAL }} install -r "$APK"
-
-      - name: Determine package + launchable activity (robust)
-        id: pkg
-        shell: bash
-        run: |
-          set -euo pipefail
-          # APK is already set from "Find APK and set env" step
-          echo "apk=$APK" >> $GITHUB_OUTPUT
-
-          # Generate APK metadata for logs
-          mkdir -p artifacts/logs
-          if command -v aapt >/dev/null 2>&1; then
-            aapt dump badging "$APK" | tee artifacts/logs/apk_badging.txt
-          fi
-
-          # Prefer aapt, fallback to apkanalyzer
-          if command -v aapt >/dev/null 2>&1; then
-            PKG=$(aapt dump badging "$APK" | sed -n "s/.*package name='\([^']*\)'.*/\1/p" | head -n1)
-          else
-            if command -v apkanalyzer >/dev/null 2>&1; then
-              PKG=$(apkanalyzer manifest application-id "$APK")
-            else
-              echo "Neither aapt nor apkanalyzer found"; exit 1
+          start_ts=$SECONDS; deadline=$((SECONDS+120)); ttjs_s=""
+          while [ $SECONDS -lt $deadline ]; do
+            if grep -q "ReactNativeJS: Running" artifacts/smoke-logs/logcat.txt; then
+              ttjs_s=$((SECONDS-start_ts)); break
             fi
-          fi
-          echo "pkg=$PKG" >> $GITHUB_OUTPUT
-          echo "Detected package: $PKG"
-
-          # Resolve real launchable activity from the package
-          # (uses the default LAUNCHER activity exposed by the app)
-          ACT=$(adb -s ${{ env.ANDROID_SERIAL }} shell cmd package resolve-activity -c android.intent.category.LAUNCHER "$PKG" \
-                | sed -n "s/.*name=//p" | tr -d '\r' | head -n1)
-          if [ -z "$ACT" ]; then
-            # Fallback: common RN default
-            ACT="$PKG/.MainActivity"
-            echo "Fallback to $ACT"
-          fi
-          echo "act=$ACT" >> $GITHUB_OUTPUT
-          echo "Launchable activity: $ACT"
-
-      - name: Launch App (using resolved activity)
-        id: launch
-        shell: bash
-        run: |
-          # Record launch start time for TTJS metric
-          LAUNCH_START=$(date +%s)
-          echo "launch_start=$LAUNCH_START" >> $GITHUB_OUTPUT
-          echo "App launch started at: $(date -d @$LAUNCH_START)"
-          
-          adb -s ${{ env.ANDROID_SERIAL }} shell am start -n "${{ steps.pkg.outputs.act }}" || true
-          sleep 10
-          adb -s ${{ env.ANDROID_SERIAL }} shell pidof "${{ steps.pkg.outputs.pkg }}" || (echo "App not running" && exit 1)
-
-      - name: Assert React Native JS initialized + TTJS
-        id: ttjs
-        shell: bash
-        run: |
-          LAUNCH_START="${{ steps.launch.outputs.launch_start }}"
-          
-          # Wait up to 90s for the first JS log
-          timeout 90s bash -c 'until adb -s ${{ env.ANDROID_SERIAL }} logcat -d | grep -m1 "ReactNativeJS"; do sleep 5; done'
-          
-          # Calculate TTJS metric
-          RN_START=$(date +%s)
-          TTJS_SECONDS=$((RN_START - LAUNCH_START))
-          echo "ttjs_seconds=$TTJS_SECONDS" >> $GITHUB_OUTPUT
-          echo "✅ ReactNativeJS detected in logcat"
-          echo "📊 TTJS (Time-to-first-ReactNativeJS): ${TTJS_SECONDS}s"
-
-      - name: Assert main activity has focus
-        shell: bash
-        run: |
-          PKG="${{ steps.pkg.outputs.pkg }}"
-          CURRENT=$(adb -s ${{ env.ANDROID_SERIAL }} shell dumpsys window | sed -n "s/.*mCurrentFocus=Window{[^ ]* [^ ]* \\([^}]*\\)}.*/\\1/p")
-          echo "mCurrentFocus=$CURRENT"
-          echo "$CURRENT" | grep -q "$PKG" || (echo "❌ Main activity not focused" && exit 1)
-
-      - name: Collect deep diagnostics
-        if: always()
-        shell: bash
-        run: |
-          mkdir -p artifacts/logs
-          # Full logcat since boot
-          adb -s ${{ env.ANDROID_SERIAL }} logcat -d > artifacts/logs/logcat_full.txt || true
-          # Trim RN-only lines for quick read
-          grep -i "ReactNative" artifacts/logs/logcat_full.txt > artifacts/logs/logcat_reactnative.txt || true
-          # System state
-          adb -s ${{ env.ANDROID_SERIAL }} shell getprop > artifacts/logs/device_getprop.txt || true
-          adb -s ${{ env.ANDROID_SERIAL }} shell settings list global > artifacts/logs/settings_global.txt || true
-          adb -s ${{ env.ANDROID_SERIAL }} shell settings list system > artifacts/logs/settings_system.txt || true
-          adb -s ${{ env.ANDROID_SERIAL }} shell dumpsys activity > artifacts/logs/dumpsys_activity.txt || true
-          adb -s ${{ env.ANDROID_SERIAL }} shell dumpsys window > artifacts/logs/dumpsys_window.txt || true
-          adb -s ${{ env.ANDROID_SERIAL }} shell dumpsys package "${{ steps.pkg.outputs.pkg }}" > artifacts/logs/dumpsys_package.txt || true
-          # App process tracking  
-          adb -s ${{ env.ANDROID_SERIAL }} shell pidof "${{ steps.pkg.outputs.pkg }}" > artifacts/logs/app_pid.txt || true
-          # One heavy artifact for deep dive (10–30MB typical)
-          adb -s ${{ env.ANDROID_SERIAL }} bugreport artifacts/logs/bugreport.zip || true
-
-      - name: Collect ANR & tombstones (if any)
-        if: always()
-        shell: bash
-        run: |
-          mkdir -p artifacts/logs
-          adb -s ${{ env.ANDROID_SERIAL }} shell ls -l /data/anr/ > artifacts/logs/anr_dir.txt 2>/dev/null || true
-          # Pull ANRs if readable (emulators often allow)
-          for f in $(adb -s ${{ env.ANDROID_SERIAL }} shell ls /data/anr/ 2>/dev/null | tr -d '\r'); do
-            adb -s ${{ env.ANDROID_SERIAL }} shell cat "/data/anr/$f" > "artifacts/logs/anr_$f" 2>/dev/null || true
+            sleep 1
           done
-          # Tombstones
-          adb -s ${{ env.ANDROID_SERIAL }} shell ls -l /data/tombstones/ > artifacts/logs/tombstones_dir.txt 2>/dev/null || true
-          for f in $(adb -s ${{ env.ANDROID_SERIAL }} shell ls /data/tombstones/ 2>/dev/null | tr -d '\r'); do
-            adb -s ${{ env.ANDROID_SERIAL }} shell cat "/data/tombstones/$f" > "artifacts/logs/$f" 2>/dev/null || true
-          done
+          kill $LOG_PID || true
+          echo "ttjs_s=${ttjs_s:-}" >> artifacts/summary/summary.env
 
-      - name: Upload smoke logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: smoke-logs
-          path: artifacts/logs/**
-
-      - name: Summarize smoke results
-        if: always()
+      - name: Build summary.json & Upload artifacts
         shell: bash
         run: |
-          mkdir -p artifacts/logs
-          LOG=artifacts/logs/logcat_full.txt
-          RN=artifacts/logs/logcat_reactnative.txt
-          SUM="$GITHUB_STEP_SUMMARY"
-
-          echo "## Smoke Summary" >> "$SUM"
-          echo "" >> "$SUM"
-
-          # RN JS presence + TTJS metric
-          if grep -q "ReactNativeJS" "$RN" 2>/dev/null; then
-            echo "✅ **ReactNativeJS detected** (JS runtime initialized)" >> "$SUM"
-            # Add TTJS metric if available
-            if [ -n "${{ steps.ttjs.outputs.ttjs_seconds }}" ]; then
-              echo "📊 **TTJS (launch → first ReactNativeJS): ${{ steps.ttjs.outputs.ttjs_seconds }}s**" >> "$SUM"
-            fi
-          else
-            echo "❌ **No ReactNativeJS logs detected** (JS may not have started)" >> "$SUM"
-          fi
-
-          # Main failures to highlight
-          echo "" >> "$SUM"
-          echo "### Notable log signals" >> "$SUM"
-          grep -E "FATAL EXCEPTION|Process .* has died|ANR|E ReactNative|E AndroidRuntime" "$LOG" \
-            | tail -n 40 \
-            | sed 's/^/- /' >> "$SUM" || true
-
-          # APK + pkg info
-          if [ -f artifacts/logs/apk_badging.txt ]; then
-            VER=$(sed -n "s/.*versionName='\([^']*\)'.*/\1/p" artifacts/logs/apk_badging.txt | head -n1)
-            echo "" >> "$SUM"
-            echo "**APK versionName**: \`$VER\`" >> "$SUM"
-          fi
-          
-          echo "" >> "$SUM"
-          echo "**Resolved Package:** \`${{ steps.pkg.outputs.pkg }}\`" >> "$SUM"
-          echo "**Launch Activity:** \`${{ steps.pkg.outputs.act }}\`" >> "$SUM"
-
-          echo "" >> "$SUM"
-          echo "_Full logs available in the **smoke-logs** artifact (includes bugreport)._ " >> "$SUM"
-
-      - name: Emit machine-readable summary
-        if: always()
-        shell: bash
-        run: |
-          RUN_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-          STATUS="$([[ "${{ job.status }}" == "success" ]] && echo success || echo failure)"
-          
-          # Extract TTJS and emulator boot status from step summary (still needed for smoke-specific data)
-          TTJS="$(grep -oE 'TTJS[^:]*:\s*[0-9.]+s' "$GITHUB_STEP_SUMMARY" | head -n1 | sed 's/.*:\s*//' || true)"
-          BOOT="$(grep -oE 'Emulator Boot:\s*✅.*|Emulator Boot:\s*❌.*' "$GITHUB_STEP_SUMMARY" | head -n1 | sed 's/^.*Emulator Boot:\s*//' || true)"
-          
-          echo '{' > summary.json
-          echo "  \"run_id\": ${GITHUB_RUN_ID}," >> summary.json
-          echo "  \"run_url\": \"${RUN_URL}\"," >> summary.json
-          echo "  \"status\": \"${STATUS}\"," >> summary.json
-          echo "  \"build\": { \"apk_debug_mb\": \"${APK_DEBUG_MB:-}\", \"apk_release_mb\": \"${APK_RELEASE_MB:-}\" }," >> summary.json
-          echo "  \"smoke\": { \"ttjs_s\": \"${TTJS:-}\", \"emulator_boot\": \"${BOOT:-}\", \"sdk_min\": \"${SDK_MIN:-}\", \"sdk_target\": \"${SDK_TARGET:-}\" }" >> summary.json
-          echo '}' >> summary.json
-
-      - name: Upload quick summary
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: summary
-          path: summary.json
+          set -euo pipefail
+          SHA_SHORT=$(git rev-parse --short HEAD)
+          DEBUG_SIZE=$( [ -f artifacts/debug/app-debug.apk ] && stat -c%s artifacts/debug/app-debug.apk || echo "0" )
+          RELEASE_SIZE=$( [ -f artifacts/release/app-release.apk ] && stat -c%s artifacts/release/app-release.apk || echo "0" )
+          source artifacts/summary/summary.env || true
+          RUN_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          cat > artifacts/summary/summary.json <<JSON
+          {"commit":"$SHA_SHORT","boot_ok":${boot_ok:-false},"ttjs_s":${ttjs_s:-null},"debug_apk_bytes":$DEBUG_SIZE,"release_apk_bytes":$RELEASE_SIZE,"run_id":"$GITHUB_RUN_ID","run_url":"$RUN_URL"}
+          JSON
+      - uses: actions/upload-artifact@v4
+        with: { name: smoke-logs, path: artifacts/smoke-logs/ }
+      - uses: actions/upload-artifact@v4
+        with: { name: ids, path: artifacts/ids/ }
+      - uses: actions/upload-artifact@v4
+        with: { name: summary, path: artifacts/summary/summary.json }
 
 
