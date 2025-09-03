@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import TrackPlayer from 'react-native-track-player';
 import AsyncStorage
-from '@react-native-community/async-storage';
+from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Button } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
