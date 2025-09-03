@@ -437,8 +437,8 @@ jobs:
 
       - name: "Guard: no emulator-runner"
         run: |
-          if grep -R "reactivecircus/android-emulator-runner" -n .github/workflows/android-debug-build.yml; then
-            echo "reactivecircus/android-emulator-runner must not be used with manual boot." >&2
+          if grep -q "uses:.*reactivecircus/android-emulator-runner" .github/workflows/android-debug-build.yml; then
+            echo "reactivecircus/android-emulator-runner action found - must not be used with manual boot." >&2
             exit 1
           fi
 
@@ -601,8 +601,8 @@ jobs:
 
       - name: "Guard: no emulator-runner"
         run: |
-          if grep -R "reactivecircus/android-emulator-runner" -n .github/workflows/android-debug-build.yml; then
-            echo "reactivecircus/android-emulator-runner must not be used with manual boot." >&2
+          if grep -q "uses:.*reactivecircus/android-emulator-runner" .github/workflows/android-debug-build.yml; then
+            echo "reactivecircus/android-emulator-runner action found - must not be used with manual boot." >&2
             exit 1
           fi
 
