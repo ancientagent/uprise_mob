@@ -70,10 +70,10 @@ jobs:
           if-no-files-found: warn
 
   smoke-test:
-    name: Android Smoke Test (macOS HVF, API 31)
+    name: Android Smoke Test (macOS HVF, API 30)
     runs-on: macos-13
     needs: build
-    timeout-minutes: 30
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -98,54 +98,61 @@ jobs:
           name: app-release-apk
           path: artifacts/release
 
-      - name: Create AVD (API 31, google_apis, x86_64 - cold boot)
+      - name: Create AVD (API 30, default, x86_64)
         shell: bash
         run: |
-          yes "y" | sdkmanager --install "system-images;android-31;google_apis;x86_64"
-          echo "no" | avdmanager create avd -n ci_api_31 -k "system-images;android-31;google_apis;x86_64" --device "pixel_4"
-          # Force cold boot & consistent config
-          AVD="$HOME/.android/avd/ci_api_31.avd"
-          mkdir -p "$AVD"
-          echo "hw.ramSize=2048" >> "$AVD/config.ini"
-          echo "disk.dataPartition.size=2G" >> "$AVD/config.ini"
-          echo "hw.accelerometer=yes" >> "$AVD/config.ini"
+          yes "y" | sdkmanager --install "system-images;android-30;default;x86_64"
+          echo "no" | avdmanager create avd -n ci_api_30 -k "system-images;android-30;default;x86_64" --device "pixel_5"
 
-      - name: Boot Emulator (HVF) + ADB hygiene (with retry)
+      - name: Boot Emulator (HVF) + ADB hygiene
         shell: bash
         run: |
           mkdir -p artifacts/smoke
           adb kill-server || true
-          $ANDROID_SDK_ROOT/emulator/emulator -avd ci_api_31 \
-            -no-snapshot -no-snapshot-save -no-audio -no-boot-anim -no-window \
-            -gpu swiftshader_indirect -accel hvf -feature WindowsPipeTransport=on \
-            -skip-adb-auth -camera-back none -camera-front none \
-            -qt-hide-window -verbose > artifacts/smoke/emulator.txt 2>&1 &
-          EMU_PID=$!
-
-          # Wait for device with extended timeout
-          boot_deadline=$((SECONDS+420))
-          adb start-server
-          adb wait-for-device || true
-          while [ $SECONDS -lt $boot_deadline ]; do
-            booted=$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
-            if [ "$booted" = "1" ]; then break; fi
-            sleep 5
-          done
           
-          # Retry once if not booted
-          if [ "${booted:-0}" != "1" ]; then
-            echo "First boot attempt failed, retrying..."
-            adb emu kill || true
-            sleep 5
-            $ANDROID_SDK_ROOT/emulator/emulator -avd ci_api_31 -no-snapshot -no-snapshot-save -no-audio -no-boot-anim -no-window -gpu swiftshader_indirect -accel hvf -qt-hide-window -verbose > artifacts/smoke/emulator_retry.txt 2>&1 &
-            boot_deadline=$((SECONDS+300))
+          # Start emulator with proven API 30 config
+          $ANDROID_SDK_ROOT/emulator/emulator -avd ci_api_30 \
+            -no-snapshot -no-snapshot-save -no-window -no-audio -no-boot-anim \
+            -gpu swiftshader_indirect -camera-back none -qemu -m 1024 \
+            -netfast -no-metrics -verbose > artifacts/smoke/emulator.txt 2>&1 &
+          EMU_PID=$!
+          
+          # Portable boot wait using date (6 minute cap)
+          echo "Starting boot wait at $(date)"
+          boot_start=$(date +%s)
+          boot_timeout=360  # 6 minutes
+          adb start-server
+          
+          # ADB hygiene with 5x recovery attempts
+          for recovery_attempt in {1..5}; do
             adb wait-for-device || true
-            while [ $SECONDS -lt $boot_deadline ]; do
+            sleep 2
+            
+            while true; do
+              current_time=$(date +%s)
+              elapsed=$((current_time - boot_start))
+              
+              if [ $elapsed -gt $boot_timeout ]; then
+                echo "Boot timeout after ${elapsed}s"
+                break 2
+              fi
+              
               booted=$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
-              if [ "$booted" = "1" ]; then break; fi
-              sleep 5
+              if [ "$booted" = "1" ]; then
+                echo "Boot completed in ${elapsed}s"
+                break 2
+              fi
+              
+              sleep 3
             done
-          fi
+            
+            if [ $recovery_attempt -lt 5 ]; then
+              echo "Recovery attempt $recovery_attempt: restarting ADB"
+              adb kill-server
+              sleep 2
+              adb start-server
+            fi
+          done
 
           # Basic sanity
           adb shell settings put global window_animation_scale 0 || true
@@ -196,15 +203,26 @@ jobs:
           # Launch app (simulate launcher tap)
           adb shell monkey -p "$APP_ID" -c android.intent.category.LAUNCHER 1
 
-          # Wait up to 60s for first RN "Running" log
-          start_ts=$SECONDS
-          deadline=$((SECONDS+60))
+          # Wait up to 90s for first RN "Running" log (portable timing)
+          launch_start=$(date +%s)
+          ttjs_timeout=90
           ttjs_s=""
-          while [ $SECONDS -lt $deadline ]; do
-            if grep -q "ReactNativeJS: Running" artifacts/smoke/logcat.txt; then
-              ttjs_s=$((SECONDS-start_ts))
+          
+          while true; do
+            current_time=$(date +%s)
+            elapsed=$((current_time - launch_start))
+            
+            if [ $elapsed -gt $ttjs_timeout ]; then
+              echo "TTJS timeout after ${elapsed}s"
               break
             fi
+            
+            if grep -q "ReactNativeJS: Running" artifacts/smoke/logcat.txt; then
+              ttjs_s=$elapsed
+              echo "TTJS detected in ${ttjs_s}s"
+              break
+            fi
+            
             sleep 1
           done
 
@@ -214,15 +232,24 @@ jobs:
           echo "TTJS_S=${ttjs_s:-""}" >> $GITHUB_ENV
           echo "APP_ID_RESOLVE_FAILED=0" >> $GITHUB_ENV || true
 
-      - name: Make summary.json
+      - name: Make summary.json + run IDs
         shell: bash
         run: |
           set -e
+          mkdir -p artifacts/smoke artifacts/ids
           SHA_SHORT=$(git rev-parse --short HEAD)
           DEBUG_SIZE=$( [ -f artifacts/debug/app-debug.apk ] && stat -f%z artifacts/debug/app-debug.apk || echo "0" )
           RELEASE_SIZE=$( [ -f artifacts/release/app-release.apk ] && stat -f%z artifacts/release/app-release.apk || echo "0" )
           BOOT_OK=$([ "${BOOT_FAILED:-1}" = "0" ] && echo true || echo false)
           TTJS_VAL=${TTJS_S:-null}
+          
+          # Extract SDK versions
+          MIN_SDK="unknown"
+          TARGET_SDK="unknown"
+          if [ -f artifacts/debug/app-debug.apk ]; then
+            MIN_SDK=$($ANDROID_SDK_ROOT/build-tools/31.0.0/aapt dump badging artifacts/debug/app-debug.apk | grep -o "sdkVersion:'[0-9]*'" | cut -d"'" -f2 || echo "unknown")
+            TARGET_SDK=$($ANDROID_SDK_ROOT/build-tools/31.0.0/aapt dump badging artifacts/debug/app-debug.apk | grep -o "targetSdkVersion:'[0-9]*'" | cut -d"'" -f2 || echo "unknown")
+          fi
 
           cat > artifacts/smoke/summary.json <<JSON
           {
@@ -231,24 +258,51 @@ jobs:
             "ttjs_s": ${TTJS_VAL:-null},
             "debug_apk_bytes": $DEBUG_SIZE,
             "release_apk_bytes": $RELEASE_SIZE,
-            "app_id": "${APP_ID:-""}"
+            "app_id": "${APP_ID:-""}",
+            "min_sdk_version": "$MIN_SDK",
+            "target_sdk_version": "$TARGET_SDK"
           }
           JSON
+          
+          # Generate run IDs for tracking
+          echo "$GITHUB_RUN_ID" > artifacts/ids/RUN_ID.txt
+          echo "$GITHUB_JOB" > artifacts/ids/JOB_ID.txt
 
       - name: Upload Smoke Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: smoke-artifacts
           path: artifacts/smoke/
+          
+      - name: Upload Run IDs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ids
+          path: artifacts/ids/
 
       - name: Step Summary
         shell: bash
         run: |
           echo "### Smoke Test Summary" >> $GITHUB_STEP_SUMMARY
-          echo "- Boot OK: $([ "${BOOT_FAILED:-1}" = "0" ] && echo "yes" || echo "no")" >> $GITHUB_STEP_SUMMARY
-          echo "- TTJS (s): ${TTJS_S:-unknown}" >> $GITHUB_STEP_SUMMARY
-          echo "- Debug APK bytes: $( [ -f artifacts/debug/app-debug.apk ] && stat -f%z artifacts/debug/app-debug.apk || echo "0")" >> $GITHUB_STEP_SUMMARY
-          echo "- Release APK bytes: $( [ -f artifacts/release/app-release.apk ] && stat -f%z artifacts/release/app-release.apk || echo "0")" >> $GITHUB_STEP_SUMMARY
+          echo "- Boot OK: $([ "${BOOT_FAILED:-1}" = "0" ] && echo "✅ yes" || echo "❌ no")" >> $GITHUB_STEP_SUMMARY
+          echo "- TTJS (launch → first ReactNativeJS): **${TTJS_S:-unknown}s**" >> $GITHUB_STEP_SUMMARY
+          
+          # Extract min/target SDK versions from debug APK
+          if [ -f artifacts/debug/app-debug.apk ]; then
+            DEBUG_SIZE=$(stat -f%z artifacts/debug/app-debug.apk)
+            MIN_SDK=$($ANDROID_SDK_ROOT/build-tools/31.0.0/aapt dump badging artifacts/debug/app-debug.apk | grep -o "sdkVersion:'[0-9]*'" | cut -d"'" -f2 || echo "unknown")
+            TARGET_SDK=$($ANDROID_SDK_ROOT/build-tools/31.0.0/aapt dump badging artifacts/debug/app-debug.apk | grep -o "targetSdkVersion:'[0-9]*'" | cut -d"'" -f2 || echo "unknown")
+            echo "- Debug APK: ${DEBUG_SIZE} bytes (minSdk: ${MIN_SDK}, targetSdk: ${TARGET_SDK})" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- Debug APK: 0 bytes" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ -f artifacts/release/app-release.apk ]; then
+            RELEASE_SIZE=$(stat -f%z artifacts/release/app-release.apk)
+            echo "- Release APK: ${RELEASE_SIZE} bytes" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- Release APK: 0 bytes" >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Teardown ADB/Emu
         if: always()
