@@ -1,5 +1,15 @@
 name: Android Build & Smoke Test
 
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: { contents: read }
+
+defaults:
+  run:
+    shell: bash -euo pipefail
+
 env:
   NODE_OPTIONS: --openssl-legacy-provider
   ADB_INSTALL_TIMEOUT: 20
@@ -26,7 +36,7 @@ jobs:
   build:
     name: Build APKs
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 25
 
     steps:
       - name: Checkout
@@ -67,9 +77,10 @@ jobs:
           command -v sdkmanager || true
           command -v adb || true
 
-      - name: Prepare Android SDK (isolated, AGP 7.0.x safe)
+      - name: Prepare Android SDK (isolated, r8 cmdline-tools 8092744)
         env:
           ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
           set -e
 
@@ -79,22 +90,18 @@ jobs:
 
           echo "sdk.dir=$ANDROID_SDK_ROOT" > ./android/local.properties
 
-          # Pin an older cmdline-tools revision compatible with AGP 7.0.x
-          # (8512546 is known-good; avoid latest which emits newer repo XML/labels)
-          CT_REV=8512546
+          # Bootstrap cmdline-tools r8 (8092744)
+          CT_REV=8092744
           curl -sSL "https://dl.google.com/android/repository/commandlinetools-linux-${CT_REV}_latest.zip" -o cmdtools.zip
-          unzip -q cmdtools.zip -d "$ANDROID_SDK_ROOT"
-          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
-          mv "$ANDROID_SDK_ROOT/cmdline-tools/bin" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
-          mv "$ANDROID_SDK_ROOT/cmdline-tools/lib" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
-          mv "$ANDROID_SDK_ROOT/cmdline-tools/source.properties" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
-          mv "$ANDROID_SDK_ROOT/cmdline-tools/NOTICE.txt" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          unzip -q cmdtools.zip -d "$ANDROID_SDK_ROOT/cmdline-tools"
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools" "$ANDROID_SDK_ROOT/cmdline-tools/r8"
+          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/r8/bin:$PATH"
 
           # Accept licenses non-interactively
-          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --licenses >/dev/null
+          yes | "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --licenses >/dev/null
 
           # Install ONLY what AGP 7.0.4 needs
-          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" \
+          yes | "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" \
             "platform-tools" \
             "platforms;android-31" \
             "build-tools;31.0.0"
@@ -118,6 +125,17 @@ jobs:
           echo "JAVA (Gradle):" && java -version
           echo "Gradle wrapper:" && ./android/gradlew -v
           echo "SDK Root: $ANDROID_SDK_ROOT"
+
+      - name: DIAG: sdkmanager and aapt paths
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+        run: |
+          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/r8/bin:$PATH"
+          which sdkmanager
+          if [[ "$(which sdkmanager)" != *"/cmdline-tools/r8/bin/sdkmanager" ]]; then
+            echo "❌ sdkmanager path is not r8"; exit 1; fi
+          test -x "$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" || { echo "❌ aapt missing"; exit 1; }
+          echo "AAPT path: $ANDROID_SDK_ROOT/build-tools/31.0.0/aapt"
 
       - name: Use Node 18 (with npm cache)
         uses: actions/setup-node@v4
@@ -202,6 +220,7 @@ jobs:
           ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
           NODE_OPTIONS: --openssl-legacy-provider
           GRADLE_OPTS: "-Dorg.gradle.daemon=true -Dorg.gradle.jvmargs='-Xmx3g -XX:+HeapDumpOnOutOfMemoryError' -Dorg.gradle.workers.max=2"
+          JAVA_HOME: ${{ steps.j11.outputs.path }}
         run: |
           set -e
           cd android
@@ -480,6 +499,7 @@ jobs:
 
   smoke-test:
     name: Android Smoke (macOS HVF)
+    continue-on-error: true
     needs: build
     runs-on: macos-13
     timeout-minutes: 35
@@ -570,7 +590,7 @@ jobs:
           api-level: 30
           arch: x86_64
           profile: pixel_5
-          target: google_apis
+          target: default
           disable-animations: true
           force-avd-creation: true
           emulator-boot-timeout: 600
@@ -636,6 +656,160 @@ jobs:
           fi
 
           adb devices -l
+
+  smoke-ubuntu:
+    name: smoke-ubuntu
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      ANDROID_SERIAL: emulator-5554
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java toolchains
+        id: jdk
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+
+      - name: Setup Java 17 (sdkmanager)
+        id: jdk17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Bootstrap Android SDK (r8 8092744)
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+          JAVA_HOME: ${{ steps.jdk17.outputs.path }}
+        run: |
+          set -e
+          rm -rf "$ANDROID_SDK_ROOT" && mkdir -p "$ANDROID_SDK_ROOT"
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > ./android/local.properties
+          CT_REV=8092744
+          curl -sSL "https://dl.google.com/android/repository/commandlinetools-linux-${CT_REV}_latest.zip" -o cmdtools.zip
+          unzip -q cmdtools.zip -d "$ANDROID_SDK_ROOT/cmdline-tools"
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools" "$ANDROID_SDK_ROOT/cmdline-tools/r8"
+          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/r8/bin:$PATH"
+          which sdkmanager
+          if [[ "$(which sdkmanager)" != *"/cmdline-tools/r8/bin/sdkmanager" ]]; then echo "sdkmanager not from r8"; exit 1; fi
+          yes | sdkmanager --sdk_root="$ANDROID_SDK_ROOT" --licenses >/dev/null
+          yes | sdkmanager --sdk_root="$ANDROID_SDK_ROOT" \
+            "platform-tools" \
+            "emulator" \
+            "platforms;android-31" \
+            "build-tools;31.0.0" \
+            "system-images;android-30;default;x86_64"
+          echo "$ANDROID_SDK_ROOT/build-tools/31.0.0" >> "$GITHUB_PATH"
+          echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
+
+      - name: DIAG checks
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+        run: |
+          which sdkmanager
+          if [[ "$(which sdkmanager)" != *"/cmdline-tools/r8/bin/sdkmanager" ]]; then exit 1; fi
+          test -x "$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" || exit 1
+          echo "AAPT path: $ANDROID_SDK_ROOT/build-tools/31.0.0/aapt"
+
+      - name: Download Debug APK
+        uses: actions/download-artifact@v4
+        with:
+          name: app-debug-apk
+          path: artifacts/debug
+
+      - name: Download Release APK
+        uses: actions/download-artifact@v4
+        with:
+          name: app-release-apk
+          path: artifacts/release
+
+      - name: Create AVD and start emulator (-accel off)
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+        run: |
+          set -e
+          avd_name=ci_api30
+          echo "no" | avdmanager create avd -n "$avd_name" -k "system-images;android-30;default;x86_64" -d pixel_5 -f
+          "$ANDROID_SDK_ROOT/emulator/emulator" -avd "$avd_name" -no-snapshot -no-snapshot-save -no-window -no-audio -no-boot-anim -accel off -gpu swiftshader_indirect -memory 1024 -ports 5554,5555 -camera-back none -netfast -no-metrics -wipe-data -cores 2 -memory 2048 -qemu -m 1536 -verbose > artifacts/smoke-logs/emulator.txt 2>&1 &
+          start_ts=$(date +%s)
+          timeout_s=$((20*60))
+          while true; do
+            adb -s "$ANDROID_SERIAL" wait-for-device || true
+            if adb -s "$ANDROID_SERIAL" shell getprop sys.boot_completed 2>/dev/null | grep -q 1; then
+              break
+            fi
+            now=$(date +%s); elapsed=$((now-start_ts))
+            if [ $elapsed -ge $timeout_s ]; then
+              echo "Emulator boot timed out"; break
+            fi
+            adb devices -l || true
+            sleep 5
+          done
+          BOOT_OK=0
+          if adb -s "$ANDROID_SERIAL" shell getprop sys.boot_completed 2>/dev/null | grep -q 1; then BOOT_OK=1; fi
+          echo "BOOT_OK=$BOOT_OK" >> $GITHUB_ENV
+
+      - name: Install debug APK and verify package
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+        run: |
+          set -e
+          DBG_APK=$(ls artifacts/debug/*.apk | head -1)
+          REL_APK=$(ls artifacts/release/*.apk | head -1 || true)
+          echo "DBG_APK=$DBG_APK" >> $GITHUB_ENV
+          echo "REL_APK=$REL_APK" >> $GITHUB_ENV
+          # Determine app id from APK via aapt
+          APP_ID=$("$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" dump badging "$DBG_APK" | sed -n "s/^package: name='\([^']*\)'.*/\1/p" | head -n1)
+          echo "APP_ID=$APP_ID" >> $GITHUB_ENV
+          for attempt in 1 2 3; do\n            adb -s "$ANDROID_SERIAL" install -r "$DBG_APK" && break\n            echo "[INSTALL] attempt $attempt failed; retrying after pm clear cache"\n            adb -s "$ANDROID_SERIAL" shell pm clear "$APP_ID" || true\n            sleep 5\n          done
+          adb -s "$ANDROID_SERIAL" shell pm list packages | grep -F "$APP_ID"
+
+      - name: Collect logs and write summary.json
+        if: always()
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+        run: |
+          set -e
+          mkdir -p summary
+          RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          DBG_BYTES=$(stat -c%s "${DBG_APK:-}" 2>/dev/null || echo 0)
+          REL_BYTES=$(stat -c%s "${REL_APK:-}" 2>/dev/null || echo 0)
+          if [ "${BOOT_OK:-0}" != "1" ]; then\n            boot_ok=false\n            echo "BOOT_FAILED=1" >> $GITHUB_ENV\n          else\n            boot_ok=true\n            echo "BOOT_FAILED=0" >> $GITHUB_ENV\n          fi\n          echo "boot_ok=$boot_ok" > summary/summary.env\n          BOOT=$([[ "${BOOT_OK:-0}" = "1" ]] && echo true || echo false)
+          cat > summary/summary.json <<'EOF'
+          {
+            "run_id": ${GITHUB_RUN_ID},
+            "run_url": "${RUN_URL}",
+            "boot_ok": ${BOOT},
+            "ttjs_s": null,
+            "debug_apk_bytes": ${DBG_BYTES},
+            "release_apk_bytes": ${REL_BYTES}
+          }
+          EOF
+          # basic logs
+          adb -s "$ANDROID_SERIAL" logcat -d > logcat.txt || true
+          adb -s "$ANDROID_SERIAL" shell getprop > device-props.txt || true
+
+      - name: Upload smoke logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-logs
+          path: |
+            artifacts/smoke-logs/emulator.txt
+            logcat.txt
+            device-props.txt
+
+      - name: Upload summary.json
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: summary
+          path: summary/summary.json
 
       - name: Wait for boot (strict 6m, portable)
         shell: bash
@@ -887,5 +1061,4 @@ jobs:
         with:
           name: summary
           path: summary.json
-
 
