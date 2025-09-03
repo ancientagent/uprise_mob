@@ -55,13 +55,7 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Switch to JDK 11 (for Gradle)
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-
-      - name: Accept SDK licenses
+      - name: Accept SDK licenses  
         shell: bash
         run: |
           yes | sdkmanager --licenses
@@ -72,6 +66,12 @@ jobs:
           sdkmanager --install "build-tools;${{ env.ANDROID_BUILD_TOOLS }}"
           echo "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}" >> "$GITHUB_PATH"
           "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" -version
+
+      - name: Switch to JDK 11 (for Gradle)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
 
       - name: Cache Gradle
         uses: gradle/actions/setup-gradle@v3
