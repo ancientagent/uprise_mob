@@ -19,11 +19,11 @@ jobs:
         shell: bash
         run: |
           # Allow occurrences that reference the env var; deny explicit versions
-          # Scan workflow and scripts for "build-tools;" occurrences not matching the env-pinned version.
+          # Scan workflow and scripts for actual build-tools usage (not comments/guardrail code)
           set -euo pipefail
-          mismatches=$(git grep -n 'build-tools;' || true)
+          mismatches=$(git grep -n 'build-tools;[0-9]' || true)
           if [[ -n "$mismatches" ]]; then
-            # Filter out lines that match the pinned version and references via ${{ env.ANDROID_BUILD_TOOLS }}
+            # Filter out lines that match the pinned version and references via env var
             remaining=$(echo "$mismatches" | grep -Ev "build-tools;${{ env.ANDROID_BUILD_TOOLS }}|build-tools;\$\{\{\s*env\.ANDROID_BUILD_TOOLS\s*\}\}")
             if [[ -n "$remaining" ]]; then
               echo "::error::Found hard-coded build-tools lines not equal to ${{ env.ANDROID_BUILD_TOOLS }}:"
