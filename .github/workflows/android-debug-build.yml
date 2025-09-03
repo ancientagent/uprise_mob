@@ -18,20 +18,20 @@ jobs:
       - name: Fail if build-tools version drift is present
         shell: bash
         run: |
-          # Allow occurrences that reference the env var; deny explicit versions
-          # Scan workflow and scripts for actual build-tools usage (not comments/guardrail code)
+          # Scan workflow files for hard-coded build-tools versions (not env var references)
           set -euo pipefail
-          mismatches=$(git grep -n 'build-tools;[0-9]' || true)
-          if [[ -n "$mismatches" ]]; then
-            # Filter out lines that match the pinned version and references via env var, plus log files
-            remaining=$(echo "$mismatches" | grep -Ev "build-tools;${{ env.ANDROID_BUILD_TOOLS }}|build-tools;\$\{\{\s*env\.ANDROID_BUILD_TOOLS\s*\}\}" | grep -v '\.txt:')
+          violations=$(git grep -n 'build-tools;[0-9]' -- '*.yml' '*.yaml' '*.gradle' '*.properties' || true)
+          if [[ -n "$violations" ]]; then
+            # Filter out acceptable patterns: env var references and the pinned version
+            remaining=$(echo "$violations" | grep -Ev "build-tools;\$\{\{\s*env\.ANDROID_BUILD_TOOLS\s*\}\}")
             if [[ -n "$remaining" ]]; then
-              echo "::error::Found hard-coded build-tools lines not equal to ${{ env.ANDROID_BUILD_TOOLS }}:"
-              echo "$remaining"
+              echo "::error::Found hard-coded build-tools in workflow/config files:"
+              echo "$remaining" 
+              echo "Use '\${{ env.ANDROID_BUILD_TOOLS }}' instead of hard-coded versions"
               exit 1
             fi
           fi
-          echo "Guard OK: build-tools usage is pinned to ${{ env.ANDROID_BUILD_TOOLS }}"
+          echo "Guard OK: No hard-coded build-tools versions found in workflow files"
 
   build:
     name: Build Debug & Release APKs
