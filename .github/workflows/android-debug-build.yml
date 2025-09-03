@@ -503,7 +503,7 @@ jobs:
           fi
           echo "APK=$APK" | tee -a "$GITHUB_ENV"
 
-      - name: Start Emulator (API 30, macOS HVF)
+      - name: Run smoke test with emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30
@@ -525,10 +525,37 @@ jobs:
             -netfast
             -no-metrics
           script: |
-            echo "Emulator starting..."
-        timeout-minutes: 12
+            set -euo pipefail
+            echo "✅ Emulator started successfully"
+            
+            # ADB is already managed by emulator-runner, just verify
+            adb devices -l
+            adb wait-for-device
+            
+            # Install APK
+            echo "Installing APK..."
+            adb install -r "$APK"
+            
+            # Get package info
+            if command -v aapt >/dev/null 2>&1; then
+              PKG=$(aapt dump badging "$APK" | sed -n "s/.*package name='\([^']*\)'.*/\1/p" | head -n1)
+            else
+              PKG="com.app.uprise"  # fallback
+            fi
+            echo "Package: $PKG"
+            
+            # Launch app and wait for React Native
+            adb shell am start -n "$PKG/.MainActivity" || true
+            sleep 5
+            
+            # Wait for ReactNativeJS in logcat
+            adb logcat -c
+            timeout 60s bash -c 'until adb logcat -d | grep -m1 "ReactNativeJS"; do sleep 3; done'
+            
+            echo "✅ Smoke test completed successfully"
+        timeout-minutes: 15
       
-      - name: Stabilize ADB connection (fast-fail, portable)
+      - name: Collect diagnostics after emulator run
         shell: bash
         run: |
           set -euo pipefail
