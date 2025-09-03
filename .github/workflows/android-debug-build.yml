@@ -4,6 +4,7 @@ env:
   NODE_OPTIONS: --openssl-legacy-provider
   ADB_INSTALL_TIMEOUT: 20
   SMOKE_SOFT_FAIL: ${{ github.event.inputs.smoke_soft_fail }}
+  ANDROID_BUILD_TOOLS: "31.0.0"
 
 on:
   workflow_dispatch:
@@ -55,65 +56,62 @@ jobs:
           "${{ steps.j17.outputs.path }}/bin/java" -version
 
 
-      - name: Setup Android SDK (Ubuntu)
-        uses: android-actions/setup-android@v3
-
-      - name: Guard Print Android SDK paths
+      - name: Bootstrap Android cmdline-tools r8 (8092744)
         shell: bash
-        run: |
-          set -euo pipefail
-          echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT:-<unset>}"
-          echo "ANDROID_HOME=${ANDROID_HOME:-<unset>}"
-          command -v sdkmanager || true
-          command -v adb || true
-
-      - name: Prepare Android SDK (isolated, AGP 7.0.x safe)
         env:
-          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
           JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
-          set -e
+          set -euo pipefail
+          # Prepare SDK root
+          export ANDROID_SDK_ROOT="$HOME/android-sdk"
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools"
+          cd "$ANDROID_SDK_ROOT"
 
-          # Isolate SDK so AGP doesn't see newer "33x/34x/..." tool labels
-          rm -rf "$ANDROID_SDK_ROOT"
-          mkdir -p "$ANDROID_SDK_ROOT"
-
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > ./android/local.properties
-
-          # Pin an older cmdline-tools revision compatible with AGP 7.0.x
-          # (8512546 is known-good; avoid latest which emits newer repo XML/labels)
-          CT_REV=8512546
-          curl -sSL "https://dl.google.com/android/repository/commandlinetools-linux-${CT_REV}_latest.zip" -o cmdtools.zip
-          unzip -q cmdtools.zip -d "$ANDROID_SDK_ROOT"
-          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
-          mv "$ANDROID_SDK_ROOT/cmdline-tools/bin" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
-          mv "$ANDROID_SDK_ROOT/cmdline-tools/lib" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
-          mv "$ANDROID_SDK_ROOT/cmdline-tools/source.properties" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
-          mv "$ANDROID_SDK_ROOT/cmdline-tools/NOTICE.txt" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
-
-          # Accept licenses non-interactively
-          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --licenses >/dev/null
-
-          # Install ONLY what AGP 7.0.4 needs
-          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" \
-            "platform-tools" \
-            "platforms;android-31" \
-            "build-tools;31.0.0"
-
-          echo "=== Installed build-tools ==="
-          ls -1 "$ANDROID_SDK_ROOT/build-tools" || true
-
-          # Guard: fail if anything other than 31.0.0 is present
-          BT_COUNT=$(ls -1 "$ANDROID_SDK_ROOT/build-tools" | wc -l | tr -d ' ')
-          if [ "$BT_COUNT" != "1" ] || [ ! -d "$ANDROID_SDK_ROOT/build-tools/31.0.0" ]; then
-            echo "Unexpected build-tools present. Found:"
-            ls -1 "$ANDROID_SDK_ROOT/build-tools" || true
-            exit 1
+          # Download cmdline-tools r8 (8092744) for macOS/Linux
+          # macOS and Linux use same archive name pattern; mac runners need 'darwin', ubuntu 'linux'
+          OS=$(uname | tr '[:upper:]' '[:lower:]')
+          if [[ "$OS" == "darwin" ]]; then
+            URL="https://dl.google.com/android/repository/commandlinetools-mac-8092744_latest.zip"
+          else
+            URL="https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip"
           fi
+
+          curl -fsSL "$URL" -o cmdtools.zip
+          unzip -q cmdtools.zip -d cmdline-tools-tmp
+          # Move to canonical 'cmdline-tools/r8'
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/r8"
+          mv cmdline-tools-tmp/cmdline-tools/* "$ANDROID_SDK_ROOT/cmdline-tools/r8/"
+          rm -rf cmdline-tools-tmp cmdtools.zip
+
+          # Path wiring to ensure we always use r8 sdkmanager
+          echo "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin" >> "$GITHUB_PATH"
+          echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
+          
+          # Set local.properties for Gradle
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > ${{ github.workspace }}/android/local.properties
+
+      - name: Accept SDK licenses (r8)
+        shell: bash
+        env:
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
+        run: |
+          yes | sdkmanager --licenses
+
+      - name: Install platform-tools + pinned build-tools + platforms (r8)
+        shell: bash
+        env:
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
+        run: |
+          set -euo pipefail
+          sdkmanager --install "platform-tools" \
+            "build-tools;${{ env.ANDROID_BUILD_TOOLS }}" \
+            "platforms;android-31"
+          # Prove r8 is in effect and apksigner exists at pinned version
+          "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" --version
 
       - name: Print versions
         env:
-          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
           JAVA_HOME: ${{ steps.j11.outputs.path }}
         run: |
           echo "JAVA (Gradle):" && java -version
@@ -200,7 +198,7 @@ jobs:
 
       - name: Build Debug & Release (stable flags)
         env:
-          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+          JAVA_HOME: ${{ steps.j11.outputs.path }}
           NODE_OPTIONS: --openssl-legacy-provider
           GRADLE_OPTS: "-Dorg.gradle.daemon=true -Dorg.gradle.jvmargs='-Xmx3g -XX:+HeapDumpOnOutOfMemoryError' -Dorg.gradle.workers.max=2"
         run: |
@@ -263,9 +261,6 @@ jobs:
 
       - name: Ensure build-tools for apksigner/aapt
         shell: bash
-        env:
-          JAVA_HOME: ${{ steps.j17.outputs.path }}   # keep dual-JDK design
-          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
         run: |
           set -euo pipefail
           export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
@@ -273,10 +268,10 @@ jobs:
             echo "❌ ANDROID_SDK_ROOT not set or invalid"; exit 1
           fi
 
-          # Use the build-tools version already installed (31.0.0)
-          echo "${ANDROID_SDK_ROOT}/build-tools/31.0.0" >> "$GITHUB_PATH"
+          # Use the build-tools version already installed
+          echo "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}" >> "$GITHUB_PATH"
 
-          "${ANDROID_SDK_ROOT}/build-tools/31.0.0/apksigner" version
+          "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" version
 
       - name: Gather APK metadata (debug + release)
         id: apkmeta
@@ -416,17 +411,61 @@ jobs:
           "${{ steps.j17.outputs.path }}/bin/java" -version
 
 
-      - name: Setup Android SDK (macOS)
-        uses: android-actions/setup-android@v3
+      - name: Bootstrap Android cmdline-tools r8 (8092744)
+        shell: bash
+        env:
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
+        run: |
+          set -euo pipefail
+          # Prepare SDK root
+          export ANDROID_SDK_ROOT="$HOME/android-sdk"
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools"
+          cd "$ANDROID_SDK_ROOT"
+
+          # Download cmdline-tools r8 (8092744) for macOS/Linux
+          # macOS and Linux use same archive name pattern; mac runners need 'darwin', ubuntu 'linux'
+          OS=$(uname | tr '[:upper:]' '[:lower:]')
+          if [[ "$OS" == "darwin" ]]; then
+            URL="https://dl.google.com/android/repository/commandlinetools-mac-8092744_latest.zip"
+          else
+            URL="https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip"
+          fi
+
+          curl -fsSL "$URL" -o cmdtools.zip
+          unzip -q cmdtools.zip -d cmdline-tools-tmp
+          # Move to canonical 'cmdline-tools/r8'
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/r8"
+          mv cmdline-tools-tmp/cmdline-tools/* "$ANDROID_SDK_ROOT/cmdline-tools/r8/"
+          rm -rf cmdline-tools-tmp cmdtools.zip
+
+          # Path wiring to ensure we always use r8 sdkmanager
+          echo "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin" >> "$GITHUB_PATH"
+          echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
+
+      - name: Accept SDK licenses (r8)
+        shell: bash
+        env:
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
+        run: |
+          yes | sdkmanager --licenses
+
+      - name: Install platform-tools + pinned build-tools + platforms (r8)
+        shell: bash
+        env:
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
+        run: |
+          set -euo pipefail
+          sdkmanager --install "platform-tools" \
+            "build-tools;${{ env.ANDROID_BUILD_TOOLS }}" \
+            "platforms;android-31"
+          # Prove r8 is in effect and apksigner exists at pinned version
+          "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" --version
 
       - name: ADB hygiene (macOS)
         shell: bash
         run: |
           set -euo pipefail
-          # Prefer the Android SDK we just installed
-          export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
-          echo "${ANDROID_SDK_ROOT}/platform-tools" >> "$GITHUB_PATH"
-
           # Kill any stray adb and remove stale lock/state
           pkill -9 adb || true
           adb kill-server || true
@@ -436,15 +475,6 @@ jobs:
           # Fresh server from our platform-tools
           adb start-server
           adb devices -l || true
-
-      - name: Guard Print Android SDK paths (macOS)
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT:-<unset>}"
-          echo "ANDROID_HOME=${ANDROID_HOME:-<unset>}"
-          command -v sdkmanager || true
-          command -v adb || true
 
       - name: Download Debug APK
         uses: actions/download-artifact@v4
@@ -466,6 +496,15 @@ jobs:
             exit 1
           fi
           echo "APK=$APK" | tee -a "$GITHUB_ENV"
+
+      - name: Create AVD (API 30, default, x86_64, Pixel 5)
+        shell: bash
+        env:
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
+        run: |
+          set -euo pipefail
+          sdkmanager --install "system-images;android-30;default;x86_64"
+          echo "no" | avdmanager create avd -n ci_api_30 -k "system-images;android-30;default;x86_64" --device "pixel_5"
 
       - name: Start Emulator (API 30, macOS HVF)
         uses: reactivecircus/android-emulator-runner@v2
@@ -573,8 +612,6 @@ jobs:
 
       - name: Ensure build-tools (smoke)
         shell: bash
-        env:
-          JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
           set -euo pipefail
           export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
@@ -582,10 +619,7 @@ jobs:
             echo "❌ ANDROID_SDK_ROOT not set or invalid"; exit 1
           fi
 
-          yes | "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" \
-            "platform-tools" "platforms;android-30" "build-tools;31.0.0" > /dev/null
-
-          echo "${ANDROID_SDK_ROOT}/build-tools/31.0.0" >> "$GITHUB_PATH"
+          echo "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}" >> "$GITHUB_PATH"
 
       - name: Install Debug APK
         shell: bash
