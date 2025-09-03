@@ -23,8 +23,8 @@ jobs:
           set -euo pipefail
           mismatches=$(git grep -n 'build-tools;[0-9]' || true)
           if [[ -n "$mismatches" ]]; then
-            # Filter out lines that match the pinned version and references via env var
-            remaining=$(echo "$mismatches" | grep -Ev "build-tools;${{ env.ANDROID_BUILD_TOOLS }}|build-tools;\$\{\{\s*env\.ANDROID_BUILD_TOOLS\s*\}\}")
+            # Filter out lines that match the pinned version and references via env var, plus log files
+            remaining=$(echo "$mismatches" | grep -Ev "build-tools;${{ env.ANDROID_BUILD_TOOLS }}|build-tools;\$\{\{\s*env\.ANDROID_BUILD_TOOLS\s*\}\}" | grep -v '\.txt:')
             if [[ -n "$remaining" ]]; then
               echo "::error::Found hard-coded build-tools lines not equal to ${{ env.ANDROID_BUILD_TOOLS }}:"
               echo "$remaining"
