@@ -1,3 +1,40 @@
+## 2025-09-03 - Documentation: Local Build Tools and CI Parity Linkbacks
+
+### Cross-linked Local Tooling to CI Documentation
+**PR**: [#10](https://github.com/ancientagent/uprise_mob/pull/10) - CI: macOS HVF emulator smoke test + TTJS + artifacts + ADB hygiene
+
+**Updates**:
+- **RUNBOOK_ANDROID.md**: Added "Local ↔ CI Parity" section documenting:
+  - Local build script `scripts/local-build.ps1` for Windows development
+  - CI canonical emulator configuration (API 31, Pixel 4, HVF)
+  - Artifact structure matching between local and CI environments
+- **Impact**: Ensures local development closely matches CI pipeline behavior
+- **Artifacts**: Both local and CI generate same structure (app-debug-apk/, app-release-apk/, smoke-logs/)
+
+---
+
+## 2025-09-02 01:20 UTC - CI: Build-Tools Version Alignment Fix
+
+### Fixed Smoke Test Run #194 Failure
+**Issue**: Build job used `build-tools;31.0.0` while smoke test tried to install `build-tools;30.0.3`, causing "Broken pipe" sdkmanager failure.
+
+**Fix**: Aligned smoke test to use same build-tools version as build job (31.0.0).
+
+**Results**:
+- **RUN_ID**: 17390326556
+- **Build APKs**: ✅ Completed successfully in 8m56s  
+- **Build-tools alignment**: ✅ "Ensure build-tools for apksigner/aapt" step now passes
+- **Artifacts generated**: app-debug-apk, app-release-apk, build-metadata
+- **Smoke test**: Running (emulator boot in progress)
+
+**Files Changed**:
+- `.github/workflows/android-debug-build.yml`: Line 445 updated from `build-tools;30.0.3` to `build-tools;31.0.0`
+- `.github/workflows/android-debug-build.yml`: Line 447 updated path from `30.0.3` to `31.0.0`
+
+**Key Learning**: Maintain consistent build-tools versions across all workflow jobs to prevent sdkmanager conflicts.
+
+---
+
 ## 2025-09-01 11:45 UTC - CI: Smoke Job Moved to macOS HVF
 
 ### Emulator Runs on macOS-13 with Hardware Acceleration

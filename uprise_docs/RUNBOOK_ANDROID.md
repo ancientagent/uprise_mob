@@ -78,16 +78,145 @@ adb shell monkey -p com.app.uprise.dev -c android.intent.category.LAUNCHER 1
 `.github/workflows/android-debug-build.yml`
 
 ### CI Steps
-1. **Setup**: JDK 11 (Temurin), Android SDK, Node.js 18
-2. **Dependencies**: `yarn install --frozen-lockfile`
-3. **Build**: `./gradlew --no-daemon clean assembleDebug`
-4. **Artifacts**: app-debug.apk, dependency reports, Gradle reports
+1. **Setup**: JDK 17 (for SDK), JDK 11 (for Gradle), Android SDK, Node.js 18
+2. **Dependencies**: `npm install --legacy-peer-deps`
+3. **Build**: `./gradlew :app:assembleDebug :app:assembleRelease`
+4. **Smoke Test**: Android emulator with dual-attempt boot strategy
+5. **Artifacts**: debug APK, release APK, smoke logs, run IDs
 
 ### CI Environment
-- **Runner**: ubuntu-latest
-- **JDK**: Temurin 11
-- **Android SDK**: Latest via android-actions/setup-android@v3
-- **Metro Compatibility**: NODE_OPTIONS=--openssl-legacy-provider
+- **Runner**: ubuntu-latest (ubuntu-22.04 for smoke test)
+- **JDK**: Temurin 17 (SDK setup), Temurin 11 (Gradle build)
+- **Android SDK**: API 31 with build-tools 31.0.0
+- **Metro Compatibility**: `NODE_OPTIONS=--openssl-legacy-provider` (global env)
+
+### CI Smoke Test
+The smoke test job runs after successful APK build to validate app installation and launch.
+
+**Emulator Configuration**:
+- **API Level**: 31 (Android 12)
+- **Architecture**: x86_64
+- **Profile**: pixel_5
+- **Target**: google_apis
+
+**Dual-Attempt Boot Strategy**:
+1. **Attempt 1** (optimized for speed):
+   - GPU: `swiftshader_indirect`
+   - Memory: 2GB
+   - Features: animations disabled, no snapshot save
+   - Timeout: 10 minutes
+
+2. **Attempt 2** (conservative fallback):
+   - GPU: `off`
+   - Acceleration: `off`
+   - Memory: 2GB
+   - Features: no audio, no snapshot
+   - Timeout: 10 minutes
+
+**Artifacts Generated**:
+- `smoke-logs`: logcat, dumpsys activity, dumpsys package
+- Always uploaded even on emulator failure
+
+**Local Emulator Replication**:
+```bash
+# Replicate CI emulator (fallback mode)
+$ANDROID_HOME/emulator/emulator -avd Pixel_5_API_31 \
+  -no-snapshot -noaudio -no-boot-anim -gpu off -accel off \
+  -camera-back none -qemu -m 2048
+```
+
+**Switching to API 30** (if API 31 proves unstable):
+```yaml
+# In workflow file, change:
+api-level: 31  # -> api-level: 30
+packages: "platforms;android-31 ..."  # -> "platforms;android-30 ..."
+```
+
+### CI Smoke Test (Stable Path)
+The smoke test uses a **proven, stable configuration** from successful Run #99.
+
+**Stable Configuration (DO NOT CHANGE without strong reason)**:
+- **API Level**: 30 (Android 11) - more stable than 31
+- **Architecture**: x86_64 
+- **Profile**: pixel_5
+- **Target**: default (omitted, uses defaults)
+- **Emulator Options**: `-no-snapshot -noaudio -no-window -gpu swiftshader_indirect -accel off -camera-back none -qemu -m 2048`
+
+**Rationale**: 
+- API 30 has proven reliability in CI environment
+- Single emulator attempt keeps complexity low
+- swiftshader_indirect provides good performance without requiring hardware acceleration
+- Configuration validated by automated guardrails
+
+**Process**:
+1. Install PulseAudio libraries (prevents libpulse.so.0 errors)
+2. Boot emulator with stable flags  
+3. Ensure build-tools available (for aapt)
+4. Install debug APK
+5. **Dynamic Detection**: Extract package name (aapt/apkanalyzer) and resolve actual LAUNCHER activity
+6. Launch detected activity using `cmd package resolve-activity`
+7. **Assertions**: detects 'ReactNativeJS' within 90s; verifies main activity has focus
+8. Collect deep diagnostics (full logcat, bugreport, dumpsys)
+
+**Guardrails**:
+Every CI run validates critical configuration hasn't drifted:
+- API level must be 30
+- Required emulator flags must be present
+- Architecture and profile must match proven setup
+
+**Changing Configuration**:
+If changes are needed:
+1. Document strong technical reason
+2. Update guardrail checks in same PR
+3. Test thoroughly before merging
+
+**Reading Smoke Summary**:
+1. **Check Job Summary First**: GitHub displays a "Smoke Summary" with key results:
+   - ✅/❌ ReactNativeJS detection status
+   - Notable log signals (FATAL EXCEPTIONs, ANRs, errors)
+   - APK package name and version
+2. **Download smoke-logs artifact** for full forensics if needed:
+   - `logcat_reactnative.txt`: Quick ReactNative-only logs
+   - `bugreport.zip`: Complete Android debugging bundle
+   - ANR/tombstone files: Crash-specific diagnostics
+
+**Local Emulator Replication**:
+```bash
+# Replicate CI emulator settings
+$ANDROID_HOME/emulator/emulator -avd Pixel_5_API_30 \
+  -no-snapshot -noaudio -no-window -gpu swiftshader_indirect \
+  -accel off -camera-back none -qemu -m 2048
+```
+
+### CI Quality Gates
+The CI pipeline includes automated quality gates to catch regressions early.
+
+**APK Signing Verification**:
+- Release APKs verified with `apksigner verify --print-certs`
+- Ensures signing configuration is working correctly
+- Critical for production deployments
+
+**APK Size Guardrails**:
+- **Debug APK**: Soft threshold at 120MB (warning above this size)
+- **Release APK**: Soft threshold at 80MB (warning above this size)  
+- Prevents unexpected binary bloat
+- Size displayed in Step Summary for easy monitoring
+
+**SDK Sanity Checks**:
+- Extracts and validates `minSdkVersion` and `targetSdkVersion` from manifest
+- Ensures build targets correct API levels
+- Prevents unintentional SDK version drift
+
+**TTJS Performance Metric**:
+- **Time-to-first-ReactNativeJS**: Measures app launch to JS runtime initialization
+- Baseline performance metric for detecting startup regressions
+- Displayed in Step Summary as "TTJS (launch → first ReactNativeJS): **[X]s**"
+
+**Quality Gate Locations**:
+- Implemented in `.github/workflows/android-debug-build.yml`
+- All gates run on both debug and release builds
+- Results visible in job logs and Step Summary
+- Artifacts retained for 14 days for historical analysis
 
 ## Troubleshooting
 
@@ -198,3 +327,22 @@ adb shell curl http://localhost:8081/status
 5) Install: `adb install -r app\build\outputs\apk\debug\app-debug.apk`
 6) Launch: detect component via `aapt dump badging` (fallback `com.app.uprise/.MainActivity`)
 7) Confirm in logcat: look for `ActivityTaskManager: Displayed <component>`
+
+## Local ↔ CI Parity
+
+To ensure local builds match CI environment:
+
+**Local Build Script**: See `scripts/local-build.ps1` for Windows-based local build automation that mirrors CI workflow steps, including artifact generation matching CI output shapes.
+
+**CI Canonical Emulator Configuration**:
+- **API Level**: 31 (Android 12)
+- **Device**: Pixel 4
+- **Acceleration**: HVF (Hardware Virtualization Framework) on macOS runners
+- **Profile**: Default Google APIs system image
+
+The local build script generates artifacts in the same structure as CI:
+- `ci-artifacts/app-debug-apk/` - Debug APK output
+- `ci-artifacts/app-release-apk/` - Release APK output  
+- `ci-artifacts/smoke-logs/` - Smoke test logs and diagnostics
+
+This ensures local development closely matches the CI pipeline behavior documented in PR [#10](https://github.com/ancientagent/uprise_mob/pull/10).

@@ -61,6 +61,9 @@ coverage/
 
 # CocoaPods
 /ios/Pods/
+
+# Environment variables
+.env
 /ios/Podfile.lock
 
 # Firebase credentials
@@ -73,3 +76,11 @@ package-lock.json
 yarn-error.log
 # ignore editor/backup files
 *.bak
+
+# Local Android SDK/tools and temp outputs (Codespaces)
+android/local.properties
+/android-sdk/
+/cmdline-tools/
+/platform-tools/
+/licenses/
+/outputs/
