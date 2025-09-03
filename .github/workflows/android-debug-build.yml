@@ -199,6 +199,7 @@ jobs:
       - name: Build Debug & Release (stable flags)
         env:
           ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+          JAVA_HOME: ${{ steps.j11.outputs.path }}
           NODE_OPTIONS: --openssl-legacy-provider
           GRADLE_OPTS: "-Dorg.gradle.daemon=true -Dorg.gradle.jvmargs='-Xmx3g -XX:+HeapDumpOnOutOfMemoryError' -Dorg.gradle.workers.max=2"
         run: |
