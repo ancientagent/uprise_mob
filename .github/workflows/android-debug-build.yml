@@ -108,7 +108,8 @@ jobs:
           set -euo pipefail
           sdkmanager --install "platform-tools" \
             "build-tools;${{ env.ANDROID_BUILD_TOOLS }}" \
-            "platforms;android-31"
+            "platforms;android-31" \
+            "system-images;android-30;default;x86_64"
           # Prove r8 is in effect and apksigner exists at pinned version
           "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" --version
 
@@ -462,7 +463,8 @@ jobs:
           set -euo pipefail
           sdkmanager --install "platform-tools" \
             "build-tools;${{ env.ANDROID_BUILD_TOOLS }}" \
-            "platforms;android-31"
+            "platforms;android-31" \
+            "system-images;android-30;default;x86_64"
           # Prove r8 is in effect and apksigner exists at pinned version
           "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" --version
 
@@ -500,15 +502,6 @@ jobs:
             exit 1
           fi
           echo "APK=$APK" | tee -a "$GITHUB_ENV"
-
-      - name: Create AVD (API 30, default, x86_64, Pixel 5)
-        shell: bash
-        env:
-          JAVA_HOME: ${{ steps.j17.outputs.path }}
-        run: |
-          set -euo pipefail
-          sdkmanager --install "system-images;android-30;default;x86_64"
-          echo "no" | avdmanager create avd -n ci_api_30 -k "system-images;android-30;default;x86_64" --device "pixel_5"
 
       - name: Start Emulator (API 30, macOS HVF)
         uses: reactivecircus/android-emulator-runner@v2
