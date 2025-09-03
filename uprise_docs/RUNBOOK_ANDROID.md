@@ -85,6 +85,7 @@ adb shell monkey -p com.app.uprise.dev -c android.intent.category.LAUNCHER 1
 
 ### CI Prerequisites
 - **sdkmanager must run under JDK 17**; Gradle remains on JDK 11 (RN 0.66.x). build-tools pinned to 31.0.0.
+- **Android cmdline-tools pinned: r8 (8092744)** to ensure SDK XML v2 for AGP 7.0.x.
 
 ### CI Environment
 - **Runner**: ubuntu-latest
@@ -190,6 +191,9 @@ adb shell curl http://localhost:8081/status
 4. Gradual rollout with feature flags
 
 ## Local Smoke Testing
+
+### CI Smoke Test Summary
+- **Latest Run**: 17355198212 (PR #14) - TTJS: 4.2s, Debug APK: 53.9MB, Release APK: 42.2MB
 
 ### Local Smoke (PowerShell)
 1) Ensure SDK tools on PATH for the session:

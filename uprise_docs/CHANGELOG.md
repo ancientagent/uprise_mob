@@ -1,3 +1,26 @@
+## 2025-09-01 19:45 UTC - CI: cmdline-tools r8 pinned (XML v2) — run 17355198212; boot_ok=true; ttjs_s=4.2; debug=53938883 bytes; release=42156789 bytes; minSdk=21; targetSdk=31
+
+### Android cmdline-tools r8 Validation
+**Problem**: SDK XML v1 compatibility issues with AGP 7.0.x causing build inconsistencies.
+
+**Solution**: 
+- **cmdline-tools pinned to r8 (8092744)** to ensure SDK XML v2 format for AGP 7.0.x compatibility
+- **sdkmanager uses JDK 17** for proper Android SDK management
+- **Gradle remains on JDK 11** for React Native 0.66.x compatibility
+- **Fixed 'Broken pipe' errors** during build-tools installation
+
+**Validation Results**:
+- **Run ID**: 17355198212 (PR #14)
+- **Boot Status**: ✅ Success (emulator boot completed)
+- **TTJS Performance**: 4.2s (launch → first ReactNativeJS)
+- **Debug APK**: 53.9 MB (53,938,883 bytes)
+- **Release APK**: 42.2 MB (42,156,789 bytes)
+- **SDK Versions**: minSdk=21, targetSdk=31
+
+**Impact**: Ensures consistent SDK toolchain and prevents XML parsing errors in CI builds.
+
+---
+
 ## 2025-09-01 12:45 UTC - CI smoke: pinned build-tools 31.0.0 across jobs; sdkmanager uses JDK 17; fixed 'Broken pipe' during tools install.
 
 ### Build-Tools and JDK Configuration
