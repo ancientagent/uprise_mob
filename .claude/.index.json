@@ -1,0 +1,45 @@
+{
+  "framework": "CCMP (Coordinator, Constraints, Plan, Measures)",
+  "version": "1.0.0",
+  "created": "2025-09-01",
+  "files": [
+    {
+      "path": "README.md",
+      "type": "overview",
+      "description": "CCMP framework overview with guardrails and integration points"
+    },
+    {
+      "path": "prompts/agent_task_template.md", 
+      "type": "template",
+      "description": "Reusable template for structured AI agent tasks with guardrails"
+    },
+    {
+      "path": "prompts/ci_smoke_repair.md",
+      "type": "recipe", 
+      "description": "Proven API 30 emulator configuration and smoke test repair instructions"
+    },
+    {
+      "path": "checklists/ci_quality_gates.md",
+      "type": "checklist",
+      "description": "Quality gate validation checklist for CI pipeline verification"
+    },
+    {
+      "path": ".index.json",
+      "type": "index",
+      "description": "Programmatic file index for CCMP framework discovery"
+    }
+  ],
+  "integration": {
+    "workflow": ".github/workflows/android-debug-build.yml",
+    "documentation": [
+      "uprise_docs/CHANGELOG.md",
+      "uprise_docs/RUNBOOK_ANDROID.md"
+    ],
+    "branch": "feat/ccmp-framework"
+  },
+  "usage": {
+    "quick_start": "Paste prompts from /prompts/*.md into Cursor/Claude Code",
+    "validation": "Use checklists from /checklists/*.md for verification",
+    "evolution": "Update README.md and .index.json when adding files"
+  }
+}

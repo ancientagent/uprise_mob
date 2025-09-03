@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { reducer as network } from 'react-native-offline';
 import TrackPlayer from 'react-native-track-player';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
