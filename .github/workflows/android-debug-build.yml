@@ -55,11 +55,6 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Accept SDK licenses  
-        shell: bash
-        run: |
-          yes | sdkmanager --licenses
-
       - name: Install build-tools pinned
         shell: bash
         run: |
@@ -119,13 +114,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup JDK 17 (for Android SDK)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-
-      - name: Accept SDK licenses
-        shell: bash
-        run: |
-          yes | sdkmanager --licenses
 
       - name: Install build-tools pinned
         shell: bash
