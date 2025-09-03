@@ -60,7 +60,7 @@ jobs:
         run: |
           sdkmanager --install "build-tools;${{ env.ANDROID_BUILD_TOOLS }}"
           echo "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}" >> "$GITHUB_PATH"
-          "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" -version
+          "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" --version
 
       - name: Switch to JDK 11 (for Gradle)
         uses: actions/setup-java@v4
@@ -128,7 +128,7 @@ jobs:
         run: |
           sdkmanager --install "build-tools;${{ env.ANDROID_BUILD_TOOLS }}"
           echo "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}" >> "$GITHUB_PATH"
-          "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" -version
+          "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" --version
 
       - name: Download Debug APK
         uses: actions/download-artifact@v4
