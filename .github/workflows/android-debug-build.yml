@@ -449,7 +449,9 @@ jobs:
       - name: Accept SDK licenses (r8)
         shell: bash
         run: |
-          yes | sdkmanager --licenses
+          set -euo pipefail
+          echo "Accepting SDK licenses non-interactively..."
+          ( echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y" ) | sdkmanager --licenses || true
 
       - name: Install SDK components
         shell: bash
