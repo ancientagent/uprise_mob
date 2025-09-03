@@ -77,3 +77,6 @@ yarn-error.log
 # Local build artifacts
 artifacts/local/
 tools/
+
+# Google OAuth credentials
+src/config/google_calender.json

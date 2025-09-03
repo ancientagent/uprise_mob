@@ -1,5 +1,9 @@
 # CI Tools PowerShell Script
 # Provides GitHub Actions workflow management commands
+# 
+# Web UI Fallback: If GitHub CLI (gh) is not available, this script will
+# provide instructions to access GitHub Actions via web browser at:
+# https://github.com/ancientagent/uprise_mob/actions
 
 param(
     [Parameter(Position=0)]
@@ -18,6 +22,22 @@ function Show-Help {
     Write-Host "  jobs    - Show jobs for current run"
     Write-Host "  tail    - Watch live logs for current run"
     Write-Host "  rerun   - Rerun failed jobs"
+    Write-Host ""
+    Write-Host "Web UI Fallback:"
+    Write-Host "  If GitHub CLI is not available, visit:"
+    Write-Host "  https://github.com/ancientagent/uprise_mob/actions"
+    Write-Host ""
+}
+
+function Show-WebFallback {
+    Write-Host "GitHub CLI (gh) not available. Web UI fallback:" -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "Visit GitHub Actions in your browser:" -ForegroundColor Cyan
+    Write-Host "https://github.com/ancientagent/uprise_mob/actions" -ForegroundColor Blue
+    Write-Host ""
+    Write-Host "To install GitHub CLI:" -ForegroundColor Yellow
+    Write-Host "1. Download from: https://cli.github.com/" -ForegroundColor Blue
+    Write-Host "2. Or use: winget install GitHub.cli" -ForegroundColor Blue
     Write-Host ""
 }
 
@@ -71,7 +91,23 @@ function Invoke-RerunFailed {
     }
 }
 
+# Check if GitHub CLI is available
+function Test-GitHubCLI {
+    try {
+        & gh --version | Out-Null
+        return $true
+    }
+    catch {
+        return $false
+    }
+}
+
 # Main command dispatch
+if (-not (Test-GitHubCLI)) {
+    Show-WebFallback
+    exit 1
+}
+
 switch ($Command.ToLower()) {
     "list" { Invoke-ListRuns }
     "jobs" { Invoke-ShowJobs }

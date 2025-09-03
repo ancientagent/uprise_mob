@@ -1,4 +1,5 @@
 const { getDefaultConfig } = require('metro-config');
+const path = require('path');
 
 module.exports = (async () => {
   const {
@@ -19,6 +20,10 @@ module.exports = (async () => {
       sourceExts: [...sourceExts, 'svg', 'ts',
         'tsx',
         'js'],
+      extraNodeModules: {
+        'react-native-video': path.resolve(__dirname, 'stubs/react-native-video.js'),
+        'react-native-track-player': path.resolve(__dirname, 'stubs/react-native-track-player.js'),
+      },
     },
   };
 })();
