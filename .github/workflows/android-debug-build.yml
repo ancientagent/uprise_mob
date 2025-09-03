@@ -96,7 +96,9 @@ jobs:
         env:
           JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
-          yes | sdkmanager --licenses
+          set -euo pipefail
+          echo "Accepting SDK licenses non-interactively..."
+          ( echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y" ) | sdkmanager --licenses || true
 
       - name: Install platform-tools + pinned build-tools + platforms (r8)
         shell: bash
@@ -448,7 +450,9 @@ jobs:
         env:
           JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
-          yes | sdkmanager --licenses
+          set -euo pipefail
+          echo "Accepting SDK licenses non-interactively..."
+          ( echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y" ) | sdkmanager --licenses || true
 
       - name: Install platform-tools + pinned build-tools + platforms (r8)
         shell: bash
