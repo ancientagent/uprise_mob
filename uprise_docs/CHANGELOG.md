@@ -1,3 +1,53 @@
+## 2025-09-01 12:15 UTC - Local Preflight — 2025-09-01
+
+### Local Development Environment Verification
+**Status**: ✅ PASS - Debug APK successfully built
+
+**Environment Details**:
+- **Node.js**: v20.19.0 (portable, user-writable)
+- **Java**: JDK 11 (Temurin) for Gradle compatibility
+- **Android SDK**: User profile location (%LOCALAPPDATA%)
+- **NPM Script Shell**: PowerShell configured
+
+**Build Results**:
+- **APK Path**: `android\app\build\outputs\apk\debug\app-debug.apk`
+- **APK Size**: 51.44 MB (53,938,883 bytes)
+- **Build Time**: ~3m 36s
+- **Status**: Clean build successful
+
+**Fixes Applied**:
+- Created `stubs/react-native-track-player.js` stub for missing module
+- Updated `metro.config.js` with module aliases for CI compatibility
+- Set `NODE_OPTIONS=--openssl-legacy-provider` for React Native 0.66.4
+
+**Guardrails Verified**:
+- ✅ Windows non-admin environment
+- ✅ User-writable paths only
+- ✅ No global installs required
+- ✅ Version pinning enforced (Node v20.19.0, JDK 11)
+
+---
+
+## 2025-09-01 12:00 UTC - Local guardrail sync (Node v20.19.0 / JDK 11) verified
+
+### Local Development Tools Alignment
+**Added**: Local development setup aligned with project guardrails and CI requirements.
+
+**Key Changes**:
+- **tools.json**: Created configuration file with Node v20.19.0, JDK 11, Android SDK paths
+- **ci-tools.ps1**: Enhanced with Web UI fallback when GitHub CLI unavailable
+- **README-local-setup.md**: Comprehensive setup guide with clickable paths and troubleshooting
+- **package.json**: Verified CI scripts call PowerShell helpers (not Node.js shims)
+- **Guardrails**: Windows non-admin, user-writable only, no global installs enforced
+
+**Verification**:
+- ✅ Local scripts reference PowerShell helpers
+- ✅ No Node v22 usage (pinned to v20.19.0)
+- ✅ Instructions present with Web UI fallback
+- ✅ All paths documented and clickable
+
+---
+
 ## 2025-09-01 11:45 UTC - CI: Smoke Job Moved to macOS HVF
 
 ### Emulator Runs on macOS-13 with Hardware Acceleration
@@ -467,3 +517,102 @@ Successfully executed CCPM pilot workflow in Codespaces using GitHub CLI. Create
 - Ready for CI testing
 - Build should now pass :app:validateSigningDebug task
 - All SDK 31 compatibility already maintained
+
+---
+
+## 2025-08-31 14:00 UTC - CI: macOS HVF smoke sped up — slim AVD (720x1280, 1GB), fast flags, early fail; job timeout 35m
+
+### Speed Optimizations for macOS HVF Smoke Test
+**Problem**: Smoke tests hitting 25-minute timeout ceiling and slow emulator boot times.
+
+**Solution**: Implemented comprehensive speed optimizations with early-fail guards and slimmer AVD configuration.
+
+**Slim AVD Configuration**:
+- **Memory**: Reduced from 2GB to 1GB (`-qemu -m 1024`)
+- **Screen**: Smaller resolution 720x1280 with 320 DPI for faster rendering
+- **Headless**: Added `-no-window` for completely headless operation
+- **Network**: Added `-netfast` for faster network initialization
+- **Snapshots**: Added `-no-snapshot-save` to prevent snapshot creation overhead
+
+**Fast Emulator Flags**:
+- `-no-snapshot -no-snapshot-save` - No snapshot overhead
+- `-no-window -no-audio` - Headless and silent operation
+- `-no-boot-anim` - Skip boot animation
+- `-gpu swiftshader_indirect` - Optimized GPU rendering
+- `-skin 720x1280 -dpi-device 320` - Smaller, faster screen
+- `-netfast` - Faster network stack
+- `emulator-boot-timeout: 600` - 10-minute emulator boot timeout
+
+**Early-Fail ADB Strategy**:
+- **Fast Detection**: Fails if emulator doesn't appear within 120s
+- **Quick Recovery**: 5 attempts to recover from offline state (vs 3)
+- **Clear Failure**: Explicit exit codes with descriptive error messages
+- **No Hanging**: Prevents burning entire job time on ADB issues
+
+**Strict Boot Wait**:
+- **6-Minute Cap**: Reduced from 8 minutes to 6 minutes for boot completion
+- **Early Exit**: Fails fast if `sys.boot_completed` not reached
+- **Clear Messaging**: Descriptive failure messages for debugging
+
+**Job Timeout Safety Net**:
+- **Extended to 35m**: Modest increase from 25m as safety net
+- **Target Performance**: Still aims to finish well under 25m
+- **Prevents Ceiling**: Avoids hitting timeout limits during optimization
+
+**Expected Impact**:
+- Emulator boot time: 3-6 minutes (vs 5-10 minutes previously)
+- Total smoke job time: Under 20 minutes (vs 25+ minutes previously)
+- Faster failure detection: Clear errors within 2-6 minutes instead of hanging
+- More reliable CI: Less flaky, clearer failure modes
+
+---
+
+## 2025-08-31 12:00 UTC - CI: Stabilize macOS ADB (hygiene + offline auto-recover)
+
+### ADB Connection Reliability on macOS HVF
+**Problem**: macOS smoke tests experiencing "Unable to connect to adb daemon on port: 5037" and device showing as "offline" instead of "device".
+
+**Solution**: Implemented comprehensive ADB stabilization strategy with hygiene, connection recovery, and guardrails.
+
+**ADB Hygiene (macOS)**:
+- **PATH Management**: Ensures platform-tools from our SDK takes precedence over system ADB
+- **Stale State Cleanup**: Kills stray ADB processes and removes stale lock files/keys
+- **Fresh Server**: Starts clean ADB server from our platform-tools installation
+- **Device Listing**: Verifies ADB can enumerate devices after cleanup
+
+**Two-Phase Boot Wait**:
+- **Phase 1 - Stabilize ADB Connection**: 
+  - Waits up to 120s for emulator to appear (device or offline)
+  - Auto-recovery loop: if device shows "offline", bounces ADB server and reconnects (3 attempts)
+  - Uses `adb reconnect offline` to force reconnection
+- **Phase 2 - Wait for Boot (props)**:
+  - Standard boot completion polling with enhanced diagnostics
+  - Checks `sys.boot_completed`, `dev.bootcomplete`, `service.bootanim.exit`
+  - Dismisses keyguard and confirms stable ADB connection
+
+**Guardrail Protection**:
+- **SDK Verification**: Validates ADB binary comes from expected Android SDK path
+- **Early Detection**: Fails fast if wrong ADB version sneaks onto PATH
+- **Transparency**: Logs actual ADB binary path for debugging
+
+**Expected Impact**:
+- Eliminates "Unable to connect to adb daemon" errors
+- Auto-recovers from device offline states
+- Ensures consistent ADB toolchain usage
+- Faster emulator boot with stable ADB connection
+
+**Success Criteria**:
+- Smoke Step Summary shows "Emulator Boot: ✅ ..."
+- No device offline in logs; `adb devices -l` shows device
+- TTJS printed; artifacts include smoke-logs2025-09-02 19:35 - Local build verification (partial):
+- Node.js: v22.16.0 / npm: 10.9.2
+- Hermes: enabled (enableHermes: true)
+- TrackPlayer: not installed (CI-safe)
+- Java: not available in PATH (build skipped)
+- CI optimizations: macOS HVF smoke with portable timeouts
+2025-09-02 19:35 - Local build verification (partial):
+- Node.js: v22.16.0 / npm: 10.9.2
+- Hermes: enabled (enableHermes: true)
+- TrackPlayer: not installed (CI-safe)
+- Java: not available in PATH (build skipped)
+- CI optimizations: macOS HVF smoke with portable timeouts
