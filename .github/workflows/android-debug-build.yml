@@ -302,6 +302,33 @@ jobs:
           fi
           echo "APK=$APK" | tee -a "$GITHUB_ENV"
 
+      - name: Discover APP_ID from debug APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$ANDROID_SDK_ROOT/build-tools/31.0.0:$PATH"
+          APK_DEBUG="$APK"
+          if [ -z "${APK_DEBUG:-}" ]; then
+            echo "Debug APK not found" >&2; exit 1
+          fi
+          # Prefer aapt (AGP 7 era). Fallback to apkanalyzer if needed.
+          if command -v aapt >/dev/null 2>&1; then
+            APP_ID=$(aapt dump badging "$APK_DEBUG" | awk -F"'" '/package: name=/{print $2; exit}')
+            MIN_SDK=$(aapt dump badging "$APK_DEBUG" | awk -F"=" '/sdkVersion:/{gsub(/'\''/,""); print $2; exit}')
+            TGT_SDK=$(aapt dump badging "$APK_DEBUG" | awk -F"=" '/targetSdkVersion:/{gsub(/'\''/,""); print $2; exit}')
+          else
+            APP_ID=$(apkanalyzer manifest application-id "$APK_DEBUG")
+            MIN_SDK=$(apkanalyzer manifest min-sdk "$APK_DEBUG")
+            TGT_SDK=$(apkanalyzer manifest target-sdk "$APK_DEBUG")
+          fi
+          if [ -z "${APP_ID:-}" ]; then
+            echo "Failed to parse APP_ID from $APK_DEBUG" >&2; exit 1
+          fi
+          echo "APP_ID=$APP_ID" >> "$GITHUB_ENV"
+          echo "MIN_SDK=${MIN_SDK:-unknown}" >> "$GITHUB_ENV"
+          echo "TARGET_SDK=${TGT_SDK:-unknown}" >> "$GITHUB_ENV"
+          echo "Detected APP_ID=$APP_ID (minSdk=$MIN_SDK targetSdk=$TARGET_SDK)"
+
       - name: Start emulator (20m ceiling, traced)
         shell: bash
         run: |
@@ -347,7 +374,22 @@ jobs:
         shell: bash
         run: |
           echo "Installing APK..."
-          adb install -r "$APK"
+          # Uninstall both the base id and the ".debug" id (covers history/leftovers)
+          base="${APP_ID%.debug}"
+          adb -s "$ANDROID_SERIAL" uninstall "$APP_ID" || true
+          [ "$base" != "$APP_ID" ] && adb -s "$ANDROID_SERIAL" uninstall "$base" || true
+          
+          # Capture precise install errors for clarity
+          set +e
+          adb -s "$ANDROID_SERIAL" install -r "$APK"
+          rc=$?
+          set -e
+          if [ $rc -ne 0 ]; then
+            echo "INSTALL FAILED (rc=$rc). Dumping package + last logcat:"
+            adb -s "$ANDROID_SERIAL" shell pm list packages | sed -n '1,120p' || true
+            adb -s "$ANDROID_SERIAL" logcat -d | tail -n 200 || true
+            exit $rc
+          fi
 
       - name: Determine package + launchable activity (robust)
         id: pkg
@@ -363,22 +405,14 @@ jobs:
             aapt dump badging "$APK" | tee artifacts/logs/apk_badging.txt
           fi
 
-          # Prefer aapt, fallback to apkanalyzer
-          if command -v aapt >/dev/null 2>&1; then
-            PKG=$(aapt dump badging "$APK" | sed -n "s/.*package name='\([^']*\)'.*/\1/p" | head -n1)
-          else
-            if command -v apkanalyzer >/dev/null 2>&1; then
-              PKG=$(apkanalyzer manifest application-id "$APK")
-            else
-              echo "Neither aapt nor apkanalyzer found"; exit 1
-            fi
-          fi
+          # Use the discovered APP_ID
+          PKG="$APP_ID"
           echo "pkg=$PKG" >> $GITHUB_OUTPUT
-          echo "Detected package: $PKG"
+          echo "Using discovered package: $PKG"
 
           # Resolve real launchable activity from the package
           # (uses the default LAUNCHER activity exposed by the app)
-          ACT=$(adb shell cmd package resolve-activity -c android.intent.category.LAUNCHER "$PKG" \
+          ACT=$(adb -s "$ANDROID_SERIAL" shell cmd package resolve-activity -c android.intent.category.LAUNCHER "$PKG" \
                 | sed -n "s/.*name=//p" | tr -d '\r' | head -n1)
           if [ -z "$ACT" ]; then
             # Fallback: common RN default
@@ -523,8 +557,9 @@ jobs:
           boot_env="${booted:-0}"
           dbg=$(stat -c%s "android/app/build/outputs/apk/debug/app-debug.apk" 2>/dev/null || echo 0)
           rel=$(stat -c%s "android/app/build/outputs/apk/release/app-release.apk" 2>/dev/null || echo 0)
-          printf '{ "run_id": %s, "run_url": "%s", "boot_ok": %s, "ttjs_s": null, "debug_apk_bytes": %s, "release_apk_bytes": %s }\n' \
-            "${{ github.run_id }}" "$run_url" "$boot_env" "$dbg" "$rel" > artifacts/summary/summary.json
+          printf '{ "run_id": %s, "run_url": "%s", "boot_ok": %s, "install_ok": 1, "ttjs_s": null, "debug_apk_bytes": %s, "release_apk_bytes": %s, "app_id":"%s", "min_sdk":"%s", "target_sdk":"%s" }\n' \
+            "${{ github.run_id }}" "$run_url" "$boot_env" "$dbg" "$rel" "$APP_ID" "${MIN_SDK:-unknown}" "${TARGET_SDK:-unknown}" \
+            > artifacts/summary/summary.json
 
       - name: Teardown emulator (post)
         if: always()
@@ -617,6 +652,33 @@ jobs:
         with:
           path: apks
 
+      - name: Discover APP_ID from debug APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$ANDROID_SDK_ROOT/build-tools/${ANDROID_BUILD_TOOLS}:$PATH"
+          APK_DEBUG="$(find apks -type f -name '*debug*.apk' | head -n1)"
+          if [ -z "${APK_DEBUG:-}" ]; then
+            echo "Debug APK not found under ./apks" >&2; exit 1
+          fi
+          # Prefer aapt (AGP 7 era). Fallback to apkanalyzer if needed.
+          if command -v aapt >/dev/null 2>&1; then
+            APP_ID=$(aapt dump badging "$APK_DEBUG" | awk -F"'" '/package: name=/{print $2; exit}')
+            MIN_SDK=$(aapt dump badging "$APK_DEBUG" | awk -F"=" '/sdkVersion:/{gsub(/'\''/,""); print $2; exit}')
+            TGT_SDK=$(aapt dump badging "$APK_DEBUG" | awk -F"=" '/targetSdkVersion:/{gsub(/'\''/,""); print $2; exit}')
+          else
+            APP_ID=$(apkanalyzer manifest application-id "$APK_DEBUG")
+            MIN_SDK=$(apkanalyzer manifest min-sdk "$APK_DEBUG")
+            TGT_SDK=$(apkanalyzer manifest target-sdk "$APK_DEBUG")
+          fi
+          if [ -z "${APP_ID:-}" ]; then
+            echo "Failed to parse APP_ID from $APK_DEBUG" >&2; exit 1
+          fi
+          echo "APP_ID=$APP_ID" >> "$GITHUB_ENV"
+          echo "MIN_SDK=${MIN_SDK:-unknown}" >> "$GITHUB_ENV"
+          echo "TARGET_SDK=${TGT_SDK:-unknown}" >> "$GITHUB_ENV"
+          echo "Detected APP_ID=$APP_ID (minSdk=$MIN_SDK targetSdk=$TARGET_SDK)"
+
       # Create AVD and start emulator (manual manager; no runner action)
       - name: Create AVD (API 30 default x86_64)
         shell: bash
@@ -674,9 +736,25 @@ jobs:
           tries=0; installed=0
           while [ $tries -lt 3 ]; do
             tries=$((tries+1))
-            adb -s "$ANDROID_SERIAL" install -r "$APK_DEBUG" && installed=1 && break || true
-            adb -s "$ANDROID_SERIAL" shell pm clear "$APP_ID" || true
+            # Uninstall both the base id and the ".debug" id (covers history/leftovers)
+            base="${APP_ID%.debug}"
             adb -s "$ANDROID_SERIAL" uninstall "$APP_ID" || true
+            [ "$base" != "$APP_ID" ] && adb -s "$ANDROID_SERIAL" uninstall "$base" || true
+            
+            # Capture precise install errors for clarity
+            set +e
+            adb -s "$ANDROID_SERIAL" install -r "$APK_DEBUG"
+            rc=$?
+            set -e
+            if [ $rc -eq 0 ]; then
+              installed=1
+              break
+            else
+              echo "INSTALL FAILED (rc=$rc). Dumping package + last logcat:"
+              adb -s "$ANDROID_SERIAL" shell pm list packages | sed -n '1,120p' || true
+              adb -s "$ANDROID_SERIAL" logcat -d | tail -n 200 || true
+            fi
+            adb -s "$ANDROID_SERIAL" shell pm clear "$APP_ID" || true
             sleep 3
           done
           echo "installed=$installed" >> "$GITHUB_ENV"
@@ -684,7 +762,7 @@ jobs:
 
           adb -s "$ANDROID_SERIAL" shell am start -n "$APP_ID/.MainActivity" || true
           # Minimal verify: confirm package exists and process seen in logcat (best-effort)
-          adb -s "$ANDROID_SERIAL" shell pm list packages | grep "$APP_ID" >/dev/null
+          adb -s "$ANDROID_SERIAL" shell pm list packages | grep -q "$APP_ID"
 
       # Write summary BEFORE teardown; always runs
       - name: Write summary.json
@@ -699,8 +777,9 @@ jobs:
           dbg=$(find apks -type f -name '*debug*.apk' -exec stat -f%z {} \; 2>/dev/null | head -n1)
           rel=$(find apks -type f -name '*release*.apk' -exec stat -f%z {} \; 2>/dev/null | head -n1)
           dbg=${dbg:-0}; rel=${rel:-0}
-          printf '{ "run_id": %s, "run_url": "%s", "boot_ok": %s, "install_ok": %s, "ttjs_s": null, "debug_apk_bytes": %s, "release_apk_bytes": %s }\n' \
-            "${{ github.run_id }}" "$run_url" "$boot_env" "$inst_env" "$dbg" "$rel" > artifacts/summary/summary.json
+          printf '{ "run_id": %s, "run_url": "%s", "boot_ok": %s, "install_ok": %s, "ttjs_s": null, "debug_apk_bytes": %s, "release_apk_bytes": %s, "app_id":"%s", "min_sdk":"%s", "target_sdk":"%s" }\n' \
+            "${{ github.run_id }}" "$run_url" "$boot_env" "$inst_env" "$dbg" "$rel" "$APP_ID" "${MIN_SDK:-unknown}" "${TARGET_SDK:-unknown}" \
+            > artifacts/summary/summary.json
 
       - name: Upload summary + logs
         if: always()
