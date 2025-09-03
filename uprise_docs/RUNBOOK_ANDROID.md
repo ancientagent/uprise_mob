@@ -83,6 +83,9 @@ adb shell monkey -p com.app.uprise.dev -c android.intent.category.LAUNCHER 1
 3. **Build**: `./gradlew --no-daemon clean assembleDebug`
 4. **Artifacts**: app-debug.apk, dependency reports, Gradle reports
 
+### CI Prerequisites
+- **sdkmanager must run under JDK 17**; Gradle remains on JDK 11 (RN 0.66.x). build-tools pinned to 31.0.0.
+
 ### CI Environment
 - **Runner**: ubuntu-latest
 - **JDK**: Temurin 11
@@ -198,3 +201,11 @@ adb shell curl http://localhost:8081/status
 5) Install: `adb install -r app\build\outputs\apk\debug\app-debug.apk`
 6) Launch: detect component via `aapt dump badging` (fallback `com.app.uprise/.MainActivity`)
 7) Confirm in logcat: look for `ActivityTaskManager: Displayed <component>`
+[2025-09-02 19:36] Android RUNBOOK update:
+- macOS HVF smoke test parameters:
+  - AVD: API 30; google_apis; x86_64; profile=pixel_5
+  - Flags: -no-snapshot -no-snapshot-save -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -memory 1024 -netfast -no-metrics
+  - ADB hygiene: portable loops (no GNU timeout), 120s emulator appearance, 5 recovery attempts
+  - Boot wait: portable 6-minute timeout with early exit
+  - TTJS collection: logcat watch for 'ReactNativeJS', environment variable extraction
+  - Artifacts: ids (RUN_ID.txt, RUN_URL.txt), summary (summary.json), smoke-logs, APKs

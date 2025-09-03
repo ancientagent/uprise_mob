@@ -1,3 +1,40 @@
+## 2025-09-01 12:45 UTC - CI smoke: pinned build-tools 31.0.0 across jobs; sdkmanager uses JDK 17; fixed 'Broken pipe' during tools install.
+
+### Build-Tools and JDK Configuration
+**Problem**: Inconsistent build-tools versions and JDK requirements causing CI failures.
+
+**Solution**: 
+- **Build-tools pinned to 31.0.0** across all CI jobs for consistency
+- **sdkmanager requires JDK 17** for proper Android SDK management
+- **Gradle remains on JDK 11** for React Native 0.66.x compatibility
+- **Fixed 'Broken pipe' errors** during build-tools installation
+
+**Impact**: Ensures smoke test parity with build job and prevents signing failures.
+
+---
+
+## 2025-09-01 12:30 UTC - CI: Validation & Verification Process
+
+### CI Workflow Verification
+**Status**: Manual verification required (GitHub CLI not available in environment)
+
+**Process**:
+1. **Trigger CI**: Pushed workflow changes to `feat/ccpm-framework` branch
+2. **Web UI Access**: https://github.com/ancientagent/uprise_mob/actions
+3. **Expected Jobs**: Android Build + Android Smoke Test (API 30)
+4. **Expected Artifacts**: app-debug-apk, app-release-apk, smoke-artifacts, ids
+
+**Smoke Test Markers** (in order):
+- `sys.boot_completed=1` - Emulator boot completion
+- `Install ... Success` - Debug APK installation success  
+- `am_start / START u0` - App launch command
+- `ActivityTaskManager: Displayed` - Activity display confirmation
+
+**Build-Tools Verification**: Workflow includes build-tools 31.0.0 installation before signing
+**Date Corrections**: Fixed CHANGELOG.md entries from 2025-01-27 to 2025-08-31
+
+---
+
 ## 2025-09-01 12:15 UTC - Local Preflight — 2025-09-01
 
 ### Local Development Environment Verification
