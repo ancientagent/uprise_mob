@@ -46,14 +46,20 @@ jobs:
         with:
           node-version: '20.19.0'
 
-      - name: Setup JDK 11
+      - name: Setup JDK 17 (for Android SDK)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Switch to JDK 11 (for Gradle)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '11'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
 
       - name: Accept SDK licenses
         shell: bash
