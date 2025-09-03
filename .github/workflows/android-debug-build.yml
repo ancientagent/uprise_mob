@@ -472,7 +472,7 @@ jobs:
           api-level: 30
           arch: x86_64
           profile: pixel_5
-          target: google_apis
+          target: default
           disable-animations: true
           force-avd-creation: true
           emulator-boot-timeout: 600
