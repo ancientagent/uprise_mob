@@ -428,6 +428,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: "Guard: fail if CRLF present in workflow"
+        run: |
+          if grep -U $'\r' -n ".github/workflows/android-debug-build.yml"; then
+            echo "CRLF detected in workflow; must be LF." >&2
+            exit 1
+          fi
+
+      - name: "Guard: no emulator-runner"
+        run: |
+          if grep -R "reactivecircus/android-emulator-runner" -n .github/workflows/android-debug-build.yml; then
+            echo "reactivecircus/android-emulator-runner must not be used with manual boot." >&2
+            exit 1
+          fi
+
       - name: Bootstrap Android cmdline-tools r8 (8092744)
         shell: bash
         run: |
@@ -545,6 +559,7 @@ jobs:
           echo "ttjs_s=${ttjs_s:-}" >> artifacts/summary/summary.env
 
       - name: Build summary.json & Upload artifacts
+        if: always()
         shell: bash
         run: |
           set -euo pipefail
@@ -561,6 +576,188 @@ jobs:
       - uses: actions/upload-artifact@v4
         with: { name: ids, path: artifacts/ids/ }
       - uses: actions/upload-artifact@v4
+        if: always()
         with: { name: summary, path: artifacts/summary/summary.json }
+
+  smoke-macos-hvf:
+    name: macOS HVF Smoke (Optional)
+    needs: build
+    runs-on: macos-13
+    continue-on-error: true
+    timeout-minutes: 35
+    env:
+      NODE_OPTIONS: --openssl-legacy-provider
+      ADB_INSTALL_TIMEOUT: 20
+      ANDROID_SERIAL: emulator-5554
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Guard: fail if CRLF present in workflow"
+        run: |
+          if grep -U $'\r' -n ".github/workflows/android-debug-build.yml"; then
+            echo "CRLF detected in workflow; must be LF." >&2
+            exit 1
+          fi
+
+      - name: "Guard: no emulator-runner"
+        run: |
+          if grep -R "reactivecircus/android-emulator-runner" -n .github/workflows/android-debug-build.yml; then
+            echo "reactivecircus/android-emulator-runner must not be used with manual boot." >&2
+            exit 1
+          fi
+
+      - name: Bootstrap Android cmdline-tools r8 (8092744)
+        shell: bash
+        run: |
+          set -euo pipefail
+          export ANDROID_SDK_ROOT="$HOME/android-sdk"
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools"
+          cd "$ANDROID_SDK_ROOT"
+          URL="https://dl.google.com/android/repository/commandlinetools-mac-8092744_latest.zip"
+          curl -fsSL "$URL" -o cmdtools.zip
+          unzip -q cmdtools.zip -d cmdline-tools-tmp
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/r8"
+          mv cmdline-tools-tmp/cmdline-tools/* "$ANDROID_SDK_ROOT/cmdline-tools/r8/"
+          rm -rf cmdline-tools-tmp cmdtools.zip
+          echo "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin" >> "$GITHUB_PATH"
+          echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
+          echo "$ANDROID_SDK_ROOT/emulator" >> "$GITHUB_PATH"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
+
+      - name: Accept SDK licenses (r8)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Accepting SDK licenses non-interactively..."
+          ( echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y" ) | sdkmanager --licenses || true
+
+      - name: Install SDK components
+        shell: bash
+        run: |
+          set -euo pipefail
+          sdkmanager --install "platform-tools" "emulator" \
+            "build-tools;${{ env.ANDROID_BUILD_TOOLS }}" \
+            "platforms;android-31" \
+            "system-images;android-30;default;x86_64"
+          "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" -version
+
+      - name: Download Debug APK
+        uses: actions/download-artifact@v4
+        with:
+          name: app-debug-apk
+          path: artifacts/debug
+
+      - name: Download Release APK
+        uses: actions/download-artifact@v4
+        with:
+          name: app-release-apk
+          path: artifacts/release
+
+      - name: Create AVD (API 30 default x86_64)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "no" | avdmanager create avd -n ci_api_30 -k "system-images;android-30;default;x86_64" --device "pixel_5"
+
+      - name: Boot emulator (HVF accel, pinned serial + watchdog)
+        shell: bash
+        env:
+          ANDROID_SERIAL: emulator-5554
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/smoke-logs artifacts/ids artifacts/summary
+          adb kill-server || true
+          emulator -avd ci_api_30 -port 5554 \
+            -no-snapshot -no-snapshot-save -no-window -no-audio -no-boot-anim \
+            -gpu swiftshader_indirect -camera-back none -netfast -no-metrics \
+            -accel on -wipe-data -qemu -m 2048 \
+            -verbose > artifacts/smoke-logs/emulator.txt 2>&1 &
+          EMU_PID=$!
+          echo "EMU_PID=$EMU_PID" >> $GITHUB_ENV
+
+          boot_deadline=$((SECONDS+540))
+          ( sleep 900; echo "[WATCHDOG] macOS emulator boot exceeded 900s; adb devices:"; adb devices -l || true; kill -9 $EMU_PID || true; echo "BOOT_FAILED=1" >> $GITHUB_ENV; ) &
+          BOOT_WD=$!
+
+          adb start-server
+          adb -s "$ANDROID_SERIAL" wait-for-device || true
+          while [ $SECONDS -lt $boot_deadline ]; do
+            st=$(adb -s "$ANDROID_SERIAL" get-state 2>/dev/null | tr -d '\r')
+            booted=$(adb -s "$ANDROID_SERIAL" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
+            [ "$st" = "device" ] && [ "$booted" = "1" ] && break
+            sleep 5
+          done
+
+          if [ "${booted:-0}" != "1" ]; then
+            echo "boot_ok=false" > artifacts/summary/summary.env
+            echo "BOOT_FAILED=1" >> $GITHUB_ENV
+          else
+            echo "boot_ok=true" > artifacts/summary/summary.env
+            echo "BOOT_FAILED=0" >> $GITHUB_ENV
+            kill $BOOT_WD || true
+            adb -s "$ANDROID_SERIAL" shell settings put global window_animation_scale 0 || true
+            adb -s "$ANDROID_SERIAL" shell settings put global transition_animation_scale 0 || true
+            adb -s "$ANDROID_SERIAL" shell settings put global animator_duration_scale 0 || true
+          fi
+      
+      - name: Install APK (3 attempts, minimal smoke)
+        if: env.BOOT_FAILED == '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          AAPT="${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/aapt"
+          APP_ID=$($AAPT dump badging artifacts/debug/app-debug.apk | awk -F"'" '/package: name=/{print $2}')
+          
+          # Try installing up to 3 times
+          for i in 1 2 3; do
+            if adb -s "$ANDROID_SERIAL" install -r "artifacts/debug/app-debug.apk"; then
+              echo "✅ APK installed successfully on attempt $i"
+              # Verify package installed
+              if adb -s "$ANDROID_SERIAL" shell pm list packages | grep -q "$APP_ID"; then
+                echo "✅ Package $APP_ID verified"
+                echo "install_ok=true" >> artifacts/summary/summary.env
+                break
+              fi
+            fi
+            echo "⚠️ Install attempt $i failed, retrying..."
+            sleep 5
+          done
+          
+          # Don't launch app - just verify install for minimal smoke
+
+      - name: Build summary.json & Upload artifacts  
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          SHA_SHORT=$(git rev-parse --short HEAD)
+          DEBUG_SIZE=$( [ -f artifacts/debug/app-debug.apk ] && stat -f%z artifacts/debug/app-debug.apk || echo "0" )
+          RELEASE_SIZE=$( [ -f artifacts/release/app-release.apk ] && stat -f%z artifacts/release/app-release.apk || echo "0" )
+          source artifacts/summary/summary.env 2>/dev/null || true
+          RUN_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          cat > artifacts/summary/summary.json <<JSON
+          {"commit":"$SHA_SHORT","boot_ok":${boot_ok:-false},"ttjs_s":null,"debug_apk_bytes":$DEBUG_SIZE,"release_apk_bytes":$RELEASE_SIZE,"run_id":"$GITHUB_RUN_ID","run_url":"$RUN_URL","platform":"macos-hvf","install_ok":${install_ok:-false}}
+          JSON
+      
+      - name: Teardown emulator
+        if: always()
+        shell: bash
+        run: |
+          if [ -n "${EMU_PID:-}" ] && kill -0 $EMU_PID 2>/dev/null; then
+            echo "Terminating emulator (PID: $EMU_PID)..."
+            kill -TERM $EMU_PID 2>/dev/null || true
+            sleep 2
+            kill -9 $EMU_PID 2>/dev/null || true
+          fi
+      
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: smoke-logs-macos, path: artifacts/smoke-logs/ }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: ids-macos, path: artifacts/ids/ }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: summary-macos, path: artifacts/summary/summary.json }
 
 
