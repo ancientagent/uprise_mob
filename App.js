@@ -7,7 +7,7 @@ import TrackPlayer from 'react-native-track-player';
 import RNSplashScreen from 'react-native-splash-screen';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import AsyncStorage
-from '@react-native-community/async-storage';
+from '@react-native-async-storage/async-storage';
 import { navigationRef } from './src/navigators/RootNavigation';
 import reduxManager from './src/state/store';
 import AppNavigator from './src/navigators/AppNavigator';
