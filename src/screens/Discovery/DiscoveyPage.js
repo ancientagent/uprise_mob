@@ -7,7 +7,7 @@ import _ from 'lodash';
 import TrackPlayer from 'react-native-track-player';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage
-from '@react-native-community/async-storage';
+from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native-virtualized-view';
 import Carousel from 'react-native-snap-carousel';
 import SliderEntry from '../../components/SliderEntry/SliderEntry';

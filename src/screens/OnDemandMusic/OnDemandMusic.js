@@ -14,7 +14,7 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 import MarqueeText from 'react-native-marquee';
 import { useDispatch } from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import favSymbolFilledIcon from '../../../assets/images/favSymbolFilledIcon.svg';
 import Colors from '../../theme/colors';
 import URContainer from '../../components/URContainer/URContainer';

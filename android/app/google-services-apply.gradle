@@ -1,0 +1,6 @@
+if (file("$projectDir/google-services.json").exists()) {
+  apply plugin: 'com.google.gms.google-services'
+  logger.lifecycle("google-services.json found; applied google-services plugin.")
+} else {
+  logger.lifecycle("google-services.json missing; skipping google-services plugin for CI.")
+}

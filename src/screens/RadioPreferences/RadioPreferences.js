@@ -4,7 +4,7 @@ import {
   View, Text, TouchableOpacity, ScrollView, Alert, TextInput,
 } from 'react-native';
 import AsyncStorage
-from '@react-native-community/async-storage';
+from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import {

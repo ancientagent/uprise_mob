@@ -3,7 +3,7 @@ import { Alert, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage
-from '@react-native-community/async-storage';
+from '@react-native-async-storage/async-storage';
 import AuthNavigator from './AuthNavigator';
 import BottomTabs from './BottomTabs';
 import { strings } from '../utilities/localization/localization';
