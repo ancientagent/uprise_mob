@@ -2,7 +2,7 @@
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import { createNetworkMiddleware } from 'react-native-offline';
 import { persistReducer, createMigrate, persistStore } from 'redux-persist';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from '../reducers';

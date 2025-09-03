@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { Divider } from 'react-native-elements';
 import TrackPlayer from 'react-native-track-player';
 import AsyncStorage
-from '@react-native-community/async-storage';
+from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import SvgImage from '../../../components/SvgImage/SvgImage';
 import Colors from '../../../theme/colors';
