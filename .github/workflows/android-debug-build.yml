@@ -236,29 +236,109 @@ jobs:
           echo "${ANDROID_SDK_ROOT}/build-tools/31.0.0" >> "$GITHUB_PATH"
           echo "${ANDROID_SDK_ROOT}/platform-tools" >> "$GITHUB_PATH"
 
+          # Create artifacts directory for metadata
+          mkdir -p artifacts/sdk-info
+
+          # Extract from AndroidManifest.xml first (more reliable)
+          MANIFEST="android/app/src/main/AndroidManifest.xml"
+          if [ -f "$MANIFEST" ]; then
+            echo "=== Extracting SDK info from AndroidManifest.xml ==="
+            # Extract minSdkVersion and targetSdkVersion from manifest
+            MIN_SDK_MANIFEST=$(grep -o 'android:minSdkVersion="[^"]*"' "$MANIFEST" | sed 's/.*"\([^"]*\)".*/\1/' | head -n1)
+            TGT_SDK_MANIFEST=$(grep -o 'android:targetSdkVersion="[^"]*"' "$MANIFEST" | sed 's/.*"\([^"]*\)".*/\1/' | head -n1)
+            echo "Manifest minSdkVersion: $MIN_SDK_MANIFEST"
+            echo "Manifest targetSdkVersion: $TGT_SDK_MANIFEST"
+            echo "minSdkVersion: $MIN_SDK_MANIFEST" > artifacts/sdk-info/manifest-sdk.txt
+            echo "targetSdkVersion: $TGT_SDK_MANIFEST" >> artifacts/sdk-info/manifest-sdk.txt
+          fi
+
+          # Extract from APK files
           APK_DEBUG="$(ls -1 android/app/build/outputs/apk/debug/*.apk | head -n1)"
           APK_RELEASE="$(ls -1 android/app/build/outputs/apk/release/*.apk | head -n1)"
+
+          echo "=== Extracting SDK info from APK files ==="
+          echo "Debug APK: $APK_DEBUG"
+          echo "Release APK: $APK_RELEASE"
 
           # Use aapt2 if available, else aapt
           AAPT="$(command -v aapt2 || true)"
           [ -z "$AAPT" ] && AAPT="$(command -v aapt || true)"
 
-          # Fallback to apkanalyzer if needed
-          if [ -n "$AAPT" ]; then
-            MIN_SDK="$($AAPT dump badging "$APK_DEBUG" | sed -n "s/.*sdkVersion:'\([^']*\)'.*/\1/p" | head -n1)"
-            TGT_SDK="$($AAPT dump badging "$APK_DEBUG" | sed -n "s/.*targetSdkVersion:'\([^']*\)'.*/\1/p" | head -n1)"
+          # Extract SDK info from APK
+          if [ -n "$AAPT" ] && [ -f "$APK_DEBUG" ]; then
+            echo "Using $AAPT to extract APK metadata"
+            $AAPT dump badging "$APK_DEBUG" > artifacts/sdk-info/debug-apk-badging.txt
+            
+            MIN_SDK_APK="$($AAPT dump badging "$APK_DEBUG" | sed -n "s/.*sdkVersion:'\([^']*\)'.*/\1/p" | head -n1)"
+            TGT_SDK_APK="$($AAPT dump badging "$APK_DEBUG" | sed -n "s/.*targetSdkVersion:'\([^']*\)'.*/\1/p" | head -n1)"
+            echo "APK minSdkVersion: $MIN_SDK_APK"
+            echo "APK targetSdkVersion: $TGT_SDK_APK"
           else
-            MIN_SDK="$(apkanalyzer manifest min-sdk "$APK_DEBUG" || true)"
-            TGT_SDK="$(apkanalyzer manifest target-sdk "$APK_DEBUG" || true)"
+            # Fallback to apkanalyzer if needed
+            if command -v apkanalyzer >/dev/null 2>&1 && [ -f "$APK_DEBUG" ]; then
+              echo "Using apkanalyzer to extract APK metadata"
+              MIN_SDK_APK="$(apkanalyzer manifest min-sdk "$APK_DEBUG" || true)"
+              TGT_SDK_APK="$(apkanalyzer manifest target-sdk "$APK_DEBUG" || true)"
+              echo "APK minSdkVersion: $MIN_SDK_APK"
+              echo "APK targetSdkVersion: $TGT_SDK_APK"
+            else
+              echo "Warning: Neither aapt nor apkanalyzer available for APK analysis"
+              MIN_SDK_APK=""
+              TGT_SDK_APK=""
+            fi
           fi
 
-          DBG_MB="$(( $(stat -c%s "$APK_DEBUG" 2>/dev/null || stat -f%z "$APK_DEBUG") / 1024 / 1024 ))"
-          REL_MB="$(( $(stat -c%s "$APK_RELEASE" 2>/dev/null || stat -f%z "$APK_RELEASE") / 1024 / 1024 ))"
+          # Calculate APK sizes
+          if [ -f "$APK_DEBUG" ]; then
+            DBG_BYTES=$(stat -c%s "$APK_DEBUG" 2>/dev/null || stat -f%z "$APK_DEBUG")
+            DBG_MB=$((DBG_BYTES / 1024 / 1024))
+            DBG_KB=$((DBG_BYTES / 1024))
+            echo "Debug APK size: ${DBG_MB} MB (${DBG_KB} KB)"
+          else
+            DBG_MB=0
+            DBG_KB=0
+            echo "Warning: Debug APK not found"
+          fi
 
+          if [ -f "$APK_RELEASE" ]; then
+            REL_BYTES=$(stat -c%s "$APK_RELEASE" 2>/dev/null || stat -f%z "$APK_RELEASE")
+            REL_MB=$((REL_BYTES / 1024 / 1024))
+            REL_KB=$((REL_BYTES / 1024))
+            echo "Release APK size: ${REL_MB} MB (${REL_KB} KB)"
+          else
+            REL_MB=0
+            REL_KB=0
+            echo "Warning: Release APK not found"
+          fi
+
+          # Use APK values if available, otherwise fall back to manifest values
+          MIN_SDK="${MIN_SDK_APK:-$MIN_SDK_MANIFEST}"
+          TGT_SDK="${TGT_SDK_APK:-$TGT_SDK_MANIFEST}"
+
+          # Save to environment variables
           echo "SDK_MIN=$MIN_SDK" >> $GITHUB_ENV
           echo "SDK_TARGET=$TGT_SDK" >> $GITHUB_ENV
           echo "APK_DEBUG_MB=$DBG_MB" >> $GITHUB_ENV
           echo "APK_RELEASE_MB=$REL_MB" >> $GITHUB_ENV
+          echo "APK_DEBUG_KB=$DBG_KB" >> $GITHUB_ENV
+          echo "APK_RELEASE_KB=$REL_KB" >> $GITHUB_ENV
+
+          # Create summary file
+          {
+            echo "=== SDK Information ==="
+            echo "minSdkVersion: $MIN_SDK"
+            echo "targetSdkVersion: $TGT_SDK"
+            echo ""
+            echo "=== APK Sizes ==="
+            echo "Debug APK: ${DBG_MB} MB (${DBG_KB} KB)"
+            echo "Release APK: ${REL_MB} MB (${REL_KB} KB)"
+            echo ""
+            echo "=== Source Priority ==="
+            echo "SDK info extracted from APK files (preferred) or AndroidManifest.xml (fallback)"
+          } > artifacts/sdk-info/summary.txt
+
+          echo "=== Final SDK Summary ==="
+          cat artifacts/sdk-info/summary.txt
 
       - name: Ensure build-tools for apksigner/aapt
         shell: bash
@@ -331,37 +411,55 @@ jobs:
           DBG_MAX=$((120 * 1024 * 1024))   # 120 MB
           REL_MAX=$((80 * 1024 * 1024))    # 80 MB
 
-          echo "## APK Size" >> "$summary"
-          echo "- Debug: $((DBG_SIZE/1024/1024)) MB" >> "$summary"
+          echo "## 📱 APK Information" >> "$summary"
+          echo "" >> "$summary"
+          echo "### APK Sizes" >> "$summary"
+          echo "- **Debug APK**: $((DBG_SIZE/1024/1024)) MB ($((DBG_SIZE/1024)) KB)" >> "$summary"
           if [ -f "$REL" ]; then
-            echo "- Release: $((REL_SIZE/1024/1024)) MB" >> "$summary"
+            echo "- **Release APK**: $((REL_SIZE/1024/1024)) MB ($((REL_SIZE/1024)) KB)" >> "$summary"
+          fi
+          echo "" >> "$summary"
+
+          # Add SDK information from environment variables
+          if [ -n "${SDK_MIN:-}" ] || [ -n "${SDK_TARGET:-}" ]; then
+            echo "### 📋 SDK Information" >> "$summary"
+            echo "- **minSdkVersion**: \`${SDK_MIN:-unknown}\`" >> "$summary"
+            echo "- **targetSdkVersion**: \`${SDK_TARGET:-unknown}\`" >> "$summary"
+            echo "" >> "$summary"
           fi
 
           WARN=0
-          if [ "$DBG_SIZE" -gt "$DBG_MAX" ]; then echo "⚠️ Debug APK exceeds ${DBG_MAX} bytes" >> "$summary"; WARN=1; fi
-          if [ -f "$REL" ] && [ "$REL_SIZE" -gt "$REL_MAX" ]; then echo "⚠️ Release APK exceeds ${REL_MAX} bytes" >> "$summary"; WARN=1; fi
+          if [ "$DBG_SIZE" -gt "$DBG_MAX" ]; then 
+            echo "⚠️ **Warning**: Debug APK exceeds ${DBG_MAX} bytes (${DBG_MAX} MB)" >> "$summary"
+            WARN=1
+          fi
+          if [ -f "$REL" ] && [ "$REL_SIZE" -gt "$REL_MAX" ]; then 
+            echo "⚠️ **Warning**: Release APK exceeds ${REL_MAX} bytes (${REL_MAX} MB)" >> "$summary"
+            WARN=1
+          fi
+
+          if [ $WARN -eq 0 ]; then
+            echo "✅ **All APK sizes within acceptable limits**" >> "$summary"
+          fi
 
           # Do not fail build; just warn (flip to hard fail later if desired)
           exit 0
 
-      - name: SDK sanity (min/target)
-        shell: bash
-        run: |
-          summary="$GITHUB_STEP_SUMMARY"
-          FILE="artifacts/meta/debug_badging.txt"
-          if [ -f "$FILE" ]; then
-            MIN=$(grep -Eo "sdkVersion:'.*'|uses-sdk:minSdkVersion:'[0-9]+'" "$FILE" | head -n1 | sed "s/.*'//;s/'//")
-            TGT=$(grep -Eo "targetSdkVersion:'[0-9]+'" "$FILE" | head -n1 | sed "s/.*'//;s/'//")
-            echo "## SDK" >> "$summary"
-            echo "- minSdk: \`${MIN:-unknown}\`" >> "$summary"
-            echo "- targetSdk: \`${TGT:-unknown}\`" >> "$summary"
-          fi
+
 
       - name: Upload metadata artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-metadata
           path: artifacts/meta/**
+          retention-days: 14
+
+      - name: Upload SDK info artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdk-info
+          path: artifacts/sdk-info/**
           retention-days: 14
 
       - name: Publish run identifiers
@@ -723,6 +821,14 @@ jobs:
 
           echo "## Smoke Summary" >> "$SUM"
           echo "" >> "$SUM"
+
+          # Add SDK information if available
+          if [ -n "${SDK_MIN:-}" ] || [ -n "${SDK_TARGET:-}" ]; then
+            echo "### 📋 SDK Information" >> "$SUM"
+            echo "- **minSdkVersion**: \`${SDK_MIN:-unknown}\`" >> "$SUM"
+            echo "- **targetSdkVersion**: \`${SDK_TARGET:-unknown}\`" >> "$SUM"
+            echo "" >> "$SUM"
+          fi
 
           # RN JS presence + TTJS metric
           if grep -q "ReactNativeJS" "$RN" 2>/dev/null; then

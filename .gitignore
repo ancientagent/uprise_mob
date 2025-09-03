@@ -73,3 +73,7 @@ package-lock.json
 yarn-error.log
 # ignore editor/backup files
 *.bak
+
+# Local build artifacts
+artifacts/local/
+tools/
