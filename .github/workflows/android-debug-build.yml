@@ -18,14 +18,20 @@ jobs:
         with:
           node-version: '20.19.0'
 
-      - name: Setup JDK 11
+      - name: Setup JDK 17 for SDK tools
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Switch to JDK 11 for Gradle build
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '11'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
 
       - name: Cache Gradle
         uses: gradle/actions/setup-gradle@v3
@@ -71,6 +77,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup JDK 17 for SDK tools
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
@@ -86,25 +98,32 @@ jobs:
           name: app-release-apk
           path: artifacts/release
 
-      - name: Create AVD (API 31, google_apis, x86_64)
+      - name: Create AVD (API 31, google_apis, x86_64 - cold boot)
         shell: bash
         run: |
           yes "y" | sdkmanager --install "system-images;android-31;google_apis;x86_64"
           echo "no" | avdmanager create avd -n ci_api_31 -k "system-images;android-31;google_apis;x86_64" --device "pixel_4"
+          # Force cold boot & consistent config
+          AVD="$HOME/.android/avd/ci_api_31.avd"
+          mkdir -p "$AVD"
+          echo "hw.ramSize=2048" >> "$AVD/config.ini"
+          echo "disk.dataPartition.size=2G" >> "$AVD/config.ini"
+          echo "hw.accelerometer=yes" >> "$AVD/config.ini"
 
-      - name: Boot Emulator (HVF) + ADB hygiene
+      - name: Boot Emulator (HVF) + ADB hygiene (with retry)
         shell: bash
         run: |
           mkdir -p artifacts/smoke
           adb kill-server || true
           $ANDROID_SDK_ROOT/emulator/emulator -avd ci_api_31 \
-            -no-snapshot -no-audio -no-boot-anim -no-window \
-            -gpu swiftshader_indirect -accel hvf \
+            -no-snapshot -no-snapshot-save -no-audio -no-boot-anim -no-window \
+            -gpu swiftshader_indirect -accel hvf -feature WindowsPipeTransport=on \
+            -skip-adb-auth -camera-back none -camera-front none \
             -qt-hide-window -verbose > artifacts/smoke/emulator.txt 2>&1 &
           EMU_PID=$!
 
-          # Wait for device
-          boot_deadline=$((SECONDS+300))
+          # Wait for device with extended timeout
+          boot_deadline=$((SECONDS+420))
           adb start-server
           adb wait-for-device || true
           while [ $SECONDS -lt $boot_deadline ]; do
@@ -112,6 +131,21 @@ jobs:
             if [ "$booted" = "1" ]; then break; fi
             sleep 5
           done
+          
+          # Retry once if not booted
+          if [ "${booted:-0}" != "1" ]; then
+            echo "First boot attempt failed, retrying..."
+            adb emu kill || true
+            sleep 5
+            $ANDROID_SDK_ROOT/emulator/emulator -avd ci_api_31 -no-snapshot -no-snapshot-save -no-audio -no-boot-anim -no-window -gpu swiftshader_indirect -accel hvf -qt-hide-window -verbose > artifacts/smoke/emulator_retry.txt 2>&1 &
+            boot_deadline=$((SECONDS+300))
+            adb wait-for-device || true
+            while [ $SECONDS -lt $boot_deadline ]; do
+              booted=$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
+              if [ "$booted" = "1" ]; then break; fi
+              sleep 5
+            done
+          fi
 
           # Basic sanity
           adb shell settings put global window_animation_scale 0 || true
