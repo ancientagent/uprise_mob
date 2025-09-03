@@ -766,7 +766,12 @@ jobs:
           # Determine app id from APK via aapt
           APP_ID=$("$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" dump badging "$DBG_APK" | sed -n "s/^package: name='\([^']*\)'.*/\1/p" | head -n1)
           echo "APP_ID=$APP_ID" >> $GITHUB_ENV
-          for attempt in 1 2 3; do\n            adb -s "$ANDROID_SERIAL" install -r "$DBG_APK" && break\n            echo "[INSTALL] attempt $attempt failed; retrying after pm clear cache"\n            adb -s "$ANDROID_SERIAL" shell pm clear "$APP_ID" || true\n            sleep 5\n          done
+          for attempt in 1 2 3; do
+            adb -s "$ANDROID_SERIAL" install -r "$DBG_APK" && break
+            echo "[INSTALL] attempt $attempt failed; retrying after pm clear cache"
+            adb -s "$ANDROID_SERIAL" shell pm clear "$APP_ID" || true
+            sleep 5
+          done
           adb -s "$ANDROID_SERIAL" shell pm list packages | grep -F "$APP_ID"
 
       - name: Collect logs and write summary.json
@@ -779,7 +784,15 @@ jobs:
           RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           DBG_BYTES=$(stat -c%s "${DBG_APK:-}" 2>/dev/null || echo 0)
           REL_BYTES=$(stat -c%s "${REL_APK:-}" 2>/dev/null || echo 0)
-          if [ "${BOOT_OK:-0}" != "1" ]; then\n            boot_ok=false\n            echo "BOOT_FAILED=1" >> $GITHUB_ENV\n          else\n            boot_ok=true\n            echo "BOOT_FAILED=0" >> $GITHUB_ENV\n          fi\n          echo "boot_ok=$boot_ok" > summary/summary.env\n          BOOT=$([[ "${BOOT_OK:-0}" = "1" ]] && echo true || echo false)
+          if [ "${BOOT_OK:-0}" != "1" ]; then
+            boot_ok=false
+            echo "BOOT_FAILED=1" >> $GITHUB_ENV
+          else
+            boot_ok=true
+            echo "BOOT_FAILED=0" >> $GITHUB_ENV
+          fi
+          echo "boot_ok=$boot_ok" > summary/summary.env
+          BOOT=$([[ "${BOOT_OK:-0}" = "1" ]] && echo true || echo false)
           cat > summary/summary.json <<'EOF'
           {
             "run_id": ${GITHUB_RUN_ID},
