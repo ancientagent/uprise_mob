@@ -70,6 +70,7 @@ jobs:
       - name: Prepare Android SDK (isolated, AGP 7.0.x safe)
         env:
           ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
           set -e
 
