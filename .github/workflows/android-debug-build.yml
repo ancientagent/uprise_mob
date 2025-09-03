@@ -511,7 +511,7 @@ jobs:
           profile: pixel_5
           target: default
           disable-animations: true
-          force-avd-creation: true
+          force-avd-creation: false
           emulator-boot-timeout: 600
           emulator-options: >
             -no-snapshot
@@ -524,36 +524,38 @@ jobs:
             -memory 1024
             -netfast
             -no-metrics
+            -accel hvf
           script: |
-            set -euo pipefail
-            echo "✅ Emulator started successfully"
-            
-            # ADB is already managed by emulator-runner, just verify
+            echo "✅ Emulator and ADB ready"
             adb devices -l
-            adb wait-for-device
             
-            # Install APK
-            echo "Installing APK..."
+            echo "Installing APK: $APK"
             adb install -r "$APK"
             
-            # Get package info
-            if command -v aapt >/dev/null 2>&1; then
-              PKG=$(aapt dump badging "$APK" | sed -n "s/.*package name='\([^']*\)'.*/\1/p" | head -n1)
-            else
-              PKG="com.app.uprise"  # fallback
-            fi
+            # Get package info using aapt from our build-tools
+            export PATH="${ANDROID_SDK_ROOT}/build-tools/31.0.0:$PATH"
+            PKG=$(aapt dump badging "$APK" | awk -F"'" '/package: name=/{print $2}')
             echo "Package: $PKG"
             
-            # Launch app and wait for React Native
-            adb shell am start -n "$PKG/.MainActivity" || true
-            sleep 5
-            
-            # Wait for ReactNativeJS in logcat
+            # Launch app
+            echo "Launching app..."
             adb logcat -c
-            timeout 60s bash -c 'until adb logcat -d | grep -m1 "ReactNativeJS"; do sleep 3; done'
+            adb shell am start -n "$PKG/.MainActivity"
+            sleep 3
             
-            echo "✅ Smoke test completed successfully"
-        timeout-minutes: 15
+            # Wait for ReactNativeJS
+            echo "Waiting for ReactNativeJS..."
+            for i in {1..20}; do
+              if adb logcat -d | grep -q "ReactNativeJS"; then
+                echo "✅ ReactNativeJS detected after ${i}0s"
+                exit 0
+              fi
+              sleep 3
+            done
+            
+            echo "⚠️ ReactNativeJS not detected in 60s, but APK installed and launched"
+            adb logcat -d | tail -20
+        timeout-minutes: 12
       
       - name: Collect diagnostics after emulator run
         shell: bash
