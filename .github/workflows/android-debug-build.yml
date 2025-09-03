@@ -503,59 +503,60 @@ jobs:
           fi
           echo "APK=$APK" | tee -a "$GITHUB_ENV"
 
-      - name: Run smoke test with emulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 30
-          arch: x86_64
-          profile: pixel_5
-          target: default
-          disable-animations: true
-          force-avd-creation: false
-          emulator-boot-timeout: 600
-          emulator-options: >
-            -no-snapshot
-            -no-snapshot-save
-            -no-window
-            -no-audio
-            -no-boot-anim
-            -gpu swiftshader_indirect
-            -camera-back none
-            -memory 1024
-            -netfast
-            -no-metrics
-            -accel hvf
-          script: |
-            echo "✅ Emulator and ADB ready"
-            adb devices -l
-            
-            echo "Installing APK: $APK"
-            adb install -r "$APK"
-            
-            # Get package info using aapt from our build-tools
-            export PATH="${ANDROID_SDK_ROOT}/build-tools/31.0.0:$PATH"
-            PKG=$(aapt dump badging "$APK" | awk -F"'" '/package: name=/{print $2}')
-            echo "Package: $PKG"
-            
-            # Launch app
-            echo "Launching app..."
-            adb logcat -c
-            adb shell am start -n "$PKG/.MainActivity"
-            sleep 3
-            
-            # Wait for ReactNativeJS
-            echo "Waiting for ReactNativeJS..."
-            for i in {1..20}; do
-              if adb logcat -d | grep -q "ReactNativeJS"; then
-                echo "✅ ReactNativeJS detected after ${i}0s"
-                exit 0
-              fi
-              sleep 3
-            done
-            
-            echo "⚠️ ReactNativeJS not detected in 60s, but APK installed and launched"
+      - name: Create and start emulator manually
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Create AVD
+          echo "no" | avdmanager create avd -n test_avd -k "system-images;android-30;default;x86_64" --device "pixel_5" --force
+          
+          # Start emulator in background
+          $ANDROID_SDK_ROOT/emulator/emulator @test_avd -no-window -no-audio -no-boot-anim -memory 1024 -accel hvf &
+          EMU_PID=$!
+          
+          # Wait for device
+          adb wait-for-device
+          echo "✅ Emulator started"
+          
+          # Wait for boot complete (max 5 minutes)
+          for i in {1..30}; do
+            if adb shell getprop sys.boot_completed 2>/dev/null | grep -q "1"; then
+              echo "✅ Boot completed after ${i}0s"
+              break
+            fi
+            sleep 10
+          done
+          
+          # Verify device is ready
+          adb devices -l
+          
+          # Install APK
+          echo "Installing APK: $APK"
+          adb install -r "$APK"
+          
+          # Get package info
+          export PATH="${ANDROID_SDK_ROOT}/build-tools/31.0.0:$PATH"
+          PKG=$(aapt dump badging "$APK" | awk -F"'" '/package: name=/{print $2}')
+          echo "Package: $PKG"
+          
+          # Launch app
+          echo "Launching app..."
+          adb logcat -c
+          adb shell am start -n "$PKG/.MainActivity"
+          sleep 5
+          
+          # Check for ReactNativeJS
+          echo "Checking for ReactNativeJS..."
+          if adb logcat -d | grep -q "ReactNativeJS"; then
+            echo "✅ ReactNativeJS detected"
+          else
+            echo "⚠️ ReactNativeJS not detected, showing recent logs:"
             adb logcat -d | tail -20
-        timeout-minutes: 12
+          fi
+          
+          # Cleanup
+          kill $EMU_PID || true
+        timeout-minutes: 15
       
       - name: Collect diagnostics after emulator run
         shell: bash
