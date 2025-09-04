@@ -1,0 +1,2 @@
+RUNBOOK_ANDROID.md: add "Smoke Test – Debug & Release Parity" section
+CHANGELOG.md: add entry "CI: parity debug+release smoke, logs+summary artifacts"

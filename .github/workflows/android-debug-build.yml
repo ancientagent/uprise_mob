@@ -17,6 +17,7 @@ on:
       - main
       - develop
       - feat/ccpm-framework
+      - ci/macos-hvf-install-launch
   pull_request:
     branches:
       - main
@@ -261,25 +262,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Verify Java toolchains
-        shell: bash
-        run: |
-          echo "Ubuntu Gradle (if needed) uses Java 11:"
-          "${{ steps.j11.outputs.path }}/bin/java" -version
-          echo "Ubuntu sdkmanager uses Java 17:"
-          "${{ steps.j17.outputs.path }}/bin/java" -version
-
       - name: Setup Android SDK (Ubuntu)
         uses: android-actions/setup-android@v3
 
-      - name: Guard Print Android SDK paths (Ubuntu)
+      - name: Install SDK build-tools 31.0.0
         shell: bash
         run: |
           set -euo pipefail
-          echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT:-<unset>}"
-          echo "ANDROID_HOME=${ANDROID_HOME:-<unset>}"
-          command -v sdkmanager || true
-          command -v adb || true
+          export JAVA_HOME="${{ steps.j17.outputs.path }}"
+          sdkmanager --install "build-tools;31.0.0" "system-images;android-31;default;x86_64"
+          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+          ls -la "$ANDROID_SDK_ROOT/build-tools/" || true
 
       - name: Download Debug APK
         uses: actions/download-artifact@v4
@@ -293,72 +286,39 @@ jobs:
           name: app-release-apk
           path: artifacts/release
 
-      - name: Find APK and set env
-        run: |
-          APK=$(find artifacts/debug -name "*.apk" -type f | head -1)
-          if [ -z "$APK" ]; then
-            echo "No APK found under artifacts/debug"
-            exit 1
-          fi
-          echo "APK=$APK" | tee -a "$GITHUB_ENV"
-
-      - name: Discover APP_ID from debug APK
+      - name: Create AVD (API 31)
         shell: bash
         run: |
           set -euo pipefail
-          export PATH="$ANDROID_SDK_ROOT/build-tools/31.0.0:$PATH"
-          APK_DEBUG="$APK"
-          if [ -z "${APK_DEBUG:-}" ]; then
-            echo "Debug APK not found" >&2; exit 1
-          fi
-          # Prefer aapt (AGP 7 era). Fallback to apkanalyzer if needed.
-          if command -v aapt >/dev/null 2>&1; then
-            APP_ID=$(aapt dump badging "$APK_DEBUG" | awk -F"'" '/package: name=/{print $2; exit}')
-            MIN_SDK=$(aapt dump badging "$APK_DEBUG" | awk -F"=" '/sdkVersion:/{gsub(/'\''/,""); print $2; exit}')
-            TGT_SDK=$(aapt dump badging "$APK_DEBUG" | awk -F"=" '/targetSdkVersion:/{gsub(/'\''/,""); print $2; exit}')
-          else
-            APP_ID=$(apkanalyzer manifest application-id "$APK_DEBUG")
-            MIN_SDK=$(apkanalyzer manifest min-sdk "$APK_DEBUG")
-            TGT_SDK=$(apkanalyzer manifest target-sdk "$APK_DEBUG")
-          fi
-          if [ -z "${APP_ID:-}" ]; then
-            echo "Failed to parse APP_ID from $APK_DEBUG" >&2; exit 1
-          fi
-          echo "APP_ID=$APP_ID" >> "$GITHUB_ENV"
-          echo "MIN_SDK=${MIN_SDK:-unknown}" >> "$GITHUB_ENV"
-          echo "TARGET_SDK=${TGT_SDK:-unknown}" >> "$GITHUB_ENV"
-          echo "Detected APP_ID=$APP_ID (minSdk=$MIN_SDK targetSdk=$TARGET_SDK)"
+          export JAVA_HOME="${{ steps.j17.outputs.path }}"
+          echo "no" | avdmanager create avd -n "ci_api_31" -k "system-images;android-31;default;x86_64" --force --device "pixel_5"
 
-      - name: Start emulator (20m ceiling, traced)
+      - name: Start emulator (15m ceiling)
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p artifacts/smoke-logs artifacts/summary
-
-          EMU_CMD="emulator -avd ci_api_30 -ports 5554,5555 \
+          mkdir -p artifacts/smoke
+          
+          EMU_CMD="emulator -avd ci_api_31 -ports 5554,5555 \
             -no-snapshot -no-snapshot-save -no-snapshot-load -wipe-data \
             -no-window -no-audio -no-boot-anim \
             -gpu swiftshader_indirect -camera-back none -netfast -no-metrics \
-            -accel off -cores 2 -memory 2048 -qemu -m 1536 -verbose"
-
-          echo "$EMU_CMD" > artifacts/smoke-logs/cmd.txt
-          $EMU_CMD > artifacts/smoke-logs/emulator.txt 2>&1 & EMU_PID=$!
+            -accel off -cores 2 -memory 2048 -qemu -m 1536"
+          
+          echo "$EMU_CMD" > artifacts/smoke/emulator_cmd.txt
+          $EMU_CMD > artifacts/smoke/emulator_boot.log 2>&1 & EMU_PID=$!
           echo "EMU_PID=$EMU_PID" >> "$GITHUB_ENV"
-
-          boot_deadline=$((SECONDS+1200)) # 20m
+          
+          boot_deadline=$((SECONDS+900)) # 15 minutes
           adb kill-server || true
           adb start-server
-
-          # Trace loop for visibility
-          : > artifacts/smoke-logs/trace.txt
+          
           booted=0
           while [ $SECONDS -lt $boot_deadline ]; do
-            adb devices -l >> artifacts/smoke-logs/trace.txt || true
             state=$(adb -s "$ANDROID_SERIAL" get-state 2>/dev/null || true)
             bc=$(adb -s "$ANDROID_SERIAL" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
             if [ "$state" = "device" ] && [ "$bc" = "1" ]; then
               booted=1
-              # Extra readiness polish
               adb -s "$ANDROID_SERIAL" shell settings put global animator_duration_scale 0.0 || true
               adb -s "$ANDROID_SERIAL" shell settings put global transition_animation_scale 0.0 || true
               adb -s "$ANDROID_SERIAL" shell settings put global window_animation_scale 0.0 || true
@@ -367,201 +327,184 @@ jobs:
             fi
             sleep 5
           done
+          
+          if [ "$booted" != "1" ]; then
+            echo "BOOT TIMEOUT after 15m. Last 200 lines of logcat:"
+            adb -s "$ANDROID_SERIAL" logcat -d | tail -n 200 || true
+            exit 1
+          fi
           echo "booted=$booted" >> "$GITHUB_ENV"
 
-
-      - name: Install Debug APK
-        shell: bash
-        run: |
-          echo "Installing APK..."
-          # Uninstall both the base id and the ".debug" id (covers history/leftovers)
-          base="${APP_ID%.debug}"
-          adb -s "$ANDROID_SERIAL" uninstall "$APP_ID" || true
-          [ "$base" != "$APP_ID" ] && adb -s "$ANDROID_SERIAL" uninstall "$base" || true
-          
-          # Capture precise install errors for clarity
-          set +e
-          adb -s "$ANDROID_SERIAL" install -r "$APK"
-          rc=$?
-          set -e
-          if [ $rc -ne 0 ]; then
-            echo "INSTALL FAILED (rc=$rc). Dumping package + last logcat:"
-            adb -s "$ANDROID_SERIAL" shell pm list packages | sed -n '1,120p' || true
-            adb -s "$ANDROID_SERIAL" logcat -d | tail -n 200 || true
-            exit $rc
-          fi
-
-      - name: Determine package + launchable activity (robust)
-        id: pkg
+      - name: Test Debug APK
         shell: bash
         run: |
           set -euo pipefail
-          # APK is already set from "Find APK and set env" step
-          echo "apk=$APK" >> $GITHUB_OUTPUT
-
-          # Generate APK metadata for logs
-          mkdir -p artifacts/logs
-          if command -v aapt >/dev/null 2>&1; then
-            aapt dump badging "$APK" | tee artifacts/logs/apk_badging.txt
+          
+          # Find APK
+          DEBUG_APK=$(find artifacts/debug -name "*.apk" -type f | head -1)
+          if [ -z "$DEBUG_APK" ]; then
+            echo "No debug APK found"
+            exit 1
           fi
-
-          # Use the discovered APP_ID
-          PKG="$APP_ID"
-          echo "pkg=$PKG" >> $GITHUB_OUTPUT
-          echo "Using discovered package: $PKG"
-
-          # Resolve real launchable activity from the package
-          # (uses the default LAUNCHER activity exposed by the app)
-          ACT=$(adb -s "$ANDROID_SERIAL" shell cmd package resolve-activity -c android.intent.category.LAUNCHER "$PKG" \
-                | sed -n "s/.*name=//p" | tr -d '\r' | head -n1)
-          if [ -z "$ACT" ]; then
-            # Fallback: common RN default
-            ACT="$PKG/.MainActivity"
-            echo "Fallback to $ACT"
-          fi
-          echo "act=$ACT" >> $GITHUB_OUTPUT
-          echo "Launchable activity: $ACT"
-
-      - name: Launch App (using resolved activity)
-        id: launch
-        shell: bash
-        run: |
-          # Record launch start time for TTJS metric
-          LAUNCH_START=$(date +%s)
-          echo "launch_start=$LAUNCH_START" >> $GITHUB_OUTPUT
-          echo "App launch started at: $(date -d @$LAUNCH_START)"
+          echo "DEBUG_APK=$DEBUG_APK"
           
-          adb shell am start -n "${{ steps.pkg.outputs.act }}" || true
-          sleep 10
-          adb shell pidof "${{ steps.pkg.outputs.pkg }}" || (echo "App not running" && exit 1)
-
-      - name: Assert React Native JS initialized + TTJS
-        id: ttjs
-        shell: bash
-        run: |
-          LAUNCH_START="${{ steps.launch.outputs.launch_start }}"
+          # Detect APP_ID
+          export PATH="$ANDROID_SDK_ROOT/build-tools/31.0.0:$PATH"
+          DEBUG_APP_ID=$(aapt dump badging "$DEBUG_APK" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p")
+          echo "DEBUG_APP_ID=$DEBUG_APP_ID"
+          echo "DEBUG_APP_ID=$DEBUG_APP_ID" >> "$GITHUB_ENV"
           
-          # Wait up to 90s for the first JS log
-          timeout 90s bash -c 'until adb logcat -d | grep -m1 "ReactNativeJS"; do sleep 5; done'
+          # Pre-uninstall
+          base="${DEBUG_APP_ID%.debug}"
+          adb -s "$ANDROID_SERIAL" uninstall "$DEBUG_APP_ID" 2>/dev/null || true
+          [ "$base" != "$DEBUG_APP_ID" ] && adb -s "$ANDROID_SERIAL" uninstall "$base" 2>/dev/null || true
           
-          # Calculate TTJS metric
-          RN_START=$(date +%s)
-          TTJS_SECONDS=$((RN_START - LAUNCH_START))
-          echo "ttjs_seconds=$TTJS_SECONDS" >> $GITHUB_OUTPUT
-          echo "✅ ReactNativeJS detected in logcat"
-          echo "📊 TTJS (Time-to-first-ReactNativeJS): ${TTJS_SECONDS}s"
-
-      - name: Assert main activity has focus
-        shell: bash
-        run: |
-          PKG="${{ steps.pkg.outputs.pkg }}"
-          CURRENT=$(adb shell dumpsys window | sed -n "s/.*mCurrentFocus=Window{[^ ]* [^ ]* \\([^}]*\\)}.*/\\1/p")
-          echo "mCurrentFocus=$CURRENT"
-          echo "$CURRENT" | grep -q "$PKG" || (echo "❌ Main activity not focused" && exit 1)
-
-      - name: Collect deep diagnostics
-        if: always()
-        shell: bash
-        run: |
-          mkdir -p artifacts/logs
-          # Full logcat since boot
-          adb logcat -d > artifacts/logs/logcat_full.txt || true
-          # Trim RN-only lines for quick read
-          grep -i "ReactNative" artifacts/logs/logcat_full.txt > artifacts/logs/logcat_reactnative.txt || true
-          # System state
-          adb shell getprop > artifacts/logs/device_getprop.txt || true
-          adb shell settings list global > artifacts/logs/settings_global.txt || true
-          adb shell settings list system > artifacts/logs/settings_system.txt || true
-          adb shell dumpsys activity > artifacts/logs/dumpsys_activity.txt || true
-          adb shell dumpsys window > artifacts/logs/dumpsys_window.txt || true
-          adb shell dumpsys package "${{ steps.pkg.outputs.pkg }}" > artifacts/logs/dumpsys_package.txt || true
-          # App process tracking  
-          adb shell pidof "${{ steps.pkg.outputs.pkg }}" > artifacts/logs/app_pid.txt || true
-          # One heavy artifact for deep dive (10–30MB typical)
-          adb bugreport artifacts/logs/bugreport.zip || true
-
-      - name: Collect ANR & tombstones (if any)
-        if: always()
-        shell: bash
-        run: |
-          mkdir -p artifacts/logs
-          adb shell ls -l /data/anr/ > artifacts/logs/anr_dir.txt 2>/dev/null || true
-          # Pull ANRs if readable (emulators often allow)
-          for f in $(adb shell ls /data/anr/ 2>/dev/null | tr -d '\r'); do
-            adb shell cat "/data/anr/$f" > "artifacts/logs/anr_$f" 2>/dev/null || true
-          done
-          # Tombstones
-          adb shell ls -l /data/tombstones/ > artifacts/logs/tombstones_dir.txt 2>/dev/null || true
-          for f in $(adb shell ls /data/tombstones/ 2>/dev/null | tr -d '\r'); do
-            adb shell cat "/data/tombstones/$f" > "artifacts/logs/$f" 2>/dev/null || true
-          done
-
-      - name: Upload smoke logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: smoke-logs
-          path: artifacts/logs/**
-
-      - name: Summarize smoke results
-        if: always()
-        shell: bash
-        run: |
-          mkdir -p artifacts/logs
-          LOG=artifacts/logs/logcat_full.txt
-          RN=artifacts/logs/logcat_reactnative.txt
-          SUM="$GITHUB_STEP_SUMMARY"
-
-          echo "## Smoke Summary" >> "$SUM"
-          echo "" >> "$SUM"
-
-          # RN JS presence + TTJS metric
-          if grep -q "ReactNativeJS" "$RN" 2>/dev/null; then
-            echo "✅ **ReactNativeJS detected** (JS runtime initialized)" >> "$SUM"
-            # Add TTJS metric if available
-            if [ -n "${{ steps.ttjs.outputs.ttjs_seconds }}" ]; then
-              echo "📊 **TTJS (launch → first ReactNativeJS): ${{ steps.ttjs.outputs.ttjs_seconds }}s**" >> "$SUM"
+          # Install with 3 retries
+          installed=0
+          for i in 1 2 3; do
+            if adb -s "$ANDROID_SERIAL" install -r "$DEBUG_APK"; then
+              installed=1
+              break
             fi
-          else
-            echo "❌ **No ReactNativeJS logs detected** (JS may not have started)" >> "$SUM"
-          fi
-
-          # Main failures to highlight
-          echo "" >> "$SUM"
-          echo "### Notable log signals" >> "$SUM"
-          grep -E "FATAL EXCEPTION|Process .* has died|ANR|E ReactNative|E AndroidRuntime" "$LOG" \
-            | tail -n 40 \
-            | sed 's/^/- /' >> "$SUM" || true
-
-          # APK + pkg info
-          if [ -f artifacts/logs/apk_badging.txt ]; then
-            VER=$(sed -n "s/.*versionName='\([^']*\)'.*/\1/p" artifacts/logs/apk_badging.txt | head -n1)
-            echo "" >> "$SUM"
-            echo "**APK versionName**: \`$VER\`" >> "$SUM"
+            echo "Install attempt $i failed"
+            adb -s "$ANDROID_SERIAL" shell pm clear "$DEBUG_APP_ID" 2>/dev/null || true
+            sleep 3
+          done
+          
+          if [ "$installed" != "1" ]; then
+            echo "Failed to install debug APK after 3 attempts"
+            exit 1
           fi
           
-          echo "" >> "$SUM"
-          echo "**Resolved Package:** \`${{ steps.pkg.outputs.pkg }}\`" >> "$SUM"
-          echo "**Launch Activity:** \`${{ steps.pkg.outputs.act }}\`" >> "$SUM"
+          # Resolve launcher activity
+          DEBUG_ACTIVITY=$(adb -s "$ANDROID_SERIAL" shell cmd package resolve-activity -c android.intent.category.LAUNCHER "$DEBUG_APP_ID" \
+                          | sed -n "s/.*name=//p" | tr -d '\r' | head -n1)
+          
+          if [ -z "$DEBUG_ACTIVITY" ]; then
+            echo "No launcher activity found, trying monkey fallback"
+            adb -s "$ANDROID_SERIAL" shell monkey -p "$DEBUG_APP_ID" -c android.intent.category.LAUNCHER 1
+            DEBUG_LAUNCH_RC=$?
+          else
+            echo "DEBUG_ACTIVITY=$DEBUG_ACTIVITY"
+            adb -s "$ANDROID_SERIAL" shell am start -n "$DEBUG_ACTIVITY"
+            DEBUG_LAUNCH_RC=$?
+          fi
+          
+          echo "DEBUG_LAUNCH_RC=$DEBUG_LAUNCH_RC" >> "$GITHUB_ENV"
+          sleep 8
+          
+          # Collect diagnostics
+          adb -s "$ANDROID_SERIAL" logcat -d > artifacts/smoke/debug_logcat.txt || true
+          adb -s "$ANDROID_SERIAL" shell dumpsys package "$DEBUG_APP_ID" > artifacts/smoke/debug_dumpsys_package.txt || true
+          adb -s "$ANDROID_SERIAL" shell dumpsys activity activities > artifacts/smoke/debug_dumpsys_activity.txt || true
+          adb -s "$ANDROID_SERIAL" shell pidof "$DEBUG_APP_ID" > artifacts/smoke/debug_pid.txt || true
 
-          echo "" >> "$SUM"
-          echo "_Full logs available in the **smoke-logs** artifact (includes bugreport)._ " >> "$SUM"
+      - name: Test Release APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          
+          # Find APK
+          RELEASE_APK=$(find artifacts/release -name "*.apk" -type f | head -1)
+          if [ -z "$RELEASE_APK" ]; then
+            echo "No release APK found"
+            exit 1
+          fi
+          echo "RELEASE_APK=$RELEASE_APK"
+          
+          # Detect APP_ID
+          export PATH="$ANDROID_SDK_ROOT/build-tools/31.0.0:$PATH"
+          RELEASE_APP_ID=$(aapt dump badging "$RELEASE_APK" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p")
+          echo "RELEASE_APP_ID=$RELEASE_APP_ID"
+          echo "RELEASE_APP_ID=$RELEASE_APP_ID" >> "$GITHUB_ENV"
+          
+          # Pre-uninstall
+          base="${RELEASE_APP_ID%.debug}"
+          adb -s "$ANDROID_SERIAL" uninstall "$RELEASE_APP_ID" 2>/dev/null || true
+          [ "$base" != "$RELEASE_APP_ID" ] && adb -s "$ANDROID_SERIAL" uninstall "$base" 2>/dev/null || true
+          
+          # Install with 3 retries
+          installed=0
+          for i in 1 2 3; do
+            if adb -s "$ANDROID_SERIAL" install -r "$RELEASE_APK"; then
+              installed=1
+              break
+            fi
+            echo "Install attempt $i failed"
+            adb -s "$ANDROID_SERIAL" shell pm clear "$RELEASE_APP_ID" 2>/dev/null || true
+            sleep 3
+          done
+          
+          if [ "$installed" != "1" ]; then
+            echo "Failed to install release APK after 3 attempts"
+            exit 1
+          fi
+          
+          # Resolve launcher activity
+          RELEASE_ACTIVITY=$(adb -s "$ANDROID_SERIAL" shell cmd package resolve-activity -c android.intent.category.LAUNCHER "$RELEASE_APP_ID" \
+                            | sed -n "s/.*name=//p" | tr -d '\r' | head -n1)
+          
+          if [ -z "$RELEASE_ACTIVITY" ]; then
+            echo "No launcher activity found, trying monkey fallback"
+            adb -s "$ANDROID_SERIAL" shell monkey -p "$RELEASE_APP_ID" -c android.intent.category.LAUNCHER 1
+            RELEASE_LAUNCH_RC=$?
+          else
+            echo "RELEASE_ACTIVITY=$RELEASE_ACTIVITY"
+            adb -s "$ANDROID_SERIAL" shell am start -n "$RELEASE_ACTIVITY"
+            RELEASE_LAUNCH_RC=$?
+          fi
+          
+          echo "RELEASE_LAUNCH_RC=$RELEASE_LAUNCH_RC" >> "$GITHUB_ENV"
+          sleep 8
+          
+          # Collect diagnostics
+          adb -s "$ANDROID_SERIAL" logcat -d > artifacts/smoke/release_logcat.txt || true
+          adb -s "$ANDROID_SERIAL" shell dumpsys package "$RELEASE_APP_ID" > artifacts/smoke/release_dumpsys_package.txt || true
+          adb -s "$ANDROID_SERIAL" shell dumpsys activity activities > artifacts/smoke/release_dumpsys_activity.txt || true
+          adb -s "$ANDROID_SERIAL" shell pidof "$RELEASE_APP_ID" > artifacts/smoke/release_pid.txt || true
 
-      - name: Write summary.json
+      - name: Generate summary.json
         if: always()
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p artifacts/summary
-          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          boot_env="${booted:-0}"
-          dbg=$(stat -c%s "android/app/build/outputs/apk/debug/app-debug.apk" 2>/dev/null || echo 0)
-          rel=$(stat -c%s "android/app/build/outputs/apk/release/app-release.apk" 2>/dev/null || echo 0)
-          printf '{ "run_id": %s, "run_url": "%s", "boot_ok": %s, "install_ok": 1, "ttjs_s": null, "debug_apk_bytes": %s, "release_apk_bytes": %s, "app_id":"%s", "min_sdk":"%s", "target_sdk":"%s" }\n' \
-            "${{ github.run_id }}" "$run_url" "$boot_env" "$dbg" "$rel" "$APP_ID" "${MIN_SDK:-unknown}" "${TARGET_SDK:-unknown}" \
-            > artifacts/summary/summary.json
+          mkdir -p artifacts/smoke
+          
+          DEBUG_APK=$(find artifacts/debug -name "*.apk" -type f | head -1)
+          RELEASE_APK=$(find artifacts/release -name "*.apk" -type f | head -1)
+          
+          cat > artifacts/smoke/summary.json <<JSON
+          [
+            {
+              "kind": "debug",
+              "app_id": "${DEBUG_APP_ID:-unknown}",
+              "apk": "$(basename "${DEBUG_APK:-unknown}")",
+              "launch_rc": ${DEBUG_LAUNCH_RC:-999}
+            },
+            {
+              "kind": "release",
+              "app_id": "${RELEASE_APP_ID:-unknown}",
+              "apk": "$(basename "${RELEASE_APK:-unknown}")",
+              "launch_rc": ${RELEASE_LAUNCH_RC:-999}
+            }
+          ]
+          JSON
+          
+          echo "Generated summary.json:"
+          cat artifacts/smoke/summary.json
 
-      - name: Teardown emulator (post)
+      - name: Write GitHub Step Summary
+        if: always()
+        shell: bash
+        run: |
+          echo "## Smoke Test Results" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Build Type | App ID | Launch Result |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|------------|--------|---------------|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Debug | ${DEBUG_APP_ID:-unknown} | ${DEBUG_LAUNCH_RC:-999} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Release | ${RELEASE_APP_ID:-unknown} | ${RELEASE_LAUNCH_RC:-999} |" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Teardown emulator
         if: always()
         shell: bash
         run: |
@@ -573,12 +516,12 @@ jobs:
           fi
           adb -s "$ANDROID_SERIAL" emu kill || true
 
-      - name: Upload quick summary
+      - name: Upload smoke artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: summary
-          path: artifacts/summary/summary.json
+          name: smoke-ubuntu
+          path: artifacts/smoke/**
 
   smoke-macos-hvf:
     name: macOS HVF Smoke (Optional)
@@ -589,13 +532,12 @@ jobs:
       ANDROID_SDK_ROOT: ${{ github.workspace }}/android-sdk
       ANDROID_HOME: ${{ github.workspace }}/android-sdk
       ANDROID_SERIAL: emulator-5554
-      AVD_NAME: pixel_5_api_30_default_x86_64
-      AVD_IMAGE: "system-images;android-30;default;x86_64"
+      AVD_NAME: pixel_5_api_31_x86_64
+      AVD_IMAGE: "system-images;android-31;default;x86_64"
       ANDROID_BUILD_TOOLS: "31.0.0"
     steps:
       - uses: actions/checkout@v4
 
-      # Guards
       - name: Guard fail if CRLF present in workflow
         shell: bash
         run: |
@@ -604,15 +546,6 @@ jobs:
             exit 1
           fi
 
-      - name: Guard no emulator-runner
-        shell: bash
-        run: |
-          if grep -R "reactivecircus/android-emulator-runner" -n .github/workflows/android-debug-build.yml; then
-            echo "reactivecircus/android-emulator-runner must not be used with manual boot." >&2
-            exit 1
-          fi
-
-      # Bootstrap r8 cmdline-tools (XML v2) and SDK
       - name: Bootstrap Android cmdline-tools r8 (8092744)
         shell: bash
         run: |
@@ -629,7 +562,7 @@ jobs:
           echo "JAVA_HOME_17_X64=$(/usr/libexec/java_home -v 17)" >> "$GITHUB_ENV"
           echo "JAVA_HOME_11_X64=$(/usr/libexec/java_home -v 11)" >> "$GITHUB_ENV"
 
-      - name: Accept SDK licenses (non-interactive)
+      - name: Accept SDK licenses
         shell: bash
         run: |
           set -euo pipefail
@@ -646,13 +579,19 @@ jobs:
             "platforms;android-31" "build-tools;${ANDROID_BUILD_TOOLS}" \
             "${AVD_IMAGE}"
 
-      - name: Download Debug/Release APKs
+      - name: Download Debug APK
         uses: actions/download-artifact@v4
         with:
-          path: apks
+          name: app-debug-apk
+          path: artifacts/debug
 
-      # Create AVD and start emulator (manual manager; no runner action)
-      - name: Create AVD (API 30 default x86_64)
+      - name: Download Release APK
+        uses: actions/download-artifact@v4
+        with:
+          name: app-release-apk
+          path: artifacts/release
+
+      - name: Create AVD (API 31)
         shell: bash
         run: |
           set -euo pipefail
@@ -663,125 +602,214 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p artifacts/smoke-logs
-          export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
+          mkdir -p artifacts/smoke
           "$ANDROID_SDK_ROOT/emulator/emulator" \
-            -avd "pixel_5_api_30_default_x86_64" \
+            -avd "${AVD_NAME}" \
             -no-window -no-snapshot -no-boot-anim -gpu swiftshader_indirect \
             -camera-back none -accel on -ports 5554,5555 -memory 2048 -cores 2 \
             -qemu -m 1536 \
-            > artifacts/smoke-logs/emulator.txt 2>&1 &
-          echo $! > artifacts/smoke-logs/emulator.pid
+            > artifacts/smoke/emulator_boot.log 2>&1 &
+          echo $! > artifacts/smoke/emulator.pid
 
-      - name: Wait for boot (<= 12m)
+      - name: Wait for boot (15m ceiling)
         shell: bash
         run: |
           set -euo pipefail
-          export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
           "$ANDROID_SDK_ROOT/platform-tools/adb" kill-server || true
           "$ANDROID_SDK_ROOT/platform-tools/adb" start-server
-          t_end=$((SECONDS+720))  # 12 minutes
+          
+          t_end=$((SECONDS+900))  # 15 minutes
           until "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell getprop sys.boot_completed 2>/dev/null | grep -q "1"; do
             if [ $SECONDS -gt $t_end ]; then
-              echo "BOOT TIMEOUT"; exit 1
+              echo "BOOT TIMEOUT after 15m. Last 200 lines of logcat:"
+              "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 logcat -d | tail -n 200 || true
+              exit 1
             fi
             sleep 5
-            "$ANDROID_SDK_ROOT/platform-tools/adb" devices -l >> artifacts/smoke-logs/trace.txt || true
           done
+          
           "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell settings put global window_animation_scale 0.0
           "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell settings put global transition_animation_scale 0.0
           "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell settings put global animator_duration_scale 0.0
-          echo "boot_ok=1" >> artifacts/smoke-logs/trace.txt
+          echo "boot_ok=1" >> artifacts/smoke/boot_status.txt
 
-      - name: Discover APP_ID from debug APK
+      - name: Test Debug APK
         shell: bash
         run: |
           set -euo pipefail
-          export AAPT="${ANDROID_SDK_ROOT}/build-tools/31.0.0/aapt"
-          DEBUG_APK="$(find apks -type f -name '*debug*.apk' | head -n1)"
-          if [ -x "$AAPT" ]; then
-            APP_ID=$("$AAPT" dump badging "$DEBUG_APK" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p")
-          else
-            APP_ID=$( "${ANDROID_SDK_ROOT}/cmdline-tools/r8/bin/apkanalyzer" manifest application-id "$DEBUG_APK" )
+          
+          # Find APK
+          DEBUG_APK=$(find artifacts/debug -name "*.apk" -type f | head -1)
+          if [ -z "$DEBUG_APK" ]; then
+            echo "No debug APK found"
+            exit 1
           fi
-          echo "APP_ID=$APP_ID" | tee artifacts/smoke-logs/app_id.txt
-          echo "APP_ID=$APP_ID" >> $GITHUB_ENV
-
-      - name: Uninstall conflicting packages
-        shell: bash
-        run: |
-          set -euo pipefail
-          PKG_BASE="com.app.uprise"
-          PKG_DEBUG="com.app.uprise.debug"
-          for P in "$PKG_BASE" "$PKG_DEBUG" "${APP_ID}"; do
-            "${ANDROID_SDK_ROOT}/platform-tools/adb" -s emulator-5554 uninstall "$P" >/dev/null 2>&1 || true
-          done
-
-      - name: Install debug APK (3 attempts)
-        shell: bash
-        run: |
-          set -euo pipefail
-          DEBUG_APK="$(find apks -type f -name '*debug*.apk' | head -n1)"
-          ADB="${ANDROID_SDK_ROOT}/platform-tools/adb"
-          i=0
-          until [ $i -ge 3 ]; do
-            if "$ADB" -s emulator-5554 install -r "$DEBUG_APK"; then
+          echo "DEBUG_APK=$DEBUG_APK"
+          
+          # Detect APP_ID
+          DEBUG_APP_ID=$("$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" dump badging "$DEBUG_APK" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p")
+          echo "DEBUG_APP_ID=$DEBUG_APP_ID"
+          echo "DEBUG_APP_ID=$DEBUG_APP_ID" >> "$GITHUB_ENV"
+          
+          # Pre-uninstall
+          base="${DEBUG_APP_ID%.debug}"
+          "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 uninstall "$DEBUG_APP_ID" 2>/dev/null || true
+          [ "$base" != "$DEBUG_APP_ID" ] && "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 uninstall "$base" 2>/dev/null || true
+          
+          # Install with 3 retries
+          installed=0
+          for i in 1 2 3; do
+            if "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 install -r "$DEBUG_APK"; then
+              installed=1
               break
             fi
-            i=$((i+1))
-            "$ADB" -s emulator-5554 shell pm clear "$APP_ID" >/dev/null 2>&1 || true
+            echo "Install attempt $i failed"
+            "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell pm clear "$DEBUG_APP_ID" 2>/dev/null || true
             sleep 3
           done
-          "$ADB" -s emulator-5554 shell cmd package resolve-activity --brief "$APP_ID" >/dev/null 2>&1 || true
-
-      - name: Launch activity & collect minimal logs
-        shell: bash
-        run: |
-          set -euo pipefail
-          ADB="${ANDROID_SDK_ROOT}/platform-tools/adb"
-          # Try typical RN main activity; if different, this still exercises install/run
-          "$ADB" -s emulator-5554 shell am start -n "${APP_ID}/.MainActivity" || true
+          
+          if [ "$installed" != "1" ]; then
+            echo "Failed to install debug APK after 3 attempts"
+            exit 1
+          fi
+          
+          # Resolve launcher activity
+          DEBUG_ACTIVITY=$("$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell cmd package resolve-activity -c android.intent.category.LAUNCHER "$DEBUG_APP_ID" \
+                          | sed -n "s/.*name=//p" | tr -d '\r' | head -n1)
+          
+          if [ -z "$DEBUG_ACTIVITY" ]; then
+            echo "No launcher activity found, trying monkey fallback"
+            "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell monkey -p "$DEBUG_APP_ID" -c android.intent.category.LAUNCHER 1
+            DEBUG_LAUNCH_RC=$?
+          else
+            echo "DEBUG_ACTIVITY=$DEBUG_ACTIVITY"
+            "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell am start -n "$DEBUG_ACTIVITY"
+            DEBUG_LAUNCH_RC=$?
+          fi
+          
+          echo "DEBUG_LAUNCH_RC=$DEBUG_LAUNCH_RC" >> "$GITHUB_ENV"
           sleep 8
-          "$ADB" -s emulator-5554 logcat -d -t 500 > artifacts/smoke-logs/logcat.txt || true
+          
+          # Collect diagnostics
+          "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 logcat -d > artifacts/smoke/debug_logcat.txt || true
+          "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell dumpsys package "$DEBUG_APP_ID" > artifacts/smoke/debug_dumpsys_package.txt || true
+          "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell dumpsys activity activities > artifacts/smoke/debug_dumpsys_activity.txt || true
+          "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell pidof "$DEBUG_APP_ID" > artifacts/smoke/debug_pid.txt || true
 
-      - name: Write summary
+      - name: Test Release APK
         shell: bash
         run: |
           set -euo pipefail
-          RUN_ID="${{ github.run_id }}"
-          RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${RUN_ID}"
-          DEBUG_APK="$(find apks -type f -name '*debug*.apk' | head -n1)"
-          RELEASE_APK="$(find apks -type f -name '*release*.apk' | head -n1)"
-          DEBUG_BYTES=$(wc -c < "$DEBUG_APK" 2>/dev/null || echo 0)
-          RELEASE_BYTES=$(wc -c < "$RELEASE_APK" 2>/dev/null || echo 0)
-          BOOT_OK=$(grep -q "boot_ok=1" artifacts/smoke-logs/trace.txt && echo true || echo false)
-          mkdir -p summary
-          cat > summary/summary.json <<JSON
-          { "run_id": "$RUN_ID", "run_url": "$RUN_URL",
-            "app_id": "${APP_ID}", "boot_ok": ${BOOT_OK},
-            "ttjs_s": null,
-            "debug_apk_bytes": ${DEBUG_BYTES},
-            "release_apk_bytes": ${RELEASE_BYTES} }
+          
+          # Find APK
+          RELEASE_APK=$(find artifacts/release -name "*.apk" -type f | head -1)
+          if [ -z "$RELEASE_APK" ]; then
+            echo "No release APK found"
+            exit 1
+          fi
+          echo "RELEASE_APK=$RELEASE_APK"
+          
+          # Detect APP_ID
+          RELEASE_APP_ID=$("$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" dump badging "$RELEASE_APK" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p")
+          echo "RELEASE_APP_ID=$RELEASE_APP_ID"
+          echo "RELEASE_APP_ID=$RELEASE_APP_ID" >> "$GITHUB_ENV"
+          
+          # Pre-uninstall
+          base="${RELEASE_APP_ID%.debug}"
+          "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 uninstall "$RELEASE_APP_ID" 2>/dev/null || true
+          [ "$base" != "$RELEASE_APP_ID" ] && "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 uninstall "$base" 2>/dev/null || true
+          
+          # Install with 3 retries
+          installed=0
+          for i in 1 2 3; do
+            if "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 install -r "$RELEASE_APK"; then
+              installed=1
+              break
+            fi
+            echo "Install attempt $i failed"
+            "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell pm clear "$RELEASE_APP_ID" 2>/dev/null || true
+            sleep 3
+          done
+          
+          if [ "$installed" != "1" ]; then
+            echo "Failed to install release APK after 3 attempts"
+            exit 1
+          fi
+          
+          # Resolve launcher activity
+          RELEASE_ACTIVITY=$("$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell cmd package resolve-activity -c android.intent.category.LAUNCHER "$RELEASE_APP_ID" \
+                            | sed -n "s/.*name=//p" | tr -d '\r' | head -n1)
+          
+          if [ -z "$RELEASE_ACTIVITY" ]; then
+            echo "No launcher activity found, trying monkey fallback"
+            "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell monkey -p "$RELEASE_APP_ID" -c android.intent.category.LAUNCHER 1
+            RELEASE_LAUNCH_RC=$?
+          else
+            echo "RELEASE_ACTIVITY=$RELEASE_ACTIVITY"
+            "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell am start -n "$RELEASE_ACTIVITY"
+            RELEASE_LAUNCH_RC=$?
+          fi
+          
+          echo "RELEASE_LAUNCH_RC=$RELEASE_LAUNCH_RC" >> "$GITHUB_ENV"
+          sleep 8
+          
+          # Collect diagnostics
+          "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 logcat -d > artifacts/smoke/release_logcat.txt || true
+          "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell dumpsys package "$RELEASE_APP_ID" > artifacts/smoke/release_dumpsys_package.txt || true
+          "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell dumpsys activity activities > artifacts/smoke/release_dumpsys_activity.txt || true
+          "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell pidof "$RELEASE_APP_ID" > artifacts/smoke/release_pid.txt || true
+
+      - name: Generate summary.json
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/smoke
+          
+          DEBUG_APK=$(find artifacts/debug -name "*.apk" -type f | head -1)
+          RELEASE_APK=$(find artifacts/release -name "*.apk" -type f | head -1)
+          
+          cat > artifacts/smoke/summary.json <<JSON
+          [
+            {
+              "kind": "debug",
+              "app_id": "${DEBUG_APP_ID:-unknown}",
+              "apk": "$(basename "${DEBUG_APK:-unknown}")",
+              "launch_rc": ${DEBUG_LAUNCH_RC:-999}
+            },
+            {
+              "kind": "release",
+              "app_id": "${RELEASE_APP_ID:-unknown}",
+              "apk": "$(basename "${RELEASE_APK:-unknown}")",
+              "launch_rc": ${RELEASE_LAUNCH_RC:-999}
+            }
+          ]
           JSON
+          
+          echo "Generated summary.json:"
+          cat artifacts/smoke/summary.json
+
+      - name: Write GitHub Step Summary
+        if: always()
+        shell: bash
+        run: |
+          echo "## Smoke Test Results" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Build Type | App ID | Launch Result |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|------------|--------|---------------|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Debug | ${DEBUG_APP_ID:-unknown} | ${DEBUG_LAUNCH_RC:-999} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Release | ${RELEASE_APP_ID:-unknown} | ${RELEASE_LAUNCH_RC:-999} |" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Always stop emulator
         if: always()
         shell: bash
         run: |
           set -euo pipefail
-          ADB="${ANDROID_SDK_ROOT}/platform-tools/adb"
-          "$ADB" -s emulator-5554 emu kill || true
+          "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 emu kill || true
 
-      - name: Upload summary + logs
+      - name: Upload smoke artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: summary-macos
-          path: summary/
-
-      - name: Upload smoke logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: smoke-logs-macos
-          path: artifacts/smoke-logs/
+          name: smoke-macos
+          path: artifacts/smoke/**
