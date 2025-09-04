@@ -1,8 +1,14 @@
-import TrackPlayer, { Event, State } from 'react-native-track-player';
+// TEMP DISABLE: track-player - Commented out to prevent startup crashes
+// import TrackPlayer, { Event, State } from 'react-native-track-player';
 
 let wasPausedByDuck = false;
 
 module.exports = async function setup() {
+  // TEMP DISABLE: track-player - Fallback implementation
+  console.log('TrackPlayer service temporarily disabled');
+  
+  // TODO: Re-enable when track-player issues are resolved
+  /*
   TrackPlayer.addEventListener(Event.RemotePause, () => {
     TrackPlayer.pause();
   });
@@ -35,4 +41,5 @@ module.exports = async function setup() {
       wasPausedByDuck = false;
     }
   });
+  */
 };

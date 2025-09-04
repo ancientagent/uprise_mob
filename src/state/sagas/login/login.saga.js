@@ -2,7 +2,7 @@ import {
   call, put, takeLatest,
 } from 'redux-saga/effects';
 import AsyncStorage
-from '@react-native-community/async-storage';
+from '@react-native-async-storage/async-storage';
 import * as RootNavigation from '../../../navigators/RootNavigation';
 import loginRequest from '../../../services/login/login.service';
 import { loginReqSagaType } from '../../types/sagas';
