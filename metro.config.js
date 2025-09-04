@@ -22,3 +22,7 @@ module.exports = (async () => {
     },
   };
 })();
+
+// NOTE: alias react-native-video to stub for CI
+// Add under resolver.extraNodeModules: {'react-native-video': path.resolve(__dirname, 'stubs/react-native-video.js')}
+
