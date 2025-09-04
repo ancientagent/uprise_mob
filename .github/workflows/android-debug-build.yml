@@ -28,7 +28,7 @@ jobs:
   build:
     name: Build APKs
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
 
     steps:
       - name: Checkout
@@ -58,10 +58,15 @@ jobs:
 
 
       - name: Bootstrap Android cmdline-tools r8 (8092744)
-        shell: bash
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          retry_on: error
+          shell: bash
         env:
           JAVA_HOME: ${{ steps.j17.outputs.path }}
-        run: |
+        command: |
           set -euo pipefail
           # Prepare SDK root
           export ANDROID_SDK_ROOT="$HOME/android-sdk"
@@ -77,6 +82,7 @@ jobs:
             URL="https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip"
           fi
 
+          echo "🔄 Downloading Android cmdline-tools (attempt ${{ github.run_attempt || 1 }}/3)"
           curl -fsSL "$URL" -o cmdtools.zip
           unzip -q cmdtools.zip -d cmdline-tools-tmp
           # Move to canonical 'cmdline-tools/r8'
@@ -93,26 +99,38 @@ jobs:
           echo "sdk.dir=$ANDROID_SDK_ROOT" > ${{ github.workspace }}/android/local.properties
 
       - name: Accept SDK licenses (r8)
-        shell: bash
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 2
+          retry_on: error
+          shell: bash
         env:
           JAVA_HOME: ${{ steps.j17.outputs.path }}
-        run: |
+        command: |
           set -euo pipefail
-          echo "Accepting SDK licenses non-interactively..."
+          echo "🔄 Accepting SDK licenses non-interactively..."
           ( echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y" ) | sdkmanager --licenses || true
 
       - name: Install platform-tools + build-tools + emulator + platforms (r8)
-        shell: bash
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 15
+          max_attempts: 3
+          retry_on: error
+          shell: bash
         env:
           JAVA_HOME: ${{ steps.j17.outputs.path }}
-        run: |
+        command: |
           set -euo pipefail
+          echo "🔄 Installing Android SDK components (attempt ${{ github.run_attempt || 1 }}/3)"
           sdkmanager --install "platform-tools" \
             "build-tools;${{ env.ANDROID_BUILD_TOOLS }}" \
             "emulator" \
             "platforms;android-31" \
             "system-images;android-30;default;x86_64"
           # Prove r8 is in effect and apksigner exists at pinned version
+          echo "✅ Verifying apksigner installation"
           "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" --version
 
       - name: Print versions
@@ -144,9 +162,47 @@ jobs:
           mkdir -p ~/.gradle
           {
             echo "org.gradle.caching=true"
-            echo "org.gradle.parallel=false"
+            echo "org.gradle.parallel=true"
+            echo "org.gradle.workers.max=3"
+            echo "org.gradle.daemon=true"
+            echo "org.gradle.configureondemand=true"
           } >> ~/.gradle/gradle.properties
           
+      - name: Pre-build Validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "🔍 Pre-build validation checks"
+          
+          # Check package.json consistency
+          echo "📦 Checking package.json consistency..."
+          npm ls --depth=0 --only=prod > /dev/null || echo "⚠️ Package dependency issues detected"
+          
+          # Check for critical vulnerabilities  
+          echo "🛡️ Checking for critical security vulnerabilities..."
+          CRITICAL_COUNT=$(npm audit --audit-level=critical --json 2>/dev/null | jq '.metadata.vulnerabilities.critical // 0' || echo "0")
+          if [ "$CRITICAL_COUNT" -gt 0 ]; then
+            echo "❌ $CRITICAL_COUNT critical vulnerabilities found"
+            npm audit --audit-level=critical
+          else
+            echo "✅ No critical vulnerabilities detected"
+          fi
+          
+          # Validate React Native project structure
+          echo "📱 Validating React Native project structure..."
+          test -f "index.js" || { echo "❌ Missing index.js"; exit 1; }
+          test -f "android/build.gradle" || { echo "❌ Missing android/build.gradle"; exit 1; }
+          test -d "android/app/src/main" || { echo "❌ Missing Android app structure"; exit 1; }
+          echo "✅ Project structure valid"
+          
+          # Check Android SDK availability
+          echo "🤖 Validating Android SDK components..."
+          if [ -n "${ANDROID_SDK_ROOT:-}" ] && [ -d "$ANDROID_SDK_ROOT" ]; then
+            echo "✅ Android SDK root found: $ANDROID_SDK_ROOT"
+          else
+            echo "⚠️ Android SDK not yet configured (will be set up in next steps)"
+          fi
+
       - name: Install Node dependencies
         run: npm install --legacy-peer-deps
 
@@ -205,7 +261,7 @@ jobs:
         env:
           JAVA_HOME: ${{ steps.j11.outputs.path }}
           NODE_OPTIONS: --openssl-legacy-provider
-          GRADLE_OPTS: "-Dorg.gradle.daemon=true -Dorg.gradle.jvmargs='-Xmx3g -XX:+HeapDumpOnOutOfMemoryError' -Dorg.gradle.workers.max=2"
+          GRADLE_OPTS: "-Dorg.gradle.daemon=true -Dorg.gradle.jvmargs='-Xmx4g -XX:MaxMetaspaceSize=1g -XX:+UseG1GC' -Dorg.gradle.workers.max=3 -Dorg.gradle.parallel=true"
         run: |
           set -e
           cd android
@@ -213,7 +269,7 @@ jobs:
           # Build watchdog function with diagnostics
           build_with_watchdog() {
             local task="$1"
-            local timeout_min=25
+            local timeout_min=20
             ./gradlew "$task" --build-cache --no-parallel --stacktrace &
             local gradle_pid=$!
             
@@ -477,8 +533,8 @@ jobs:
             -verbose > artifacts/smoke-logs/emulator.txt 2>&1 &
           EMU_PID=$!
 
-          boot_deadline=$((SECONDS+540))
-          ( sleep 900; echo "[WATCHDOG] Ubuntu emulator boot exceeded 900s; adb devices:"; adb devices -l || true; kill -9 $EMU_PID || true; echo "BOOT_FAILED=1" >> $GITHUB_ENV; ) &
+          boot_deadline=$((SECONDS+480))
+          ( sleep 720; echo "[WATCHDOG] Ubuntu emulator boot exceeded 720s; adb devices:"; adb devices -l || true; kill -9 $EMU_PID || true; echo "BOOT_FAILED=1" >> $GITHUB_ENV; ) &
           BOOT_WD=$!
 
           adb start-server
@@ -573,7 +629,7 @@ jobs:
           adb -s "$ANDROID_SERIAL" logcat -v time > artifacts/smoke-logs/logcat.txt 2>&1 &
           LOG_PID=$!
 
-          start_ts=$SECONDS; deadline=$((SECONDS+120)); ttjs_s=""
+          start_ts=$SECONDS; deadline=$((SECONDS+90)); ttjs_s=""
           while [ $SECONDS -lt $deadline ]; do
             if grep -q "ReactNativeJS: Running" artifacts/smoke-logs/logcat.txt; then
               ttjs_s=$((SECONDS-start_ts)); break
@@ -611,52 +667,107 @@ jobs:
             AGENTS="error-detective,build-engineer"
           fi
           
-          # Generate dispatch context
-          cat > artifacts/summary/dispatch.json <<JSON
+          # Generate run URL
+          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          
+          # Convert comma-separated agents to JSON array
+          AGENTS_JSON=$(echo "$AGENTS" | jq -R 'split(",")' 2>/dev/null || echo '["error-detective","build-engineer"]')
+          
+          # Generate dispatch context with proper JSON
+          mkdir -p artifacts/summary
+          cat > artifacts/summary/dispatch.json << 'EOF'
           {
-            "hook_type": "ci_$OUTCOME",
-            "agents": "$(echo $AGENTS | tr ',' '\n' | jq -R . | jq -s .)",
+            "hook_type": "ci_OUTCOME_PLACEHOLDER",
+            "agents": AGENTS_JSON_PLACEHOLDER,
             "context": {
               "run_id": "${{ github.run_id }}",
-              "run_url": "$run_url",
+              "run_url": "RUN_URL_PLACEHOLDER",
               "branch": "${{ github.head_ref || github.ref_name }}",
               "job": "ubuntu-smoke",
-              "outcome": "$OUTCOME",
+              "outcome": "OUTCOME_PLACEHOLDER",
               "platform": "ubuntu-latest"
             },
-            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            "timestamp": "TIMESTAMP_PLACEHOLDER"
           }
-          JSON
+          EOF
+          
+          # Substitute variables in JSON file
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          sed -i "s/OUTCOME_PLACEHOLDER/$OUTCOME/g" artifacts/summary/dispatch.json
+          sed -i "s|AGENTS_JSON_PLACEHOLDER|$AGENTS_JSON|g" artifacts/summary/dispatch.json
+          sed -i "s|RUN_URL_PLACEHOLDER|$run_url|g" artifacts/summary/dispatch.json
+          sed -i "s/TIMESTAMP_PLACEHOLDER/$TIMESTAMP/g" artifacts/summary/dispatch.json
           
           # Post PR comment with agent dispatch (if PR context)
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             if [ "$OUTCOME" = "failure" ]; then
-              COMMENT="🔴 **CI Failed** - Ubuntu Smoke Test
+              cat > artifacts/summary/pr-comment.md << 'EOF'
+          🔴 **CI Failed** - Ubuntu Smoke Test
           
           **Dispatching Investigation Team:**
-          - \`error-detective\` - Analyzing failure patterns and root cause
-          - \`build-engineer\` - Investigating build system issues
+          - `error-detective` - Analyzing failure patterns and root cause
+          - `build-engineer` - Investigating build system issues
           
-          **Run Details:** [${{ github.run_id }}]($run_url)
+          **Run Details:** [${{ github.run_id }}](RUN_URL_PLACEHOLDER)
           **Platform:** Ubuntu Latest
           **Branch:** ${{ github.head_ref || github.ref_name }}
           
-          Agents will provide detailed analysis and remediation steps."
+          Agents will provide detailed analysis and remediation steps.
+          EOF
             else
-              COMMENT="✅ **CI Passed** - Ubuntu Smoke Test
+              cat > artifacts/summary/pr-comment.md << 'EOF'
+          ✅ **CI Passed** - Ubuntu Smoke Test
           
           **Dispatching Optimization Team:**
-          - \`performance-engineer\` - Analyzing APK performance metrics
-          - \`documentation-engineer\` - Updating project documentation
+          - `performance-engineer` - Analyzing APK performance metrics
+          - `documentation-engineer` - Updating project documentation
           
-          **Run Details:** [${{ github.run_id }}]($run_url)
+          **Run Details:** [${{ github.run_id }}](RUN_URL_PLACEHOLDER)
           **Platform:** Ubuntu Latest
           
-          Agents will provide performance insights and documentation updates."
+          Agents will provide performance insights and documentation updates.
+          EOF
             fi
             
-            echo "$COMMENT" > artifacts/summary/pr-comment.md
+            # Substitute variables in PR comment
+            sed -i "s|RUN_URL_PLACEHOLDER|$run_url|g" artifacts/summary/pr-comment.md
           fi
+          
+      - name: Validate Agent Dispatch JSON
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          
+          # Validate generated JSON
+          if [ -f "artifacts/summary/dispatch.json" ]; then
+            echo "🔍 Validating dispatch JSON..."
+            if jq empty artifacts/summary/dispatch.json 2>/dev/null; then
+              echo "✅ Valid JSON generated"
+              echo "Generated dispatch context:"
+              cat artifacts/summary/dispatch.json | jq .
+            else
+              echo "❌ Invalid JSON detected"
+              echo "Raw content:"
+              cat artifacts/summary/dispatch.json
+              exit 1
+            fi
+          else
+            echo "⚠️ No dispatch JSON file found"
+          fi
+          
+      - name: Debug Agent Dispatch Context
+        if: always()
+        shell: bash
+        run: |
+          echo "=== CI Agent Dispatch Debug ==="
+          echo "Job Status: ${{ job.status }}"
+          echo "Event Name: ${{ github.event_name }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Branch: ${{ github.head_ref || github.ref_name }}"
+          echo "Platform: ubuntu-latest"
+          echo "Environment Variables:"
+          env | grep -E "^(OUTCOME|AGENTS|APP_ID|BOOT_FAILED)" || echo "No dispatch vars found"
       - uses: actions/upload-artifact@v4
         with: { name: smoke-logs, path: artifacts/smoke-logs/ }
       - uses: actions/upload-artifact@v4
@@ -731,8 +842,8 @@ jobs:
           EMU_PID=$!
           echo "EMU_PID=$EMU_PID" >> $GITHUB_ENV
 
-          boot_deadline=$((SECONDS+540))
-          ( sleep 900; echo "[WATCHDOG] macOS emulator boot exceeded 900s; adb devices:"; adb devices -l || true; kill -9 $EMU_PID || true; echo "BOOT_FAILED=1" >> $GITHUB_ENV; ) &
+          boot_deadline=$((SECONDS+480))
+          ( sleep 720; echo "[WATCHDOG] macOS emulator boot exceeded 720s; adb devices:"; adb devices -l || true; kill -9 $EMU_PID || true; echo "BOOT_FAILED=1" >> $GITHUB_ENV; ) &
           BOOT_WD=$!
 
           adb start-server
@@ -851,53 +962,108 @@ jobs:
             AGENTS="error-detective,build-engineer"
           fi
           
-          # Generate dispatch context
-          cat > artifacts/summary/dispatch.json <<JSON
+          # Generate run URL
+          run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          
+          # Convert comma-separated agents to JSON array
+          AGENTS_JSON=$(echo "$AGENTS" | jq -R 'split(",")' 2>/dev/null || echo '["error-detective","build-engineer"]')
+          
+          # Generate dispatch context with proper JSON
+          mkdir -p artifacts/summary
+          cat > artifacts/summary/dispatch.json << 'EOF'
           {
-            "hook_type": "ci_$OUTCOME",
-            "agents": ["$(echo $AGENTS | tr ',' '", "')"],
+            "hook_type": "ci_OUTCOME_PLACEHOLDER",
+            "agents": AGENTS_JSON_PLACEHOLDER,
             "context": {
               "run_id": "${{ github.run_id }}",
-              "run_url": "$run_url",
+              "run_url": "RUN_URL_PLACEHOLDER",
               "branch": "${{ github.head_ref || github.ref_name }}",
               "job": "macos-hvf-smoke",
-              "outcome": "$OUTCOME",
+              "outcome": "OUTCOME_PLACEHOLDER",
               "platform": "macos-13-hvf",
               "optional": true
             },
-            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            "timestamp": "TIMESTAMP_PLACEHOLDER"
           }
-          JSON
+          EOF
+          
+          # Substitute variables in JSON file
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          sed -i "s/OUTCOME_PLACEHOLDER/$OUTCOME/g" artifacts/summary/dispatch.json
+          sed -i "s|AGENTS_JSON_PLACEHOLDER|$AGENTS_JSON|g" artifacts/summary/dispatch.json
+          sed -i "s|RUN_URL_PLACEHOLDER|$run_url|g" artifacts/summary/dispatch.json
+          sed -i "s/TIMESTAMP_PLACEHOLDER/$TIMESTAMP/g" artifacts/summary/dispatch.json
           
           # Post PR comment with agent dispatch (if PR context)
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             if [ "$OUTCOME" = "failure" ]; then
-              COMMENT="🔴 **CI Failed** - macOS HVF Smoke Test
+              cat > artifacts/summary/pr-comment-macos.md << 'EOF'
+          🔴 **CI Failed** - macOS HVF Smoke Test
           
           **Dispatching Investigation Team:**
-          - \`error-detective\` - Analyzing failure patterns and root cause
-          - \`build-engineer\` - Investigating build system issues
+          - `error-detective` - Analyzing failure patterns and root cause
+          - `build-engineer` - Investigating build system issues
           
-          **Run Details:** [${{ github.run_id }}]($run_url)
+          **Run Details:** [${{ github.run_id }}](RUN_URL_PLACEHOLDER)
           **Platform:** macOS 13 with HVF acceleration
           **Branch:** ${{ github.head_ref || github.ref_name }}
           
-          Agents will provide detailed analysis and remediation steps."
+          Agents will provide detailed analysis and remediation steps.
+          EOF
             else
-              COMMENT="✅ **CI Passed** - macOS HVF Smoke Test
+              cat > artifacts/summary/pr-comment-macos.md << 'EOF'
+          ✅ **CI Passed** - macOS HVF Smoke Test
           
           **Dispatching Optimization Team:**
-          - \`performance-engineer\` - Analyzing APK performance metrics
-          - \`documentation-engineer\` - Updating project documentation
+          - `performance-engineer` - Analyzing APK performance metrics
+          - `documentation-engineer` - Updating project documentation
           
-          **Run Details:** [${{ github.run_id }}]($run_url)
+          **Run Details:** [${{ github.run_id }}](RUN_URL_PLACEHOLDER)
           **Platform:** macOS 13 with HVF acceleration
           
-          Agents will provide performance insights and documentation updates."
+          Agents will provide performance insights and documentation updates.
+          EOF
             fi
             
-            echo "$COMMENT" > artifacts/summary/pr-comment-macos.md
+            # Substitute variables in PR comment
+            sed -i "s|RUN_URL_PLACEHOLDER|$run_url|g" artifacts/summary/pr-comment-macos.md
           fi
+          
+      - name: Validate Agent Dispatch JSON (macOS)
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          
+          # Validate generated JSON
+          if [ -f "artifacts/summary/dispatch.json" ]; then
+            echo "🔍 Validating macOS dispatch JSON..."
+            if jq empty artifacts/summary/dispatch.json 2>/dev/null; then
+              echo "✅ Valid JSON generated"
+              echo "Generated dispatch context:"
+              cat artifacts/summary/dispatch.json | jq .
+            else
+              echo "❌ Invalid JSON detected"
+              echo "Raw content:"
+              cat artifacts/summary/dispatch.json
+              exit 1
+            fi
+          else
+            echo "⚠️ No dispatch JSON file found"
+          fi
+          
+      - name: Debug Agent Dispatch Context (macOS)
+        if: always()
+        shell: bash
+        run: |
+          echo "=== macOS CI Agent Dispatch Debug ==="
+          echo "Job Status: ${{ job.status }}"
+          echo "Event Name: ${{ github.event_name }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Branch: ${{ github.head_ref || github.ref_name }}"
+          echo "Platform: macos-13-hvf"
+          echo "Environment Variables:"
+          env | grep -E "^(OUTCOME|AGENTS|APP_ID|BOOT_FAILED|EMU_PID)" || echo "No dispatch vars found"
       
       - name: Teardown emulator
         if: always()
