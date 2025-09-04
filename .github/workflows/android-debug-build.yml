@@ -437,8 +437,8 @@ jobs:
 
       - name: "Guard: no emulator-runner"
         run: |
-          if grep -q "uses:.*reactivecircus/android-emulator-runner" .github/workflows/android-debug-build.yml; then
-            echo "reactivecircus/android-emulator-runner action found - must not be used with manual boot." >&2
+          if grep -q "uses:.*reactivecircus" .github/workflows/android-debug-build.yml; then
+            echo "Emulator runner action found - must not be used with manual boot." >&2
             exit 1
           fi
 
@@ -551,14 +551,33 @@ jobs:
           echo "APP_ID=$APP_ID" | tee -a "$GITHUB_ENV"
           echo "Detected APP_ID=$APP_ID"
 
-      - name: Clean conflicting packages
+      - name: Clean conflicting packages (guaranteed clean install)
         if: env.BOOT_FAILED == '0'
         shell: bash
         run: |
           set -euo pipefail
           base="${APP_ID%.debug}"
-          adb -s "$ANDROID_SERIAL" uninstall "$APP_ID" || true
-          [ "$base" != "$APP_ID" ] && adb -s "$ANDROID_SERIAL" uninstall "$base" || true
+          echo "🧹 Ensuring clean install by removing any existing packages..."
+          echo "Target APP_ID: $APP_ID"
+          echo "Base package: $base"
+          
+          # Always uninstall debug package (current APP_ID)
+          if adb -s "$ANDROID_SERIAL" uninstall "$APP_ID" 2>/dev/null; then
+            echo "✅ Removed existing debug package: $APP_ID"
+          else
+            echo "ℹ️ Debug package not installed: $APP_ID"
+          fi
+          
+          # Always uninstall base package if different from current APP_ID
+          if [ "$base" != "$APP_ID" ]; then
+            if adb -s "$ANDROID_SERIAL" uninstall "$base" 2>/dev/null; then
+              echo "✅ Removed existing base package: $base"
+            else
+              echo "ℹ️ Base package not installed: $base"
+            fi
+          fi
+          
+          echo "✨ Clean install environment ready"
 
       - name: Install & Launch (3 attempts, minimal smoke)
         if: env.BOOT_FAILED == '0'
@@ -595,8 +614,9 @@ jobs:
           mkdir -p artifacts/summary
           run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           boot="${booted:-false}"
+          app_id="${APP_ID:-unknown}"
           printf '{ "run_id": %s, "run_url": "%s", "boot_ok": %s, "install_ok": true, "ttjs_s": null, "app_id": "%s" }\n' \
-            "${{ github.run_id }}" "$run_url" "$boot" "${APP_ID}" \
+            "${{ github.run_id }}" "$run_url" "$boot" "$app_id" \
             > artifacts/summary/summary.json
       - uses: actions/upload-artifact@v4
         with: { name: smoke-logs, path: artifacts/smoke-logs/ }
@@ -628,8 +648,8 @@ jobs:
 
       - name: "Guard: no emulator-runner"
         run: |
-          if grep -q "uses:.*reactivecircus/android-emulator-runner" .github/workflows/android-debug-build.yml; then
-            echo "reactivecircus/android-emulator-runner action found - must not be used with manual boot." >&2
+          if grep -q "uses:.*reactivecircus" .github/workflows/android-debug-build.yml; then
+            echo "Emulator runner action found - must not be used with manual boot." >&2
             exit 1
           fi
 
@@ -743,14 +763,33 @@ jobs:
           echo "APP_ID=$APP_ID" | tee -a "$GITHUB_ENV"
           echo "Detected APP_ID=$APP_ID"
 
-      - name: Clean conflicting packages
+      - name: Clean conflicting packages (guaranteed clean install)
         if: env.BOOT_FAILED == '0'
         shell: bash
         run: |
           set -euo pipefail
           base="${APP_ID%.debug}"
-          adb -s "$ANDROID_SERIAL" uninstall "$APP_ID" || true
-          [ "$base" != "$APP_ID" ] && adb -s "$ANDROID_SERIAL" uninstall "$base" || true
+          echo "🧹 Ensuring clean install by removing any existing packages..."
+          echo "Target APP_ID: $APP_ID"
+          echo "Base package: $base"
+          
+          # Always uninstall debug package (current APP_ID)
+          if adb -s "$ANDROID_SERIAL" uninstall "$APP_ID" 2>/dev/null; then
+            echo "✅ Removed existing debug package: $APP_ID"
+          else
+            echo "ℹ️ Debug package not installed: $APP_ID"
+          fi
+          
+          # Always uninstall base package if different from current APP_ID
+          if [ "$base" != "$APP_ID" ]; then
+            if adb -s "$ANDROID_SERIAL" uninstall "$base" 2>/dev/null; then
+              echo "✅ Removed existing base package: $base"
+            else
+              echo "ℹ️ Base package not installed: $base"
+            fi
+          fi
+          
+          echo "✨ Clean install environment ready"
 
       - name: Install & Launch (3 attempts, minimal smoke)
         if: env.BOOT_FAILED == '0'
@@ -773,8 +812,9 @@ jobs:
           mkdir -p artifacts/summary
           run_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           boot="${booted:-false}"
+          app_id="${APP_ID:-unknown}"
           printf '{ "run_id": %s, "run_url": "%s", "boot_ok": %s, "install_ok": true, "ttjs_s": null, "app_id": "%s", "platform": "macos-hvf" }\n' \
-            "${{ github.run_id }}" "$run_url" "$boot" "${APP_ID}" \
+            "${{ github.run_id }}" "$run_url" "$boot" "$app_id" \
             > artifacts/summary/summary.json
       
       - name: Teardown emulator
