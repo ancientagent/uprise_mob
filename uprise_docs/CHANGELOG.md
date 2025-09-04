@@ -1,3 +1,48 @@
+## 2025-09-04 - CI: Enforce Debug ApplicationIdSuffix & Harden Smoke Tests
+
+### Fixed CI Smoke Test Package Collision & Enhanced Detection
+**Change**: Implemented distinct debug package IDs and hardened CI smoke test steps to eliminate install/update collisions and improve reliability.
+
+**Key Changes**:
+- **Build Configuration**: Added `applicationIdSuffix ".debug"` to debug builds 
+  - Debug builds now use `com.app.uprise.debug` 
+  - Release builds remain `com.app.uprise`
+  - Eliminates package collision between debug and release installs
+- **CI Enhancement**: Dynamic APP_ID detection from built APK
+  - Uses `aapt` or `apkanalyzer` to discover actual package ID from APK
+  - No more hardcoded package assumptions that can drift out of sync
+- **Conflict Prevention**: Clean conflicting packages before install
+  - Uninstalls both base package and debug package before fresh install
+  - Prevents install/update race conditions causing emulator churn
+- **Robust Install**: 3-attempt install with proper error handling
+  - Retries install with package clear on failure
+  - Uses detected APP_ID for accurate activity launch
+- **Summary Enhancement**: Include `app_id` field in summary.json output
+  - Provides traceability of exact package ID used in smoke test
+
+**Technical Implementation**:
+```gradle
+// android/app/build.gradle
+debug {
+    applicationIdSuffix ".debug"
+    debuggable true
+}
+```
+
+**CI Workflow Steps Added**:
+1. **Discover APP_ID**: Extract package ID from debug APK using aapt/apkanalyzer
+2. **Clean Packages**: Uninstall both base and debug packages
+3. **Install & Launch**: 3-attempt install using detected APP_ID
+4. **Summary**: Include app_id in summary.json for traceability
+
+**Expected Impact**:
+- Eliminates install collision issues causing CI flakiness
+- More reliable smoke tests with proper package detection
+- Clear visibility into exact package ID being tested
+- Robust against future package ID changes
+
+---
+
 ## 2025-09-01 11:45 UTC - CI: Smoke Job Moved to macOS HVF
 
 ### Emulator Runs on macOS-13 with Hardware Acceleration

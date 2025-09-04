@@ -25,6 +25,24 @@ $env:NODE_OPTIONS = "--openssl-legacy-provider"
 
 ## Build Configuration
 
+### Package ID Policy
+**Build variants use distinct package IDs to prevent install collisions:**
+
+- **Debug**: `com.app.uprise.debug` (applicationIdSuffix ".debug")
+- **Release**: `com.app.uprise` (base applicationId)
+- **Staging** (if added): `com.app.uprise.staging`
+
+**Key Requirements:**
+- All variants must increment the same `versionCode` for Play Store parity
+- Debug and release can coexist on same device without conflicts
+- CI smoke tests automatically detect actual package ID from built APK
+- Use `aapt dump badging <apk>` to verify package ID in APK
+
+**Firebase Considerations:**
+- Release builds use `android/app/google-services.json` (com.app.uprise)
+- Debug builds need separate Firebase app registration for full functionality
+- Place debug config at `android/app/src/debug/google-services.json` if needed
+
 ### Version Matrix (RN 0.66.x Baseline)
 - **React Native**: 0.66.4
 - **Gradle**: 7.0.2
@@ -68,8 +86,9 @@ $env:NODE_OPTIONS="--openssl-legacy-provider"; yarn start
 # Forward Metro port
 adb reverse tcp:8081 tcp:8081
 
-# Launch app
-adb shell monkey -p com.app.uprise.dev -c android.intent.category.LAUNCHER 1
+# Launch app (debug build)
+adb shell monkey -p com.app.uprise.debug -c android.intent.category.LAUNCHER 1
+# or for release build: com.app.uprise
 ```
 
 ## CI/CD Pipeline
