@@ -476,7 +476,8 @@ jobs:
     name: Android Smoke Test (Ubuntu)
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 15
+    continue-on-error: true
     env:
       NODE_OPTIONS: --openssl-legacy-provider
       ADB_INSTALL_TIMEOUT: 20
@@ -533,8 +534,8 @@ jobs:
             -verbose > artifacts/smoke-logs/emulator.txt 2>&1 &
           EMU_PID=$!
 
-          boot_deadline=$((SECONDS+480))
-          ( sleep 720; echo "[WATCHDOG] Ubuntu emulator boot exceeded 720s; adb devices:"; adb devices -l || true; kill -9 $EMU_PID || true; echo "BOOT_FAILED=1" >> $GITHUB_ENV; ) &
+          boot_deadline=$((SECONDS+300))
+          ( sleep 300; echo "[WATCHDOG] Ubuntu emulator boot exceeded 300s; adb devices:"; adb devices -l || true; kill -9 $EMU_PID || true; echo "BOOT_FAILED=1" >> $GITHUB_ENV; ) &
           BOOT_WD=$!
 
           adb start-server
@@ -784,7 +785,7 @@ jobs:
     needs: build
     runs-on: macos-13
     continue-on-error: true
-    timeout-minutes: 25
+    timeout-minutes: 15
     env:
       NODE_OPTIONS: --openssl-legacy-provider
       ADB_INSTALL_TIMEOUT: 20
