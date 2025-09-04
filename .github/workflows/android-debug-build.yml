@@ -869,8 +869,8 @@ jobs:
           }
           JSON
           
-          # Post PR comment with agent dispatch (if PR context and not optional failure)
-          if [ "${{ github.event_name }}" = "pull_request" ] && [ "$OUTCOME" = "success" -o "${{ continue-on-error }}" != "true" ]; then
+          # Post PR comment with agent dispatch (if PR context)
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
             if [ "$OUTCOME" = "failure" ]; then
               COMMENT="🔴 **CI Failed** - macOS HVF Smoke Test
           
