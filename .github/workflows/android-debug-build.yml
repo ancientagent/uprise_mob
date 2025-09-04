@@ -674,64 +674,55 @@ jobs:
           # Convert comma-separated agents to JSON array
           AGENTS_JSON=$(echo "$AGENTS" | jq -R 'split(",")' 2>/dev/null || echo '["error-detective","build-engineer"]')
           
-          # Generate dispatch context with proper JSON
+          # Generate dispatch context with proper JSON (using direct variable substitution)
           mkdir -p artifacts/summary
-          cat > artifacts/summary/dispatch.json << 'EOF'
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          cat > artifacts/summary/dispatch.json << EOF
           {
-            "hook_type": "ci_OUTCOME_PLACEHOLDER",
-            "agents": AGENTS_JSON_PLACEHOLDER,
+            "hook_type": "ci_${OUTCOME}",
+            "agents": ${AGENTS_JSON},
             "context": {
               "run_id": "${{ github.run_id }}",
-              "run_url": "RUN_URL_PLACEHOLDER",
+              "run_url": "${run_url}",
               "branch": "${{ github.head_ref || github.ref_name }}",
               "job": "ubuntu-smoke",
-              "outcome": "OUTCOME_PLACEHOLDER",
+              "outcome": "${OUTCOME}",
               "platform": "ubuntu-latest"
             },
-            "timestamp": "TIMESTAMP_PLACEHOLDER"
+            "timestamp": "${TIMESTAMP}"
           }
           EOF
-          
-          # Substitute variables in JSON file
-          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          sed -i "s/OUTCOME_PLACEHOLDER/$OUTCOME/g" artifacts/summary/dispatch.json
-          sed -i "s|AGENTS_JSON_PLACEHOLDER|$AGENTS_JSON|g" artifacts/summary/dispatch.json
-          sed -i "s|RUN_URL_PLACEHOLDER|$run_url|g" artifacts/summary/dispatch.json
-          sed -i "s/TIMESTAMP_PLACEHOLDER/$TIMESTAMP/g" artifacts/summary/dispatch.json
           
           # Post PR comment with agent dispatch (if PR context)
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             if [ "$OUTCOME" = "failure" ]; then
-              cat > artifacts/summary/pr-comment.md << 'EOF'
+              cat > artifacts/summary/pr-comment.md << EOF
           🔴 **CI Failed** - Ubuntu Smoke Test
           
           **Dispatching Investigation Team:**
           - `error-detective` - Analyzing failure patterns and root cause
           - `build-engineer` - Investigating build system issues
           
-          **Run Details:** [${{ github.run_id }}](RUN_URL_PLACEHOLDER)
+          **Run Details:** [${{ github.run_id }}](${run_url})
           **Platform:** Ubuntu Latest
           **Branch:** ${{ github.head_ref || github.ref_name }}
           
           Agents will provide detailed analysis and remediation steps.
           EOF
             else
-              cat > artifacts/summary/pr-comment.md << 'EOF'
+              cat > artifacts/summary/pr-comment.md << EOF
           ✅ **CI Passed** - Ubuntu Smoke Test
           
           **Dispatching Optimization Team:**
           - `performance-engineer` - Analyzing APK performance metrics
           - `documentation-engineer` - Updating project documentation
           
-          **Run Details:** [${{ github.run_id }}](RUN_URL_PLACEHOLDER)
+          **Run Details:** [${{ github.run_id }}](${run_url})
           **Platform:** Ubuntu Latest
           
           Agents will provide performance insights and documentation updates.
           EOF
             fi
-            
-            # Substitute variables in PR comment
-            sed -i "s|RUN_URL_PLACEHOLDER|$run_url|g" artifacts/summary/pr-comment.md
           fi
           
       - name: Validate Agent Dispatch JSON
@@ -969,65 +960,56 @@ jobs:
           # Convert comma-separated agents to JSON array
           AGENTS_JSON=$(echo "$AGENTS" | jq -R 'split(",")' 2>/dev/null || echo '["error-detective","build-engineer"]')
           
-          # Generate dispatch context with proper JSON
+          # Generate dispatch context with proper JSON (using direct variable substitution)
           mkdir -p artifacts/summary
-          cat > artifacts/summary/dispatch.json << 'EOF'
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          cat > artifacts/summary/dispatch.json << EOF
           {
-            "hook_type": "ci_OUTCOME_PLACEHOLDER",
-            "agents": AGENTS_JSON_PLACEHOLDER,
+            "hook_type": "ci_${OUTCOME}",
+            "agents": ${AGENTS_JSON},
             "context": {
               "run_id": "${{ github.run_id }}",
-              "run_url": "RUN_URL_PLACEHOLDER",
+              "run_url": "${run_url}",
               "branch": "${{ github.head_ref || github.ref_name }}",
               "job": "macos-hvf-smoke",
-              "outcome": "OUTCOME_PLACEHOLDER",
+              "outcome": "${OUTCOME}",
               "platform": "macos-13-hvf",
               "optional": true
             },
-            "timestamp": "TIMESTAMP_PLACEHOLDER"
+            "timestamp": "${TIMESTAMP}"
           }
           EOF
-          
-          # Substitute variables in JSON file
-          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          sed -i "s/OUTCOME_PLACEHOLDER/$OUTCOME/g" artifacts/summary/dispatch.json
-          sed -i "s|AGENTS_JSON_PLACEHOLDER|$AGENTS_JSON|g" artifacts/summary/dispatch.json
-          sed -i "s|RUN_URL_PLACEHOLDER|$run_url|g" artifacts/summary/dispatch.json
-          sed -i "s/TIMESTAMP_PLACEHOLDER/$TIMESTAMP/g" artifacts/summary/dispatch.json
           
           # Post PR comment with agent dispatch (if PR context)
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             if [ "$OUTCOME" = "failure" ]; then
-              cat > artifacts/summary/pr-comment-macos.md << 'EOF'
+              cat > artifacts/summary/pr-comment-macos.md << EOF
           🔴 **CI Failed** - macOS HVF Smoke Test
           
           **Dispatching Investigation Team:**
           - `error-detective` - Analyzing failure patterns and root cause
           - `build-engineer` - Investigating build system issues
           
-          **Run Details:** [${{ github.run_id }}](RUN_URL_PLACEHOLDER)
+          **Run Details:** [${{ github.run_id }}](${run_url})
           **Platform:** macOS 13 with HVF acceleration
           **Branch:** ${{ github.head_ref || github.ref_name }}
           
           Agents will provide detailed analysis and remediation steps.
           EOF
             else
-              cat > artifacts/summary/pr-comment-macos.md << 'EOF'
+              cat > artifacts/summary/pr-comment-macos.md << EOF
           ✅ **CI Passed** - macOS HVF Smoke Test
           
           **Dispatching Optimization Team:**
           - `performance-engineer` - Analyzing APK performance metrics
           - `documentation-engineer` - Updating project documentation
           
-          **Run Details:** [${{ github.run_id }}](RUN_URL_PLACEHOLDER)
+          **Run Details:** [${{ github.run_id }}](${run_url})
           **Platform:** macOS 13 with HVF acceleration
           
           Agents will provide performance insights and documentation updates.
           EOF
             fi
-            
-            # Substitute variables in PR comment
-            sed -i "s|RUN_URL_PLACEHOLDER|$run_url|g" artifacts/summary/pr-comment-macos.md
           fi
           
       - name: Validate Agent Dispatch JSON (macOS)
