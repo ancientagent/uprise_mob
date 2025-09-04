@@ -595,6 +595,68 @@ jobs:
           printf '{ "run_id": %s, "run_url": "%s", "boot_ok": %s, "install_ok": true, "ttjs_s": null, "app_id": "%s" }\n' \
             "${{ github.run_id }}" "$run_url" "$boot" "$app_id" \
             > artifacts/summary/summary.json
+
+      - name: CI Agent Dispatch Hook
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          
+          # Determine CI outcome
+          if [ "${{ job.status }}" = "success" ]; then
+            OUTCOME="success"
+            AGENTS="performance-engineer,documentation-engineer"
+          else
+            OUTCOME="failure"  
+            AGENTS="error-detective,build-engineer"
+          fi
+          
+          # Generate dispatch context
+          cat > artifacts/summary/dispatch.json <<JSON
+          {
+            "hook_type": "ci_$OUTCOME",
+            "agents": "$(echo $AGENTS | tr ',' '\n' | jq -R . | jq -s .)",
+            "context": {
+              "run_id": "${{ github.run_id }}",
+              "run_url": "$run_url",
+              "branch": "${{ github.head_ref || github.ref_name }}",
+              "job": "ubuntu-smoke",
+              "outcome": "$OUTCOME",
+              "platform": "ubuntu-latest"
+            },
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          JSON
+          
+          # Post PR comment with agent dispatch (if PR context)
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            if [ "$OUTCOME" = "failure" ]; then
+              COMMENT="🔴 **CI Failed** - Ubuntu Smoke Test
+          
+          **Dispatching Investigation Team:**
+          - \`error-detective\` - Analyzing failure patterns and root cause
+          - \`build-engineer\` - Investigating build system issues
+          
+          **Run Details:** [${{ github.run_id }}]($run_url)
+          **Platform:** Ubuntu Latest
+          **Branch:** ${{ github.head_ref || github.ref_name }}
+          
+          Agents will provide detailed analysis and remediation steps."
+            else
+              COMMENT="✅ **CI Passed** - Ubuntu Smoke Test
+          
+          **Dispatching Optimization Team:**
+          - \`performance-engineer\` - Analyzing APK performance metrics
+          - \`documentation-engineer\` - Updating project documentation
+          
+          **Run Details:** [${{ github.run_id }}]($run_url)
+          **Platform:** Ubuntu Latest
+          
+          Agents will provide performance insights and documentation updates."
+            fi
+            
+            echo "$COMMENT" > artifacts/summary/pr-comment.md
+          fi
       - uses: actions/upload-artifact@v4
         with: { name: smoke-logs, path: artifacts/smoke-logs/ }
       - uses: actions/upload-artifact@v4
@@ -602,6 +664,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with: { name: summary, path: artifacts/summary/summary.json }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: agent-dispatch, path: artifacts/summary/dispatch.json }
 
   smoke-macos-hvf:
     name: macOS HVF Smoke (Optional)
@@ -770,6 +835,69 @@ jobs:
           printf '{ "run_id": %s, "run_url": "%s", "boot_ok": %s, "install_ok": true, "ttjs_s": null, "app_id": "%s", "platform": "macos-hvf" }\n' \
             "${{ github.run_id }}" "$run_url" "$boot" "$app_id" \
             > artifacts/summary/summary.json
+
+      - name: CI Agent Dispatch Hook
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          
+          # Determine CI outcome (macOS HVF is optional, so check continue-on-error behavior)
+          if [ "${{ job.status }}" = "success" ]; then
+            OUTCOME="success"
+            AGENTS="performance-engineer,documentation-engineer"
+          else
+            OUTCOME="failure"  
+            AGENTS="error-detective,build-engineer"
+          fi
+          
+          # Generate dispatch context
+          cat > artifacts/summary/dispatch.json <<JSON
+          {
+            "hook_type": "ci_$OUTCOME",
+            "agents": ["$(echo $AGENTS | tr ',' '", "')"],
+            "context": {
+              "run_id": "${{ github.run_id }}",
+              "run_url": "$run_url",
+              "branch": "${{ github.head_ref || github.ref_name }}",
+              "job": "macos-hvf-smoke",
+              "outcome": "$OUTCOME",
+              "platform": "macos-13-hvf",
+              "optional": true
+            },
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          JSON
+          
+          # Post PR comment with agent dispatch (if PR context and not optional failure)
+          if [ "${{ github.event_name }}" = "pull_request" ] && [ "$OUTCOME" = "success" -o "${{ continue-on-error }}" != "true" ]; then
+            if [ "$OUTCOME" = "failure" ]; then
+              COMMENT="🔴 **CI Failed** - macOS HVF Smoke Test
+          
+          **Dispatching Investigation Team:**
+          - \`error-detective\` - Analyzing failure patterns and root cause
+          - \`build-engineer\` - Investigating build system issues
+          
+          **Run Details:** [${{ github.run_id }}]($run_url)
+          **Platform:** macOS 13 with HVF acceleration
+          **Branch:** ${{ github.head_ref || github.ref_name }}
+          
+          Agents will provide detailed analysis and remediation steps."
+            else
+              COMMENT="✅ **CI Passed** - macOS HVF Smoke Test
+          
+          **Dispatching Optimization Team:**
+          - \`performance-engineer\` - Analyzing APK performance metrics
+          - \`documentation-engineer\` - Updating project documentation
+          
+          **Run Details:** [${{ github.run_id }}]($run_url)
+          **Platform:** macOS 13 with HVF acceleration
+          
+          Agents will provide performance insights and documentation updates."
+            fi
+            
+            echo "$COMMENT" > artifacts/summary/pr-comment-macos.md
+          fi
       
       - name: Teardown emulator
         if: always()
@@ -791,5 +919,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with: { name: summary-macos, path: artifacts/summary/summary.json }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: agent-dispatch-macos, path: artifacts/summary/dispatch.json }
 
 
