@@ -303,22 +303,33 @@ jobs:
             -no-snapshot -no-snapshot-save -no-snapshot-load -wipe-data \
             -no-window -no-audio -no-boot-anim \
             -gpu swiftshader_indirect -camera-back none -netfast -no-metrics \
-            -accel off -cores 2 -memory 2048 -qemu -m 1536"
+            -accel off -cores 2 -memory 3072 -partition-size 6144 \
+            -qemu -m 2048"
           
           echo "$EMU_CMD" > artifacts/smoke/emulator_cmd.txt
           $EMU_CMD > artifacts/smoke/emulator_boot.log 2>&1 & EMU_PID=$!
           echo "EMU_PID=$EMU_PID" >> "$GITHUB_ENV"
           
-          boot_deadline=$((SECONDS+900)) # 15 minutes
+          boot_deadline=$((SECONDS+1200)) # 20 minutes
           adb kill-server || true
           adb start-server
           
           booted=0
+          boot_check_count=0
           while [ $SECONDS -lt $boot_deadline ]; do
+            boot_check_count=$((boot_check_count + 1))
             state=$(adb -s "$ANDROID_SERIAL" get-state 2>/dev/null || true)
             bc=$(adb -s "$ANDROID_SERIAL" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
+            
+            # Progress logging every minute (12 checks)
+            if [ $((boot_check_count % 12)) -eq 0 ]; then
+              elapsed=$((SECONDS))
+              echo "Boot check ${boot_check_count}: state='$state', boot_completed='$bc' (${elapsed}s elapsed)"
+            fi
+            
             if [ "$state" = "device" ] && [ "$bc" = "1" ]; then
               booted=1
+              echo "✅ Emulator booted successfully after ${SECONDS}s"
               adb -s "$ANDROID_SERIAL" shell settings put global animator_duration_scale 0.0 || true
               adb -s "$ANDROID_SERIAL" shell settings put global transition_animation_scale 0.0 || true
               adb -s "$ANDROID_SERIAL" shell settings put global window_animation_scale 0.0 || true
@@ -329,7 +340,7 @@ jobs:
           done
           
           if [ "$booted" != "1" ]; then
-            echo "BOOT TIMEOUT after 15m. Last 200 lines of logcat:"
+            echo "BOOT TIMEOUT after 20m. Last 200 lines of logcat:"
             adb -s "$ANDROID_SERIAL" logcat -d | tail -n 200 || true
             exit 1
           fi
