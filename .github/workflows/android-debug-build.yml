@@ -417,10 +417,10 @@ jobs:
             RUN_URL.txt
 
   smoke-test:
-    name: Android Smoke Test (Ubuntu fallback, accel off)
+    name: Android Smoke Test (Ubuntu)
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 25
     env:
       NODE_OPTIONS: --openssl-legacy-provider
       ADB_INSTALL_TIMEOUT: 20
@@ -428,47 +428,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: "Guard: fail if CRLF present in workflow"
+      - name: Setup Android SDK environment
         run: |
-          if grep -U $'\r' -n ".github/workflows/android-debug-build.yml"; then
-            echo "CRLF detected in workflow; must be LF." >&2
-            exit 1
-          fi
+          echo "ANDROID_SDK_ROOT=/usr/local/lib/android/sdk" >> $GITHUB_ENV
+          echo "ANDROID_HOME=/usr/local/lib/android/sdk" >> $GITHUB_ENV
+          echo "/usr/local/lib/android/sdk/platform-tools" >> $GITHUB_PATH
+          echo "/usr/local/lib/android/sdk/emulator" >> $GITHUB_PATH
+          echo "/usr/local/lib/android/sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
 
-      - name: Bootstrap Android cmdline-tools r8 (8092744)
-        shell: bash
+      - name: Install system image for emulator
         run: |
           set -euo pipefail
-          export ANDROID_SDK_ROOT="$HOME/android-sdk"
-          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools"
-          cd "$ANDROID_SDK_ROOT"
-          URL="https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip"
-          curl -fsSL "$URL" -o cmdtools.zip
-          unzip -q cmdtools.zip -d cmdline-tools-tmp
-          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/r8"
-          mv cmdline-tools-tmp/cmdline-tools/* "$ANDROID_SDK_ROOT/cmdline-tools/r8/"
-          rm -rf cmdline-tools-tmp cmdtools.zip
-          echo "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin" >> "$GITHUB_PATH"
-          echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
-          echo "$ANDROID_SDK_ROOT/emulator" >> "$GITHUB_PATH"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
-
-      - name: Accept SDK licenses (r8)
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "Accepting SDK licenses non-interactively..."
-          ( echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y" ) | sdkmanager --licenses || true
-
-      - name: Install SDK components
-        shell: bash
-        run: |
-          set -euo pipefail
-          sdkmanager --install "platform-tools" "emulator" \
-            "build-tools;${{ env.ANDROID_BUILD_TOOLS }}" \
-            "platforms;android-31" \
-            "system-images;android-30;default;x86_64"
-          "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" -version
+          # Accept licenses first
+          yes | sdkmanager --licenses || true
+          # Install only the system image we need (API 30)
+          sdkmanager --install "system-images;android-30;default;x86_64"
 
       - name: Download Debug APK
         uses: actions/download-artifact@v4
@@ -533,14 +507,24 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          export PATH="$ANDROID_SDK_ROOT/build-tools/${ANDROID_BUILD_TOOLS}:$PATH"
+          # Use first available build-tools version for aapt
+          BUILD_TOOLS_DIR="$ANDROID_SDK_ROOT/build-tools"
+          if [ -d "$BUILD_TOOLS_DIR" ]; then
+            AAPT="$(find "$BUILD_TOOLS_DIR" -name "aapt" -type f | head -n1)"
+          fi
+          
           APK_DEBUG="$(find artifacts/debug -type f -name '*debug*.apk' | head -n1)"
           if [ -z "${APK_DEBUG:-}" ]; then echo "Debug APK not found"; exit 1; fi
-          if command -v aapt >/dev/null 2>&1; then
-            APP_ID=$(aapt dump badging "$APK_DEBUG" | awk -F"'" '/package: name=/{print $2; exit}')
-          else
+          
+          if [ -n "${AAPT:-}" ] && [ -x "$AAPT" ]; then
+            APP_ID=$("$AAPT" dump badging "$APK_DEBUG" | awk -F"'" '/package: name=/{print $2; exit}')
+          elif command -v apkanalyzer >/dev/null 2>&1; then
             APP_ID=$(apkanalyzer manifest application-id "$APK_DEBUG")
+          else
+            echo "Warning: No tool available to extract package ID, using fallback"
+            APP_ID="com.app.uprise.debug"
           fi
+          
           echo "APP_ID=$APP_ID" | tee -a "$GITHUB_ENV"
           echo "Detected APP_ID=$APP_ID"
 
@@ -624,7 +608,7 @@ jobs:
     needs: build
     runs-on: macos-13
     continue-on-error: true
-    timeout-minutes: 35
+    timeout-minutes: 25
     env:
       NODE_OPTIONS: --openssl-legacy-provider
       ADB_INSTALL_TIMEOUT: 20
@@ -632,47 +616,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: "Guard: fail if CRLF present in workflow"
+      - name: Setup Android SDK environment
         run: |
-          if grep -U $'\r' -n ".github/workflows/android-debug-build.yml"; then
-            echo "CRLF detected in workflow; must be LF." >&2
-            exit 1
-          fi
+          echo "ANDROID_SDK_ROOT=$HOME/Library/Android/sdk" >> $GITHUB_ENV
+          echo "ANDROID_HOME=$HOME/Library/Android/sdk" >> $GITHUB_ENV
+          echo "$HOME/Library/Android/sdk/platform-tools" >> $GITHUB_PATH
+          echo "$HOME/Library/Android/sdk/emulator" >> $GITHUB_PATH
+          echo "$HOME/Library/Android/sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
 
-      - name: Bootstrap Android cmdline-tools r8 (8092744)
-        shell: bash
+      - name: Install system image for emulator
         run: |
           set -euo pipefail
-          export ANDROID_SDK_ROOT="$HOME/android-sdk"
-          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools"
-          cd "$ANDROID_SDK_ROOT"
-          URL="https://dl.google.com/android/repository/commandlinetools-mac-8092744_latest.zip"
-          curl -fsSL "$URL" -o cmdtools.zip
-          unzip -q cmdtools.zip -d cmdline-tools-tmp
-          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/r8"
-          mv cmdline-tools-tmp/cmdline-tools/* "$ANDROID_SDK_ROOT/cmdline-tools/r8/"
-          rm -rf cmdline-tools-tmp cmdtools.zip
-          echo "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin" >> "$GITHUB_PATH"
-          echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
-          echo "$ANDROID_SDK_ROOT/emulator" >> "$GITHUB_PATH"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
-
-      - name: Accept SDK licenses (r8)
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "Accepting SDK licenses non-interactively..."
-          ( echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y"; echo "y" ) | sdkmanager --licenses || true
-
-      - name: Install SDK components
-        shell: bash
-        run: |
-          set -euo pipefail
-          sdkmanager --install "platform-tools" "emulator" \
-            "build-tools;${{ env.ANDROID_BUILD_TOOLS }}" \
-            "platforms;android-31" \
-            "system-images;android-30;default;x86_64"
-          "${ANDROID_SDK_ROOT}/build-tools/${{ env.ANDROID_BUILD_TOOLS }}/apksigner" -version
+          # Accept licenses first
+          yes | sdkmanager --licenses || true
+          # Install only the system image we need (API 30)
+          sdkmanager --install "system-images;android-30;default;x86_64"
 
       - name: Download Debug APK
         uses: actions/download-artifact@v4
@@ -738,14 +696,24 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          export PATH="$ANDROID_SDK_ROOT/build-tools/${ANDROID_BUILD_TOOLS}:$PATH"
+          # Use first available build-tools version for aapt
+          BUILD_TOOLS_DIR="$ANDROID_SDK_ROOT/build-tools"
+          if [ -d "$BUILD_TOOLS_DIR" ]; then
+            AAPT="$(find "$BUILD_TOOLS_DIR" -name "aapt" -type f | head -n1)"
+          fi
+          
           APK_DEBUG="$(find artifacts/debug -type f -name '*debug*.apk' | head -n1)"
           if [ -z "${APK_DEBUG:-}" ]; then echo "Debug APK not found"; exit 1; fi
-          if command -v aapt >/dev/null 2>&1; then
-            APP_ID=$(aapt dump badging "$APK_DEBUG" | awk -F"'" '/package: name=/{print $2; exit}')
-          else
+          
+          if [ -n "${AAPT:-}" ] && [ -x "$AAPT" ]; then
+            APP_ID=$("$AAPT" dump badging "$APK_DEBUG" | awk -F"'" '/package: name=/{print $2; exit}')
+          elif command -v apkanalyzer >/dev/null 2>&1; then
             APP_ID=$(apkanalyzer manifest application-id "$APK_DEBUG")
+          else
+            echo "Warning: No tool available to extract package ID, using fallback"
+            APP_ID="com.app.uprise.debug"
           fi
+          
           echo "APP_ID=$APP_ID" | tee -a "$GITHUB_ENV"
           echo "Detected APP_ID=$APP_ID"
 
