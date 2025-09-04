@@ -160,6 +160,10 @@ android {
 
     buildTypes {
         debug {
+            // ✅ make debug a different package so it never collides
+            applicationIdSuffix ".debug"
+            debuggable true
+            
             // Use default debug keystore (~/.android/debug.keystore)
             if (nativeArchitectures) {
                 ndk {
@@ -168,6 +172,7 @@ android {
             }
         }
         release {
+            // no suffix for release
             // In production, replace with a real release keystore
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
