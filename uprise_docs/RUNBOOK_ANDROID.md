@@ -213,3 +213,10 @@ adb shell curl http://localhost:8081/status
   - Boot wait: portable 6-minute timeout with early exit
   - TTJS collection: logcat watch for 'ReactNativeJS', environment variable extraction
   - Artifacts: ids (RUN_ID.txt, RUN_URL.txt), summary (summary.json), smoke-logs, APKs
+
+[2025-09-04] macOS smoke test update:
+- **Background emulator**: Runs in background with PID tracking, no snapshots
+- **Dynamic APP_ID**: Detects package name from built debug APK using aapt/apkanalyzer
+- **Unified flow**: Same uninstall/install/launch sequence as Ubuntu smoke test
+- **ADB restart**: Kills and restarts ADB server before emulator operations
+- **summary.json**: Includes app_id, boot_ok, ttjs_s (null), debug/release APK sizes, run_id, run_url

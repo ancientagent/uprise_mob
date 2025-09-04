@@ -1,3 +1,26 @@
+## 2025-09-04 - CI macOS smoke stabilized — background emulator, dynamic APP_ID, unified flow
+
+### macOS HVF Smoke Test Improvements
+**Problem**: macOS smoke test instability and hardcoded package names.
+
+**Solution**:
+- **Background emulator launch** with proper process tracking via PID file
+- **Dynamic APP_ID detection** from debug APK using aapt/apkanalyzer
+- **Unified install/launch flow** matching Ubuntu smoke test behavior
+- **ADB restart** before emulator operations for stability
+- **summary.json generation** with run metrics (app_id, boot_ok, APK sizes)
+
+**Key Changes**:
+- Emulator runs in background mode, no snapshots
+- 12-minute boot timeout with proper trace logging
+- Three-attempt APK installation with error handling
+- Uninstalls conflicting packages before install
+- Writes structured JSON summary for CI metrics
+
+**Impact**: Stabilizes macOS CI smoke tests and eliminates hardcoded package dependencies.
+
+---
+
 ## 2025-09-01 19:45 UTC - CI: cmdline-tools r8 pinned (XML v2) — run 17355198212; boot_ok=true; ttjs_s=4.2; debug=53938883 bytes; release=42156789 bytes; minSdk=21; targetSdk=31
 
 ### Android cmdline-tools r8 Validation
