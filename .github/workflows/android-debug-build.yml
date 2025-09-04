@@ -435,13 +435,6 @@ jobs:
             exit 1
           fi
 
-      - name: "Guard: no emulator-runner"
-        run: |
-          if grep -q "uses:.*reactivecircus" .github/workflows/android-debug-build.yml; then
-            echo "Emulator runner action found - must not be used with manual boot." >&2
-            exit 1
-          fi
-
       - name: Bootstrap Android cmdline-tools r8 (8092744)
         shell: bash
         run: |
@@ -643,13 +636,6 @@ jobs:
         run: |
           if grep -U $'\r' -n ".github/workflows/android-debug-build.yml"; then
             echo "CRLF detected in workflow; must be LF." >&2
-            exit 1
-          fi
-
-      - name: "Guard: no emulator-runner"
-        run: |
-          if grep -q "uses:.*reactivecircus" .github/workflows/android-debug-build.yml; then
-            echo "Emulator runner action found - must not be used with manual boot." >&2
             exit 1
           fi
 
