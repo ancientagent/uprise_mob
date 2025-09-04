@@ -335,24 +335,92 @@ jobs:
           fi
           echo "booted=$booted" >> "$GITHUB_ENV"
 
+      - name: Extract APK Metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          
+          # APK metadata extraction function
+          extract_apk_metadata() {
+            local apk_path="$1"
+            local env_prefix="${2:-}"
+            
+            # Validate APK exists
+            if [ ! -f "$apk_path" ]; then
+              echo "APK not found: $apk_path" >&2
+              return 1
+            fi
+            
+            export PATH="$ANDROID_SDK_ROOT/build-tools/31.0.0:$PATH"
+            
+            # Try aapt first (more reliable for older APKs)
+            if command -v aapt >/dev/null 2>&1; then
+              echo "Using aapt to analyze: $apk_path"
+              
+              # Extract package name
+              APP_ID=$(aapt dump badging "$apk_path" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p" | head -1)
+              
+              # Extract SDK versions (more robust parsing)
+              MIN_SDK=$(aapt dump badging "$apk_path" | sed -n "s/.*sdkVersion:'\([^']*\)'.*/\1/p" | head -1)
+              TGT_SDK=$(aapt dump badging "$apk_path" | sed -n "s/.*targetSdkVersion:'\([^']*\)'.*/\1/p" | head -1)
+              
+            elif command -v apkanalyzer >/dev/null 2>&1; then
+              echo "Using apkanalyzer to analyze: $apk_path"
+              
+              APP_ID=$(apkanalyzer manifest application-id "$apk_path" 2>/dev/null || echo "")
+              MIN_SDK=$(apkanalyzer manifest min-sdk "$apk_path" 2>/dev/null || echo "")
+              TGT_SDK=$(apkanalyzer manifest target-sdk "$apk_path" 2>/dev/null || echo "")
+              
+            else
+              echo "Neither aapt nor apkanalyzer found in PATH" >&2
+              return 1
+            fi
+            
+            # Validate APP_ID was found
+            if [ -z "${APP_ID:-}" ]; then
+              echo "Failed to extract APP_ID from: $apk_path" >&2
+              return 1
+            fi
+            
+            # Set environment variables with prefix if provided
+            echo "${env_prefix}APP_ID=$APP_ID" >> "$GITHUB_ENV"
+            echo "${env_prefix}MIN_SDK=${MIN_SDK:-unknown}" >> "$GITHUB_ENV"
+            echo "${env_prefix}TARGET_SDK=${TGT_SDK:-unknown}" >> "$GITHUB_ENV"
+            
+            # Output for debugging
+            echo "📱 APK Analysis Results:"
+            echo "   APP_ID: $APP_ID"
+            echo "   MIN_SDK: ${MIN_SDK:-unknown}"
+            echo "   TARGET_SDK: ${TGT_SDK:-unknown}"
+            
+            return 0
+          }
+          
+          # Find and analyze APKs
+          DEBUG_APK=$(find artifacts/debug -name "*.apk" -type f | head -1)
+          RELEASE_APK=$(find artifacts/release -name "*.apk" -type f | head -1)
+          
+          if [ -z "$DEBUG_APK" ]; then
+            echo "No debug APK found" >&2
+            exit 1
+          fi
+          
+          if [ -z "$RELEASE_APK" ]; then
+            echo "No release APK found" >&2
+            exit 1
+          fi
+          
+          # Extract metadata from both APKs
+          extract_apk_metadata "$DEBUG_APK" "DEBUG_"
+          extract_apk_metadata "$RELEASE_APK" "RELEASE_"
+
       - name: Test Debug APK
         shell: bash
         run: |
           set -euo pipefail
           
-          # Find APK
           DEBUG_APK=$(find artifacts/debug -name "*.apk" -type f | head -1)
-          if [ -z "$DEBUG_APK" ]; then
-            echo "No debug APK found"
-            exit 1
-          fi
-          echo "DEBUG_APK=$DEBUG_APK"
-          
-          # Detect APP_ID
-          export PATH="$ANDROID_SDK_ROOT/build-tools/31.0.0:$PATH"
-          DEBUG_APP_ID=$(aapt dump badging "$DEBUG_APK" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p")
-          echo "DEBUG_APP_ID=$DEBUG_APP_ID"
-          echo "DEBUG_APP_ID=$DEBUG_APP_ID" >> "$GITHUB_ENV"
+          echo "Installing and testing: $DEBUG_APK"
           
           # Pre-uninstall
           base="${DEBUG_APP_ID%.debug}"
@@ -404,19 +472,8 @@ jobs:
         run: |
           set -euo pipefail
           
-          # Find APK
           RELEASE_APK=$(find artifacts/release -name "*.apk" -type f | head -1)
-          if [ -z "$RELEASE_APK" ]; then
-            echo "No release APK found"
-            exit 1
-          fi
-          echo "RELEASE_APK=$RELEASE_APK"
-          
-          # Detect APP_ID
-          export PATH="$ANDROID_SDK_ROOT/build-tools/31.0.0:$PATH"
-          RELEASE_APP_ID=$(aapt dump badging "$RELEASE_APK" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p")
-          echo "RELEASE_APP_ID=$RELEASE_APP_ID"
-          echo "RELEASE_APP_ID=$RELEASE_APP_ID" >> "$GITHUB_ENV"
+          echo "Installing and testing: $RELEASE_APK"
           
           # Pre-uninstall
           base="${RELEASE_APP_ID%.debug}"
@@ -633,23 +690,90 @@ jobs:
           "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell settings put global animator_duration_scale 0.0
           echo "boot_ok=1" >> artifacts/smoke/boot_status.txt
 
+      - name: Extract APK Metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          
+          # APK metadata extraction function (same as Ubuntu)
+          extract_apk_metadata() {
+            local apk_path="$1"
+            local env_prefix="${2:-}"
+            
+            # Validate APK exists
+            if [ ! -f "$apk_path" ]; then
+              echo "APK not found: $apk_path" >&2
+              return 1
+            fi
+            
+            # Try aapt first (more reliable for older APKs)
+            if command -v "$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" >/dev/null 2>&1; then
+              echo "Using aapt to analyze: $apk_path"
+              
+              # Extract package name
+              APP_ID=$("$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" dump badging "$apk_path" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p" | head -1)
+              
+              # Extract SDK versions (more robust parsing)
+              MIN_SDK=$("$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" dump badging "$apk_path" | sed -n "s/.*sdkVersion:'\([^']*\)'.*/\1/p" | head -1)
+              TGT_SDK=$("$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" dump badging "$apk_path" | sed -n "s/.*targetSdkVersion:'\([^']*\)'.*/\1/p" | head -1)
+              
+            elif command -v "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" >/dev/null 2>&1; then
+              echo "Using apkanalyzer to analyze: $apk_path"
+              
+              APP_ID=$("$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" manifest application-id "$apk_path" 2>/dev/null || echo "")
+              MIN_SDK=$("$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" manifest min-sdk "$apk_path" 2>/dev/null || echo "")
+              TGT_SDK=$("$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" manifest target-sdk "$apk_path" 2>/dev/null || echo "")
+              
+            else
+              echo "Neither aapt nor apkanalyzer found in PATH" >&2
+              return 1
+            fi
+            
+            # Validate APP_ID was found
+            if [ -z "${APP_ID:-}" ]; then
+              echo "Failed to extract APP_ID from: $apk_path" >&2
+              return 1
+            fi
+            
+            # Set environment variables with prefix if provided
+            echo "${env_prefix}APP_ID=$APP_ID" >> "$GITHUB_ENV"
+            echo "${env_prefix}MIN_SDK=${MIN_SDK:-unknown}" >> "$GITHUB_ENV"
+            echo "${env_prefix}TARGET_SDK=${TGT_SDK:-unknown}" >> "$GITHUB_ENV"
+            
+            # Output for debugging
+            echo "📱 APK Analysis Results:"
+            echo "   APP_ID: $APP_ID"
+            echo "   MIN_SDK: ${MIN_SDK:-unknown}"
+            echo "   TARGET_SDK: ${TGT_SDK:-unknown}"
+            
+            return 0
+          }
+          
+          # Find and analyze APKs
+          DEBUG_APK=$(find artifacts/debug -name "*.apk" -type f | head -1)
+          RELEASE_APK=$(find artifacts/release -name "*.apk" -type f | head -1)
+          
+          if [ -z "$DEBUG_APK" ]; then
+            echo "No debug APK found" >&2
+            exit 1
+          fi
+          
+          if [ -z "$RELEASE_APK" ]; then
+            echo "No release APK found" >&2
+            exit 1
+          fi
+          
+          # Extract metadata from both APKs
+          extract_apk_metadata "$DEBUG_APK" "DEBUG_"
+          extract_apk_metadata "$RELEASE_APK" "RELEASE_"
+
       - name: Test Debug APK
         shell: bash
         run: |
           set -euo pipefail
           
-          # Find APK
           DEBUG_APK=$(find artifacts/debug -name "*.apk" -type f | head -1)
-          if [ -z "$DEBUG_APK" ]; then
-            echo "No debug APK found"
-            exit 1
-          fi
-          echo "DEBUG_APK=$DEBUG_APK"
-          
-          # Detect APP_ID
-          DEBUG_APP_ID=$("$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" dump badging "$DEBUG_APK" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p")
-          echo "DEBUG_APP_ID=$DEBUG_APP_ID"
-          echo "DEBUG_APP_ID=$DEBUG_APP_ID" >> "$GITHUB_ENV"
+          echo "Installing and testing: $DEBUG_APK"
           
           # Pre-uninstall
           base="${DEBUG_APP_ID%.debug}"
@@ -701,18 +825,8 @@ jobs:
         run: |
           set -euo pipefail
           
-          # Find APK
           RELEASE_APK=$(find artifacts/release -name "*.apk" -type f | head -1)
-          if [ -z "$RELEASE_APK" ]; then
-            echo "No release APK found"
-            exit 1
-          fi
-          echo "RELEASE_APK=$RELEASE_APK"
-          
-          # Detect APP_ID
-          RELEASE_APP_ID=$("$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" dump badging "$RELEASE_APK" | sed -n "s/.*package: name='\([^']*\)'.*/\1/p")
-          echo "RELEASE_APP_ID=$RELEASE_APP_ID"
-          echo "RELEASE_APP_ID=$RELEASE_APP_ID" >> "$GITHUB_ENV"
+          echo "Installing and testing: $RELEASE_APK"
           
           # Pre-uninstall
           base="${RELEASE_APP_ID%.debug}"
