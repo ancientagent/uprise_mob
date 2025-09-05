@@ -401,13 +401,13 @@ jobs:
               # Create minimal config if AVD directory exists but config.ini missing
               if [ -d "$HOME/.android/avd/${AVD_NAME}.avd" ]; then
                 echo "Creating minimal config.ini..."
-                cat > "$HOME/.android/avd/${AVD_NAME}.avd/config.ini" << 'EOF'
-hw.ramSize=1024
-hw.lcd.density=420
-hw.lcd.height=2340
-hw.lcd.width=1080
-image.sysdir.1=system-images/android-31/google_apis/x86_64/
-EOF
+                {
+                  echo "hw.ramSize=1024"
+                  echo "hw.lcd.density=420"
+                  echo "hw.lcd.height=2340"
+                  echo "hw.lcd.width=1080"
+                  echo "image.sysdir.1=system-images/android-31/google_apis/x86_64/"
+                } > "$HOME/.android/avd/${AVD_NAME}.avd/config.ini"
               fi
             fi
           else
