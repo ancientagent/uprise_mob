@@ -1,4 +1,8 @@
 name: Android Build & Smoke Test
+run-name: Android CI - ${{ github.ref_name }} @ ${{ github.sha }}
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   NODE_OPTIONS: --openssl-legacy-provider
