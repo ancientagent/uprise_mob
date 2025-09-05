@@ -877,8 +877,8 @@ jobs:
           "$ANDROID_SDK_ROOT/emulator/emulator" \
             -avd "${AVD_NAME}" \
             -no-window -no-snapshot -no-boot-anim -gpu swiftshader_indirect \
-            -camera-back none -accel on -ports 5554,5555 -memory 2048 -cores 2 \
-            -qemu -m 1536 \
+            -camera-back none -accel on -ports 5554,5555 -memory 1024 -cores 1 \
+            -qemu -m 1024 \
             > artifacts/smoke/emulator_boot.log 2>&1 &
           echo $! > artifacts/smoke/emulator.pid
 

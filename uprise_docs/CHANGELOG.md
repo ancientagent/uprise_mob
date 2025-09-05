@@ -1,3 +1,16 @@
+## 2025-09-05 - Critical Resource Allocation Fix - 20:45 UTC
+**Emergency Fix**: Aligned macOS emulator resource allocation with Ubuntu conservative settings
+
+### Critical Resource Allocation Mismatch Fixed
+- **Problem**: macOS emulator using 2 cores/2048MB RAM while Ubuntu uses 1 core/1024MB RAM
+  - Jules identified this as primary cause of CI failures without logs
+  - Workflow was self-sabotaging by requesting more resources than runners could provide
+- **Solution**: Standardized all emulator configurations to conservative settings
+  - macOS now uses: `-memory 1024 -cores 1` (was: `-memory 2048 -cores 2`)
+  - QEMU memory aligned: `-qemu -m 1024` (was: `-qemu -m 1536`)
+  - Prevents resource exhaustion on GitHub Actions runners
+- **Impact**: Resolves catastrophic job failures and ensures consistent CI behavior
+
 ## 2025-09-05 - Major CI/CD Overhaul — Workflow Standardization, Monitoring Layer, and Cross-Branch Consistency (FINAL)
 
 ### Final System Lockdown - 19:30 UTC
