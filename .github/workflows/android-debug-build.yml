@@ -112,13 +112,13 @@ jobs:
           mv "$ANDROID_SDK_ROOT/cmdline-tools/NOTICE.txt" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
 
           # Accept licenses non-interactively
-          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --licenses >/dev/null
+          printf 'y\ny\ny\ny\ny\ny\ny\ny\n' | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --licenses >/dev/null || true
 
           # Install ONLY what AGP 7.0.4 needs
-          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" \
+          "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" \
             "platform-tools" \
             "platforms;android-31" \
-            "build-tools;31.0.0"
+            "build-tools;31.0.0" || true
 
           echo "=== Installed build-tools ==="
           ls -1 "$ANDROID_SDK_ROOT/build-tools" || true
