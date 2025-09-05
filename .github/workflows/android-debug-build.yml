@@ -330,7 +330,18 @@ jobs:
         run: |
           set -euo pipefail
           export JAVA_HOME="${{ steps.j17.outputs.path }}"
+          
+          # Debug available system images
+          echo "=== Available System Images ==="
+          avdmanager list target || true
+          echo "=== Creating AVD ==="
           echo "no" | avdmanager create avd -n "ci_api_31" -k "system-images;android-31;default;x86_64" --force --device "pixel_5"
+          
+          # Verify AVD was created
+          echo "=== Verifying AVD Creation ==="
+          avdmanager list avd || true
+          echo "=== AVD Directory Contents ==="
+          ls -la ~/.android/avd/ || true
 
       - name: Setup Ubuntu graphics libraries
         run: |
