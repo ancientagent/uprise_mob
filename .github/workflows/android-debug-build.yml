@@ -393,9 +393,38 @@ jobs:
           # Create AVD if it doesn't exist (fallback)
           if ! "$EMULATOR_BIN" -list-avds | grep -q "ci_api_31"; then
             echo "=== AVD ci_api_31 not found, creating as fallback ==="
-            echo "no" | avdmanager create avd -n "ci_api_31" -k "system-images;android-31;default;x86_64" --force --device "pixel_5" || true
+            
+            # Ensure AVD directory exists
+            mkdir -p ~/.android/avd
+            
+            # Find avdmanager
+            AVDMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/avdmanager"
+            if [ ! -f "$AVDMANAGER" ]; then
+              AVDMANAGER="$(which avdmanager 2>/dev/null || echo '')"
+            fi
+            
+            if [ -z "$AVDMANAGER" ] || [ ! -f "$AVDMANAGER" ]; then
+              echo "ERROR: avdmanager not found"
+              echo "Looking for avdmanager in SDK:"
+              find "$ANDROID_SDK_ROOT" -name "avdmanager" -type f 2>/dev/null || true
+              exit 1
+            fi
+            
+            echo "Using avdmanager: $AVDMANAGER"
+            echo "no" | "$AVDMANAGER" create avd -n "ci_api_31" -k "system-images;android-31;default;x86_64" --force --device "pixel_5"
+            
             echo "=== After fallback creation ==="
             "$EMULATOR_BIN" -list-avds || true
+            ls -la ~/.android/avd/ || echo "AVD directory still not found"
+            
+            # If still no AVD, try alternative approach
+            if ! "$EMULATOR_BIN" -list-avds | grep -q "ci_api_31"; then
+              echo "ERROR: AVD creation failed. Trying alternative system image..."
+              "$AVDMANAGER" list | grep "system-images" || true
+              # Try with google_apis instead of default
+              echo "no" | "$AVDMANAGER" create avd -n "ci_api_31" -k "system-images;android-31;google_apis;x86_64" --force --device "pixel_5" || true
+              "$EMULATOR_BIN" -list-avds || true
+            fi
           fi
           
           EMU_CMD="$ANDROID_SDK_ROOT/emulator/emulator -avd ci_api_31 -ports 5554,5555 \
