@@ -813,9 +813,9 @@ jobs:
         if: always()
         shell: bash
         run: |
-          # Generate final monitoring summary
+          # Generate final monitoring summary with timeout
           source .github/workflows/monitoring-functions.sh || true
-          generate_monitoring_summary || true
+          timeout 2m generate_monitoring_summary || echo "Monitoring summary timed out"
           
           # Capture diagnostics if job failed
           if [ "${{ job.status }}" = "failure" ]; then
@@ -1227,9 +1227,9 @@ jobs:
         if: always()
         shell: bash
         run: |
-          # Generate final monitoring summary
+          # Generate final monitoring summary with timeout
           source .github/workflows/monitoring-functions.sh || true
-          generate_monitoring_summary || true
+          timeout 2m generate_monitoring_summary || echo "Monitoring summary timed out"
           
           # Capture diagnostics if job failed
           if [ "${{ job.status }}" = "failure" ]; then

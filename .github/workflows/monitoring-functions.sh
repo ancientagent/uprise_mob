@@ -293,25 +293,28 @@ generate_monitoring_summary() {
         echo ""
         
         echo "=== APK Validations ==="
-        for apk_val in artifacts/monitoring/apk_validation_*.txt; do
+        timeout 30s find artifacts/monitoring -name "apk_validation_*.txt" -type f 2>/dev/null | while read -r apk_val; do
             if [ -f "$apk_val" ]; then
                 echo "$(basename "$apk_val"):"
-                grep -E '^(Size:|MD5:)' "$apk_val" 2>/dev/null
+                timeout 10s grep -E '^(Size:|MD5:)' "$apk_val" 2>/dev/null || echo "  (data unavailable)"
             fi
-        done
+        done || echo "APK validation data unavailable"
         echo ""
         
         echo "=== Emulator Boot ==="
         if [ -f "artifacts/monitoring/emulator_boot.log" ]; then
-            tail -3 artifacts/monitoring/emulator_boot.log 2>/dev/null
+            timeout 10s tail -3 artifacts/monitoring/emulator_boot.log 2>/dev/null || echo "Boot log unavailable"
+        else
+            echo "No emulator boot log found"
         fi
         echo ""
         
         echo "=== Detected Issues ==="
-        find artifacts/monitoring -type f -name "*.txt" -o -name "*.log" 2>/dev/null | \
-            xargs grep -l "WARNING\|ERROR\|FAIL" 2>/dev/null | while read -r file; do
-            echo "- $(basename "$file"): $(grep -c "WARNING\|ERROR\|FAIL" "$file" 2>/dev/null) issues"
-        done
+        timeout 30s find artifacts/monitoring -type f -name "*.txt" -o -name "*.log" 2>/dev/null | \
+            timeout 30s xargs grep -l "WARNING\|ERROR\|FAIL" 2>/dev/null | while read -r file; do
+            issue_count=$(timeout 5s grep -c "WARNING\|ERROR\|FAIL" "$file" 2>/dev/null || echo "?")
+            echo "- $(basename "$file"): $issue_count issues"
+        done 2>/dev/null || echo "Issue detection unavailable"
         
     } > artifacts/monitoring/summary.txt 2>&1
     
