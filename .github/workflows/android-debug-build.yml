@@ -687,7 +687,10 @@ jobs:
             DEBUG_LAUNCH_RC=$?
           else
             echo "DEBUG_ACTIVITY=$DEBUG_ACTIVITY"
-            adb -s "$ANDROID_SERIAL" shell am start -n "$DEBUG_ACTIVITY"
+            # Format as package/activity for am start command
+            FULL_COMPONENT="$DEBUG_APP_ID/$DEBUG_ACTIVITY"
+            echo "Starting: $FULL_COMPONENT"
+            adb -s "$ANDROID_SERIAL" shell am start -n "$FULL_COMPONENT"
             DEBUG_LAUNCH_RC=$?
           fi
           
@@ -1103,7 +1106,10 @@ jobs:
             DEBUG_LAUNCH_RC=$?
           else
             echo "DEBUG_ACTIVITY=$DEBUG_ACTIVITY"
-            "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell am start -n "$DEBUG_ACTIVITY"
+            # Format as package/activity for am start command
+            FULL_COMPONENT="$DEBUG_APP_ID/$DEBUG_ACTIVITY"
+            echo "Starting: $FULL_COMPONENT"
+            "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 shell am start -n "$FULL_COMPONENT"
             DEBUG_LAUNCH_RC=$?
           fi
           
