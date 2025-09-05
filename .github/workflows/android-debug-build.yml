@@ -40,6 +40,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Initialize CI Monitoring
+        shell: bash
+        run: |
+          # Load monitoring functions (non-invasive)
+          source .github/workflows/monitoring-functions.sh || true
+          init_monitoring || true
+
       - name: Setup Java 11 (Gradle)
         id: j11
         uses: actions/setup-java@v4
@@ -64,6 +71,13 @@ jobs:
 
       - name: Setup Android SDK (Ubuntu)
         uses: android-actions/setup-android@v3
+
+      - name: Validate SDK Installation
+        shell: bash
+        run: |
+          # Non-blocking SDK validation
+          source .github/workflows/monitoring-functions.sh || true
+          validate_sdk_setup || true
 
       - name: Guard Print Android SDK paths
         shell: bash
@@ -286,6 +300,27 @@ jobs:
           name: app-release-apk
           path: artifacts/release
 
+      - name: Verify APK Downloads
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Checking downloaded APK artifacts..."
+          echo "Debug APKs:"
+          ls -la artifacts/debug/ || echo "No debug artifacts directory"
+          echo "Release APKs:"  
+          ls -la artifacts/release/ || echo "No release artifacts directory"
+          
+          # Ensure at least one APK exists
+          debug_count=$(find artifacts/debug -name "*.apk" 2>/dev/null | wc -l)
+          release_count=$(find artifacts/release -name "*.apk" 2>/dev/null | wc -l)
+          
+          echo "Found $debug_count debug APK(s), $release_count release APK(s)"
+          
+          if [ "$debug_count" -eq 0 ] && [ "$release_count" -eq 0 ]; then
+            echo "ERROR: No APK files found in downloaded artifacts"
+            exit 1
+          fi
+
       - name: Create AVD (API 31)
         shell: bash
         run: |
@@ -375,12 +410,20 @@ jobs:
               MIN_SDK=$(aapt dump badging "$apk_path" | sed -n "s/.*sdkVersion:'\([^']*\)'.*/\1/p" | head -1)
               TGT_SDK=$(aapt dump badging "$apk_path" | sed -n "s/.*targetSdkVersion:'\([^']*\)'.*/\1/p" | head -1)
               
+              # Ensure variables are not empty (bash strict mode protection)
+              MIN_SDK="${MIN_SDK:-unknown}"
+              TGT_SDK="${TGT_SDK:-unknown}"
+              
             elif command -v apkanalyzer >/dev/null 2>&1; then
               echo "Using apkanalyzer to analyze: $apk_path"
               
               APP_ID=$(apkanalyzer manifest application-id "$apk_path" 2>/dev/null || echo "")
               MIN_SDK=$(apkanalyzer manifest min-sdk "$apk_path" 2>/dev/null || echo "")
               TGT_SDK=$(apkanalyzer manifest target-sdk "$apk_path" 2>/dev/null || echo "")
+              
+              # Ensure variables are not empty (bash strict mode protection)
+              MIN_SDK="${MIN_SDK:-unknown}"
+              TGT_SDK="${TGT_SDK:-unknown}"
               
             else
               echo "Neither aapt nor apkanalyzer found in PATH" >&2
@@ -424,6 +467,16 @@ jobs:
           # Extract metadata from both APKs
           extract_apk_metadata "$DEBUG_APK" "DEBUG_"
           extract_apk_metadata "$RELEASE_APK" "RELEASE_"
+
+      - name: Validate APKs Before Testing
+        shell: bash
+        run: |
+          # Non-blocking APK validation
+          source .github/workflows/monitoring-functions.sh || true
+          DEBUG_APK=$(find artifacts/debug -name "*.apk" -type f | head -1)
+          RELEASE_APK=$(find artifacts/release -name "*.apk" -type f | head -1)
+          validate_apk "$DEBUG_APK" "debug" || true
+          validate_apk "$RELEASE_APK" "release" || true
 
       - name: Test Debug APK
         shell: bash
@@ -584,12 +637,27 @@ jobs:
           fi
           adb -s "$ANDROID_SERIAL" emu kill || true
 
+      - name: Generate Monitoring Summary
+        if: always()
+        shell: bash
+        run: |
+          # Generate final monitoring summary
+          source .github/workflows/monitoring-functions.sh || true
+          generate_monitoring_summary || true
+          
+          # Capture diagnostics if job failed
+          if [ "${{ job.status }}" = "failure" ]; then
+            capture_failure_diagnostics "smoke-ubuntu" || true
+          fi
+
       - name: Upload smoke artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: smoke-ubuntu
-          path: artifacts/smoke/**
+          path: |
+            artifacts/smoke/**
+            artifacts/monitoring/**
 
   smoke-macos-hvf:
     name: macOS HVF Smoke (Optional)
@@ -605,6 +673,13 @@ jobs:
       ANDROID_BUILD_TOOLS: "31.0.0"
     steps:
       - uses: actions/checkout@v4
+
+      - name: Initialize CI Monitoring
+        shell: bash
+        run: |
+          # Load monitoring functions (non-invasive)
+          source .github/workflows/monitoring-functions.sh || true
+          init_monitoring || true
 
       - name: Guard fail if CRLF present in workflow
         shell: bash
@@ -635,7 +710,9 @@ jobs:
         run: |
           set -euo pipefail
           export JAVA_HOME="$JAVA_HOME_17_X64"
-          yes | "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/sdkmanager" --licenses >/dev/null
+          # Use printf instead of yes to avoid broken pipe issues
+          printf 'y\ny\ny\ny\ny\ny\ny\ny\n' | "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/sdkmanager" --licenses || true
+          echo "SDK licenses accepted"
 
       - name: Install SDK components
         shell: bash
@@ -658,6 +735,27 @@ jobs:
         with:
           name: app-release-apk
           path: artifacts/release
+
+      - name: Verify APK Downloads
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Checking downloaded APK artifacts..."
+          echo "Debug APKs:"
+          ls -la artifacts/debug/ || echo "No debug artifacts directory"
+          echo "Release APKs:"  
+          ls -la artifacts/release/ || echo "No release artifacts directory"
+          
+          # Ensure at least one APK exists
+          debug_count=$(find artifacts/debug -name "*.apk" 2>/dev/null | wc -l)
+          release_count=$(find artifacts/release -name "*.apk" 2>/dev/null | wc -l)
+          
+          echo "Found $debug_count debug APK(s), $release_count release APK(s)"
+          
+          if [ "$debug_count" -eq 0 ] && [ "$release_count" -eq 0 ]; then
+            echo "ERROR: No APK files found in downloaded artifacts"
+            exit 1
+          fi
 
       - name: Create AVD (API 31)
         shell: bash
@@ -728,12 +826,20 @@ jobs:
               MIN_SDK=$("$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" dump badging "$apk_path" | sed -n "s/.*sdkVersion:'\([^']*\)'.*/\1/p" | head -1)
               TGT_SDK=$("$ANDROID_SDK_ROOT/build-tools/31.0.0/aapt" dump badging "$apk_path" | sed -n "s/.*targetSdkVersion:'\([^']*\)'.*/\1/p" | head -1)
               
+              # Ensure variables are not empty (bash strict mode protection)
+              MIN_SDK="${MIN_SDK:-unknown}"
+              TGT_SDK="${TGT_SDK:-unknown}"
+              
             elif command -v "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" >/dev/null 2>&1; then
               echo "Using apkanalyzer to analyze: $apk_path"
               
               APP_ID=$("$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" manifest application-id "$apk_path" 2>/dev/null || echo "")
               MIN_SDK=$("$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" manifest min-sdk "$apk_path" 2>/dev/null || echo "")
               TGT_SDK=$("$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" manifest target-sdk "$apk_path" 2>/dev/null || echo "")
+              
+              # Ensure variables are not empty (bash strict mode protection)
+              MIN_SDK="${MIN_SDK:-unknown}"
+              TGT_SDK="${TGT_SDK:-unknown}"
               
             else
               echo "Neither aapt nor apkanalyzer found in PATH" >&2
@@ -777,6 +883,16 @@ jobs:
           # Extract metadata from both APKs
           extract_apk_metadata "$DEBUG_APK" "DEBUG_"
           extract_apk_metadata "$RELEASE_APK" "RELEASE_"
+
+      - name: Validate APKs Before Testing
+        shell: bash
+        run: |
+          # Non-blocking APK validation
+          source .github/workflows/monitoring-functions.sh || true
+          DEBUG_APK=$(find artifacts/debug -name "*.apk" -type f | head -1)
+          RELEASE_APK=$(find artifacts/release -name "*.apk" -type f | head -1)
+          validate_apk "$DEBUG_APK" "debug" || true
+          validate_apk "$RELEASE_APK" "release" || true
 
       - name: Test Debug APK
         shell: bash
@@ -932,9 +1048,24 @@ jobs:
           set -euo pipefail
           "$ANDROID_SDK_ROOT/platform-tools/adb" -s emulator-5554 emu kill || true
 
+      - name: Generate Monitoring Summary
+        if: always()
+        shell: bash
+        run: |
+          # Generate final monitoring summary
+          source .github/workflows/monitoring-functions.sh || true
+          generate_monitoring_summary || true
+          
+          # Capture diagnostics if job failed
+          if [ "${{ job.status }}" = "failure" ]; then
+            capture_failure_diagnostics "smoke-macos" || true
+          fi
+
       - name: Upload smoke artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: smoke-macos
-          path: artifacts/smoke/**
+          path: |
+            artifacts/smoke/**
+            artifacts/monitoring/**
