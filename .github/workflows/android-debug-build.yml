@@ -283,14 +283,24 @@ jobs:
       - name: Setup Android SDK (Ubuntu)
         uses: android-actions/setup-android@v3
 
-      - name: Install SDK build-tools 31.0.0
+      - name: Install SDK components with compatible cmdline-tools
         shell: bash
         run: |
           set -euo pipefail
           export JAVA_HOME="${{ steps.j17.outputs.path }}"
-          sdkmanager --install "build-tools;31.0.0" "system-images;android-31;default;x86_64"
+          
+          # Install cmdline-tools r8 (8092744) for SDK XML v3 compatibility
+          echo "Installing compatible cmdline-tools for SDK XML v3..."
+          sdkmanager --install "cmdline-tools;8092744"
+          
+          # Use the r8 cmdline-tools for remaining installations
+          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/8092744/bin:$PATH"
+          
+          echo "Installing build-tools and system images..."
+          sdkmanager --install "build-tools;31.0.0" "system-images;android-31;google_apis;x86_64"
           echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
           ls -la "$ANDROID_SDK_ROOT/build-tools/" || true
+          ls -la "$ANDROID_SDK_ROOT/system-images/" || true
 
       - name: Download Debug APK
         uses: actions/download-artifact@v4
@@ -366,7 +376,7 @@ jobs:
           Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           
           export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}"
-          export PATH="$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
+          export PATH="$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/8092744/bin:$PATH"
           export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
           export AVD_NAME="ci_api_31"
           export IMG="system-images;android-31;google_apis;x86_64"
@@ -378,10 +388,33 @@ jobs:
           # 1) Ensure AVD exists (heals orphans)
           mkdir -p "$HOME/.android/avd"
           if ! emulator -list-avds | grep -Fx "$AVD_NAME" >/dev/null 2>&1; then
+            echo "Creating AVD: $AVD_NAME"
             echo "no" | avdmanager create avd -n "$AVD_NAME" -k "$IMG" --device "pixel_5" --abi "x86_64" --force
-            # keep RAM modest for GH Ubuntu
-            echo "hw.ramSize=1024" >> "$HOME/.android/avd/${AVD_NAME}.avd/config.ini"
+            
+            # Verify AVD was created successfully
+            if [ -f "$HOME/.android/avd/${AVD_NAME}.avd/config.ini" ]; then
+              echo "AVD created successfully, configuring RAM..."
+              echo "hw.ramSize=1024" >> "$HOME/.android/avd/${AVD_NAME}.avd/config.ini"
+            else
+              echo "WARNING: AVD creation may have failed, config.ini not found"
+              ls -lah "$HOME/.android/avd/" || true
+              # Create minimal config if AVD directory exists but config.ini missing
+              if [ -d "$HOME/.android/avd/${AVD_NAME}.avd" ]; then
+                echo "Creating minimal config.ini..."
+                cat > "$HOME/.android/avd/${AVD_NAME}.avd/config.ini" << 'EOF'
+hw.ramSize=1024
+hw.lcd.density=420
+hw.lcd.height=2340
+hw.lcd.width=1080
+image.sysdir.1=system-images/android-31/google_apis/x86_64/
+EOF
+              fi
+            fi
+          else
+            echo "AVD $AVD_NAME already exists"
           fi
+          
+          echo "Final AVD status:"
           emulator -list-avds
           ls -lah "$HOME/.android/avd" || true
           ls -lah "$HOME/.android/avd/${AVD_NAME}.avd" || true
