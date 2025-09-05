@@ -282,24 +282,58 @@ jobs:
         with:
           cmdline-tools-version: 8512546
 
-      - name: Install SDK components with compatible cmdline-tools
+      - name: Unified Android SDK Setup
         shell: bash
         run: |
+          # ### UPRISE Unified Android SDK Setup
           set -euo pipefail
+          export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}"
+          export ANDROID_HOME="$ANDROID_SDK_ROOT"
+          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator:$PATH"
+          export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
           export JAVA_HOME="${{ steps.j17.outputs.path }}"
           
-          # Install cmdline-tools r8 (8092744) for SDK XML v3 compatibility
-          echo "Installing compatible cmdline-tools for SDK XML v3..."
-          sdkmanager --install "cmdline-tools;8092744"
+          # Accept licenses safely
+          yes | sdkmanager --licenses || true
           
-          # Use the r8 cmdline-tools for remaining installations
-          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/8092744/bin:$PATH"
+          # Install pinned/supported components
+          sdkmanager --install \
+            "cmdline-tools;latest" \
+            "platform-tools" \
+            "emulator;34.4.14" \
+            "platforms;android-31" \
+            "build-tools;31.0.0" \
+            "system-images;android-31;google_apis;x86_64"
           
-          echo "Installing build-tools and system images..."
-          sdkmanager --install "build-tools;31.0.0" "system-images;android-31;google_apis;x86_64"
+          # Fallback pin (only if latest fails on some runners)
+          if ! command -v avdmanager >/dev/null 2>&1; then
+            echo "cmdline-tools;latest not on PATH; attempting fallback pin 8512546"
+            sdkmanager --install "cmdline-tools;8512546" || true
+            export PATH="$ANDROID_SDK_ROOT/cmdline-tools/8512546/bin:$PATH"
+          fi
+          
           echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
           ls -la "$ANDROID_SDK_ROOT/build-tools/" || true
           ls -la "$ANDROID_SDK_ROOT/system-images/" || true
+
+      - name: Runtime Assertion - Verify Workflow Hash
+        shell: bash
+        run: |
+          echo "=== WORKFLOW ASSERTIONS ==="
+          echo "Workflow file hash (local checkout):"
+          sha256sum .github/workflows/android-debug-build.yml || shasum -a 256 .github/workflows/android-debug-build.yml || true
+          
+          echo "sdkmanager list top-lines:"
+          sdkmanager --list | sed -n '1,60p' || true
+          
+          echo "Tool versions:"
+          adb version || true
+          emulator -version || true
+          avdmanager --help 2>/dev/null | head -1 || true
+          cmdline-tools --version 2>/dev/null || true
+          which sdkmanager || true
+          which avdmanager || true
+          which emulator || true
 
       - name: Download Debug APK
         uses: actions/download-artifact@v4
@@ -374,15 +408,32 @@ jobs:
           # Start virtual display for headless graphics
           Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           
+          # ### UPRISE Unified Android SDK Setup (embedded in emulator start)
           export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}"
-          export PATH="$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/8092744/bin:$PATH"
+          export ANDROID_HOME="$ANDROID_SDK_ROOT"
+          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator:$PATH"
           export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
           export AVD_NAME="ci_api_31"
           export IMG="system-images;android-31;google_apis;x86_64"
-
-          # 0) System prep (idempotent)  
-          printf 'y\ny\ny\ny\ny\ny\ny\ny\n' | sdkmanager --licenses || true
-          sdkmanager --install "platform-tools" "emulator" "platforms;android-31" "build-tools;31.0.0" "$IMG"
+          
+          # Accept licenses safely
+          yes | sdkmanager --licenses || true
+          
+          # Install pinned/supported components
+          sdkmanager --install \
+            "cmdline-tools;latest" \
+            "platform-tools" \
+            "emulator;34.4.14" \
+            "platforms;android-31" \
+            "build-tools;31.0.0" \
+            "$IMG"
+          
+          # Fallback pin (only if latest fails on some runners)
+          if ! command -v avdmanager >/dev/null 2>&1; then
+            echo "cmdline-tools;latest not on PATH; attempting fallback pin 8512546"
+            sdkmanager --install "cmdline-tools;8512546" || true
+            export PATH="$ANDROID_SDK_ROOT/cmdline-tools/8512546/bin:$PATH"
+          fi
 
           # 1) Ensure AVD exists (heals orphans)
           mkdir -p "$HOME/.android/avd"
@@ -793,7 +844,7 @@ jobs:
             exit 1
           fi
 
-      - name: Bootstrap Android cmdline-tools (8512546)
+      - name: Bootstrap Android cmdline-tools
         shell: bash
         run: |
           set -euo pipefail
@@ -801,31 +852,64 @@ jobs:
           curl -sSL -o /tmp/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-mac-8512546_latest.zip
           unzip -q /tmp/cmdline-tools.zip -d "$ANDROID_SDK_ROOT"
           mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
-          mv "$ANDROID_SDK_ROOT/cmdline-tools"/* "$ANDROID_SDK_ROOT/cmdline-tools/latest/"
+          mv "$ANDROID_SDK_ROOT/cmdline-tools"/* "$ANDROID_SDK_ROOT/cmdline-tools/latest/" 2>/dev/null || true
+          echo "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
           echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
           echo "$ANDROID_SDK_ROOT/emulator"       >> "$GITHUB_PATH"
           echo "$ANDROID_SDK_ROOT/build-tools/${ANDROID_BUILD_TOOLS}" >> "$GITHUB_PATH"
           echo "JAVA_HOME_17_X64=$(/usr/libexec/java_home -v 17)" >> "$GITHUB_ENV"
           echo "JAVA_HOME_11_X64=$(/usr/libexec/java_home -v 11)" >> "$GITHUB_ENV"
 
-      - name: Accept SDK licenses
+      - name: Unified Android SDK Setup
         shell: bash
         run: |
+          # ### UPRISE Unified Android SDK Setup
           set -euo pipefail
+          export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT}"
+          export ANDROID_HOME="$ANDROID_SDK_ROOT"
+          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator:$PATH"
+          export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
           export JAVA_HOME="$JAVA_HOME_17_X64"
-          # Use printf instead of yes to avoid broken pipe issues
-          printf 'y\ny\ny\ny\ny\ny\ny\ny\n' | "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/sdkmanager" --licenses || true
-          echo "SDK licenses accepted"
-
-      - name: Install SDK components
-        shell: bash
-        run: |
-          set -euo pipefail
-          export JAVA_HOME="$JAVA_HOME_17_X64"
-          "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/sdkmanager" \
-            "platform-tools" "emulator" \
-            "platforms;android-31" "build-tools;${ANDROID_BUILD_TOOLS}" \
+          
+          # Accept licenses safely
+          yes | sdkmanager --licenses || true
+          
+          # Install pinned/supported components
+          sdkmanager --install \
+            "cmdline-tools;latest" \
+            "platform-tools" \
+            "emulator;34.4.14" \
+            "platforms;android-31" \
+            "build-tools;${ANDROID_BUILD_TOOLS}" \
             "${AVD_IMAGE}"
+          
+          # Fallback pin (only if latest fails on some runners)
+          if ! command -v avdmanager >/dev/null 2>&1; then
+            echo "cmdline-tools;latest not on PATH; attempting fallback pin 8512546"
+            sdkmanager --install "cmdline-tools;8512546" || true
+            export PATH="$ANDROID_SDK_ROOT/cmdline-tools/8512546/bin:$PATH"
+          fi
+          
+          echo "SDK components installed"
+
+      - name: Runtime Assertion - Verify Workflow Hash
+        shell: bash
+        run: |
+          echo "=== WORKFLOW ASSERTIONS ==="
+          echo "Workflow file hash (local checkout):"
+          sha256sum .github/workflows/android-debug-build.yml || shasum -a 256 .github/workflows/android-debug-build.yml || true
+          
+          echo "sdkmanager list top-lines:"
+          sdkmanager --list | sed -n '1,60p' || true
+          
+          echo "Tool versions:"
+          adb version || true
+          emulator -version || true
+          avdmanager --help 2>/dev/null | head -1 || true
+          cmdline-tools --version 2>/dev/null || true
+          which sdkmanager || true
+          which avdmanager || true
+          which emulator || true
 
       - name: Download Debug APK
         uses: actions/download-artifact@v4
@@ -864,7 +948,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          echo "no" | "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/avdmanager" create avd \
+          echo "no" | avdmanager create avd \
             -n "${AVD_NAME}" -k "${AVD_IMAGE}" --force --device "pixel_5"
 
       - name: Start emulator (background)
@@ -933,12 +1017,12 @@ jobs:
               MIN_SDK="${MIN_SDK:-unknown}"
               TGT_SDK="${TGT_SDK:-unknown}"
               
-            elif command -v "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" >/dev/null 2>&1; then
+            elif command -v "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/apkanalyzer" >/dev/null 2>&1; then
               echo "Using apkanalyzer to analyze: $apk_path"
               
-              APP_ID=$("$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" manifest application-id "$apk_path" 2>/dev/null || echo "")
-              MIN_SDK=$("$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" manifest min-sdk "$apk_path" 2>/dev/null || echo "")
-              TGT_SDK=$("$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" manifest target-sdk "$apk_path" 2>/dev/null || echo "")
+              APP_ID=$("$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/apkanalyzer" manifest application-id "$apk_path" 2>/dev/null || echo "")
+              MIN_SDK=$("$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/apkanalyzer" manifest min-sdk "$apk_path" 2>/dev/null || echo "")
+              TGT_SDK=$("$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/apkanalyzer" manifest target-sdk "$apk_path" 2>/dev/null || echo "")
               
               # Ensure variables are not empty (bash strict mode protection)
               MIN_SDK="${MIN_SDK:-unknown}"
