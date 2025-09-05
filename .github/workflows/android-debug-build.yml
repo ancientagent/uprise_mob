@@ -371,7 +371,7 @@ jobs:
           export AVD_NAME="ci_api_31"
           export IMG="system-images;android-31;google_apis;x86_64"
 
-          # 0) System prep (idempotent)
+          # 0) System prep (idempotent)  
           printf 'y\ny\ny\ny\ny\ny\ny\ny\n' | sdkmanager --licenses || true
           sdkmanager --install "platform-tools" "emulator" "platforms;android-31" "build-tools;31.0.0" "$IMG"
 
@@ -415,7 +415,7 @@ jobs:
           timeout 120s adb wait-for-device || { echo "ADB device never appeared"; exit 1; }
 
           echo "Polling sys.boot_completed..."
-          until adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r' | grep -q '^1'; do
+          until adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r' | grep -q '^1$'; do
             if (( SECONDS > BOOT_DEADLINE )); then
               echo "Boot timeout hit"; break
             fi
@@ -424,8 +424,8 @@ jobs:
 
           # 5) Verify boot success (SurfaceFlinger as secondary signal)
           if adb shell pgrep surfaceflinger >/dev/null 2>&1 && \
-             adb shell getprop sys.boot_completed | tr -d '\r' | grep -q '^1'; then
-            echo "✅ Emulator booted successfully after $((SECONDS))s"
+             adb shell getprop sys.boot_completed | tr -d '\r' | grep -q '^1$'; then
+            echo "Emulator booted."
             BOOT_OK=true
             # Optimize for testing
             adb shell settings put global animator_duration_scale 0.0 || true
@@ -433,7 +433,7 @@ jobs:
             adb shell settings put global window_animation_scale 0.0 || true
             adb shell svc power stayon true || true
           else
-            echo "❌ Emulator failed to fully boot"
+            echo "Emulator failed to fully boot."
             BOOT_OK=false
           fi
 
@@ -442,6 +442,7 @@ jobs:
           timeout 20s adb logcat -d -t 2000 > artifacts/monitoring/logcat_tail.txt || true
           timeout 30s adb shell dumpsys package > artifacts/monitoring/dumpsys_package.txt || true
           timeout 30s adb shell dumpsys activity > artifacts/monitoring/dumpsys_activity.txt || true
+          timeout 60s adb bugreport /tmp/bug.zip && cp /tmp/bug.zip artifacts/monitoring/bugreport.zip || true
 
           # 7) Set environment variable for next steps
           echo "booted=$BOOT_OK" >> "$GITHUB_ENV"
