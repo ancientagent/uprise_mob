@@ -1,3 +1,92 @@
+## 2025-09-05 - Major CI/CD Overhaul — Workflow Standardization, Monitoring Layer, and Cross-Branch Consistency
+
+### Comprehensive CI/CD System Improvements
+**Problem**: CI failures from old workflow confusion, SIGPIPE errors, variable issues, and inconsistent workflows across branches.
+
+**Solution**: Complete CI/CD system overhaul with monitoring layer and cross-branch standardization.
+
+#### **🔧 Critical Bug Fixes**
+- **SIGPIPE Elimination**: Removed ALL `yes` commands causing "yes: stdout: Broken pipe" errors
+  - Replaced with `printf 'y\ny\ny\ny\ny\ny\ny\ny\n'` approach for SDK license acceptance
+  - Added `|| true` safety to all SDK operations for graceful degradation
+- **Variable Protection**: Fixed `TARGET_SDK: unbound variable` errors in bash strict mode
+  - Added explicit variable initialization: `TGT_SDK="${TGT_SDK:-unknown}"`
+  - Protected both `aapt` and `apkanalyzer` code paths in Ubuntu and macOS
+- **APK Path Corrections**: Fixed incorrect artifact paths in legacy workflow sections
+  - Standardized on `artifacts/debug` and `artifacts/release` paths
+  - Added comprehensive APK verification steps with integrity checks
+
+#### **🛡️ Workflow Confusion Prevention**
+- **Concurrency Controls**: Added workflow-level concurrency to prevent parallel run confusion
+  ```yaml
+  concurrency:
+    group: android-${{ github.ref }}
+    cancel-in-progress: true
+  ```
+- **Run Identification**: Clear commit visibility in workflow names
+  ```yaml
+  run-name: Android CI - ${{ github.ref_name }} @ ${{ github.sha }}
+  ```
+- **Legacy Cleanup**: Removed `android-debug-build-fixed.yml` to eliminate workflow conflicts
+
+#### **📊 Comprehensive Monitoring Layer**
+- **Non-Invasive Monitoring**: Added monitoring functions that never fail the build (`|| true` safety)
+- **SDK Validation**: Automatic validation of Android SDK installation and tool availability
+- **APK Integrity Checks**: MD5 checksums, size validation, and structure verification using aapt
+- **Resource Monitoring**: CPU, memory, and disk usage tracking during critical operations
+- **Failure Diagnostics**: Automatic capture of system state, logcat, and process information on failures
+- **Summary Reports**: Human-readable monitoring summaries in CI logs and artifacts
+
+#### **🌐 Cross-Branch Standardization** 
+**Branches Updated**:
+- ✅ **main**: Fast-forwarded merge with all CI/CD improvements
+- ✅ **feat/ccpm-framework**: Updated to include all workflow fixes and monitoring
+- ✅ **ci/macos-hvf-install-launch**: Source branch with latest improvements
+
+**Consistency Achieved**:
+- All branches now have identical workflow configurations
+- Consistent concurrency controls prevent old workflow confusion  
+- Unified monitoring across all CI runs
+- Standardized error handling and diagnostics
+
+#### **📁 Monitoring Artifacts Structure**
+```
+artifacts/monitoring/
+├── initial_state.txt         # System state at job start
+├── sdk_validation.txt        # SDK validation results
+├── apk_validation_*.txt      # APK integrity checks
+├── emulator_boot.log         # Emulator boot progress
+├── resources_*.log           # Resource usage tracking
+├── summary.txt               # Final monitoring report
+└── failures/                 # Failure diagnostics
+    └── [context]_[timestamp]/
+        ├── system_state.txt
+        ├── adb_devices.txt
+        └── logcat_tail.txt
+```
+
+#### **🎯 Key Benefits**
+- **Zero False Failures**: Eliminated SIGPIPE and variable errors that caused legitimate build failures
+- **Clear Debugging**: Comprehensive monitoring provides instant visibility into CI issues
+- **Workflow Clarity**: Run names show exactly which commit and branch is executing
+- **Automatic Recovery**: Concurrency controls prevent confusion from old workflow versions
+- **Cross-Platform Consistency**: Identical behavior and monitoring on Ubuntu and macOS runners
+- **Non-Breaking Monitoring**: All diagnostic functions use `|| true` to prevent disruption
+
+#### **🚀 Impact**
+- **Eliminated Root Causes**: Fixed systemic issues causing recurring CI failures
+- **Improved Debugging**: Monitoring layer provides comprehensive diagnostics without complexity
+- **Prevented Confusion**: Concurrency controls and run naming eliminate "which workflow is running" issues
+- **Enhanced Reliability**: Cross-branch consistency ensures stable CI regardless of branch selection
+
+**Files Modified**:
+- `.github/workflows/android-debug-build.yml` - Complete workflow overhaul with monitoring integration
+- `.github/workflows/monitoring-functions.sh` - Comprehensive monitoring function library  
+- `.github/workflows/MONITORING-GUIDE.md` - Complete documentation for monitoring usage
+- Multiple branches updated with consistent workflow configurations
+
+---
+
 ## 2025-09-04 - CI macOS smoke stabilized — background emulator, dynamic APP_ID, unified flow
 
 ### macOS HVF Smoke Test Improvements

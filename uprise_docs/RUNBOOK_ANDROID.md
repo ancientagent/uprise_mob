@@ -75,25 +75,140 @@ adb shell monkey -p com.app.uprise.dev -c android.intent.category.LAUNCHER 1
 ## CI/CD Pipeline
 
 ### Workflow File
-`.github/workflows/android-debug-build.yml`
+`.github/workflows/android-debug-build.yml` (Latest: 2025-09-05 Major Overhaul)
 
-### CI Steps
-1. **Setup**: JDK 11 (Temurin), Android SDK, Node.js 18
-2. **Dependencies**: `yarn install --frozen-lockfile`
-3. **Build**: `./gradlew --no-daemon clean assembleDebug`
-4. **Artifacts**: app-debug.apk, dependency reports, Gradle reports
+### Workflow Architecture
+- **Build Job**: Ubuntu runner - generates debug and release APKs
+- **Smoke Test Jobs**: 
+  - **Ubuntu**: Software emulator with comprehensive testing
+  - **macOS HVF**: Hardware-accelerated testing (optional, continues on error)
 
-### CI Prerequisites
-- **sdkmanager must run under JDK 17**; Gradle remains on JDK 11 (RN 0.66.x). build-tools pinned to 31.0.0.
-- **Android cmdline-tools pinned: r8 (8092744)** to ensure SDK XML v2 for AGP 7.0.x.
+### CI Steps (Build Job)
+1. **Setup**: Dual JDK (11 for Gradle, 17 for sdkmanager), Android SDK, Node.js 18
+2. **Monitoring**: Initialize CI monitoring and SDK validation
+3. **Dependencies**: `npm install --legacy-peer-deps` (switched from yarn)
+4. **Build**: `./gradlew --no-daemon clean assembleDebug assembleRelease`
+5. **Artifacts**: app-debug-apk, app-release-apk with monitoring data
+
+### CI Steps (Smoke Test Jobs)
+1. **Setup**: Platform-specific Android SDK and emulator configuration  
+2. **APK Download**: Fetch build artifacts with integrity verification
+3. **Monitoring**: APK validation with MD5 checksums and structure checks
+4. **Emulator**: Boot with platform-optimized settings and boot progress monitoring
+5. **Testing**: Install APK, launch app, collect comprehensive diagnostics
+6. **Artifacts**: smoke-logs with monitoring data and failure diagnostics
+
+### Concurrency & Reliability Features
+```yaml
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+run-name: Android CI - ${{ github.ref_name }} @ ${{ github.sha }}
+```
+
+### Monitoring Layer (2025-09-05)
+- **Non-Invasive**: All monitoring functions use `|| true` - never fails builds
+- **SDK Validation**: Automatic verification of Android SDK and tool availability
+- **APK Integrity**: MD5 checksums, size checks, structure validation
+- **Resource Tracking**: CPU, memory, disk usage during operations
+- **Failure Diagnostics**: Automatic capture of system state and logs on failures
+- **Monitoring Artifacts**: `artifacts/monitoring/` with comprehensive reports
+
+### CI Prerequisites  
+- **sdkmanager must run under JDK 17**; Gradle remains on JDK 11 (RN 0.66.x)
+- **build-tools pinned to 31.0.0** across all jobs for consistency
+- **Android cmdline-tools pinned: r8 (8092744)** to ensure SDK XML v2 for AGP 7.0.x
+- **SIGPIPE Prevention**: All `yes` commands replaced with `printf` approach
 
 ### CI Environment
-- **Runner**: ubuntu-latest
-- **JDK**: Temurin 11
+- **Build Runner**: ubuntu-latest (fast, stable)
+- **Smoke Runners**: ubuntu-latest + macos-13 (with HVF acceleration)  
+- **JDK**: Temurin 11 (Gradle) + Temurin 17 (sdkmanager)
 - **Android SDK**: Latest via android-actions/setup-android@v3
 - **Metro Compatibility**: NODE_OPTIONS=--openssl-legacy-provider
 
+## CI/CD Monitoring & Diagnostics (2025-09-05)
+
+### Monitoring Features
+The CI/CD pipeline includes comprehensive, non-invasive monitoring that provides detailed diagnostics without failing builds:
+
+#### Monitoring Artifacts Location
+All monitoring data is available in workflow artifacts under `artifacts/monitoring/`:
+```
+monitoring/
+├── initial_state.txt         # System state at job start
+├── sdk_validation.txt        # Android SDK validation results  
+├── apk_validation_debug.txt  # Debug APK integrity checks
+├── apk_validation_release.txt # Release APK integrity checks
+├── emulator_boot.log         # Emulator boot progress (background)
+├── resources_*.log           # Resource usage tracking
+├── summary.txt               # Human-readable summary report
+└── failures/                 # Detailed failure diagnostics
+    └── [context]_[timestamp]/
+        ├── system_state.txt
+        ├── adb_devices.txt
+        └── logcat_tail.txt
+```
+
+#### Using Monitoring Data
+1. **Check Workflow Summary**: Monitoring summary appears in CI logs
+2. **Download Artifacts**: Get `smoke-ubuntu` or `smoke-macos` artifacts from GitHub
+3. **Review monitoring/summary.txt**: Shows validation results and issue counts
+4. **Investigate Specific Issues**: Look in individual monitoring files for details
+
+#### Monitoring Summary Interpretation
+```bash
+=== CI Monitoring Summary ===
+✓ SDK validation passed          # Android SDK setup successful
+⚠ APK validation found issues   # Check apk_validation_*.txt
+✓ Emulator booted successfully   # Boot completed in reasonable time
+2 issues detected                # Review individual monitoring files
+```
+
+### Workflow Run Identification  
+With the new run naming system, you can easily identify which commit is running:
+- **Run Name Format**: `Android CI - [branch] @ [commit]`
+- **Example**: `Android CI - main @ cf767160badd6d4c62466a362c03e70412e6fe6f`
+- **Concurrency**: Old runs automatically cancelled when new commits pushed
+
+### Branch Consistency
+All major branches now have identical, up-to-date workflows:
+- ✅ **main**: Production-ready with all fixes
+- ✅ **feat/ccpm-framework**: CCPM development with monitoring
+- ✅ **ci/macos-hvf-install-launch**: Latest CI improvements
+
 ## Troubleshooting
+
+### New Workflow Troubleshooting (2025-09-05)
+
+#### 1. Workflow Confusion Issues
+**Problem**: Old workflow versions running or conflicting results
+**Solution**: 
+- Check run name to verify commit being executed
+- Concurrency controls now auto-cancel old runs
+- All branches have consistent workflows (no more version conflicts)
+
+#### 2. SIGPIPE Errors
+**Problem**: `yes: stdout: Broken pipe` errors  
+**Solution**: ✅ **Fixed** - All `yes` commands replaced with `printf` approach
+
+#### 3. Variable Errors
+**Problem**: `TARGET_SDK: unbound variable` errors
+**Solution**: ✅ **Fixed** - All variables protected with `${VAR:-default}` syntax
+
+#### 4. APK Download Issues
+**Problem**: APK artifacts not found or corrupted
+**Solution**: 
+- Check `monitoring/apk_validation_*.txt` for integrity issues
+- Verify APK paths in monitoring summary
+- Review artifact upload/download logs
+
+#### 5. Monitoring False Positives
+**Problem**: Monitoring warnings in successful builds
+**Solution**: 
+- Monitoring never fails builds (all functions use `|| true`)
+- Warnings indicate potential issues but don't block CI
+- Review monitoring files to understand warnings
 
 ### Common Issues
 
