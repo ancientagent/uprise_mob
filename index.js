@@ -3,7 +3,8 @@
  */
 
 import { AppRegistry } from 'react-native';
-import TrackPlayer from 'react-native-track-player';
+// TEMP DISABLE: track-player - Commented out to prevent startup crashes
+// import TrackPlayer from 'react-native-track-player';
 import messaging from '@react-native-firebase/messaging';
 import App from './App';
 import { name as appName } from './app.json';
@@ -14,5 +15,6 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 });
 
 AppRegistry.registerComponent(appName, () => App);
+// TEMP DISABLE: track-player - Commented out to prevent startup crashes
 // eslint-disable-next-line global-require
-TrackPlayer.registerPlaybackService(() => require('./service'));
+// TrackPlayer.registerPlaybackService(() => require('./service'));

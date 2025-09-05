@@ -1,7 +1,19 @@
 module.exports = {
-  project: {
-    ios: {},
-    android: {}, // grouped into "project"
-  },
-  assets: ['./assets/fonts/'], // stays the same
+  "dependencies": {
+    "react-native-video": {
+      "platforms": {
+        "android": null
+      }
+    },
+    "react-native-track-player": {
+      "platforms": {
+        "android": null
+      }
+    },
+    "@invertase/react-native-apple-authentication": {
+      "platforms": {
+        "android": null
+      }
+    }
+  }
 };

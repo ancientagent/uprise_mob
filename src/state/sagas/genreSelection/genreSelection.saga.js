@@ -2,7 +2,7 @@ import {
   call, put, takeLatest, select,
 } from 'redux-saga/effects';
 import AsyncStorage
-from '@react-native-community/async-storage';
+from '@react-native-async-storage/async-storage';
 import TrackPlayer from 'react-native-track-player';
 import * as RootNavigation from '../../../navigators/RootNavigation';
 import genresSelectionRequest from '../../../services/genreSelection/genreSelection.service';

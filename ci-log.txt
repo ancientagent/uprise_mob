@@ -1,0 +1,500 @@
+android-build	Set up job	﻿2025-08-28T20:42:13.5041344Z Current runner version: '2.328.0'
+android-build	Set up job	2025-08-28T20:42:13.5064399Z ##[group]Runner Image Provisioner
+android-build	Set up job	2025-08-28T20:42:13.5065279Z Hosted Compute Agent
+android-build	Set up job	2025-08-28T20:42:13.5065868Z Version: 20250821.380
+android-build	Set up job	2025-08-28T20:42:13.5066433Z Commit: 438d12cb4fe092871db9867344e3bc0bc5319035
+android-build	Set up job	2025-08-28T20:42:13.5067192Z Build Date: 2025-08-21T20:49:43Z
+android-build	Set up job	2025-08-28T20:42:13.5067779Z ##[endgroup]
+android-build	Set up job	2025-08-28T20:42:13.5068346Z ##[group]Operating System
+android-build	Set up job	2025-08-28T20:42:13.5068854Z Ubuntu
+android-build	Set up job	2025-08-28T20:42:13.5069401Z 24.04.3
+android-build	Set up job	2025-08-28T20:42:13.5069826Z LTS
+android-build	Set up job	2025-08-28T20:42:13.5070281Z ##[endgroup]
+android-build	Set up job	2025-08-28T20:42:13.5070789Z ##[group]Runner Image
+android-build	Set up job	2025-08-28T20:42:13.5071372Z Image: ubuntu-24.04
+android-build	Set up job	2025-08-28T20:42:13.5071864Z Version: 20250824.1.0
+android-build	Set up job	2025-08-28T20:42:13.5072912Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250824.1/images/ubuntu/Ubuntu2404-Readme.md
+android-build	Set up job	2025-08-28T20:42:13.5074653Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250824.1
+android-build	Set up job	2025-08-28T20:42:13.5075892Z ##[endgroup]
+android-build	Set up job	2025-08-28T20:42:13.5077036Z ##[group]GITHUB_TOKEN Permissions
+android-build	Set up job	2025-08-28T20:42:13.5079571Z Contents: read
+android-build	Set up job	2025-08-28T20:42:13.5080134Z Metadata: read
+android-build	Set up job	2025-08-28T20:42:13.5080646Z Packages: read
+android-build	Set up job	2025-08-28T20:42:13.5081153Z ##[endgroup]
+android-build	Set up job	2025-08-28T20:42:13.5083232Z Secret source: Actions
+android-build	Set up job	2025-08-28T20:42:13.5084788Z Prepare workflow directory
+android-build	Set up job	2025-08-28T20:42:13.5404655Z Prepare all required actions
+android-build	Set up job	2025-08-28T20:42:13.5444930Z Getting action download info
+android-build	Set up job	2025-08-28T20:42:13.8688987Z Download action repository 'actions/checkout@v4' (SHA:08eba0b27e820071cde6df949e0beb9ba4906955)
+android-build	Set up job	2025-08-28T20:42:14.3155374Z Download action repository 'actions/setup-java@v4' (SHA:c5195efecf7bdfc987ee8bae7a71cb8b11521c00)
+android-build	Set up job	2025-08-28T20:42:14.9317653Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+android-build	Set up job	2025-08-28T20:42:15.0325575Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+android-build	Set up job	2025-08-28T20:42:15.2504018Z Complete job name: android-build
+android-build	Checkout code	﻿2025-08-28T20:42:15.3213685Z ##[group]Run actions/checkout@v4
+android-build	Checkout code	2025-08-28T20:42:15.3214822Z with:
+android-build	Checkout code	2025-08-28T20:42:15.3215340Z   repository: ancientagent/uprise_mob
+android-build	Checkout code	2025-08-28T20:42:15.3216103Z   token: ***
+android-build	Checkout code	2025-08-28T20:42:15.3216526Z   ssh-strict: true
+android-build	Checkout code	2025-08-28T20:42:15.3217114Z   ssh-user: git
+android-build	Checkout code	2025-08-28T20:42:15.3217602Z   persist-credentials: true
+android-build	Checkout code	2025-08-28T20:42:15.3218090Z   clean: true
+android-build	Checkout code	2025-08-28T20:42:15.3218640Z   sparse-checkout-cone-mode: true
+android-build	Checkout code	2025-08-28T20:42:15.3219171Z   fetch-depth: 1
+android-build	Checkout code	2025-08-28T20:42:15.3219625Z   fetch-tags: false
+android-build	Checkout code	2025-08-28T20:42:15.3220179Z   show-progress: true
+android-build	Checkout code	2025-08-28T20:42:15.3220672Z   lfs: false
+android-build	Checkout code	2025-08-28T20:42:15.3221084Z   submodules: false
+android-build	Checkout code	2025-08-28T20:42:15.3221620Z   set-safe-directory: true
+android-build	Checkout code	2025-08-28T20:42:15.3222386Z ##[endgroup]
+android-build	Checkout code	2025-08-28T20:42:15.4315058Z Syncing repository: ancientagent/uprise_mob
+android-build	Checkout code	2025-08-28T20:42:15.4318093Z ##[group]Getting Git version info
+android-build	Checkout code	2025-08-28T20:42:15.4319395Z Working directory is '/home/runner/work/uprise_mob/uprise_mob'
+android-build	Checkout code	2025-08-28T20:42:15.4321796Z [command]/usr/bin/git version
+android-build	Checkout code	2025-08-28T20:42:15.4395592Z git version 2.51.0
+android-build	Checkout code	2025-08-28T20:42:15.4422133Z ##[endgroup]
+android-build	Checkout code	2025-08-28T20:42:15.4437678Z Temporarily overriding HOME='/home/runner/work/_temp/cf14b68d-c4f2-4bdf-a447-6dc2fdff946e' before making global git config changes
+android-build	Checkout code	2025-08-28T20:42:15.4440310Z Adding repository directory to the temporary git global config as a safe directory
+android-build	Checkout code	2025-08-28T20:42:15.4443713Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/uprise_mob/uprise_mob
+android-build	Checkout code	2025-08-28T20:42:15.4478759Z Deleting the contents of '/home/runner/work/uprise_mob/uprise_mob'
+android-build	Checkout code	2025-08-28T20:42:15.4482416Z ##[group]Initializing the repository
+android-build	Checkout code	2025-08-28T20:42:15.4487225Z [command]/usr/bin/git init /home/runner/work/uprise_mob/uprise_mob
+android-build	Checkout code	2025-08-28T20:42:15.4607767Z hint: Using 'master' as the name for the initial branch. This default branch name
+android-build	Checkout code	2025-08-28T20:42:15.4609234Z hint: is subject to change. To configure the initial branch name to use in all
+android-build	Checkout code	2025-08-28T20:42:15.4610531Z hint: of your new repositories, which will suppress this warning, call:
+android-build	Checkout code	2025-08-28T20:42:15.4611433Z hint:
+android-build	Checkout code	2025-08-28T20:42:15.4612161Z hint: 	git config --global init.defaultBranch <name>
+android-build	Checkout code	2025-08-28T20:42:15.4612825Z hint:
+android-build	Checkout code	2025-08-28T20:42:15.4614154Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+android-build	Checkout code	2025-08-28T20:42:15.4615658Z hint: 'development'. The just-created branch can be renamed via this command:
+android-build	Checkout code	2025-08-28T20:42:15.4617084Z hint:
+android-build	Checkout code	2025-08-28T20:42:15.4618184Z hint: 	git branch -m <name>
+android-build	Checkout code	2025-08-28T20:42:15.4619137Z hint:
+android-build	Checkout code	2025-08-28T20:42:15.4620408Z hint: Disable this message with "git config set advice.defaultBranchName false"
+android-build	Checkout code	2025-08-28T20:42:15.4622443Z Initialized empty Git repository in /home/runner/work/uprise_mob/uprise_mob/.git/
+android-build	Checkout code	2025-08-28T20:42:15.4628260Z [command]/usr/bin/git remote add origin https://github.com/ancientagent/uprise_mob
+android-build	Checkout code	2025-08-28T20:42:15.4666628Z ##[endgroup]
+android-build	Checkout code	2025-08-28T20:42:15.4668184Z ##[group]Disabling automatic garbage collection
+android-build	Checkout code	2025-08-28T20:42:15.4671191Z [command]/usr/bin/git config --local gc.auto 0
+android-build	Checkout code	2025-08-28T20:42:15.4700030Z ##[endgroup]
+android-build	Checkout code	2025-08-28T20:42:15.4701460Z ##[group]Setting up auth
+android-build	Checkout code	2025-08-28T20:42:15.4707394Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+android-build	Checkout code	2025-08-28T20:42:15.4737814Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+android-build	Checkout code	2025-08-28T20:42:15.5068781Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+android-build	Checkout code	2025-08-28T20:42:15.5096421Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+android-build	Checkout code	2025-08-28T20:42:15.5320758Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+android-build	Checkout code	2025-08-28T20:42:15.5369486Z ##[endgroup]
+android-build	Checkout code	2025-08-28T20:42:15.5370593Z ##[group]Fetching the repository
+android-build	Checkout code	2025-08-28T20:42:15.5381321Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +eb2a13561f0913d8b3457d80daebf163f6c202b3:refs/remotes/pull/7/merge
+android-build	Checkout code	2025-08-28T20:42:16.5660682Z From https://github.com/ancientagent/uprise_mob
+android-build	Checkout code	2025-08-28T20:42:16.5662955Z  * [new ref]         eb2a13561f0913d8b3457d80daebf163f6c202b3 -> pull/7/merge
+android-build	Checkout code	2025-08-28T20:42:16.5694882Z ##[endgroup]
+android-build	Checkout code	2025-08-28T20:42:16.5696714Z ##[group]Determining the checkout info
+android-build	Checkout code	2025-08-28T20:42:16.5698750Z ##[endgroup]
+android-build	Checkout code	2025-08-28T20:42:16.5703355Z [command]/usr/bin/git sparse-checkout disable
+android-build	Checkout code	2025-08-28T20:42:16.5745785Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+android-build	Checkout code	2025-08-28T20:42:16.5773864Z ##[group]Checking out the ref
+android-build	Checkout code	2025-08-28T20:42:16.5777390Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/7/merge
+android-build	Checkout code	2025-08-28T20:42:16.7483819Z Note: switching to 'refs/remotes/pull/7/merge'.
+android-build	Checkout code	2025-08-28T20:42:16.7485095Z 
+android-build	Checkout code	2025-08-28T20:42:16.7485960Z You are in 'detached HEAD' state. You can look around, make experimental
+android-build	Checkout code	2025-08-28T20:42:16.7488257Z changes and commit them, and you can discard any commits you make in this
+android-build	Checkout code	2025-08-28T20:42:16.7490563Z state without impacting any branches by switching back to a branch.
+android-build	Checkout code	2025-08-28T20:42:16.7492014Z 
+android-build	Checkout code	2025-08-28T20:42:16.7492861Z If you want to create a new branch to retain commits you create, you may
+android-build	Checkout code	2025-08-28T20:42:16.7494666Z do so (now or later) by using -c with the switch command. Example:
+android-build	Checkout code	2025-08-28T20:42:16.7495710Z 
+android-build	Checkout code	2025-08-28T20:42:16.7496089Z   git switch -c <new-branch-name>
+android-build	Checkout code	2025-08-28T20:42:16.7496865Z 
+android-build	Checkout code	2025-08-28T20:42:16.7497245Z Or undo this operation with:
+android-build	Checkout code	2025-08-28T20:42:16.7497976Z 
+android-build	Checkout code	2025-08-28T20:42:16.7498360Z   git switch -
+android-build	Checkout code	2025-08-28T20:42:16.7499153Z 
+android-build	Checkout code	2025-08-28T20:42:16.7500454Z Turn off this advice by setting config variable advice.detachedHead to false
+android-build	Checkout code	2025-08-28T20:42:16.7502692Z 
+android-build	Checkout code	2025-08-28T20:42:16.7504760Z HEAD is now at eb2a135 Merge 06bc221da4eb4b2dfc3781f46a59e41abd69519d into 002993c619c1bcaf3e70c922732d61b2b5d6e5db
+android-build	Checkout code	2025-08-28T20:42:16.7511086Z ##[endgroup]
+android-build	Checkout code	2025-08-28T20:42:16.7545474Z [command]/usr/bin/git log -1 --format=%H
+android-build	Checkout code	2025-08-28T20:42:16.7567173Z eb2a13561f0913d8b3457d80daebf163f6c202b3
+android-build	Install Android cmdline-tools	﻿2025-08-28T20:42:16.7800558Z ##[group]Run set -euxo pipefail
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7801915Z [36;1mset -euxo pipefail[0m
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7803216Z [36;1mexport ANDROID_SDK_ROOT="$HOME/android-sdk"[0m
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7805115Z [36;1mecho "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"[0m
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7806855Z [36;1mmkdir -p "$ANDROID_SDK_ROOT"/cmdline-tools[0m
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7809483Z [36;1mcurl -sSL -o /tmp/cmdtools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip[0m
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7812162Z [36;1munzip -q /tmp/cmdtools.zip -d /tmp/cmdtools[0m
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7814067Z [36;1mmkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"[0m
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7816162Z [36;1mmv /tmp/cmdtools/cmdline-tools/* "$ANDROID_SDK_ROOT/cmdline-tools/latest/"[0m
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7873831Z shell: /usr/bin/bash -e {0}
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7874968Z ##[endgroup]
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7954822Z + export ANDROID_SDK_ROOT=/home/runner/android-sdk
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7956292Z + ANDROID_SDK_ROOT=/home/runner/android-sdk
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7957700Z + echo ANDROID_SDK_ROOT=/home/runner/android-sdk
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7959158Z + mkdir -p /home/runner/android-sdk/cmdline-tools
+android-build	Install Android cmdline-tools	2025-08-28T20:42:16.7969968Z + curl -sSL -o /tmp/cmdtools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+android-build	Install Android cmdline-tools	2025-08-28T20:42:18.6712496Z + unzip -q /tmp/cmdtools.zip -d /tmp/cmdtools
+android-build	Install Android cmdline-tools	2025-08-28T20:42:19.4224463Z + mkdir -p /home/runner/android-sdk/cmdline-tools/latest
+android-build	Install Android cmdline-tools	2025-08-28T20:42:19.4241442Z + mv /tmp/cmdtools/cmdline-tools/NOTICE.txt /tmp/cmdtools/cmdline-tools/bin /tmp/cmdtools/cmdline-tools/lib /tmp/cmdtools/cmdline-tools/source.properties /home/runner/android-sdk/cmdline-tools/latest/
+android-build	Set up JDK 17 (Temurin) for SDK install	﻿2025-08-28T20:42:19.4364717Z ##[group]Run actions/setup-java@v4
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4364977Z with:
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4365149Z   distribution: temurin
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4365335Z   java-version: 17
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4365515Z   java-package: jdk
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4365690Z   check-latest: false
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4365872Z   server-id: github
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4366052Z   server-username: GITHUB_ACTOR
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4366270Z   server-password: GITHUB_TOKEN
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4366490Z   overwrite-settings: true
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4366682Z   job-status: success
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4366986Z   token: ***
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4367147Z env:
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4367331Z   ANDROID_SDK_ROOT: /home/runner/android-sdk
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.4367566Z ##[endgroup]
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6273846Z ##[group]Installed distributions
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6513792Z Resolved Java 17.0.16+8 from tool-cache
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6514321Z Setting Java 17.0.16+8 as the default
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6527902Z Creating toolchains.xml for JDK version 17 from temurin
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6602531Z Writing to /home/runner/.m2/toolchains.xml
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6603821Z 
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6604000Z Java configuration:
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6604377Z   Distribution: temurin
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6604741Z   Version: 17.0.16+8
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6608219Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.16-8/x64
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6609102Z 
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6612036Z ##[endgroup]
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6628630Z Creating settings.xml with server-id: github
+android-build	Set up JDK 17 (Temurin) for SDK install	2025-08-28T20:42:19.6634570Z Writing to /home/runner/.m2/settings.xml
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	﻿2025-08-28T20:42:19.6726218Z ##[group]Run set -euxo pipefail
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6726523Z [36;1mset -euxo pipefail[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6726751Z [36;1m# avoid sdkmanager warnings[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6727117Z [36;1mmkdir -p "$HOME/.android" && touch "$HOME/.android/repositories.cfg"[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6727540Z [36;1m# create licenses directory and accept all common licenses[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6728055Z [36;1mmkdir -p "$ANDROID_SDK_ROOT/licenses"[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6728839Z [36;1mecho -e "8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e\n24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_SDK_ROOT/licenses/android-sdk-license"[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6729796Z [36;1mecho "601085b94cd77f0b54ff86406957099ebe79c4d6" > "$ANDROID_SDK_ROOT/licenses/android-googletv-license"[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6730448Z [36;1mecho "33b6a2b64607f11b759f320ef9dff4ae5c47d97a" > "$ANDROID_SDK_ROOT/licenses/google-gdk-license"[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6731106Z [36;1mecho "d975f751698a77b662f1254ddbeed3901e976f5a" > "$ANDROID_SDK_ROOT/licenses/intel-android-extra-license"[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6731607Z [36;1m# install packages directly[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6732054Z [36;1m"$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --install \[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6732499Z [36;1m  "platform-tools" \[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6732731Z [36;1m  "platforms;android-31" \[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6732968Z [36;1m  "build-tools;31.0.0"[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6733239Z [36;1m"$ANDROID_SDK_ROOT/platform-tools/adb" version || true[0m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6764857Z shell: /usr/bin/bash -e {0}
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6765097Z env:
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6765291Z   ANDROID_SDK_ROOT: /home/runner/android-sdk
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6765660Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.16-8/x64
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6766125Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.16-8/x64
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6766482Z   ANDROID_HOME: /home/runner/android-sdk
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6766728Z ##[endgroup]
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6815888Z + mkdir -p /home/runner/.android
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6829175Z + touch /home/runner/.android/repositories.cfg
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6839841Z + mkdir -p /home/runner/android-sdk/licenses
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6852344Z + echo -e '8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e\n24333f8a63b6825ea9c5514f83c2829b004d1fee'
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6853545Z + echo 601085b94cd77f0b54ff86406957099ebe79c4d6
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6854030Z + echo 33b6a2b64607f11b759f320ef9dff4ae5c47d97a
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6854505Z + echo d975f751698a77b662f1254ddbeed3901e976f5a
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:19.6855681Z + /home/runner/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=/home/runner/android-sdk --install platform-tools 'platforms;android-31' 'build-tools;31.0.0'
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:21.2041530Z Loading package information...                                                  
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:21.2218375Z Loading local repository...                                                     
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:21.2222733Z [                                       ] 3% Loading local repository...        
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:23.6214996Z [                                       ] 3% Fetch remote repository...         
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:24.9268186Z [=                                      ] 3% Fetch remote repository...         
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:25.3382646Z [=                                      ] 4% Fetch remote repository...         
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:25.3781041Z [=                                      ] 5% Fetch remote repository...         
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:25.4463109Z [==                                     ] 5% Fetch remote repository...         
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:25.5151999Z [==                                     ] 6% Fetch remote repository...         
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:25.6204964Z [==                                     ] 7% Fetch remote repository...         
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:25.6214515Z [==                                     ] 7% Computing updates...               
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:25.6362047Z [===                                    ] 8% Computing updates...               
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:25.6509324Z [===                                    ] 10% Computing updates...              
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:26.8114866Z [===                                    ] 10% Installing Android SDK Build-Tools
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:27.4440072Z [===                                    ] 10% Downloading build-tools_r31-linux.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:27.8094009Z [====                                   ] 10% Downloading build-tools_r31-linux.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:29.6822957Z [====                                   ] 11% Downloading build-tools_r31-linux.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:31.5764411Z [====                                   ] 12% Downloading build-tools_r31-linux.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:33.3291994Z [=====                                  ] 13% Downloading build-tools_r31-linux.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:34.7810558Z [=====                                  ] 14% Downloading build-tools_r31-linux.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:35.5869448Z [=====                                  ] 15% Downloading build-tools_r31-linux.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:36.7529200Z [======                                 ] 15% Downloading build-tools_r31-linux.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:38.0596186Z [======                                 ] 16% Downloading build-tools_r31-linux.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:39.7107965Z [======                                 ] 17% Downloading build-tools_r31-linux.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:39.7112196Z [=======                                ] 18% Downloading build-tools_r31-linux.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:39.7863593Z [=======                                ] 18% Unzipping...                      
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:39.7865106Z [=======                                ] 18% Unzipping... android-12/          
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.0055557Z [=======                                ] 18% Unzipping... android-12/renderscri
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.0119138Z [=======                                ] 19% Unzipping... android-12/renderscri
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.0121130Z [=======                                ] 19% Unzipping... android-12/aarch64-li
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.0223958Z [=======                                ] 19% Unzipping... android-12/split-sele
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.0226194Z [=======                                ] 19% Unzipping... android-12/lld-bin/  
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.0975028Z [=======                                ] 19% Unzipping... android-12/lld-bin/ll
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.1572135Z [=======                                ] 20% Unzipping... android-12/lld-bin/ll
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.1928222Z [========                               ] 20% Unzipping... android-12/lld-bin/ll
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.1931954Z [========                               ] 20% Unzipping... android-12/core-lambd
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.1949793Z [========                               ] 20% Unzipping... android-12/zipalign  
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.1952333Z [========                               ] 20% Unzipping... android-12/x86_64-lin
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.1987319Z [========                               ] 20% Unzipping... android-12/NOTICE.txt
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.1990760Z [========                               ] 20% Unzipping... android-12/runtime.pr
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.1994140Z [========                               ] 20% Unzipping... android-12/apksigner 
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.1996653Z [========                               ] 20% Unzipping... android-12/arm-linux-
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2058425Z [========                               ] 20% Unzipping... android-12/llvm-rs-cc
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2198409Z [========                               ] 20% Unzipping... android-12/aidl      
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2245226Z [========                               ] 21% Unzipping... android-12/aidl      
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2247608Z [========                               ] 21% Unzipping... android-12/source.pro
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2252662Z [========                               ] 21% Unzipping... android-12/mainDexCla
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2255486Z [========                               ] 21% Unzipping... android-12/d8        
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2257720Z [========                               ] 21% Unzipping... android-12/i686-linux
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2261585Z [========                               ] 21% Unzipping... android-12/mainDexCla
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2262428Z [========                               ] 21% Unzipping... android-12/lib/      
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2313812Z [========                               ] 21% Unzipping... android-12/lib/apksig
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2317682Z [========                               ] 21% Unzipping... android-12/lib/shrink
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2595041Z [========                               ] 21% Unzipping... android-12/lib/d8.jar
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2701867Z [========                               ] 21% Unzipping... android-12/aapt2     
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2886146Z [========                               ] 22% Unzipping... android-12/aapt2     
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2973225Z [========                               ] 22% Unzipping... android-12/aapt      
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2976512Z [========                               ] 22% Unzipping... android-12/lld       
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.2978858Z [========                               ] 22% Unzipping... android-12/mipsel-lin
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.3328336Z [========                               ] 22% Unzipping... android-12/dexdump   
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.3344314Z [========                               ] 22% Unzipping... android-12/bcc_compat
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.3345465Z [========                               ] 22% Unzipping... android-12/lib64/    
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.3361739Z [========                               ] 22% Unzipping... android-12/lib64/libb
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.3685989Z [========                               ] 22% Unzipping... android-12/lib64/liba
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.3754178Z [========                               ] 22% Unzipping... android-12/lib64/libc
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.4750816Z [=========                              ] 23% Unzipping... android-12/lib64/libc
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.4777605Z [=========                              ] 23% Unzipping... android-12/lib64/libb
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.4790035Z [=========                              ] 23% Unzipping... android-12/lib64/libc
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.4830515Z [=========                              ] 24% Unzipping... android-12/lib64/libc
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.5881560Z [=========                              ] 24% Unzipping... android-12/lib64/libL
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:40.6471766Z [=========                              ] 25% Unzipping... android-12/lib64/libL
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.1532286Z [===============                        ] 40% Unzipping... android-12/lib64/libL
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.3421744Z [===============                        ] 40% Installing Android SDK Platform 31
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.3459813Z [===============                        ] 40% Downloading platform-31_r01.zip...
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.3610051Z [================                       ] 40% Downloading platform-31_r01.zip...
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.4069493Z [================                       ] 41% Downloading platform-31_r01.zip...
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.4561653Z [================                       ] 42% Downloading platform-31_r01.zip...
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.5006829Z [=================                      ] 43% Downloading platform-31_r01.zip...
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.5442159Z [=================                      ] 44% Downloading platform-31_r01.zip...
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.5687534Z [=================                      ] 45% Downloading platform-31_r01.zip...
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.5919777Z [==================                     ] 45% Downloading platform-31_r01.zip...
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.6361078Z [==================                     ] 46% Downloading platform-31_r01.zip...
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.6797585Z [==================                     ] 47% Downloading platform-31_r01.zip...
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.6799427Z [==================                     ] 48% Downloading platform-31_r01.zip...
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.9895600Z [==================                     ] 48% Unzipping... android-12/lib64/libL
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.9900141Z [==================                     ] 48% Unzipping... android-12/          
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:41.9915468Z [==================                     ] 48% Unzipping... android-12/android.ja
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.0401905Z [===================                    ] 48% Unzipping... android-12/android.ja
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.0771972Z [===================                    ] 49% Unzipping... android-12/android.ja
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.0901979Z [===================                    ] 50% Unzipping... android-12/android.ja
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.0971362Z [====================                   ] 50% Unzipping... android-12/android.ja
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.0972015Z [====================                   ] 50% Unzipping... android-12/optional/ 
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.0982851Z [====================                   ] 50% Unzipping... android-12/optional/a
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1004492Z [====================                   ] 50% Unzipping... android-12/optional/l
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1022179Z [====================                   ] 50% Unzipping... android-12/optional/o
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1025206Z [====================                   ] 50% Unzipping... android-12/optional/a
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1029580Z [====================                   ] 50% Unzipping... android-12/optional/o
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1082910Z [====================                   ] 50% Unzipping... android-12/templates/
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1149204Z [====================                   ] 50% Unzipping... android-12/core-for-s
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1152515Z [====================                   ] 50% Unzipping... android-12/build.prop
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1207884Z [====================                   ] 50% Unzipping... android-12/android-st
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1472580Z [====================                   ] 51% Unzipping... android-12/android-st
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1476675Z [====================                   ] 51% Unzipping... android-12/uiautomato
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1478908Z [====================                   ] 51% Unzipping... android-12/source.pro
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1480110Z [====================                   ] 51% Unzipping... android-12/data/     
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1500796Z [====================                   ] 51% Unzipping... android-12/data/servi
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1523003Z [====================                   ] 51% Unzipping... android-12/data/NOTIC
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1527092Z [====================                   ] 51% Unzipping... android-12/data/widge
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1529125Z [====================                   ] 51% Unzipping... android-12/data/broad
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1676170Z [====================                   ] 51% Unzipping... android-12/data/api-v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1677215Z [====================                   ] 51% Unzipping... android-12/data/featu
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1678452Z [====================                   ] 51% Unzipping... android-12/data/annot
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1679270Z [====================                   ] 51% Unzipping... android-12/data/res/ 
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1693315Z [====================                   ] 51% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1703960Z [====================                   ] 51% Unzipping... android-12/data/res/l
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1943820Z [====================                   ] 51% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.1949796Z [====================                   ] 51% Unzipping... android-12/data/res/m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.2053942Z [====================                   ] 51% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.2074996Z [====================                   ] 51% Unzipping... android-12/data/res/a
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.2195489Z [====================                   ] 51% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.2508066Z [====================                   ] 51% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.2561146Z [====================                   ] 51% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.2565968Z [====================                   ] 51% Unzipping... android-12/data/res/x
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.2587584Z [====================                   ] 51% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.2590728Z [====================                   ] 51% Unzipping... android-12/data/res/l
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.2599106Z [====================                   ] 51% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.3209365Z [====================                   ] 51% Unzipping... android-12/data/res/l
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.3255676Z [====================                   ] 51% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.3260316Z [====================                   ] 51% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.3429174Z [====================                   ] 51% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.3467403Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.3470549Z [====================                   ] 52% Unzipping... android-12/data/res/x
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.3529009Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.3533635Z [====================                   ] 52% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.3629684Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.3962627Z [====================                   ] 52% Unzipping... android-12/data/res/a
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.4130415Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.4134462Z [====================                   ] 52% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.4167909Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.4174268Z [====================                   ] 52% Unzipping... android-12/data/res/c
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.4176412Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.6386331Z [====================                   ] 52% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.6408236Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.6423287Z [====================                   ] 52% Unzipping... android-12/data/res/t
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.6445343Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.6454005Z [====================                   ] 52% Unzipping... android-12/data/res/x
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.6584118Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.6587704Z [====================                   ] 52% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.6841135Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.6843940Z [====================                   ] 52% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.6853018Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.6855573Z [====================                   ] 52% Unzipping... android-12/data/res/l
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7064939Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7068387Z [====================                   ] 52% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7073945Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7097686Z [====================                   ] 52% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7172507Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7211342Z [====================                   ] 52% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7598705Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7602500Z [====================                   ] 52% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7700627Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7703641Z [====================                   ] 52% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7946792Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7948835Z [====================                   ] 52% Unzipping... android-12/data/res/m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7959131Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7962309Z [====================                   ] 52% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7988506Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7994125Z [====================                   ] 52% Unzipping... android-12/data/res/c
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.7999332Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.8002586Z [====================                   ] 52% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.8032216Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.8035596Z [====================                   ] 52% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.8037717Z [====================                   ] 52% Unzipping... android-12/data/res/x
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.8199755Z [====================                   ] 52% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.8688315Z [====================                   ] 52% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9267230Z [=====================                  ] 53% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9337718Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9340492Z [=====================                  ] 53% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9501902Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9506054Z [=====================                  ] 53% Unzipping... android-12/data/res/m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9580926Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9585218Z [=====================                  ] 53% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9734569Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9736134Z [=====================                  ] 53% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9770734Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9776772Z [=====================                  ] 53% Unzipping... android-12/data/res/i
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9842079Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9854315Z [=====================                  ] 53% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9899051Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9903511Z [=====================                  ] 53% Unzipping... android-12/data/res/m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:42.9910452Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.0657581Z [=====================                  ] 53% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.0740516Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.0746812Z [=====================                  ] 53% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.0790739Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.0820215Z [=====================                  ] 53% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.0889231Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.0924277Z [=====================                  ] 53% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.0971343Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.1012816Z [=====================                  ] 53% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.1064832Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.1082229Z [=====================                  ] 53% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.1097862Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.1134836Z [=====================                  ] 53% Unzipping... android-12/data/res/x
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.1240000Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.1242251Z [=====================                  ] 53% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.1331757Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3026950Z [=====================                  ] 53% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3172410Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3175951Z [=====================                  ] 53% Unzipping... android-12/data/res/a
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3416038Z [=====================                  ] 53% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3492406Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3496010Z [=====================                  ] 54% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3538703Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3542382Z [=====================                  ] 54% Unzipping... android-12/data/res/m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3546115Z [=====================                  ] 54% Unzipping... android-12/data/res/x
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3642014Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3650003Z [=====================                  ] 54% Unzipping... android-12/data/res/a
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3787976Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3841375Z [=====================                  ] 54% Unzipping... android-12/data/res/i
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3993955Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.3998412Z [=====================                  ] 54% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4023902Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4027386Z [=====================                  ] 54% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4037568Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4040859Z [=====================                  ] 54% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4137009Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4145018Z [=====================                  ] 54% Unzipping... android-12/data/res/l
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4153692Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4157106Z [=====================                  ] 54% Unzipping... android-12/data/res/l
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4238375Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4268679Z [=====================                  ] 54% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4270972Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4273193Z [=====================                  ] 54% Unzipping... android-12/data/res/l
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4341947Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4345276Z [=====================                  ] 54% Unzipping... android-12/data/res/m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4412301Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4421365Z [=====================                  ] 54% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4429587Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4446561Z [=====================                  ] 54% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4593021Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4595207Z [=====================                  ] 54% Unzipping... android-12/data/res/l
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4623731Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4636879Z [=====================                  ] 54% Unzipping... android-12/data/res/l
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4704285Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4705987Z [=====================                  ] 54% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4715011Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4719405Z [=====================                  ] 54% Unzipping... android-12/data/res/l
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4724633Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4839423Z [=====================                  ] 54% Unzipping... android-12/data/res/c
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4932422Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4935812Z [=====================                  ] 54% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.4939525Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6616205Z [=====================                  ] 54% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6670085Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6674945Z [=====================                  ] 54% Unzipping... android-12/data/res/m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6731843Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6734965Z [=====================                  ] 54% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6740059Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6744376Z [=====================                  ] 54% Unzipping... android-12/data/res/m
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6758639Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6761636Z [=====================                  ] 54% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6770813Z [=====================                  ] 54% Unzipping... android-12/data/res/l
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6792305Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6795463Z [=====================                  ] 54% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.6822852Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.7960098Z [=====================                  ] 54% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8194017Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8197567Z [=====================                  ] 54% Unzipping... android-12/data/res/r
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8305787Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8329046Z [=====================                  ] 54% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8347559Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8359982Z [=====================                  ] 54% Unzipping... android-12/data/res/d
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8489951Z [=====================                  ] 54% Unzipping... android-12/data/res/v
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8490887Z [=====================                  ] 54% Unzipping... android-12/data/categ
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8493145Z [=====================                  ] 54% Unzipping... android-12/data/activ
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8494935Z [=====================                  ] 54% Unzipping... android-12/sdk.proper
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8496317Z [=====================                  ] 54% Unzipping... android-12/skins/    
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8512926Z [=====================                  ] 54% Unzipping... android-12/skins/WXGA
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8531999Z [=====================                  ] 54% Unzipping... android-12/skins/WQVG
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8564593Z [=====================                  ] 54% Unzipping... android-12/skins/NOTI
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8582399Z [=====================                  ] 54% Unzipping... android-12/skins/HVGA
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8583524Z [=====================                  ] 55% Unzipping... android-12/skins/HVGA
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8602238Z [=====================                  ] 55% Unzipping... android-12/skins/WVGA
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8627287Z [=====================                  ] 55% Unzipping... android-12/skins/WQVG
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8646212Z [=====================                  ] 55% Unzipping... android-12/skins/WVGA
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8665464Z [=====================                  ] 55% Unzipping... android-12/skins/QVGA
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8685198Z [=====================                  ] 55% Unzipping... android-12/skins/WXGA
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8704752Z [=====================                  ] 55% Unzipping... android-12/skins/WSVG
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8724008Z [=====================                  ] 55% Unzipping... android-12/skins/WXGA
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8842700Z [=====================                  ] 55% Unzipping... android-12/framework.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:43.8893236Z [===========================            ] 70% Unzipping... android-12/framework.
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:44.0734080Z [===========================            ] 70% Installing Android SDK Platform-To
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:44.0743023Z [===========================            ] 70% Downloading platform-tools_r36.0.0
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:44.0771673Z [============================           ] 70% Downloading platform-tools_r36.0.0
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:44.0836911Z [============================           ] 71% Downloading platform-tools_r36.0.0
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:44.0900562Z [============================           ] 72% Downloading platform-tools_r36.0.0
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:44.0961031Z [=============================          ] 73% Downloading platform-tools_r36.0.0
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:44.1021272Z [=============================          ] 74% Downloading platform-tools_r36.0.0
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:44.1063916Z [=============================          ] 75% Downloading platform-tools_r36.0.0
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:44.1094491Z [==============================         ] 75% Downloading platform-tools_r36.0.0
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:44.1153829Z [==============================         ] 76% Downloading platform-tools_r36.0.0
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:44.1214833Z [==============================         ] 77% Downloading platform-tools_r36.0.0
+android-build	Install Android SDK components (api 31, build-tools 31.0.0)	2025-08-28T20:42:44.1220803Z [==============================         ] 77% Unzipping... android-12/framework.

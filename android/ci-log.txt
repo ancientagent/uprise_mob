@@ -1,0 +1,500 @@
+android-build	Build Android Debug APK	2025-08-28T20:45:34.4170804Z :react-native-firebase_app:firebase.bom using default value: 30.5.0
+android-build	Build Android Debug APK	2025-08-28T20:45:34.4171858Z :react-native-firebase_app:play.play-services-auth using default value: 20.3.0
+android-build	Build Android Debug APK	2025-08-28T20:45:34.4173660Z :react-native-firebase_app package.json found at /home/runner/work/uprise_mob/uprise_mob/node_modules/@react-native-firebase/app/package.json
+android-build	Build Android Debug APK	2025-08-28T20:45:34.4175212Z :react-native-firebase_app:version set from package.json: 14.12.0 (14,12,0 - 14012000)
+android-build	Build Android Debug APK	2025-08-28T20:45:34.4176732Z :react-native-firebase_app:android.compileSdk using custom value: 31
+android-build	Build Android Debug APK	2025-08-28T20:45:34.4177771Z :react-native-firebase_app:android.targetSdk using custom value: 31
+android-build	Build Android Debug APK	2025-08-28T20:45:34.4178683Z :react-native-firebase_app:android.minSdk using custom value: 21
+android-build	Build Android Debug APK	2025-08-28T20:45:34.4180074Z :react-native-firebase_app:reactNativeAndroidDir /home/runner/work/uprise_mob/uprise_mob/node_modules/react-native/android
+android-build	Build Android Debug APK	2025-08-28T20:45:34.5192016Z 
+android-build	Build Android Debug APK	2025-08-28T20:45:34.5192753Z > Configure project :react-native-firebase_crashlytics
+android-build	Build Android Debug APK	2025-08-28T20:45:34.5194600Z :react-native-firebase_crashlytics package.json found at /home/runner/work/uprise_mob/uprise_mob/node_modules/@react-native-firebase/crashlytics/package.json
+android-build	Build Android Debug APK	2025-08-28T20:45:34.5196680Z :react-native-firebase_app package.json found at /home/runner/work/uprise_mob/uprise_mob/node_modules/@react-native-firebase/app/package.json
+android-build	Build Android Debug APK	2025-08-28T20:45:34.5198132Z :react-native-firebase_crashlytics:firebase.bom using default value: 30.5.0
+android-build	Build Android Debug APK	2025-08-28T20:45:34.5199899Z :react-native-firebase_crashlytics package.json found at /home/runner/work/uprise_mob/uprise_mob/node_modules/@react-native-firebase/crashlytics/package.json
+android-build	Build Android Debug APK	2025-08-28T20:45:34.5201623Z :react-native-firebase_crashlytics:version set from package.json: 14.12.0 (14,12,0 - 14012000)
+android-build	Build Android Debug APK	2025-08-28T20:45:34.5202805Z :react-native-firebase_crashlytics:android.compileSdk using custom value: 31
+android-build	Build Android Debug APK	2025-08-28T20:45:34.5204024Z :react-native-firebase_crashlytics:android.targetSdk using custom value: 31
+android-build	Build Android Debug APK	2025-08-28T20:45:34.5205048Z :react-native-firebase_crashlytics:android.minSdk using custom value: 21
+android-build	Build Android Debug APK	2025-08-28T20:45:34.5206557Z :react-native-firebase_crashlytics:reactNativeAndroidDir /home/runner/work/uprise_mob/uprise_mob/node_modules/react-native/android
+android-build	Build Android Debug APK	2025-08-28T20:45:34.8160862Z 
+android-build	Build Android Debug APK	2025-08-28T20:45:34.8161575Z > Configure project :react-native-firebase_messaging
+android-build	Build Android Debug APK	2025-08-28T20:45:34.8163165Z :react-native-firebase_messaging package.json found at /home/runner/work/uprise_mob/uprise_mob/node_modules/@react-native-firebase/messaging/package.json
+android-build	Build Android Debug APK	2025-08-28T20:45:34.8165579Z :react-native-firebase_app package.json found at /home/runner/work/uprise_mob/uprise_mob/node_modules/@react-native-firebase/app/package.json
+android-build	Build Android Debug APK	2025-08-28T20:45:34.8167103Z :react-native-firebase_messaging:firebase.bom using default value: 30.5.0
+android-build	Build Android Debug APK	2025-08-28T20:45:34.8168780Z :react-native-firebase_messaging package.json found at /home/runner/work/uprise_mob/uprise_mob/node_modules/@react-native-firebase/messaging/package.json
+android-build	Build Android Debug APK	2025-08-28T20:45:34.8170427Z :react-native-firebase_messaging:version set from package.json: 14.12.0 (14,12,0 - 14012000)
+android-build	Build Android Debug APK	2025-08-28T20:45:34.8171573Z :react-native-firebase_messaging:android.compileSdk using custom value: 31
+android-build	Build Android Debug APK	2025-08-28T20:45:34.8172616Z :react-native-firebase_messaging:android.targetSdk using custom value: 31
+android-build	Build Android Debug APK	2025-08-28T20:45:34.8173809Z :react-native-firebase_messaging:android.minSdk using custom value: 21
+android-build	Build Android Debug APK	2025-08-28T20:45:34.8175750Z :react-native-firebase_messaging:reactNativeAndroidDir /home/runner/work/uprise_mob/uprise_mob/node_modules/react-native/android
+android-build	Build Android Debug APK	2025-08-28T20:46:53.5159091Z 
+android-build	Build Android Debug APK	2025-08-28T20:46:53.5161531Z > Configure project :react-native-reanimated
+android-build	Build Android Debug APK	2025-08-28T20:46:53.5162486Z No AAR for react-native-reanimated found. Attempting to build from source.
+android-build	Build Android Debug APK	2025-08-28T20:46:53.5164920Z Android gradle plugin: 7.0.4
+android-build	Build Android Debug APK	2025-08-28T20:46:53.5165724Z Gradle: 7.0.2
+android-build	Build Android Debug APK	2025-08-28T20:46:54.6161838Z This version only understands SDK XML versions up to 2 but an SDK XML file of version 3 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+android-build	Build Android Debug APK	2025-08-28T20:46:54.6164564Z unexpected element (uri:"", local:"base-extension"). Expected elements are <{}codename>,<{}layoutlib>,<{}api-level>
+android-build	Build Android Debug APK	2025-08-28T20:46:54.6166697Z Warning: unexpected element (uri:"", local:"base-extension"). Expected elements are <{}codename>,<{}layoutlib>,<{}api-level>
+android-build	Build Android Debug APK	2025-08-28T20:46:54.7162956Z Warning: unexpected element (uri:"", local:"base-extension"). Expected elements are <{}codename>,<{}layoutlib>,<{}api-level>
+android-build	Build Android Debug APK	2025-08-28T20:46:56.5160313Z Checking the license for package NDK (Side by side) 21.4.7075529 in /home/runner/android-sdk/licenses
+android-build	Build Android Debug APK	2025-08-28T20:46:56.5161407Z License for package NDK (Side by side) 21.4.7075529 accepted.
+android-build	Build Android Debug APK	2025-08-28T20:46:56.5162279Z Preparing "Install NDK (Side by side) 21.4.7075529 (revision: 21.4.7075529)".
+android-build	Build Android Debug APK	2025-08-28T20:48:19.0160532Z "Install NDK (Side by side) 21.4.7075529 (revision: 21.4.7075529)" ready.
+android-build	Build Android Debug APK	2025-08-28T20:48:19.0161587Z Installing NDK (Side by side) 21.4.7075529 in /home/runner/android-sdk/ndk/21.4.7075529
+android-build	Build Android Debug APK	2025-08-28T20:48:19.0162534Z "Install NDK (Side by side) 21.4.7075529 (revision: 21.4.7075529)" complete.
+android-build	Build Android Debug APK	2025-08-28T20:48:19.5204489Z "Install NDK (Side by side) 21.4.7075529 (revision: 21.4.7075529)" finished.
+android-build	Build Android Debug APK	2025-08-28T20:48:19.6160543Z Warning: unexpected element (uri:"", local:"base-extension"). Expected elements are <{}codename>,<{}layoutlib>,<{}api-level>
+android-build	Build Android Debug APK	2025-08-28T20:48:19.6163880Z Warning: unexpected element (uri:"", local:"base-extension"). Expected elements are <{}codename>,<{}layoutlib>,<{}api-level>
+android-build	Build Android Debug APK	2025-08-28T20:48:19.6166559Z Checking the license for package CMake 3.10.2.4988404 in /home/runner/android-sdk/licenses
+android-build	Build Android Debug APK	2025-08-28T20:48:19.6168713Z License for package CMake 3.10.2.4988404 accepted.
+android-build	Build Android Debug APK	2025-08-28T20:48:19.6170770Z Preparing "Install CMake 3.10.2.4988404 (revision: 3.10.2)".
+android-build	Build Android Debug APK	2025-08-28T20:48:22.1160320Z "Install CMake 3.10.2.4988404 (revision: 3.10.2)" ready.
+android-build	Build Android Debug APK	2025-08-28T20:48:22.1161776Z Installing CMake 3.10.2.4988404 in /home/runner/android-sdk/cmake/3.10.2.4988404
+android-build	Build Android Debug APK	2025-08-28T20:48:22.1163602Z "Install CMake 3.10.2.4988404 (revision: 3.10.2)" complete.
+android-build	Build Android Debug APK	2025-08-28T20:48:22.1164367Z "Install CMake 3.10.2.4988404 (revision: 3.10.2)" finished.
+android-build	Build Android Debug APK	2025-08-28T20:48:22.1165607Z Warning: unexpected element (uri:"", local:"base-extension"). Expected elements are <{}codename>,<{}layoutlib>,<{}api-level>
+android-build	Build Android Debug APK	2025-08-28T20:48:42.5161097Z Warning: unexpected element (uri:"", local:"base-extension"). Expected elements are <{}codename>,<{}layoutlib>,<{}api-level>
+android-build	Build Android Debug APK	2025-08-28T20:48:42.5162892Z Checking the license for package Android SDK Build-Tools 30.0.2 in /home/runner/android-sdk/licenses
+android-build	Build Android Debug APK	2025-08-28T20:48:42.5163963Z License for package Android SDK Build-Tools 30.0.2 accepted.
+android-build	Build Android Debug APK	2025-08-28T20:48:42.5164614Z Preparing "Install Android SDK Build-Tools 30.0.2 (revision: 30.0.2)".
+android-build	Build Android Debug APK	2025-08-28T20:48:46.9163765Z "Install Android SDK Build-Tools 30.0.2 (revision: 30.0.2)" ready.
+android-build	Build Android Debug APK	2025-08-28T20:48:46.9164842Z Installing Android SDK Build-Tools 30.0.2 in /home/runner/android-sdk/build-tools/30.0.2
+android-build	Build Android Debug APK	2025-08-28T20:48:46.9165811Z "Install Android SDK Build-Tools 30.0.2 (revision: 30.0.2)" complete.
+android-build	Build Android Debug APK	2025-08-28T20:48:46.9166664Z "Install Android SDK Build-Tools 30.0.2 (revision: 30.0.2)" finished.
+android-build	Build Android Debug APK	2025-08-28T20:48:46.9167886Z unexpected element (uri:"", local:"base-extension"). Expected elements are <{}codename>,<{}layoutlib>,<{}api-level>
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8171748Z 
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8172490Z > Task :app:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8176350Z > Task :react-native-async-storage_async-storage:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8177531Z > Task :react-native-community_masked-view:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8178424Z > Task :react-native-community_netinfo:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8179504Z > Task :react-native-config:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8211877Z > Task :react-native-firebase_analytics:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8212607Z > Task :react-native-firebase_app:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8213328Z > Task :react-native-firebase_crashlytics:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8214260Z > Task :react-native-firebase_messaging:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8215010Z > Task :react-native-geolocation-service:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8215732Z > Task :react-native-gesture-handler:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8216512Z > Task :react-native-google-signin_google-signin:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8217682Z > Task :react-native-image-colors:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8218392Z > Task :react-native-image-crop-picker:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8219112Z > Task :react-native-linear-gradient:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8219788Z > Task :react-native-pager-view:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8220430Z > Task :react-native-reanimated:cleanCmakeCache
+android-build	Build Android Debug APK	2025-08-28T20:48:47.8221418Z > Task :react-native-reanimated:assertLatestReactNativeWithNewArchitectureTask SKIPPED
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9174234Z > Task :react-native-reanimated:assertNoMultipleInstancesTask
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9196021Z > Task :react-native-reanimated:assertNoReanimated2WithNewArchitectureTask SKIPPED
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9196963Z > Task :react-native-reanimated:preBuild
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9197602Z > Task :react-native-reanimated:preDebugBuild
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9198373Z > Task :react-native-reanimated:externalNativeBuildCleanDebug
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9200343Z > Task :react-native-reanimated:preReleaseBuild
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9204493Z > Task :react-native-reanimated:externalNativeBuildCleanRelease
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9205241Z > Task :react-native-reanimated:clean
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9205939Z > Task :react-native-safe-area-context:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9206688Z > Task :react-native-screens:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9207350Z > Task :react-native-splash-screen:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9207986Z > Task :react-native-svg:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9208617Z > Task :react-native-vector-icons:clean UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9209209Z > Task :app:generatePackageList
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9209639Z > Task :app:preBuild
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9210034Z > Task :app:preDebugBuild
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9210747Z > Task :react-native-async-storage_async-storage:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9211766Z > Task :react-native-async-storage_async-storage:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9212766Z > Task :react-native-async-storage_async-storage:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9213946Z > Task :react-native-community_masked-view:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9214809Z > Task :react-native-community_masked-view:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9215772Z > Task :react-native-community_masked-view:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9216666Z > Task :react-native-community_netinfo:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9217510Z > Task :react-native-community_netinfo:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9218421Z > Task :react-native-community_netinfo:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9219180Z > Task :react-native-config:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9219878Z > Task :react-native-config:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9220631Z > Task :react-native-config:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9221430Z > Task :react-native-firebase_analytics:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9222240Z > Task :react-native-firebase_analytics:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9223037Z > Task :react-native-firebase_app:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9224361Z > Task :react-native-firebase_app:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9225190Z > Task :react-native-firebase_app:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9226105Z > Task :react-native-firebase_analytics:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9227008Z > Task :react-native-firebase_crashlytics:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9227927Z > Task :react-native-firebase_crashlytics:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9228877Z > Task :react-native-firebase_crashlytics:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9229781Z > Task :react-native-firebase_messaging:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:47.9230651Z > Task :react-native-firebase_messaging:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0172675Z > Task :react-native-firebase_messaging:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0183765Z > Task :react-native-geolocation-service:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0184650Z > Task :react-native-geolocation-service:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0185937Z > Task :react-native-geolocation-service:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0186801Z > Task :react-native-gesture-handler:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0187585Z > Task :react-native-gesture-handler:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0188384Z > Task :react-native-gesture-handler:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0189248Z > Task :react-native-google-signin_google-signin:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0190197Z > Task :react-native-google-signin_google-signin:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0191157Z > Task :react-native-google-signin_google-signin:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0191975Z > Task :react-native-image-colors:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0192728Z > Task :react-native-image-colors:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0193730Z > Task :react-native-image-colors:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0194530Z > Task :react-native-image-crop-picker:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0195381Z > Task :react-native-image-crop-picker:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0196260Z > Task :react-native-image-crop-picker:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0197043Z > Task :react-native-linear-gradient:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0197803Z > Task :react-native-linear-gradient:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0198604Z > Task :react-native-linear-gradient:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0199329Z > Task :react-native-pager-view:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0200013Z > Task :react-native-pager-view:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0200732Z > Task :react-native-pager-view:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0201464Z > Task :react-native-reanimated:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0202193Z > Task :react-native-safe-area-context:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0202962Z > Task :react-native-safe-area-context:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0203947Z > Task :react-native-safe-area-context:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0204669Z > Task :react-native-screens:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0207357Z > Task :react-native-screens:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0208083Z > Task :react-native-screens:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0208776Z > Task :react-native-splash-screen:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0209507Z > Task :react-native-splash-screen:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0210312Z > Task :react-native-splash-screen:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0211013Z > Task :react-native-svg:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0214169Z > Task :react-native-svg:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0219324Z > Task :react-native-svg:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0219990Z > Task :react-native-vector-icons:preBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0220668Z > Task :react-native-vector-icons:preDebugBuild UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0221706Z > Task :react-native-vector-icons:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0222359Z > Task :app:compileDebugAidl NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0223249Z > Task :react-native-async-storage_async-storage:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0224605Z > Task :react-native-community_masked-view:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0225610Z > Task :react-native-community_netinfo:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0226678Z > Task :react-native-config:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0227925Z > Task :react-native-firebase_analytics:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0228497Z > Task :react-native-firebase_app:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0229049Z > Task :react-native-firebase_crashlytics:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0229596Z > Task :react-native-firebase_messaging:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0230137Z > Task :react-native-geolocation-service:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0230859Z > Task :react-native-gesture-handler:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0231428Z > Task :react-native-google-signin_google-signin:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0231983Z > Task :react-native-image-colors:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0232513Z > Task :react-native-image-crop-picker:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0233056Z > Task :react-native-linear-gradient:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0233779Z > Task :react-native-pager-view:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0234272Z > Task :react-native-reanimated:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0234791Z > Task :react-native-safe-area-context:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0235312Z > Task :react-native-screens:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0235795Z > Task :react-native-splash-screen:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0236265Z > Task :react-native-svg:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0236727Z > Task :react-native-vector-icons:packageDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0237130Z > Task :app:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.0237452Z > Task :app:generateDebugBuildConfig
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1179402Z > Task :app:javaPreCompileDebug
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1189809Z > Task :react-native-community_masked-view:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1190743Z > Task :react-native-async-storage_async-storage:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1191624Z > Task :react-native-community_netinfo:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1192353Z > Task :react-native-config:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1193089Z > Task :react-native-firebase_analytics:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1194064Z > Task :react-native-firebase_app:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1194847Z > Task :react-native-firebase_crashlytics:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1195796Z > Task :react-native-firebase_messaging:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1196611Z > Task :react-native-geolocation-service:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1197429Z > Task :react-native-gesture-handler:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1198318Z > Task :react-native-google-signin_google-signin:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1199170Z > Task :react-native-image-colors:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1199990Z > Task :react-native-image-crop-picker:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1200802Z > Task :react-native-linear-gradient:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1201564Z > Task :react-native-pager-view:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1202303Z > Task :react-native-reanimated:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1203089Z > Task :react-native-safe-area-context:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1203990Z > Task :react-native-screens:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1205057Z > Task :react-native-splash-screen:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1205760Z > Task :react-native-svg:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1206377Z > Task :app:bundleDebugJsAndAssets SKIPPED
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1207069Z > Task :react-native-vector-icons:writeDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1207671Z > Task :app:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1208187Z > Task :app:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1208775Z > Task :app:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1209549Z > Task :react-native-async-storage_async-storage:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1210529Z > Task :react-native-async-storage_async-storage:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.1211609Z > Task :react-native-async-storage_async-storage:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.2160434Z > Task :react-native-async-storage_async-storage:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:48:48.2161346Z > Task :react-native-community_masked-view:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:48:48.2162438Z > Task :react-native-community_masked-view:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.2163163Z > Task :react-native-community_masked-view:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:48:48.2164116Z > Task :react-native-community_masked-view:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:48:48.2164694Z > Task :react-native-community_netinfo:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:18.2159605Z > Task :app:checkDebugAarMetadata
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0215075Z > Task :react-native-community_netinfo:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0216115Z > Task :react-native-community_netinfo:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0217015Z > Task :react-native-community_netinfo:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0217714Z > Task :react-native-config:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0218662Z > Task :react-native-config:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0219502Z > Task :react-native-config:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0220346Z > Task :react-native-config:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0221706Z > Task :react-native-firebase_analytics:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0222562Z > Task :react-native-firebase_analytics:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0223673Z > Task :react-native-firebase_analytics:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0224501Z > Task :react-native-firebase_analytics:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0225223Z > Task :react-native-firebase_app:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0225974Z > Task :react-native-firebase_app:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0226797Z > Task :react-native-firebase_app:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0227541Z > Task :react-native-firebase_app:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0228252Z > Task :react-native-firebase_crashlytics:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0229093Z > Task :react-native-firebase_crashlytics:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0230035Z > Task :react-native-firebase_crashlytics:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0230898Z > Task :react-native-firebase_crashlytics:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0231658Z > Task :react-native-firebase_messaging:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0232483Z > Task :react-native-firebase_messaging:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0233528Z > Task :react-native-firebase_messaging:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0234402Z > Task :react-native-firebase_messaging:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0235172Z > Task :react-native-geolocation-service:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0236081Z > Task :react-native-geolocation-service:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0237078Z > Task :react-native-geolocation-service:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0237974Z > Task :react-native-geolocation-service:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0238763Z > Task :react-native-gesture-handler:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0239603Z > Task :react-native-gesture-handler:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0240852Z > Task :react-native-gesture-handler:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0241679Z > Task :react-native-gesture-handler:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0242509Z > Task :react-native-google-signin_google-signin:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0243645Z > Task :react-native-google-signin_google-signin:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0244975Z > Task :react-native-google-signin_google-signin:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0245948Z > Task :react-native-google-signin_google-signin:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0246709Z > Task :react-native-image-colors:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0247466Z > Task :react-native-image-colors:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0248286Z > Task :react-native-image-colors:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0249033Z > Task :react-native-image-colors:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0249750Z > Task :react-native-image-crop-picker:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0250814Z > Task :react-native-image-crop-picker:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0251729Z > Task :react-native-image-crop-picker:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0252551Z > Task :react-native-image-crop-picker:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0253269Z > Task :react-native-linear-gradient:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0254311Z > Task :react-native-linear-gradient:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0255184Z > Task :react-native-linear-gradient:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0255968Z > Task :react-native-linear-gradient:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0256644Z > Task :react-native-pager-view:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0257366Z > Task :react-native-pager-view:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0258166Z > Task :react-native-pager-view:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0258884Z > Task :react-native-pager-view:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0259530Z > Task :react-native-reanimated:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0260257Z > Task :react-native-reanimated:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0261035Z > Task :react-native-reanimated:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0261716Z > Task :react-native-reanimated:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0262386Z > Task :react-native-safe-area-context:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0263129Z > Task :react-native-safe-area-context:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0264200Z > Task :react-native-safe-area-context:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0265031Z > Task :react-native-safe-area-context:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0265726Z > Task :react-native-screens:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0266468Z > Task :react-native-screens:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.0267293Z > Task :react-native-screens:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1160402Z > Task :react-native-screens:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1163033Z > Task :react-native-splash-screen:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1165306Z > Task :react-native-splash-screen:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1166217Z > Task :react-native-splash-screen:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1167029Z > Task :react-native-splash-screen:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1167716Z > Task :react-native-svg:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1168408Z > Task :react-native-svg:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1169171Z > Task :react-native-svg:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1169853Z > Task :react-native-svg:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1170539Z > Task :react-native-vector-icons:mergeDebugShaders
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1171350Z > Task :react-native-vector-icons:compileDebugShaders NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1172221Z > Task :react-native-vector-icons:generateDebugAssets UP-TO-DATE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.1173015Z > Task :react-native-vector-icons:packageDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.2159661Z > Task :app:mergeDebugAssets
+android-build	Build Android Debug APK	2025-08-28T20:49:45.2161864Z > Task :app:copyDebugBundledJs SKIPPED
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3184637Z > Task :app:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3185945Z > Task :app:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3186853Z > Task :app:injectCrashlyticsMappingFileIdDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3188090Z > Task :react-native-async-storage_async-storage:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3189484Z > Task :react-native-async-storage_async-storage:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3190746Z > Task :react-native-async-storage_async-storage:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3191973Z > Task :react-native-async-storage_async-storage:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3193245Z > Task :react-native-community_masked-view:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3194763Z > Task :react-native-community_masked-view:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3195796Z > Task :react-native-community_masked-view:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3197319Z > Task :react-native-community_masked-view:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3198503Z > Task :react-native-community_netinfo:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3199645Z > Task :react-native-community_netinfo:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3200702Z > Task :react-native-community_netinfo:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3201774Z > Task :react-native-community_netinfo:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3202866Z > Task :react-native-config:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3204135Z > Task :react-native-config:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3204940Z > Task :react-native-config:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3205755Z > Task :react-native-config:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3206755Z > Task :react-native-firebase_analytics:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3207786Z > Task :react-native-firebase_analytics:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3208847Z > Task :react-native-firebase_analytics:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3209852Z > Task :react-native-firebase_analytics:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3210876Z > Task :react-native-firebase_app:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3211856Z > Task :react-native-firebase_app:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3212812Z > Task :react-native-firebase_app:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3213928Z > Task :react-native-firebase_app:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3215950Z > Task :react-native-firebase_crashlytics:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3216940Z > Task :react-native-firebase_crashlytics:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3217781Z > Task :react-native-firebase_crashlytics:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3218618Z > Task :react-native-firebase_crashlytics:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3219529Z > Task :react-native-firebase_messaging:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3220452Z > Task :react-native-firebase_messaging:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.3221282Z > Task :react-native-firebase_messaging:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4182657Z > Task :react-native-firebase_messaging:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4197450Z > Task :react-native-geolocation-service:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4201990Z > Task :react-native-geolocation-service:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4206708Z > Task :react-native-geolocation-service:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4211072Z > Task :react-native-geolocation-service:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4215724Z > Task :react-native-gesture-handler:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4222672Z > Task :react-native-gesture-handler:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4225016Z > Task :react-native-gesture-handler:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4231285Z > Task :react-native-gesture-handler:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4233323Z > Task :react-native-google-signin_google-signin:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4238493Z > Task :react-native-google-signin_google-signin:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4239541Z > Task :react-native-google-signin_google-signin:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4240492Z > Task :react-native-google-signin_google-signin:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4241420Z > Task :react-native-image-colors:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4242229Z > Task :react-native-image-colors:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4242973Z > Task :react-native-image-colors:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4243923Z > Task :react-native-image-colors:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4244724Z > Task :react-native-image-crop-picker:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4245569Z > Task :react-native-image-crop-picker:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.4246389Z > Task :react-native-image-crop-picker:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5162198Z > Task :react-native-image-crop-picker:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5169187Z > Task :react-native-linear-gradient:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5176527Z > Task :react-native-linear-gradient:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5194214Z > Task :react-native-linear-gradient:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5195087Z > Task :react-native-linear-gradient:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5195899Z > Task :react-native-pager-view:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5196665Z > Task :react-native-pager-view:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5197311Z > Task :react-native-pager-view:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5197935Z > Task :react-native-pager-view:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5198649Z > Task :react-native-reanimated:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5199360Z > Task :react-native-reanimated:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5200004Z > Task :react-native-reanimated:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5200635Z > Task :react-native-reanimated:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5201384Z > Task :react-native-safe-area-context:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5202179Z > Task :react-native-safe-area-context:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5202906Z > Task :react-native-safe-area-context:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5203812Z > Task :react-native-safe-area-context:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5204554Z > Task :react-native-screens:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5205202Z > Task :react-native-screens:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5205780Z > Task :react-native-screens:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5206363Z > Task :react-native-screens:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5207090Z > Task :react-native-splash-screen:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5207827Z > Task :react-native-splash-screen:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5208502Z > Task :react-native-splash-screen:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5209157Z > Task :react-native-splash-screen:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5209811Z > Task :react-native-svg:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5210425Z > Task :react-native-svg:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5210973Z > Task :react-native-svg:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5211680Z > Task :react-native-svg:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5212659Z > Task :react-native-vector-icons:compileDebugRenderscript NO-SOURCE
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5235677Z > Task :react-native-vector-icons:generateDebugResValues
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5236394Z > Task :react-native-vector-icons:generateDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:45.5237082Z > Task :react-native-vector-icons:packageDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:47.0167395Z > Task :app:createDebugCompatibleScreenManifests
+android-build	Build Android Debug APK	2025-08-28T20:49:47.0184872Z > Task :app:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.0189690Z > Task :react-native-async-storage_async-storage:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.0192716Z > Task :react-native-community_masked-view:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.0195896Z > Task :react-native-community_netinfo:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.1160104Z > Task :app:mergeDebugResources
+android-build	Build Android Debug APK	2025-08-28T20:49:47.1162632Z > Task :react-native-config:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.2204766Z > Task :react-native-community_masked-view:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.2206229Z > Task :react-native-community_netinfo:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.2208728Z > Task :react-native-config:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.2209817Z > Task :react-native-async-storage_async-storage:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.2215459Z > Task :react-native-firebase_analytics:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.2216807Z > Task :react-native-firebase_app:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.2218090Z > Task :react-native-firebase_crashlytics:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.2220000Z > Task :react-native-firebase_analytics:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.2233134Z > Task :react-native-firebase_messaging:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.2235777Z > Task :react-native-geolocation-service:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3165506Z > Task :react-native-firebase_crashlytics:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3166671Z > Task :react-native-firebase_app:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3167505Z > Task :react-native-gesture-handler:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3168408Z > Task :react-native-geolocation-service:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3169288Z > Task :react-native-firebase_messaging:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3170240Z > Task :react-native-google-signin_google-signin:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3171145Z > Task :react-native-image-colors:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3171924Z > Task :react-native-gesture-handler:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3172826Z > Task :react-native-image-crop-picker:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3173959Z > Task :react-native-google-signin_google-signin:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3174741Z > Task :react-native-image-colors:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3175450Z > Task :react-native-linear-gradient:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3176157Z > Task :react-native-pager-view:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3176832Z > Task :react-native-linear-gradient:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3177551Z > Task :react-native-image-crop-picker:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3178250Z > Task :react-native-reanimated:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3178890Z > Task :react-native-pager-view:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3179598Z > Task :react-native-safe-area-context:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3180264Z > Task :react-native-reanimated:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3180883Z > Task :react-native-screens:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3181578Z > Task :react-native-splash-screen:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3182332Z > Task :react-native-safe-area-context:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3183022Z > Task :react-native-screens:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3183968Z > Task :react-native-splash-screen:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3184769Z > Task :react-native-svg:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.3185427Z > Task :react-native-vector-icons:extractDeepLinksDebug
+android-build	Build Android Debug APK	2025-08-28T20:49:47.4159031Z > Task :react-native-svg:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:47.4159735Z > Task :react-native-vector-icons:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:50.7159495Z > Task :react-native-async-storage_async-storage:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:49:51.2166252Z > Task :react-native-community_masked-view:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:49:51.2169438Z > Task :react-native-async-storage_async-storage:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:49:51.4183748Z > Task :app:processDebugMainManifest
+android-build	Build Android Debug APK	2025-08-28T20:49:51.5159773Z > Task :app:processDebugManifest
+android-build	Build Android Debug APK	2025-08-28T20:50:00.9254969Z > Task :react-native-community_netinfo:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:00.9256140Z > Task :react-native-community_masked-view:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:00.9257000Z > Task :app:processDebugManifestForPackage
+android-build	Build Android Debug APK	2025-08-28T20:50:01.0159573Z > Task :react-native-config:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:01.0160518Z > Task :react-native-async-storage_async-storage:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:01.0161304Z > Task :react-native-config:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:01.0162118Z > Task :react-native-firebase_analytics:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:01.0162978Z > Task :react-native-community_netinfo:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:01.0163969Z > Task :react-native-community_masked-view:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:01.1159991Z > Task :react-native-config:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:02.6159526Z > Task :react-native-firebase_analytics:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:02.6161862Z > Task :react-native-community_netinfo:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:02.6162683Z > Task :react-native-firebase_app:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:02.6163696Z > Task :react-native-firebase_app:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:02.6164605Z > Task :react-native-firebase_crashlytics:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:04.4206773Z > Task :react-native-firebase_crashlytics:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:04.4224820Z > Task :react-native-firebase_messaging:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:04.4226082Z > Task :react-native-geolocation-service:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:04.5159372Z > Task :react-native-firebase_app:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:04.5160895Z > Task :react-native-gesture-handler:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:04.5162215Z > Task :react-native-geolocation-service:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:04.5163705Z > Task :react-native-firebase_messaging:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:04.6159473Z > Task :react-native-firebase_analytics:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:04.8185095Z > Task :react-native-firebase_crashlytics:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:04.9159367Z > Task :react-native-firebase_messaging:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:07.8159277Z > Task :react-native-gesture-handler:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:07.8160566Z > Task :react-native-google-signin_google-signin:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:07.8162715Z > Task :react-native-google-signin_google-signin:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:07.8163773Z > Task :react-native-geolocation-service:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:07.8164533Z > Task :react-native-gesture-handler:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:12.3159466Z > Task :react-native-image-colors:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:12.3160380Z > Task :react-native-image-colors:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:12.3161226Z > Task :react-native-image-crop-picker:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:12.3162171Z > Task :react-native-google-signin_google-signin:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:12.3163027Z > Task :react-native-image-crop-picker:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:12.3163953Z > Task :react-native-image-colors:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:21.5176538Z > Task :react-native-linear-gradient:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:21.5177857Z > Task :react-native-pager-view:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:21.5179092Z > Task :react-native-linear-gradient:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:21.5180844Z > Task :react-native-pager-view:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:21.5181671Z > Task :react-native-reanimated:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:21.5182498Z > Task :react-native-image-crop-picker:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:21.6159260Z > Task :react-native-linear-gradient:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:21.6160200Z > Task :react-native-safe-area-context:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:21.6161346Z > Task :react-native-reanimated:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:21.6162095Z > Task :react-native-safe-area-context:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:21.6162791Z > Task :react-native-pager-view:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:21.6163666Z > Task :react-native-screens:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:23.7160224Z > Task :react-native-reanimated:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:23.7162056Z > Task :react-native-splash-screen:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:23.7162854Z > Task :react-native-screens:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:23.7163793Z > Task :react-native-safe-area-context:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:23.7164591Z > Task :react-native-splash-screen:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:29.6159730Z > Task :react-native-screens:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:30.7176943Z > Task :react-native-svg:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:30.7178325Z > Task :react-native-vector-icons:compileDebugLibraryResources
+android-build	Build Android Debug APK	2025-08-28T20:50:30.7180502Z > Task :react-native-svg:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:30.7181266Z > Task :react-native-vector-icons:parseDebugLocalResources
+android-build	Build Android Debug APK	2025-08-28T20:50:30.7182043Z > Task :react-native-splash-screen:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:30.7182916Z > Task :react-native-async-storage_async-storage:generateDebugBuildConfig
+android-build	Build Android Debug APK	2025-08-28T20:50:30.7183913Z > Task :react-native-svg:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:30.8159472Z > Task :react-native-async-storage_async-storage:javaPreCompileDebug
+android-build	Build Android Debug APK	2025-08-28T20:50:30.8160798Z > Task :react-native-community_masked-view:generateDebugBuildConfig
+android-build	Build Android Debug APK	2025-08-28T20:50:30.8161798Z > Task :react-native-vector-icons:generateDebugRFile
+android-build	Build Android Debug APK	2025-08-28T20:50:34.3186292Z 

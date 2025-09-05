@@ -3,18 +3,23 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-native start",
+    "android": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-native run-android",
+    "bundle:android": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-native bundle --platform android --dev false --entry-file index.js --bundle-output android\\app\\src\\main\\assets\\index.android.bundle --assets-dest android\\app\\src\\main\\res",
+    "ci:list": "powershell -File ./ci/ci-tools.ps1 list",
+    "ci:jobs": "powershell -File ./ci/ci-tools.ps1 jobs",
+    "ci:rerun": "powershell -File ./ci/ci-tools.ps1 rerun",
+    "ci:tail": "powershell -File ./ci/ci-tools.ps1 tail",
     "ios": "react-native run-ios",
-    "start": "react-native start",
     "pods": "cd ios && pod install",
     "test": "jest",
     "lint": "eslint .",
-    "postinstall": "jetifier -r"
+    "postinstall": "node scripts/patch-screens-if-needed.js"
   },
   "dependencies": {
     "@homielab/react-native-auto-scroll": "^0.0.8",
     "@invertase/react-native-apple-authentication": "^2.2.2",
-    "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-async-storage/async-storage": "^1.18.2",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^5.8.1",
     "@react-native-firebase/analytics": "^14.2.2",
@@ -56,9 +61,9 @@
     "react-native-offline": "^6.0.0",
     "react-native-pager-view": "^5.4.15",
     "react-native-places-input": "^1.1.7",
-    "react-native-reanimated": "^2.2.4",
+    "react-native-reanimated": "^2.3.1",
     "react-native-safe-area-context": "^3.4.1",
-    "react-native-screens": "^3.15.0",
+    "react-native-screens": "3.10.1",
     "react-native-slider": "^0.11.0",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-splash-screen": "^3.3.0",
@@ -67,9 +72,8 @@
     "react-native-svg-transformer": "^1.0.0",
     "react-native-swiper": "^1.6.0",
     "react-native-swiper-flatlist": "^3.0.17",
-    "react-native-track-player": "2.1.2",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-video": "^2.3.1",
+    "react-native-video": "^5.2.2",
     "react-native-video-player": "^0.12.0",
     "react-native-virtualized-view": "^0.1.5",
     "react-navigation": "^4.4.4",
@@ -90,6 +94,7 @@
     "@babel/runtime": "7.16.7",
     "@react-native-community/eslint-config": "2.0.0",
     "babel-jest": "26.6.3",
+    "cross-env": "^7.0.3",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "eslint": "7.14.0",
@@ -106,5 +111,9 @@
     "jetifier": "^2.0.0",
     "metro-react-native-babel-preset": "0.66.2",
     "react-test-renderer": "17.0.2"
-  }
+  },
+  "overrides": {
+    "react-native-screens": "3.10.1"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

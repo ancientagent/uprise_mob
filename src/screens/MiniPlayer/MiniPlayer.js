@@ -15,7 +15,7 @@ import TrackPlayer, {
 import { useDispatch, useSelector } from 'react-redux';
 import MarqueeText from 'react-native-marquee';
 import AsyncStorage
-from '@react-native-community/async-storage';
+from '@react-native-async-storage/async-storage';
 import Pause from '../../../assets/images/pause.svg';
 import Colors from '../../theme/colors';
 import SvgImage from '../../components/SvgImage/SvgImage';
