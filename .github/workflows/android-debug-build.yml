@@ -300,7 +300,7 @@ jobs:
           sdkmanager --install \
             "cmdline-tools;latest" \
             "platform-tools" \
-            "emulator;34.4.14" \
+            "emulator" \
             "platforms;android-31" \
             "build-tools;31.0.0" \
             "system-images;android-31;google_apis;x86_64"
@@ -878,7 +878,7 @@ jobs:
           sdkmanager --install \
             "cmdline-tools;latest" \
             "platform-tools" \
-            "emulator;34.4.14" \
+            "emulator" \
             "platforms;android-31" \
             "build-tools;${ANDROID_BUILD_TOOLS}" \
             "${AVD_IMAGE}"
