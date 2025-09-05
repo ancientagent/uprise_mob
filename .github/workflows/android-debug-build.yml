@@ -354,201 +354,100 @@ jobs:
           # Install 32-bit libraries (best effort, some may not be available)
           sudo apt-get install -y lib32z1 || true
 
-      - name: Start emulator (15m ceiling)
+      - name: Start emulator with robust boot detection
         shell: bash
         env:
           ANDROID_EMULATOR_USE_SYSTEM_LIBS: 1
           DISPLAY: ":99"
         run: |
           set -euo pipefail
-          mkdir -p artifacts/smoke
           
           # Start virtual display for headless graphics
           Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           
-          # Debug environment
-          echo "=== Environment Check ==="
-          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
-          echo "ANDROID_EMULATOR_USE_SYSTEM_LIBS: $ANDROID_EMULATOR_USE_SYSTEM_LIBS"
-          echo "DISPLAY: $DISPLAY"
-          
-          # Verify emulator binary exists
-          EMULATOR_BIN="$ANDROID_SDK_ROOT/emulator/emulator"
-          if [ ! -f "$EMULATOR_BIN" ]; then
-            echo "ERROR: Emulator binary not found at $EMULATOR_BIN"
-            echo "Available emulator files:"
-            ls -la "$ANDROID_SDK_ROOT/emulator/" 2>/dev/null || echo "Emulator directory not found"
-            exit 1
+          export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}"
+          export PATH="$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
+          export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
+          export AVD_NAME="ci_api_31"
+          export IMG="system-images;android-31;google_apis;x86_64"
+
+          # 0) System prep (idempotent)
+          printf 'y\ny\ny\ny\ny\ny\ny\ny\n' | sdkmanager --licenses || true
+          sdkmanager --install "platform-tools" "emulator" "platforms;android-31" "build-tools;31.0.0" "$IMG"
+
+          # 1) Ensure AVD exists (heals orphans)
+          mkdir -p "$HOME/.android/avd"
+          if ! emulator -list-avds | grep -Fx "$AVD_NAME" >/dev/null 2>&1; then
+            echo "no" | avdmanager create avd -n "$AVD_NAME" -k "$IMG" --device "pixel_5" --abi "x86_64" --force
+            # keep RAM modest for GH Ubuntu
+            echo "hw.ramSize=1024" >> "$HOME/.android/avd/${AVD_NAME}.avd/config.ini"
           fi
-          echo "Emulator binary found: $EMULATOR_BIN"
-          
-          # Debug available AVDs before starting emulator
-          echo "=== Available AVDs ==="
-          "$EMULATOR_BIN" -list-avds || true
-          echo "=== AVD Directory Contents ==="
-          ls -la ~/.android/avd/ || echo "No AVD directory found"
-          echo "=== Looking for ci_api_31 specifically ==="
-          find ~/.android -name "*ci_api_31*" 2>/dev/null || echo "No ci_api_31 files found"
-          
-          # Create AVD if it doesn't exist (fallback)
-          if ! "$EMULATOR_BIN" -list-avds | grep -q "ci_api_31"; then
-            echo "=== AVD ci_api_31 not found, creating as fallback ==="
-            
-            # Ensure AVD directory exists
-            mkdir -p ~/.android/avd
-            
-            # Find avdmanager
-            AVDMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/avdmanager"
-            if [ ! -f "$AVDMANAGER" ]; then
-              AVDMANAGER="$(which avdmanager 2>/dev/null || echo '')"
-            fi
-            
-            if [ -z "$AVDMANAGER" ] || [ ! -f "$AVDMANAGER" ]; then
-              echo "ERROR: avdmanager not found"
-              echo "Looking for avdmanager in SDK:"
-              find "$ANDROID_SDK_ROOT" -name "avdmanager" -type f 2>/dev/null || true
-              exit 1
-            fi
-            
-            echo "Using avdmanager: $AVDMANAGER"
-            
-            # Create AVD with explicit paths and settings
-            export ANDROID_AVD_HOME="$HOME/.android/avd"
-            export ANDROID_SDK_HOME="$HOME"
-            mkdir -p "$ANDROID_AVD_HOME"
-            
-            # Use echo to provide all required responses for AVD creation
-            echo "no" | "$AVDMANAGER" create avd \
-              --name "ci_api_31" \
-              --package "system-images;android-31;default;x86_64" \
-              --device "pixel_5" \
-              --force
-            
-            # Check if AVD ini file was created
-            if [ -f "$ANDROID_AVD_HOME/ci_api_31.ini" ]; then
-              echo "AVD ini file created successfully"
-              cat "$ANDROID_AVD_HOME/ci_api_31.ini" || true
-            else
-              echo "ERROR: AVD ini file not created"
-            fi
-            
-            echo "=== After fallback creation ==="
-            "$EMULATOR_BIN" -list-avds || true
-            ls -la ~/.android/avd/ || echo "AVD directory still not found"
-            
-            # If still no AVD, try manual AVD setup
-            if ! "$EMULATOR_BIN" -list-avds | grep -q "ci_api_31"; then
-              echo "ERROR: AVD creation via avdmanager failed. Creating manually..."
-              
-              # List what system images are actually available
-              echo "=== Available system images ==="
-              ls -la "$ANDROID_SDK_ROOT/system-images/" || true
-              find "$ANDROID_SDK_ROOT/system-images" -name "system.img" -type f 2>/dev/null | head -5 || true
-              
-              # Create minimal AVD configuration manually
-              AVD_DIR="$HOME/.android/avd/ci_api_31.avd"
-              mkdir -p "$AVD_DIR"
-              
-              # Create basic config.ini using echo commands
-              {
-                echo "abi.type=x86_64"
-                echo "avd.ini.encoding=UTF-8"
-                echo "hw.accelerometer=yes"
-                echo "hw.audioInput=yes"
-                echo "hw.battery=yes"
-                echo "hw.cpu.arch=x86_64"
-                echo "hw.device.hash2=MD5:7fe93e823e3470fb592e40e91fa38cf2"
-                echo "hw.device.manufacturer=Google"
-                echo "hw.device.name=pixel_5"
-                echo "hw.gps=yes"
-                echo "hw.gpu.enabled=yes"
-                echo "hw.gpu.mode=swiftshader_indirect"
-                echo "hw.keyboard=yes"
-                echo "hw.lcd.density=420"
-                echo "hw.lcd.height=2340"
-                echo "hw.lcd.width=1080"
-                echo "hw.mainKeys=no"
-                echo "hw.ramSize=1024"
-                echo "hw.sdCard=yes"
-                echo "hw.sensors.orientation=yes"
-                echo "hw.sensors.proximity=yes"
-                echo "image.sysdir.1=system-images/android-31/default/x86_64/"
-                echo "sdcard.size=512M"
-                echo "tag.display=Default"
-                echo "tag.id=default"
-              } > "$AVD_DIR/config.ini"
-              
-              # Create AVD ini file
-              echo "path=$AVD_DIR" > "$HOME/.android/avd/ci_api_31.ini"
-              echo "path.rel=avd/ci_api_31.avd" >> "$HOME/.android/avd/ci_api_31.ini"
-              echo "target=android-31" >> "$HOME/.android/avd/ci_api_31.ini"
-              
-              echo "Manual AVD creation completed"
-              "$EMULATOR_BIN" -list-avds || true
-            fi
-          fi
-          
-          EMU_CMD="$ANDROID_SDK_ROOT/emulator/emulator -avd ci_api_31 -ports 5554,5555 \
-            -no-snapshot -no-snapshot-save -no-snapshot-load -wipe-data \
-            -no-window -no-audio -no-boot-anim \
-            -gpu swiftshader_indirect -camera-back none -no-metrics \
-            -accel off -cores 1 -memory 1024 -use-system-libs \
-            -qemu -m 1024"
-          
-          echo "$EMU_CMD" > artifacts/smoke/emulator_cmd.txt
-          $EMU_CMD > artifacts/smoke/emulator_boot.log 2>&1 & EMU_PID=$!
-          echo "EMU_PID=$EMU_PID" >> "$GITHUB_ENV"
-          
-          # Monitor emulator process for immediate failures
-          echo "Emulator PID: $EMU_PID"
-          sleep 3
-          if ! kill -0 $EMU_PID 2>/dev/null; then
-            echo "ERROR: Emulator process died immediately"
-            wait $EMU_PID || EMU_EXIT_CODE=$?
-            echo "Emulator exit code: ${EMU_EXIT_CODE:-unknown}"
-            echo "Last 50 lines of emulator log:"
-            tail -n 50 artifacts/smoke/emulator_boot.log || true
-            echo "Library dependencies check:"
-            ldd "$ANDROID_SDK_ROOT/emulator/emulator" | head -20 || true
-            exit ${EMU_EXIT_CODE:-1}
-          fi
-          echo "Emulator process started successfully"
-          
-          boot_deadline=$((SECONDS+1200)) # 20 minutes
+          emulator -list-avds
+          ls -lah "$HOME/.android/avd" || true
+          ls -lah "$HOME/.android/avd/${AVD_NAME}.avd" || true
+
+          # 2) ADB hygiene (avoid "connection refused"/stale server)
           adb kill-server || true
+          sleep 1
           adb start-server
-          
-          booted=0
-          boot_check_count=0
-          while [ $SECONDS -lt $boot_deadline ]; do
-            boot_check_count=$((boot_check_count + 1))
-            state=$(adb -s "$ANDROID_SERIAL" get-state 2>/dev/null || true)
-            bc=$(adb -s "$ANDROID_SERIAL" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
-            
-            # Progress logging every minute (12 checks)
-            if [ $((boot_check_count % 12)) -eq 0 ]; then
-              elapsed=$((SECONDS))
-              echo "Boot check ${boot_check_count}: state='$state', boot_completed='$bc' (${elapsed}s elapsed)"
-            fi
-            
-            if [ "$state" = "device" ] && [ "$bc" = "1" ]; then
-              booted=1
-              echo "✅ Emulator booted successfully after ${SECONDS}s"
-              adb -s "$ANDROID_SERIAL" shell settings put global animator_duration_scale 0.0 || true
-              adb -s "$ANDROID_SERIAL" shell settings put global transition_animation_scale 0.0 || true
-              adb -s "$ANDROID_SERIAL" shell settings put global window_animation_scale 0.0 || true
-              adb -s "$ANDROID_SERIAL" shell svc power stayon true || true
-              break
+          adb version
+
+          # 3) Launch emulator (lightweight flags)
+          EMU_LOG="artifacts/smoke/emulator_boot.log"
+          mkdir -p artifacts/smoke artifacts/monitoring
+          emulator @"$AVD_NAME" \
+            -no-window -no-audio -no-boot-anim \
+            -gpu swiftshader_indirect -camera-back none \
+            -ports 5554,5555 \
+            -no-snapshot -wipe-data \
+            -accel off -cores 1 -memory 1024 -use-system-libs \
+            -qemu -m 1024 \
+            -timezone America/Chicago \
+            -idle-grpc-timeout 300 \
+            -verbose >"$EMU_LOG" 2>&1 & EMU_PID=$!
+
+          echo "$EMU_PID" > artifacts/smoke/emulator_pid.txt
+          echo "EMU_PID=$EMU_PID" >> "$GITHUB_ENV"
+
+          # 4) Wait for ADB device + real boot with timeouts
+          BOOT_DEADLINE=$((SECONDS+900))   # 15 minutes
+          echo "Waiting for ADB device..."
+          timeout 120s adb wait-for-device || { echo "ADB device never appeared"; exit 1; }
+
+          echo "Polling sys.boot_completed..."
+          until adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r' | grep -q '^1'; do
+            if (( SECONDS > BOOT_DEADLINE )); then
+              echo "Boot timeout hit"; break
             fi
             sleep 5
           done
-          
-          if [ "$booted" != "1" ]; then
-            echo "BOOT TIMEOUT after 20m. Last 200 lines of logcat:"
-            adb -s "$ANDROID_SERIAL" logcat -d | tail -n 200 || true
-            exit 1
+
+          # 5) Verify boot success (SurfaceFlinger as secondary signal)
+          if adb shell pgrep surfaceflinger >/dev/null 2>&1 && \
+             adb shell getprop sys.boot_completed | tr -d '\r' | grep -q '^1'; then
+            echo "✅ Emulator booted successfully after $((SECONDS))s"
+            BOOT_OK=true
+            # Optimize for testing
+            adb shell settings put global animator_duration_scale 0.0 || true
+            adb shell settings put global transition_animation_scale 0.0 || true
+            adb shell settings put global window_animation_scale 0.0 || true
+            adb shell svc power stayon true || true
+          else
+            echo "❌ Emulator failed to fully boot"
+            BOOT_OK=false
           fi
-          echo "booted=$booted" >> "$GITHUB_ENV"
+
+          # 6) Always collect diagnostics, never hang
+          timeout 20s adb shell getprop > artifacts/monitoring/adb_getprop.txt || true
+          timeout 20s adb logcat -d -t 2000 > artifacts/monitoring/logcat_tail.txt || true
+          timeout 30s adb shell dumpsys package > artifacts/monitoring/dumpsys_package.txt || true
+          timeout 30s adb shell dumpsys activity > artifacts/monitoring/dumpsys_activity.txt || true
+
+          # 7) Set environment variable for next steps
+          echo "booted=$BOOT_OK" >> "$GITHUB_ENV"
+          
+          # 8) Exit code reflects boot status (so job can mark unstable cleanly)
+          $BOOT_OK || exit 2
 
       - name: Extract APK Metadata
         shell: bash
