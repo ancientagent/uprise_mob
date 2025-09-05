@@ -341,9 +341,9 @@ jobs:
           EMU_CMD="emulator -avd ci_api_31 -ports 5554,5555 \
             -no-snapshot -no-snapshot-save -no-snapshot-load -wipe-data \
             -no-window -no-audio -no-boot-anim \
-            -gpu swiftshader_indirect -camera-back none -netfast -no-metrics \
-            -accel off -cores 2 -memory 3072 -partition-size 6144 \
-            -qemu -m 2048"
+            -gpu off -camera-back none -no-metrics \
+            -accel off -cores 2 -memory 2048 \
+            -qemu -m 1536"
           
           echo "$EMU_CMD" > artifacts/smoke/emulator_cmd.txt
           $EMU_CMD > artifacts/smoke/emulator_boot.log 2>&1 & EMU_PID=$!
