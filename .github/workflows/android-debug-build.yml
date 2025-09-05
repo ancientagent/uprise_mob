@@ -335,7 +335,13 @@ jobs:
       - name: Setup Ubuntu graphics libraries
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y libgl1-mesa-dev libglu1-mesa-dev mesa-utils xvfb libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1
+          # Enable i386 architecture for 32-bit libraries
+          sudo dpkg --add-architecture i386
+          sudo apt-get update -qq
+          # Install graphics and emulator dependencies
+          sudo apt-get install -y libgl1-mesa-dev libglu1-mesa-dev mesa-utils xvfb
+          # Install 32-bit libraries (best effort, some may not be available)
+          sudo apt-get install -y lib32z1 || true
 
       - name: Start emulator (15m ceiling)
         shell: bash
