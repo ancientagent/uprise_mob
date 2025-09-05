@@ -382,6 +382,22 @@ jobs:
           fi
           echo "Emulator binary found: $EMULATOR_BIN"
           
+          # Debug available AVDs before starting emulator
+          echo "=== Available AVDs ==="
+          "$EMULATOR_BIN" -list-avds || true
+          echo "=== AVD Directory Contents ==="
+          ls -la ~/.android/avd/ || echo "No AVD directory found"
+          echo "=== Looking for ci_api_31 specifically ==="
+          find ~/.android -name "*ci_api_31*" 2>/dev/null || echo "No ci_api_31 files found"
+          
+          # Create AVD if it doesn't exist (fallback)
+          if ! "$EMULATOR_BIN" -list-avds | grep -q "ci_api_31"; then
+            echo "=== AVD ci_api_31 not found, creating as fallback ==="
+            echo "no" | avdmanager create avd -n "ci_api_31" -k "system-images;android-31;default;x86_64" --force --device "pixel_5" || true
+            echo "=== After fallback creation ==="
+            "$EMULATOR_BIN" -list-avds || true
+          fi
+          
           EMU_CMD="$ANDROID_SDK_ROOT/emulator/emulator -avd ci_api_31 -ports 5554,5555 \
             -no-snapshot -no-snapshot-save -no-snapshot-load -wipe-data \
             -no-window -no-audio -no-boot-anim \
