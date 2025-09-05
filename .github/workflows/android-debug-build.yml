@@ -361,7 +361,17 @@ jobs:
           echo "ANDROID_EMULATOR_USE_SYSTEM_LIBS: $ANDROID_EMULATOR_USE_SYSTEM_LIBS"
           echo "DISPLAY: $DISPLAY"
           
-          EMU_CMD="emulator -avd ci_api_31 -ports 5554,5555 \
+          # Verify emulator binary exists
+          EMULATOR_BIN="$ANDROID_SDK_ROOT/emulator/emulator"
+          if [ ! -f "$EMULATOR_BIN" ]; then
+            echo "ERROR: Emulator binary not found at $EMULATOR_BIN"
+            echo "Available emulator files:"
+            ls -la "$ANDROID_SDK_ROOT/emulator/" 2>/dev/null || echo "Emulator directory not found"
+            exit 1
+          fi
+          echo "Emulator binary found: $EMULATOR_BIN"
+          
+          EMU_CMD="$ANDROID_SDK_ROOT/emulator/emulator -avd ci_api_31 -ports 5554,5555 \
             -no-snapshot -no-snapshot-save -no-snapshot-load -wipe-data \
             -no-window -no-audio -no-boot-anim \
             -gpu swiftshader_indirect -camera-back none -no-metrics \
