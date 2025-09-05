@@ -468,7 +468,7 @@ jobs:
                 echo "hw.lcd.height=2340"
                 echo "hw.lcd.width=1080"
                 echo "hw.mainKeys=no"
-                echo "hw.ramSize=2048"
+                echo "hw.ramSize=1024"
                 echo "hw.sdCard=yes"
                 echo "hw.sensors.orientation=yes"
                 echo "hw.sensors.proximity=yes"
@@ -492,8 +492,8 @@ jobs:
             -no-snapshot -no-snapshot-save -no-snapshot-load -wipe-data \
             -no-window -no-audio -no-boot-anim \
             -gpu swiftshader_indirect -camera-back none -no-metrics \
-            -accel off -cores 2 -memory 2048 -use-system-libs \
-            -qemu -m 2048"
+            -accel off -cores 1 -memory 1024 -use-system-libs \
+            -qemu -m 1024"
           
           echo "$EMU_CMD" > artifacts/smoke/emulator_cmd.txt
           $EMU_CMD > artifacts/smoke/emulator_boot.log 2>&1 & EMU_PID=$!
