@@ -332,22 +332,54 @@ jobs:
           export JAVA_HOME="${{ steps.j17.outputs.path }}"
           echo "no" | avdmanager create avd -n "ci_api_31" -k "system-images;android-31;default;x86_64" --force --device "pixel_5"
 
+      - name: Setup Ubuntu graphics libraries
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libgl1-mesa-dev libglu1-mesa-dev mesa-utils xvfb libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1
+
       - name: Start emulator (15m ceiling)
         shell: bash
+        env:
+          ANDROID_EMULATOR_USE_SYSTEM_LIBS: 1
+          DISPLAY: ":99"
         run: |
           set -euo pipefail
           mkdir -p artifacts/smoke
           
+          # Start virtual display for headless graphics
+          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          
+          # Debug environment
+          echo "=== Environment Check ==="
+          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+          echo "ANDROID_EMULATOR_USE_SYSTEM_LIBS: $ANDROID_EMULATOR_USE_SYSTEM_LIBS"
+          echo "DISPLAY: $DISPLAY"
+          
           EMU_CMD="emulator -avd ci_api_31 -ports 5554,5555 \
             -no-snapshot -no-snapshot-save -no-snapshot-load -wipe-data \
             -no-window -no-audio -no-boot-anim \
-            -gpu off -camera-back none -no-metrics \
-            -accel off -cores 2 -memory 2048 \
-            -qemu -m 1536"
+            -gpu swiftshader_indirect -camera-back none -no-metrics \
+            -accel off -cores 2 -memory 2048 -use-system-libs \
+            -qemu -m 2048"
           
           echo "$EMU_CMD" > artifacts/smoke/emulator_cmd.txt
           $EMU_CMD > artifacts/smoke/emulator_boot.log 2>&1 & EMU_PID=$!
           echo "EMU_PID=$EMU_PID" >> "$GITHUB_ENV"
+          
+          # Monitor emulator process for immediate failures
+          echo "Emulator PID: $EMU_PID"
+          sleep 3
+          if ! kill -0 $EMU_PID 2>/dev/null; then
+            echo "ERROR: Emulator process died immediately"
+            wait $EMU_PID || EMU_EXIT_CODE=$?
+            echo "Emulator exit code: ${EMU_EXIT_CODE:-unknown}"
+            echo "Last 50 lines of emulator log:"
+            tail -n 50 artifacts/smoke/emulator_boot.log || true
+            echo "Library dependencies check:"
+            ldd "$ANDROID_SDK_ROOT/emulator/emulator" | head -20 || true
+            exit ${EMU_EXIT_CODE:-1}
+          fi
+          echo "Emulator process started successfully"
           
           boot_deadline=$((SECONDS+1200)) # 20 minutes
           adb kill-server || true
