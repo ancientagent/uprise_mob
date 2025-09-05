@@ -378,7 +378,7 @@ jobs:
           echo "=== Available System Images ==="
           avdmanager list target || true
           echo "=== Creating AVD ==="
-          echo "no" | avdmanager create avd -n "ci_api_31" -k "system-images;android-31;default;x86_64" --force --device "pixel_5"
+          echo "no" | avdmanager create avd -n "ci_api_31" -k "system-images;android-31;google_apis;x86_64" --force --device "pixel_5"
           
           # Verify AVD was created
           echo "=== Verifying AVD Creation ==="
@@ -824,7 +824,7 @@ jobs:
       ANDROID_HOME: ${{ github.workspace }}/android-sdk
       ANDROID_SERIAL: emulator-5554
       AVD_NAME: ci_api_31
-      AVD_IMAGE: "system-images;android-31;default;x86_64"
+      AVD_IMAGE: "system-images;android-31;google_apis;x86_64"
       ANDROID_BUILD_TOOLS: "31.0.0"
     steps:
       - uses: actions/checkout@v4
