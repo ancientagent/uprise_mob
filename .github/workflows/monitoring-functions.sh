@@ -278,6 +278,9 @@ monitor_resources() {
 generate_monitoring_summary() {
     echo -e "${BLUE}=== Generating Monitoring Summary ===${NC}"
     
+    # Ensure monitoring directory exists
+    mkdir -p artifacts/monitoring
+    
     {
         echo "=== CI Monitoring Summary ==="
         echo "Generated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
