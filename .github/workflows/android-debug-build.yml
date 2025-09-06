@@ -525,6 +525,18 @@ jobs:
           # 3) Launch emulator (lightweight flags)
           EMU_LOG="artifacts/smoke/emulator_boot.log"
           mkdir -p artifacts/smoke artifacts/monitoring
+          
+          echo "=== Pre-emulator Diagnostics ==="
+          echo "AVD Name: $AVD_NAME"
+          echo "Available AVDs:"
+          emulator -list-avds
+          echo "Emulator version:"
+          emulator -version || echo "Failed to get emulator version"
+          echo "Available system images for AVD:"
+          ls -la "$ANDROID_SDK_ROOT/system-images/android-31/google_apis/x86_64/" || echo "System image directory not found"
+          
+          echo "=== Launching Emulator ==="
+          echo "Command: emulator @$AVD_NAME with flags..."
           emulator @"$AVD_NAME" \
             -no-window -no-audio -no-boot-anim \
             -gpu swiftshader_indirect -camera-back none \
@@ -536,8 +548,21 @@ jobs:
             -idle-grpc-timeout 300 \
             -verbose >"$EMU_LOG" 2>&1 & EMU_PID=$!
 
+          echo "Emulator PID: $EMU_PID"
           echo "$EMU_PID" > artifacts/smoke/emulator_pid.txt
           echo "EMU_PID=$EMU_PID" >> "$GITHUB_ENV"
+          
+          # Give emulator a moment to start, then check if it's still running
+          sleep 3
+          if ps -p "$EMU_PID" > /dev/null 2>&1; then
+            echo "Emulator process $EMU_PID is running"
+          else
+            echo "ERROR: Emulator process $EMU_PID died immediately!"
+            echo "=== Emulator Log (first 50 lines) ==="
+            head -50 "$EMU_LOG" || echo "No emulator log available"
+            echo "=== Emulator Log (last 50 lines) ==="
+            tail -50 "$EMU_LOG" || echo "No emulator log available"
+          fi
 
           # 4) Wait for ADB device + real boot with timeouts
           BOOT_DEADLINE=$((SECONDS+900))   # 15 minutes
