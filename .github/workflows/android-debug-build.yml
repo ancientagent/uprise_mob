@@ -545,7 +545,6 @@ jobs:
             -accel off -cores 1 -memory 1024 -use-system-libs \
             -qemu -m 1024 \
             -timezone America/Chicago \
-            -idle-grpc-timeout 300 \
             -verbose >"$EMU_LOG" 2>&1 & EMU_PID=$!
 
           echo "Emulator PID: $EMU_PID"
