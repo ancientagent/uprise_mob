@@ -397,7 +397,7 @@ jobs:
           # Install audio libraries required by emulator
           sudo apt-get install -y libpulse0 pulseaudio
           # Install additional emulator dependencies
-          sudo apt-get install -y libasound2 libxcomposite1 libxcursor1 libxi6 libxtst6
+          sudo apt-get install -y libasound2t64 libxcomposite1 libxcursor1 libxi6 libxtst6
           # Install 32-bit libraries (best effort, some may not be available)
           sudo apt-get install -y lib32z1 || true
 
