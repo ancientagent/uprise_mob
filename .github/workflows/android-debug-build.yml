@@ -437,28 +437,75 @@ jobs:
 
           # 1) Ensure AVD exists (heals orphans)
           mkdir -p "$HOME/.android/avd"
+          
+          # Debug: Check available system images first
+          echo "=== Available System Images ==="
+          sdkmanager --list | grep "system-images;android-31" || true
+          
           if ! emulator -list-avds | grep -Fx "$AVD_NAME" >/dev/null 2>&1; then
-            echo "Creating AVD: $AVD_NAME"
-            echo "no" | avdmanager create avd -n "$AVD_NAME" -k "$IMG" --device "pixel_5" --abi "x86_64" --force
+            echo "Creating AVD: $AVD_NAME using image: $IMG"
+            
+            # Try AVD creation with better error handling
+            if echo "no" | avdmanager create avd -n "$AVD_NAME" -k "$IMG" --device "pixel_5" --force; then
+              echo "AVD creation command succeeded"
+            else
+              echo "ERROR: avdmanager create avd command failed with exit code $?"
+              echo "Trying simpler approach without --device parameter..."
+              echo "no" | avdmanager create avd -n "$AVD_NAME" -k "$IMG" --force || echo "Fallback AVD creation also failed"
+            fi
             
             # Verify AVD was created successfully
             if [ -f "$HOME/.android/avd/${AVD_NAME}.avd/config.ini" ]; then
               echo "AVD created successfully, configuring RAM..."
               echo "hw.ramSize=1024" >> "$HOME/.android/avd/${AVD_NAME}.avd/config.ini"
             else
-              echo "WARNING: AVD creation may have failed, config.ini not found"
+              echo "WARNING: AVD creation failed, config.ini not found"
+              echo "Directory listing:"
               ls -lah "$HOME/.android/avd/" || true
-              # Create minimal config if AVD directory exists but config.ini missing
-              if [ -d "$HOME/.android/avd/${AVD_NAME}.avd" ]; then
-                echo "Creating minimal config.ini..."
-                {
-                  echo "hw.ramSize=1024"
-                  echo "hw.lcd.density=420"
-                  echo "hw.lcd.height=2340"
-                  echo "hw.lcd.width=1080"
-                  echo "image.sysdir.1=system-images/android-31/google_apis/x86_64/"
-                } > "$HOME/.android/avd/${AVD_NAME}.avd/config.ini"
-              fi
+              echo "Attempting manual AVD directory creation..."
+              
+              # Create AVD directory structure manually
+              mkdir -p "$HOME/.android/avd/${AVD_NAME}.avd"
+              {
+                echo "hw.ramSize=1024"
+                echo "hw.lcd.density=420" 
+                echo "hw.lcd.height=2340"
+                echo "hw.lcd.width=1080"
+                echo "image.sysdir.1=system-images/android-31/google_apis/x86_64/"
+                echo "tag.display=Google APIs"
+                echo "tag.id=google_apis"
+                echo "abi.type=x86_64"
+                echo "avd.ini.encoding=UTF-8"
+                echo "disk.dataPartition.size=6442450944"
+                echo "fastboot.forceColdBoot=no"
+                echo "hw.accelerometer=yes"
+                echo "hw.audioInput=yes"
+                echo "hw.battery=yes"
+                echo "hw.camera.back=virtualscene"
+                echo "hw.camera.front=emulated"
+                echo "hw.cpu.arch=x86_64"
+                echo "hw.dPad=no"
+                echo "hw.device.manufacturer=Google"
+                echo "hw.device.name=pixel_5"
+                echo "hw.gps=yes"
+                echo "hw.gpu.enabled=yes"
+                echo "hw.gpu.mode=swiftshader_indirect"
+                echo "hw.keyboard=yes"
+                echo "hw.sensors.orientation=yes"
+                echo "hw.sensors.proximity=yes"
+                echo "hw.trackBall=no"
+                echo "runtime.network.latency=none"
+                echo "runtime.network.speed=full"
+              } > "$HOME/.android/avd/${AVD_NAME}.avd/config.ini"
+              
+              # Create AVD ini file
+              {
+                echo "avd.ini.encoding=UTF-8"
+                echo "path=$HOME/.android/avd/${AVD_NAME}.avd"
+                echo "target=android-31"
+              } > "$HOME/.android/avd/${AVD_NAME}.ini"
+              
+              echo "Manual AVD creation completed"
             fi
           else
             echo "AVD $AVD_NAME already exists"
