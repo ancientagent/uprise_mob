@@ -9,7 +9,13 @@
       "Bash(gh issue view:*)",
       "Read(/D:\\/**)",
       "WebSearch",
-      "Bash(gh run view:*)"
+      "Bash(gh run view:*)",
+      "Bash(git fetch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git rebase:*)",
+      "Bash(git stash:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh workflow run:*)"
     ],
     "deny": [],
     "ask": []
