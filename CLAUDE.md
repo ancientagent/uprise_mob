@@ -68,13 +68,60 @@ uprise_docs/       # Project documentation
 - **Metro**: Requires legacy OpenSSL support
 
 ## Next Steps
-1. Complete CCPM framework setup
-2. Create pilot epic for Android CI reliability
-3. Re-enable track-player with proper fallbacks
-4. Validate all changes in CI environment
+1. ✅ Complete CCPM framework setup
+2. ✅ Android CI reliability fixes completed (stale cmdline-tools resolved)
+3. Create webapp integration epic using CCPM workflow
+4. Re-enable track-player with proper fallbacks
+5. Begin React Native app development phase
 
 ## Jules Rules Integration
 - Always verify current state before making changes
 - Use command-line tools for definitive verification
 - Follow top-down debugging approach for system issues
 - Document all changes in appropriate files
+
+## CCPM SUB-AGENT USAGE
+
+### USE SUB-AGENTS FOR CONTEXT OPTIMIZATION
+
+#### 1. Always use the file-analyzer sub-agent when asked to read files.
+The file-analyzer agent is an expert in extracting and summarizing critical information from files, particularly log files and verbose outputs. It provides concise, actionable summaries that preserve essential information while dramatically reducing context usage.
+
+#### 2. Always use the code-analyzer sub-agent when asked to search code, analyze code, research bugs, or trace logic flow.
+The code-analyzer agent is an expert in code analysis, logic tracing, and vulnerability detection. It provides concise, actionable summaries that preserve essential information while dramatically reducing context usage.
+
+#### 3. Always use the test-runner sub-agent to run tests and analyze the test results.
+Using the test-runner agent ensures:
+- Full test output is captured for debugging
+- Main conversation stays clean and focused
+- Context usage is optimized
+- All issues are properly surfaced
+- No approval dialogs interrupt the workflow
+
+## ABSOLUTE DEVELOPMENT RULES
+
+- **NO PARTIAL IMPLEMENTATION** - Complete all features fully
+- **NO SIMPLIFICATION** - No "simplified for now" comments
+- **NO CODE DUPLICATION** - Check existing codebase first, reuse functions
+- **NO DEAD CODE** - Either use or delete completely
+- **IMPLEMENT TEST FOR EVERY FUNCTION** - No exceptions
+- **NO CHEATER TESTS** - Tests must be accurate, reflect real usage, reveal flaws
+- **NO INCONSISTENT NAMING** - Follow existing codebase patterns
+- **NO OVER-ENGINEERING** - Simple functions over complex abstractions
+- **NO MIXED CONCERNS** - Proper separation of validation, API, database, UI
+- **NO RESOURCE LEAKS** - Close connections, clear timeouts, remove listeners
+
+## Philosophy
+
+### Error Handling
+- **Fail fast** for critical configuration (missing text model)
+- **Log and continue** for optional features (extraction model)  
+- **Graceful degradation** when external services unavailable
+- **User-friendly messages** through resilience layer
+
+### Testing
+- Always use the test-runner agent to execute tests
+- Do not use mock services for anything ever
+- Do not move on to the next test until the current test is complete
+- If test fails, check test structure before refactoring codebase
+- Tests to be verbose for debugging purposes

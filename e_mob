@@ -1,0 +1,5 @@
+[33mb1f7f80[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix: remove invalid -verbose flag from emulator Ubuntu launch
+[33m16cdaec[m fix: update libasound2 to libasound2t64 for Ubuntu 24.04 compatibility
+[33mfd2e679[m Merge branch 'fix/ci-stability-and-config'
+[33ma08f624[m docs: reorganize documentation and add webapp analysis
+[33ma7c6f2e[m docs: add comprehensive project documentation

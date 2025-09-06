@@ -80,3 +80,6 @@ tools/
 
 # Google OAuth credentials
 src/config/google_calender.json
+
+# CCPM Framework - Local workspace (epics directory)
+.claude/epics/

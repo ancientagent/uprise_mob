@@ -1,3 +1,21 @@
+## 2025-09-06 - CI Stability Fix: Stale cmdline-tools and Ubuntu Compatibility - 05:30 UTC
+**Fix**: Replaced all stale cmdline-tools references and fixed Ubuntu 24.04 compatibility issues
+
+### Critical CI Infrastructure Repairs
+- **Problem**: CI failing with stale `cmdline-tools;8092744` references causing SDK setup failures
+  - Hardcoded version no longer available in SDK repositories
+  - Ubuntu 24.04 package name changes broke dependency installation
+  - Invalid emulator flags caused immediate crashes
+- **Solution**: Comprehensive CI workflow modernization
+  - Replaced ALL `cmdline-tools;8092744` references with `cmdline-tools;latest`
+  - Added unified Android SDK setup across all jobs (build, smoke-ubuntu, smoke-macos)
+  - Fixed `libasound2` → `libasound2t64` for Ubuntu 24.04 compatibility
+  - Removed invalid `-verbose` flag from emulator launch (causes QEMU crash)
+  - Added runtime assertions to verify correct workflow execution
+- **Impact**: Build pipeline now works reliably with ~51MB APKs generated successfully
+  - Smoke tests reveal remaining emulator boot timing issues (separate concern)
+  - Core CI/CD infrastructure is now stable and reproducible
+
 ## 2025-09-05 - Critical Resource Allocation Fix - 20:45 UTC
 **Emergency Fix**: Aligned macOS emulator resource allocation with Ubuntu conservative settings
 
