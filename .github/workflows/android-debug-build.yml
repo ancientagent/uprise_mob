@@ -549,7 +549,7 @@ jobs:
             -accel off -cores 1 -memory 1024 -use-system-libs \
             -qemu -m 1024 \
             -timezone America/Chicago \
-            -verbose >"$EMU_LOG" 2>&1 & EMU_PID=$!
+            >"$EMU_LOG" 2>&1 & EMU_PID=$!
 
           echo "Emulator PID: $EMU_PID"
           echo "$EMU_PID" > artifacts/smoke/emulator_pid.txt
