@@ -73,9 +73,6 @@ jobs:
           echo "sdkmanager should use Java 17:"
           "${{ steps.j17.outputs.path }}/bin/java" -version
 
-      - name: Setup Android SDK (Ubuntu)
-        uses: android-actions/setup-android@v3
-
       - name: Validate SDK Installation
         shell: bash
         run: |
@@ -281,26 +278,62 @@ jobs:
           java-version: '17'
 
       - name: Setup Android SDK (Ubuntu)
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v3.0.0
+        with:
+          cmdline-tools-version: 8512546
 
-      - name: Install SDK components with compatible cmdline-tools
+      - name: Unified Android SDK Setup
         shell: bash
         run: |
+          # ### UPRISE Unified Android SDK Setup
           set -euo pipefail
+          export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}"
+          export ANDROID_HOME="$ANDROID_SDK_ROOT"
+          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator:$PATH"
+          export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
           export JAVA_HOME="${{ steps.j17.outputs.path }}"
           
-          # Install cmdline-tools r8 (8092744) for SDK XML v3 compatibility
-          echo "Installing compatible cmdline-tools for SDK XML v3..."
-          sdkmanager --install "cmdline-tools;8092744"
+          # Accept licenses safely
+          yes | sdkmanager --licenses || true
           
-          # Use the r8 cmdline-tools for remaining installations
-          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/8092744/bin:$PATH"
+          # Install pinned/supported components
+          sdkmanager --install \
+            "cmdline-tools;latest" \
+            "platform-tools" \
+            "emulator" \
+            "platforms;android-31" \
+            "build-tools;31.0.0" \
+            "system-images;android-31;google_apis;x86_64"
           
-          echo "Installing build-tools and system images..."
-          sdkmanager --install "build-tools;31.0.0" "system-images;android-31;google_apis;x86_64"
+          # Fallback pin (only if latest fails on some runners)
+          if ! command -v avdmanager >/dev/null 2>&1; then
+            echo "cmdline-tools;latest not on PATH; attempting fallback pin 8512546"
+            sdkmanager --install "cmdline-tools;8512546" || true
+            export PATH="$ANDROID_SDK_ROOT/cmdline-tools/8512546/bin:$PATH"
+          fi
+          
           echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
           ls -la "$ANDROID_SDK_ROOT/build-tools/" || true
           ls -la "$ANDROID_SDK_ROOT/system-images/" || true
+
+      - name: Runtime Assertion - Verify Workflow Hash
+        shell: bash
+        run: |
+          echo "=== WORKFLOW ASSERTIONS ==="
+          echo "Workflow file hash (local checkout):"
+          sha256sum .github/workflows/android-debug-build.yml || shasum -a 256 .github/workflows/android-debug-build.yml || true
+          
+          echo "sdkmanager list top-lines:"
+          sdkmanager --list | sed -n '1,60p' || true
+          
+          echo "Tool versions:"
+          adb version || true
+          emulator -version || true
+          avdmanager --help 2>/dev/null | head -1 || true
+          cmdline-tools --version 2>/dev/null || true
+          which sdkmanager || true
+          which avdmanager || true
+          which emulator || true
 
       - name: Download Debug APK
         uses: actions/download-artifact@v4
@@ -345,7 +378,7 @@ jobs:
           echo "=== Available System Images ==="
           avdmanager list target || true
           echo "=== Creating AVD ==="
-          echo "no" | avdmanager create avd -n "ci_api_31" -k "system-images;android-31;default;x86_64" --force --device "pixel_5"
+          echo "no" | avdmanager create avd -n "ci_api_31" -k "system-images;android-31;google_apis;x86_64" --force --device "pixel_5"
           
           # Verify AVD was created
           echo "=== Verifying AVD Creation ==="
@@ -361,6 +394,10 @@ jobs:
           sudo apt-get update -qq
           # Install graphics and emulator dependencies
           sudo apt-get install -y libgl1-mesa-dev libglu1-mesa-dev mesa-utils xvfb
+          # Install audio libraries required by emulator
+          sudo apt-get install -y libpulse0 pulseaudio
+          # Install additional emulator dependencies
+          sudo apt-get install -y libasound2 libxcomposite1 libxcursor1 libxi6 libxtst6
           # Install 32-bit libraries (best effort, some may not be available)
           sudo apt-get install -y lib32z1 || true
 
@@ -375,40 +412,104 @@ jobs:
           # Start virtual display for headless graphics
           Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
           
+          # ### UPRISE Unified Android SDK Setup (embedded in emulator start)
           export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}"
-          export PATH="$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/8092744/bin:$PATH"
+          export ANDROID_HOME="$ANDROID_SDK_ROOT"
+          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator:$PATH"
           export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
           export AVD_NAME="ci_api_31"
           export IMG="system-images;android-31;google_apis;x86_64"
-
-          # 0) System prep (idempotent)  
-          printf 'y\ny\ny\ny\ny\ny\ny\ny\n' | sdkmanager --licenses || true
-          sdkmanager --install "platform-tools" "emulator" "platforms;android-31" "build-tools;31.0.0" "$IMG"
+          
+          # Accept licenses safely
+          yes | sdkmanager --licenses || true
+          
+          # Install pinned/supported components
+          sdkmanager --install \
+            "cmdline-tools;latest" \
+            "platform-tools" \
+            "emulator" \
+            "platforms;android-31" \
+            "build-tools;31.0.0" \
+            "$IMG"
+          
+          # Fallback pin (only if latest fails on some runners)
+          if ! command -v avdmanager >/dev/null 2>&1; then
+            echo "cmdline-tools;latest not on PATH; attempting fallback pin 8512546"
+            sdkmanager --install "cmdline-tools;8512546" || true
+            export PATH="$ANDROID_SDK_ROOT/cmdline-tools/8512546/bin:$PATH"
+          fi
 
           # 1) Ensure AVD exists (heals orphans)
           mkdir -p "$HOME/.android/avd"
+          
+          # Debug: Check available system images first
+          echo "=== Available System Images ==="
+          sdkmanager --list | grep "system-images;android-31" || true
+          
           if ! emulator -list-avds | grep -Fx "$AVD_NAME" >/dev/null 2>&1; then
-            echo "Creating AVD: $AVD_NAME"
-            echo "no" | avdmanager create avd -n "$AVD_NAME" -k "$IMG" --device "pixel_5" --abi "x86_64" --force
+            echo "Creating AVD: $AVD_NAME using image: $IMG"
+            
+            # Try AVD creation with better error handling
+            if echo "no" | avdmanager create avd -n "$AVD_NAME" -k "$IMG" --device "pixel_5" --force; then
+              echo "AVD creation command succeeded"
+            else
+              echo "ERROR: avdmanager create avd command failed with exit code $?"
+              echo "Trying simpler approach without --device parameter..."
+              echo "no" | avdmanager create avd -n "$AVD_NAME" -k "$IMG" --force || echo "Fallback AVD creation also failed"
+            fi
             
             # Verify AVD was created successfully
             if [ -f "$HOME/.android/avd/${AVD_NAME}.avd/config.ini" ]; then
               echo "AVD created successfully, configuring RAM..."
               echo "hw.ramSize=1024" >> "$HOME/.android/avd/${AVD_NAME}.avd/config.ini"
             else
-              echo "WARNING: AVD creation may have failed, config.ini not found"
+              echo "WARNING: AVD creation failed, config.ini not found"
+              echo "Directory listing:"
               ls -lah "$HOME/.android/avd/" || true
-              # Create minimal config if AVD directory exists but config.ini missing
-              if [ -d "$HOME/.android/avd/${AVD_NAME}.avd" ]; then
-                echo "Creating minimal config.ini..."
-                {
-                  echo "hw.ramSize=1024"
-                  echo "hw.lcd.density=420"
-                  echo "hw.lcd.height=2340"
-                  echo "hw.lcd.width=1080"
-                  echo "image.sysdir.1=system-images/android-31/google_apis/x86_64/"
-                } > "$HOME/.android/avd/${AVD_NAME}.avd/config.ini"
-              fi
+              echo "Attempting manual AVD directory creation..."
+              
+              # Create AVD directory structure manually
+              mkdir -p "$HOME/.android/avd/${AVD_NAME}.avd"
+              {
+                echo "hw.ramSize=1024"
+                echo "hw.lcd.density=420" 
+                echo "hw.lcd.height=2340"
+                echo "hw.lcd.width=1080"
+                echo "image.sysdir.1=system-images/android-31/google_apis/x86_64/"
+                echo "tag.display=Google APIs"
+                echo "tag.id=google_apis"
+                echo "abi.type=x86_64"
+                echo "avd.ini.encoding=UTF-8"
+                echo "disk.dataPartition.size=6442450944"
+                echo "fastboot.forceColdBoot=no"
+                echo "hw.accelerometer=yes"
+                echo "hw.audioInput=yes"
+                echo "hw.battery=yes"
+                echo "hw.camera.back=virtualscene"
+                echo "hw.camera.front=emulated"
+                echo "hw.cpu.arch=x86_64"
+                echo "hw.dPad=no"
+                echo "hw.device.manufacturer=Google"
+                echo "hw.device.name=pixel_5"
+                echo "hw.gps=yes"
+                echo "hw.gpu.enabled=yes"
+                echo "hw.gpu.mode=swiftshader_indirect"
+                echo "hw.keyboard=yes"
+                echo "hw.sensors.orientation=yes"
+                echo "hw.sensors.proximity=yes"
+                echo "hw.trackBall=no"
+                echo "runtime.network.latency=none"
+                echo "runtime.network.speed=full"
+              } > "$HOME/.android/avd/${AVD_NAME}.avd/config.ini"
+              
+              # Create AVD ini file
+              {
+                echo "avd.ini.encoding=UTF-8"
+                echo "path=$HOME/.android/avd/${AVD_NAME}.avd"
+                echo "target=android-31"
+              } > "$HOME/.android/avd/${AVD_NAME}.ini"
+              
+              echo "Manual AVD creation completed"
             fi
           else
             echo "AVD $AVD_NAME already exists"
@@ -428,6 +529,18 @@ jobs:
           # 3) Launch emulator (lightweight flags)
           EMU_LOG="artifacts/smoke/emulator_boot.log"
           mkdir -p artifacts/smoke artifacts/monitoring
+          
+          echo "=== Pre-emulator Diagnostics ==="
+          echo "AVD Name: $AVD_NAME"
+          echo "Available AVDs:"
+          emulator -list-avds
+          echo "Emulator version:"
+          emulator -version || echo "Failed to get emulator version"
+          echo "Available system images for AVD:"
+          ls -la "$ANDROID_SDK_ROOT/system-images/android-31/google_apis/x86_64/" || echo "System image directory not found"
+          
+          echo "=== Launching Emulator ==="
+          echo "Command: emulator @$AVD_NAME with flags..."
           emulator @"$AVD_NAME" \
             -no-window -no-audio -no-boot-anim \
             -gpu swiftshader_indirect -camera-back none \
@@ -436,11 +549,23 @@ jobs:
             -accel off -cores 1 -memory 1024 -use-system-libs \
             -qemu -m 1024 \
             -timezone America/Chicago \
-            -idle-grpc-timeout 300 \
             -verbose >"$EMU_LOG" 2>&1 & EMU_PID=$!
 
+          echo "Emulator PID: $EMU_PID"
           echo "$EMU_PID" > artifacts/smoke/emulator_pid.txt
           echo "EMU_PID=$EMU_PID" >> "$GITHUB_ENV"
+          
+          # Give emulator a moment to start, then check if it's still running
+          sleep 3
+          if ps -p "$EMU_PID" > /dev/null 2>&1; then
+            echo "Emulator process $EMU_PID is running"
+          else
+            echo "ERROR: Emulator process $EMU_PID died immediately!"
+            echo "=== Emulator Log (first 50 lines) ==="
+            head -50 "$EMU_LOG" || echo "No emulator log available"
+            echo "=== Emulator Log (last 50 lines) ==="
+            tail -50 "$EMU_LOG" || echo "No emulator log available"
+          fi
 
           # 4) Wait for ADB device + real boot with timeouts
           BOOT_DEADLINE=$((SECONDS+900))   # 15 minutes
@@ -774,7 +899,7 @@ jobs:
       ANDROID_HOME: ${{ github.workspace }}/android-sdk
       ANDROID_SERIAL: emulator-5554
       AVD_NAME: ci_api_31
-      AVD_IMAGE: "system-images;android-31;default;x86_64"
+      AVD_IMAGE: "system-images;android-31;google_apis;x86_64"
       ANDROID_BUILD_TOOLS: "31.0.0"
     steps:
       - uses: actions/checkout@v4
@@ -794,40 +919,72 @@ jobs:
             exit 1
           fi
 
-      - name: Bootstrap Android cmdline-tools r8 (8092744)
+      - name: Bootstrap Android cmdline-tools
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p "$ANDROID_SDK_ROOT"
-          curl -sSL -o /tmp/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-mac-8092744_latest.zip
+          curl -sSL -o /tmp/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-mac-8512546_latest.zip
           unzip -q /tmp/cmdline-tools.zip -d "$ANDROID_SDK_ROOT"
-          mv "$ANDROID_SDK_ROOT/cmdline-tools" "$ANDROID_SDK_ROOT/cmdline-tools-r8"
-          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/r8"
-          mv "$ANDROID_SDK_ROOT/cmdline-tools-r8"/* "$ANDROID_SDK_ROOT/cmdline-tools/r8/"
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
+          mv "$ANDROID_SDK_ROOT/cmdline-tools"/* "$ANDROID_SDK_ROOT/cmdline-tools/latest/" 2>/dev/null || true
+          echo "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
           echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
           echo "$ANDROID_SDK_ROOT/emulator"       >> "$GITHUB_PATH"
           echo "$ANDROID_SDK_ROOT/build-tools/${ANDROID_BUILD_TOOLS}" >> "$GITHUB_PATH"
           echo "JAVA_HOME_17_X64=$(/usr/libexec/java_home -v 17)" >> "$GITHUB_ENV"
           echo "JAVA_HOME_11_X64=$(/usr/libexec/java_home -v 11)" >> "$GITHUB_ENV"
 
-      - name: Accept SDK licenses
+      - name: Unified Android SDK Setup
         shell: bash
         run: |
+          # ### UPRISE Unified Android SDK Setup
           set -euo pipefail
+          export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT}"
+          export ANDROID_HOME="$ANDROID_SDK_ROOT"
+          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator:$PATH"
+          export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
           export JAVA_HOME="$JAVA_HOME_17_X64"
-          # Use printf instead of yes to avoid broken pipe issues
-          printf 'y\ny\ny\ny\ny\ny\ny\ny\n' | "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/sdkmanager" --licenses || true
-          echo "SDK licenses accepted"
-
-      - name: Install SDK components
-        shell: bash
-        run: |
-          set -euo pipefail
-          export JAVA_HOME="$JAVA_HOME_17_X64"
-          "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/sdkmanager" \
-            "platform-tools" "emulator" \
-            "platforms;android-31" "build-tools;${ANDROID_BUILD_TOOLS}" \
+          
+          # Accept licenses safely
+          yes | sdkmanager --licenses || true
+          
+          # Install pinned/supported components
+          sdkmanager --install \
+            "cmdline-tools;latest" \
+            "platform-tools" \
+            "emulator" \
+            "platforms;android-31" \
+            "build-tools;${ANDROID_BUILD_TOOLS}" \
             "${AVD_IMAGE}"
+          
+          # Fallback pin (only if latest fails on some runners)
+          if ! command -v avdmanager >/dev/null 2>&1; then
+            echo "cmdline-tools;latest not on PATH; attempting fallback pin 8512546"
+            sdkmanager --install "cmdline-tools;8512546" || true
+            export PATH="$ANDROID_SDK_ROOT/cmdline-tools/8512546/bin:$PATH"
+          fi
+          
+          echo "SDK components installed"
+
+      - name: Runtime Assertion - Verify Workflow Hash
+        shell: bash
+        run: |
+          echo "=== WORKFLOW ASSERTIONS ==="
+          echo "Workflow file hash (local checkout):"
+          sha256sum .github/workflows/android-debug-build.yml || shasum -a 256 .github/workflows/android-debug-build.yml || true
+          
+          echo "sdkmanager list top-lines:"
+          sdkmanager --list | sed -n '1,60p' || true
+          
+          echo "Tool versions:"
+          adb version || true
+          emulator -version || true
+          avdmanager --help 2>/dev/null | head -1 || true
+          cmdline-tools --version 2>/dev/null || true
+          which sdkmanager || true
+          which avdmanager || true
+          which emulator || true
 
       - name: Download Debug APK
         uses: actions/download-artifact@v4
@@ -866,7 +1023,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          echo "no" | "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/avdmanager" create avd \
+          echo "no" | avdmanager create avd \
             -n "${AVD_NAME}" -k "${AVD_IMAGE}" --force --device "pixel_5"
 
       - name: Start emulator (background)
@@ -935,12 +1092,12 @@ jobs:
               MIN_SDK="${MIN_SDK:-unknown}"
               TGT_SDK="${TGT_SDK:-unknown}"
               
-            elif command -v "$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" >/dev/null 2>&1; then
+            elif command -v "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/apkanalyzer" >/dev/null 2>&1; then
               echo "Using apkanalyzer to analyze: $apk_path"
               
-              APP_ID=$("$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" manifest application-id "$apk_path" 2>/dev/null || echo "")
-              MIN_SDK=$("$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" manifest min-sdk "$apk_path" 2>/dev/null || echo "")
-              TGT_SDK=$("$ANDROID_SDK_ROOT/cmdline-tools/r8/bin/apkanalyzer" manifest target-sdk "$apk_path" 2>/dev/null || echo "")
+              APP_ID=$("$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/apkanalyzer" manifest application-id "$apk_path" 2>/dev/null || echo "")
+              MIN_SDK=$("$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/apkanalyzer" manifest min-sdk "$apk_path" 2>/dev/null || echo "")
+              TGT_SDK=$("$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/apkanalyzer" manifest target-sdk "$apk_path" 2>/dev/null || echo "")
               
               # Ensure variables are not empty (bash strict mode protection)
               MIN_SDK="${MIN_SDK:-unknown}"

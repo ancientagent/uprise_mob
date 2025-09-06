@@ -160,6 +160,7 @@ android {
 
     buildTypes {
         debug {
+            applicationIdSuffix ".debug"
             // Use default debug keystore (~/.android/debug.keystore)
             if (nativeArchitectures) {
                 ndk {
