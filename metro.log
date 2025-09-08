@@ -1,0 +1,5 @@
+yarn run v1.22.22
+$ cross-env NODE_OPTIONS=--openssl-legacy-provider react-native start --reset-cache
+/bin/sh: 1: cross-env: not found
+error Command failed with exit code 127.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

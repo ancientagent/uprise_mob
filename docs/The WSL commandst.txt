@@ -1,0 +1,18 @@
+ The WSL root for the UPRISE project is:
+
+  /mnt/d/uprise_mob
+
+  Breakdown:
+  - /mnt/d/ = Windows D: drive mounted in WSL
+  - uprise_mob = Project directory
+
+  Key paths in WSL:
+  - Project root: /mnt/d/uprise_mob
+  - CCMP framework: /mnt/d/uprise_mob/.claude/
+  - Organized docs: /mnt/d/uprise_mob/.claude/context/
+  - Commands: /mnt/d/uprise_mob/.claude/commands/pm/
+
+  So when you start Claude in WSL, you'll run:
+  cd /mnt/d/uprise_mob
+
+  Then you'll have access to all the organized documentation and CCPM commands! 📁
