@@ -3,7 +3,7 @@
 
   1. Primary Status (MUST READ)
 
-  uprise_docs/CHANGELOG.md
+  docs/CHANGELOG.md
   - Why: Latest session progress, current priorities, immediate next steps
   - Contains: What was accomplished, what's broken, what's next
 

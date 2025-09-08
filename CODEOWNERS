@@ -9,7 +9,7 @@ ci/ @ancientagent
 scripts/ @ancientagent
 
 # Documentation
-uprise_docs/ @ancientagent
+# uprise_docs/ (deprecated) — use docs/
 docs/ @ancientagent
 README.md @ancientagent
 CHANGELOG.md @ancientagent

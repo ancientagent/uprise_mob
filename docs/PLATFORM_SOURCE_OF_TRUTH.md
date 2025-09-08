@@ -24,8 +24,8 @@
 
 ### Implementation Status
 - **Current Progress**: `.claude/progress/PROJECT-STATUS-REPORT.md`
-- **Change Log**: `uprise_docs/CHANGELOG.md`
-- **Android Runbook**: `uprise_docs/RUNBOOK_ANDROID.md`
+- **Change Log**: `docs/CHANGELOG.md`
+- **Android Runbook**: `docs/runbooks/runbook_android.md`
 
 ### Previous Investigations
 - **API Audit**: `.claude/context/previous_investigation/COMPREHENSIVE-API-ENDPOINT-AUDIT.md`
@@ -324,7 +324,7 @@
 - **Build Android**: See CI workflow or `RUNBOOK_ANDROID.md`
 
 ### Key Files to Monitor
-- `uprise_docs/CHANGELOG.md` - All changes
+- `docs/CHANGELOG.md` - All changes
 - `.claude/progress/PROJECT-STATUS-REPORT.md` - Current status
 - `src/routes/home.js` - Location filtering bug
 - `src/services/fairPlay/` - Fair Play implementation (TO BE CREATED)

@@ -113,7 +113,7 @@ TASK1=$(gh issue create --title "Task 1" --label task \
   --body "Description #$(echo $EPIC_URL | grep -o '[0-9]*$')")
 
 # 4. Document
-echo "Created epic and tasks" >> uprise_docs/CHANGELOG.md
+echo "Created epic and tasks" >> docs/CHANGELOG.md
 ```
 
 ## Troubleshooting
