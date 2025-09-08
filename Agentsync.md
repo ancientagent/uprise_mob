@@ -41,7 +41,7 @@ If a step would require elevation or machine-global state, **STOP** and propose 
 - Maintain reproducible builds
 
 ## Documentation Update Rule
-**ALL CHANGES MUST UPDATE `uprise_docs/CHANGELOG.md`** with:
+**ALL CHANGES MUST UPDATE `docs/CHANGELOG.md`** with:
 - Date and time of change
 - Description of what was changed
 - Impact on build process or development workflow
@@ -54,9 +54,9 @@ If a step would require elevation or machine-global state, **STOP** and propose 
 ├── workflows/     # Workflow definitions
 └── prompts/       # Agent prompts
 
-uprise_docs/       # Project documentation
+docs/              # Project documentation
 ├── CHANGELOG.md   # Change tracking (MUST UPDATE)
-├── RUNBOOK_ANDROID.md  # Android development guide
+├── runbooks/      # Runbooks (Android/Web/Backend)
 └── Agent-HQ/      # AI agent documentation
     └── CCPM-Usage.md   # Command reference
 ```

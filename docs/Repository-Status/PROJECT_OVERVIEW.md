@@ -4,7 +4,7 @@
 - **uprise_mob**: React Native mobile client (current focus). Target: Android first, iOS later.
 - **webapp_ui**: React-based rewrite of an earlier Angular web application. Not developed in parallel with mobile; requires archeological investigation before resuming.
 - **webapp_api**: Firebase backend (to be integrated after mobile stabilization).
-- **uprise_docs**: Source of truth documentation. Contains runbooks, changelogs, ADRs, and build notes.
+- **docs**: Source of truth documentation. Contains runbooks, changelogs, ADRs, and build notes.
 
 ## Development History
 - Initial webapp was Angular. It has been rewritten in React (`webapp_ui`).
@@ -27,7 +27,7 @@
 ## Project Rules & Habits
 - **No symlinks**: Past infinite nesting problems; use vendoring and Gradle subprojects instead.
 - **Secrets hygiene**: Never commit API tokens/keys. Rotate if leaked. Use `.gitignore` for sensitive files.
-- **Documentation**: All changes documented in `uprise_docs` (e.g., `RUNBOOK_ANDROID.md`, `BUILD_LOG.md`, `CHANGELOG.md`).
+- **Documentation**: All changes documented in `docs` (e.g., `runbooks/runbook_android.md`, `CHANGELOG.md`).
 - **Resource overrides**: Debug/release `app_name` handled in `src/debug/.../strings.xml`, not via `resValue`.
 
 ## External Tools & Subagents
@@ -38,7 +38,7 @@
 
 ## Next Steps
 - Complete **Firebase verification** on mobile (Analytics, Crashlytics, FCM).
-- Update `uprise_docs` with verification results and finalized setup.
+- Update `docs` with verification results and finalized setup.
 - Plan and execute **archeological investigation** of `webapp_ui` and `webapp_api` to map divergence from `uprise_mob`.
 - Once aligned, begin phased development of unified mobile + web platform.
 

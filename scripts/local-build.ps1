@@ -9,7 +9,7 @@ param(
 
 # === Paths ===
 $Mob = "D:\uprise_mob"
-$Docs = "D:\uprise_docs"
+$Docs = "D:\uprise_mob\docs"
 $Node20 = "C:\tools\node-v20.19.0-win-x64"
 $JdkDir = ".\tools\jdk-11-temurin"
 $SDK = "$env:LOCALAPPDATA\Android\Sdk"
