@@ -9,29 +9,29 @@
 ## 📚 Documentation Map
 
 ### Core Architecture Documents
-- **System Overview**: `.claude/context/project_foundation/01_UPRISE_Master_Overview.md`
-- **Technical Framework**: `.claude/context/technical_context/02_UPRISE_Skeleton_Framework.md`
-- **Development Guardrails**: `.claude/context/project_foundation/DEVELOPMENT_GUARDRAILS.md`
+- **System Overview**: `docs/architecture/SYSTEM_OVERVIEW.md`
+- **Phase 2 Overview**: `docs/PHASE2_OVERVIEW.md`
+- **Ops & Guardrails**: `docs/ops/CI_WORKFLOWS.md`, `docs/ops/CHECKLISTS.md`
 
-### Feature Specifications
-- **Authentication**: `.claude/context/product_context/03_UPRISE_Authentication_System.md`
-- **Communities**: `.claude/context/product_context/04_UPRISE_Community_Location_System.md`
-- **Fair Play**: `.claude/context/product_context/05_UPRISE_Fair_Play_Algorithm.md`
-- **Songs**: `.claude/context/product_context/06_UPRISE_Song_Management_System.md`
-- **Discovery**: `.claude/context/product_context/07_UPRISE_Discovery_Map_System.md`
-- **Events**: `.claude/context/product_context/08_UPRISE_Events_System.md`
-- **Promotions**: `.claude/context/product_context/09_UPRISE_Promotions_Business.md`
+### Feature Specifications (docs/specs)
+- **Authentication**: `docs/specs/03_AUTHENTICATION.md`
+- **Communities**: `docs/specs/04_COMMUNITY_LOCATION.md`
+- **Fair Play**: `docs/specs/05_FAIR_PLAY_ALGO.md`
+- **Songs**: `docs/specs/06_SONG_MANAGEMENT.md`
+- **Discovery**: `docs/specs/07_DISCOVERY_MAP.md`
+- **Events**: `docs/specs/08_EVENTS.md`
+- **Promotions**: `docs/specs/09_PROMOTIONS_BUSINESS.md`
 
 ### Implementation Status
-- **Current Progress**: `.claude/progress/PROJECT-STATUS-REPORT.md`
+- **Current Progress**: `docs/Repository-Status/PROJECT_OVERVIEW.md`
 - **Change Log**: `docs/CHANGELOG.md`
 - **Android Runbook**: `docs/runbooks/runbook_android.md`
 
 ### Previous Investigations
-- **API Audit**: `.claude/context/previous_investigation/COMPREHENSIVE-API-ENDPOINT-AUDIT.md`
-- **Artist Unification**: `.claude/context/previous_investigation/ARTIST-UNIFICATION-IMPLEMENTATION.md`
-- **Home Scene Fix**: `.claude/context/previous_investigation/HOME-SCENE-DATA-LOADING-FIX.md`
-- **Genre System**: `.claude/context/previous_investigation/MODERN-GENRES-SYSTEM.md`
+- **API Audit**: `docs/july model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md`
+- **Artist Unification**: `docs/architecture/SYSTEM_OVERVIEW.md` (Phase 2: July Model Consolidation)
+- **Home Scene Fix**: `docs/project narrative/uprise_community_location_system_detailed.md`
+- **Genre System**: `docs/specs/07_DISCOVERY_MAP.md`
 
 ---
 
@@ -185,7 +185,7 @@
 ### Priority 4: Artist/Band Unification
 **Impact**: Frontend/backend mismatch  
 **Status**: Backend complete, frontend needs update  
-**Solution**: See `ARTIST-UNIFICATION-IMPLEMENTATION.md`  
+**Solution**: See `docs/architecture/SYSTEM_OVERVIEW.md` (Phase 2 Consolidation)
 **Effort**: 3-4 days  
 
 ---
@@ -269,8 +269,8 @@
 ### Phase 1: Foundation Stabilization (Week 1-2)
 - [ ] Fix TrackPlayer dependency - **See**: `RUNBOOK_ANDROID.md`
 - [ ] Implement Fair Play core - **See**: `05_UPRISE_Fair_Play_Algorithm.md`
-- [ ] Fix location filtering - **See**: `HOME-SCENE-DATA-LOADING-FIX.md`
-- [ ] Update genre system - **See**: `MODERN-GENRES-SYSTEM.md`
+- [ ] Fix location filtering - **See**: `docs/project narrative/uprise_community_location_system_detailed.md`
+- [ ] Update genre system - **See**: `docs/specs/07_DISCOVERY_MAP.md`
 
 ### Phase 2: Core Features (Week 3-6)
 - [ ] Complete Community System - **See**: `04_UPRISE_Community_Location_System.md`
@@ -286,7 +286,7 @@
 
 ### Phase 4: Enhancement (Future)
 - [ ] Phase 2 Features - **See**: `10_UPRISE_Phase2_Features.md`
-- [ ] WebApp Integration - **See**: `webapp_documentation/` folder
+- [ ] WebApp Integration - **See**: `docs/webapp reviews/jules webapp api report/`
 - [ ] Performance optimization
 - [ ] Advanced analytics
 
@@ -325,7 +325,7 @@
 
 ### Key Files to Monitor
 - `docs/CHANGELOG.md` - All changes
-- `.claude/progress/PROJECT-STATUS-REPORT.md` - Current status
+- `docs/Repository-Status/PROJECT_OVERVIEW.md` - Current status
 - `src/routes/home.js` - Location filtering bug
 - `src/services/fairPlay/` - Fair Play implementation (TO BE CREATED)
 

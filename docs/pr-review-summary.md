@@ -1,4 +1,4 @@
-# PR Review — CI Stabilization & CCPM Framework (feat/ccpm-framework)
+# PR Review — CI Stabilization (Android)
 
 **TL;DR**  
 Android CI is now reproducible on GitHub Actions with JDK 11 & SDK 31. iOS-only Apple Auth is excluded from Android, `MainActivity` has `android:exported="true"`, and `react-native-screens` is pinned to a version compatible with RN 0.66.4. Current CI run: **17307437990** (tracking via Actions).
@@ -41,4 +41,4 @@ Android CI is now reproducible on GitHub Actions with JDK 11 & SDK 31. iOS-only 
 - 🧪 Add a Release job (`assembleRelease`) once Debug is consistently green.
 - 🔐 Keep `.gitignore` protections for Firebase/Google Services.
 
-— Generated from Codespaces; see CHANGELOG for command history.
+— Generated from Codespaces; see CHANGELOG for command history. (Note: CCPM references and branches are deprecated.)

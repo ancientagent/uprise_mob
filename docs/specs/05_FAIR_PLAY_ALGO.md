@@ -1,6 +1,14 @@
 # UPRISE Fair Play Algorithm & RaDIYo System - Detailed Technical Specification
 
+## Phase 2 Alignment: Genre + Location Inputs
+- Inputs now explicitly include `community_key`, `genre_id`, and user-verified location.
+- Queue selection and priority weights use community activity stats and genre taxonomy rollups.
+- Radio (RaDIYo) operates as a projection of the Community rotation queues; same identity and filters.
+- Anti-manipulation requires PostGIS-backed verification that engagement originates from the appropriate community boundary.
+
 ## 🎯 **MODULE OVERVIEW**
+
+Standard Parameters: see `docs/specs/_fragments/params.geo-genre.md` for `city,state,genre,lat,lng,radius,community_key`.
 
 ### **Purpose**
 The Fair Play Algorithm is the core engine that ensures democratic music discovery by giving every song equal initial opportunity while allowing community taste to naturally curate the best content. RaDIYo (Radio DIY) is the broadcasting system that delivers this curated content through three tiers.

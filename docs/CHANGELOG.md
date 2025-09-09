@@ -56,6 +56,24 @@
 
 ---
 
+## 2025-09-08 - Phase 2: July Model Consolidation & Spec Alignment
+
+### Summary
+- Unified Artist/Band identity with canonical performer IDs across Auth, Songs, Events, and Promotions.
+- Location filtering standardized: PostGIS-backed communities and shared API params (`city`, `state`, `genre`, `lat`, `lng`, `radius`, `community_key`).
+- Radio/Community unified: RaDIYo as projection of Community queues; consistent filters.
+- Genre upgrade: taxonomy + tagging rolled into discovery, radio, and promotions targeting.
+
+### Documentation Updates
+- Updated `docs/architecture/SYSTEM_OVERVIEW.md` with unified model and cross-module contracts.
+- Aligned specs 03–09 with Phase 2 notes: identity linkage, geo filters, PostGIS usage, and targeting.
+- Added `docs/PHASE2_EXECUTION_PLAN.md` outlining workstreams, gaps, tasks, and test hooks.
+- Expanded `docs/ops/CI_WORKFLOWS.md` with Phase 2 smoke tests.
+
+### Verification Notes
+- Sibling `webapp_api` inspected: Sequelize models/migrations present including band→artist profile unification and PostGIS usage.
+- PostGIS check command added (local run; non-destructive) for port 5433.
+
 ## 2025-09-07 - PostgreSQL Integration & API Setup - 09:30 UTC
 
 ### Database Setup

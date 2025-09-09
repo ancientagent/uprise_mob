@@ -28,3 +28,7 @@ Welcome to Phase 2. This folder is the **single source of truth** for UPRISE doc
 - CI Workflows: [ops/CI_WORKFLOWS.md](./ops/CI_WORKFLOWS.md)
 - Troubleshooting: [ops/TROUBLESHOOTING.md](./ops/TROUBLESHOOTING.md)
 - Checklists: [ops/CHECKLISTS.md](./ops/CHECKLISTS.md)
+
+## Tools & Scripts
+- Tools Index: [TOOLS_INDEX.md](./TOOLS_INDEX.md)
+- Session Kickoff Template: [SESSION_KICKOFF_TEMPLATE.md](./SESSION_KICKOFF_TEMPLATE.md)

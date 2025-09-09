@@ -8,11 +8,11 @@
 
   Key paths in WSL:
   - Project root: /mnt/d/uprise_mob
-  - CCMP framework: /mnt/d/uprise_mob/.claude/
-  - Organized docs: /mnt/d/uprise_mob/.claude/context/
-  - Commands: /mnt/d/uprise_mob/.claude/commands/pm/
+  - Docs root: /mnt/d/uprise_mob/docs/
+  - Specs: /mnt/d/uprise_mob/docs/specs/
+  - Architecture: /mnt/d/uprise_mob/docs/architecture/
 
   So when you start Claude in WSL, you'll run:
   cd /mnt/d/uprise_mob
 
-  Then you'll have access to all the organized documentation and CCPM commands! 📁
+  Then you'll have access to all the organized documentation in docs/. (Note: CCPM and .claude paths are no longer part of the strategy.) 📁

@@ -1,5 +1,14 @@
 # UPRISE Authentication & User Management - Detailed Technical Specification
 
+## Phase 2 Alignment: Artist/Band Identity & Profile Linkage
+- Canonical performer identity is unified across the platform.
+- `User` may create one or more `ArtistProfile` entries; each has a stable `artist_canonical_id`.
+- `Band` entities aggregate multiple performers; band admins manage membership via `BandMembers` linking to `ArtistProfile`.
+- Authentication tokens remain user-scoped; API supports active-profile context via header `X-Artist-Canonical-Id` when performing artist/band actions.
+- All content ownership (Songs, Events, Promotions) must reference `artist_canonical_id` and optionally `band_id`.
+- UI: add profile switcher (User ↔ ArtistProfile ↔ Band Admin) and persist selection per session.
+- WebApp API: enforce authorization checks that the authenticated user has rights over the `artist_canonical_id` or `band_id` being acted upon.
+
 ## 🎯 **MODULE OVERVIEW**
 
 ### **Purpose**

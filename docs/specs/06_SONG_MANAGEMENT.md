@@ -1,5 +1,11 @@
 # UPRISE Song Management & Upload System - Detailed Technical Specification
 
+## Phase 2 Alignment: Canonical IDs & Genre Tagging
+- Every song must reference the canonical performer id: `artist_canonical_id` (and optional `band_id`).
+- Primary genre is stored as `genre_id`; secondary discovery tags go into `genre_tags[]` for map/discovery/promotions.
+- Community assignment uses performer location and primary `genre_id` to compute `community_key`.
+- API write paths validate that the authenticated user controls the referenced `artist_canonical_id`.
+
 ## 🎯 **MODULE OVERVIEW**
 
 ### **Purpose**

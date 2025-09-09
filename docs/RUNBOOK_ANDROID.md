@@ -174,8 +174,8 @@ With the new run naming system, you can easily identify which commit is running:
 ### Branch Consistency
 All major branches now have identical, up-to-date workflows:
 - ✅ **main**: Production-ready with all fixes
-- ✅ **feat/ccpm-framework**: CCPM development with monitoring
 - ✅ **ci/macos-hvf-install-launch**: Latest CI improvements
+Note: CCPM-related branches and workflows are deprecated and no longer part of the strategy.
 
 ## Troubleshooting
 

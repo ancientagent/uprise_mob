@@ -1,6 +1,14 @@
 # UPRISE Events System - Detailed Technical Specification
 
+## Phase 2 Alignment: Location + Artist/Band Mapping
+- Event ownership attaches to `artist_canonical_id` and optional `band_id` for billing/analytics consistency.
+- Venue selection and attendee targeting leverage `community_key` and PostGIS radius filters.
+- Discovery surfaces event markers filtered by `genre_id` and `community_key`.
+- API routes include `city`, `state`, `genre`, `lat`, `lng`, `radius` for search endpoints.
+
 ## 🎯 **MODULE OVERVIEW**
+
+Standard Parameters: see `docs/specs/_fragments/params.geo-genre.md` for `city,state,genre,lat,lng,radius,community_key`.
 
 ### **Purpose**
 Comprehensive event management ecosystem that bridges digital music discovery with real-world live experiences. Enables artists to create and promote events, venues to host and monetize performances, and communities to discover and attend local music events, creating a complete music ecosystem from digital discovery to live experience.
