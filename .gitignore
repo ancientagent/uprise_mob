@@ -82,4 +82,5 @@ tools/
 src/config/google_calender.json
 
 # CCPM Framework - Local workspace (epics directory)
-.claude/epics/
+.claude/epics/.env
+docs/env/*.local
