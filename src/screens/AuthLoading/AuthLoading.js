@@ -4,7 +4,7 @@ import {
   View, ActivityIndicator,
 } from 'react-native';
 import { hasValue } from '../../utilities/utilities';
-import { accessToken, getUserDetails } from '../../state/selectors/UserProfile';
+import { accessToken, getUserDetails, getCommunityKey } from '../../state/selectors/UserProfile';
 import URContainer from '../../components/URContainer/URContainer';
 import Color from '../../theme/colors';
 import styles from './AuthLoading.styles';
@@ -13,20 +13,27 @@ const AuthLoading = props => {
   const { navigation } = props;
   const token = useSelector(accessToken);
   const details = useSelector(getUserDetails);
+  const communityKey = useSelector(getCommunityKey);
 
   useEffect(() => {
     checkIsUserLoggedIn();
   }, [token]);
 
   const checkIsUserLoggedIn = () => {
-    if (hasValue(token)) {
-      if (details.onBoardingStatus === 2) {
-        navigation.navigate({ name: 'Dashboard' });
-      } else {
-        navigation.navigate({ name: 'Login' });
-      }
-    } else {
+    if (!hasValue(token)) {
       navigation.navigate('WelcomeScreen');
+      return;
+    }
+    // Token exists; if no community selected yet, go to Home Scene (Community) setup first
+    if (!communityKey) {
+      navigation.navigate('CommunitySetup', { fromLogin: true });
+      return;
+    }
+    // Fallback: if server-side onboarding status governs other flows
+    if (details.onBoardingStatus === 2) {
+      navigation.navigate({ name: 'Dashboard' });
+    } else {
+      navigation.navigate({ name: 'Dashboard' });
     }
   };
   return (

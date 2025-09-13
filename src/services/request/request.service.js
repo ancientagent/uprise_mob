@@ -50,9 +50,26 @@ export async function request(requestOptions, omitAuth) {
   const isNetworkConnected = await NetworkUtils.isNetworkAvailable();
   if (isNetworkConnected) {
     try {
-      console.log('requestData', requestData);
+      if (__DEV__) {
+        try {
+          const dbg = {
+            method: requestData.method,
+            url: requestData.url,
+            params: requestData.params,
+          };
+          // Only print discovery/radio/community calls to reduce noise
+          const u = String(requestData.url || '');
+          if (u.includes('/discovery') || u.includes('/radio') || (requestData.params && requestData.params.community_key)) {
+            // eslint-disable-next-line no-console
+            console.log('API request (geo/genre):', dbg);
+          }
+        } catch (e) { /* noop */ }
+      }
       const res = await API(requestData);
-      console.log('res', res);
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.log('res', { status: res.status, url: requestData.url });
+      }
       return res.data;
     } catch (error) {
       if (error.response) {

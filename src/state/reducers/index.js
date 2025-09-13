@@ -85,6 +85,7 @@ import getBandsStatisticsReducer from './request/getBandsStatistics/getBandsStat
 import getRadioStationStatisticsReducer from './request/getRadioStationStatistics/getRadioStationStatistics.reducer';
 import getPopularArtistStatisticsReducer from './request/getPopularArtistStatistics/getPopularArtistStatistics.reducer';
 import getPopularArtistGenresStatisticsReducer from './request/getPopularArtistGenresStatistics/getPopularArtistGenresStatistics.reducer';
+import communityReducer from './community/community.reducer';
 
 const appReducer = combineReducers({
   sampleReducer,
@@ -97,6 +98,7 @@ const appReducer = combineReducers({
   getRadioStationStatistics: getRadioStationStatisticsReducer,
   getPopularArtistStatistics: getPopularArtistStatisticsReducer,
   getPopularArtistGenresStatistics: getPopularArtistGenresStatisticsReducer,
+  community: communityReducer,
   login: loginReducer,
   getUserStatistics: getUserStatisticsReducer,
   stationSwitching: stationSwitchingReducer,

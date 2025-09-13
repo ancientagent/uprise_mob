@@ -1,0 +1,9 @@
+﻿{
+    "settingsGradle":  true,
+    "settingsKts":  false,
+    "appBuild":  true,
+    "appDir":  true,
+    "gradlew":  true,
+    "localProps":  false,
+    "appBuildKts":  false
+}

@@ -1,0 +1,2 @@
+10:- [PHASE2_CARRYOVER_TEMPLATE.md](./PHASE2_CARRYOVER_TEMPLATE.md) — Daily carryover instructions (Codex/Mobile/PM roles, guardrails, workflows).
+INDEX LINK: OK

@@ -29,6 +29,8 @@ import AllMostPlayedSongs from '../screens/Statistics/AllMostPlayedSongs/AllMost
 import RadioStations from '../screens/Feed/RadioStations/RadioStations';
 import ChangeAvatar from '../screens/userProfile/ProfileTab/ChangeAvatar';
 import ChangeInstrument from '../screens/userProfile/ProfileTab/ChangeInstrument';
+import CommunitySetup from '../screens/Onboarding/CommunitySetup';
+import AdminTools from '../screens/AdminTools/AdminTools';
 
 const HomeStack = createNativeStackNavigator();
 
@@ -348,6 +350,8 @@ function HomeStackScreen() {
       />
       <HomeStack.Screen name='Events' component={ Events } options={ () => ({ headerShown: false }) } />
       <HomeStack.Screen name='UserProfile' component={ UserProfile } options={ () => ({ headerShown: false }) } />
+      <HomeStack.Screen name='CommunitySetup' component={ CommunitySetup } options={ () => ({ headerTitle: 'Community' }) } />
+      <HomeStack.Screen name='AdminTools' component={ AdminTools } options={ () => ({ headerTitle: 'Admin Tools' }) } />
       <HomeStack.Screen
         name='OtherProfile'
         component={ OtherProfile }
@@ -542,4 +546,3 @@ function HomeStackScreen() {
   );
 }
 export default HomeStackScreen;
-

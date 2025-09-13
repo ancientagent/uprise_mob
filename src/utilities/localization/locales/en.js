@@ -37,7 +37,7 @@ export default {
     favorites: 'Your Favorites Songs list',
   },
   statistics: {
-    radioStation: 'Radio Station',
+    radioStation: 'Community',
     popularArtist: 'Popular Artist',
     popularArtistPerGenre: 'Popular Artist per Genre',
     users: 'Users',
@@ -76,7 +76,7 @@ export default {
     popularAlbums: 'Popular Albums',
     popularSongs: 'Popular Songs',
     popularGenre: 'Popular Genre',
-    popularRadioStation: 'Popular Radio Station',
+    popularRadioStation: 'Popular Communities',
   },
   GenreSelection: {
     suggested: 'No place is suggested for this search',
@@ -131,7 +131,7 @@ export default {
   },
   SignUp: {
     usernameLabel: 'Username',
-    registerArtist: 'Register as a Band or Artist',
+    registerArtist: '',
     usernamePlaceholder: 'Enter your name',
     emailPlaceholder: 'Enter your E-mail',
     passwordPlaceholder: 'Enter your password',
@@ -187,7 +187,7 @@ export default {
     newReleases: 'New Releases',
     welcomeText: 'Welcome to Uprise Radiyo..!!',
     followText: 'Follow users for more feed.',
-    radioStations: 'Recommended Radio Stations',
+    radioStations: 'Recommended Communities',
     moreDetails: 'Check it out for more details!!',
     Close: 'Close',
     upvotedSong: ' upvoted a song ',

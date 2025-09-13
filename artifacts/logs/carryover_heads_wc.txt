@@ -1,0 +1,55 @@
+---- HEAD docs/PHASE2_CARRYOVER_TEMPLATE.md ----
+# 🧠 UPRISE Phase 2 Carryover Template
+
+## Roles
+- **Ubuntu Executor ("Codex")**: Backend, Postgres, API integration, migrations, backend smokes.
+- **Windows Executor ("Mobile Agent")**: React Native 0.66.x, Gradle/Android SDK, Node builds, CI parity.
+- **PM (Strategy Steward)**: Phase alignment, task assignment, guardrails.
+
+## Phase Anchor (single source of truth)
+- `docs/PHASE2_EXECUTION_PLAN.md`
+- Always verify this file exists and is current before starting any work.
+
+## Working roots
+- **Windows**: `D:\uprise_mob`
+- **WSL/Ubuntu**: `/mnt/d/uprise_mob`
+- **Docs**: `<root>/docs`
+- **Artifacts**: `<root>/artifacts/{debug,release,logs}`
+
+## Pinned toolchains and paths (authoritative)
+- **React Native**: 0.66.4
+- **Gradle Wrapper**: 7.0.2; Android Gradle Plugin (AGP): 7.0.4
+---- WC docs/PHASE2_CARRYOVER_TEMPLATE.md ----
+670 docs/PHASE2_CARRYOVER_TEMPLATE.md
+---- HEAD docs/PHASE2_EXECUTION_PLAN.md ----
+# Phase 2 Execution Plan
+
+For daily carryover protocol, see [PHASE2_CARRYOVER_TEMPLATE.md](./PHASE2_CARRYOVER_TEMPLATE.md).  
+For navigation, see [INDEX.md](./INDEX.md).  
+For current state, see [CHANGELOG.md](./CHANGELOG.md).
+
+## Doc Canonicalization (Phase 2)
+- Community/Location spec = 04_UPRISE_Community_Location_System.md (treat other location docs as archived).
+- "Station" references in code are legacy; all new logic must route through src/contracts/community helpers.
+- Discovery = visualization + recommendations; Location = authoritative source of geo/genre keys.
+---- HEAD docs/INDEX.md ----
+# UPRISE Docs – Index
+
+Welcome to Phase 2. This folder is the **single source of truth** for UPRISE documentation.
+
+## Start Here
+- [PHASE2_OVERVIEW.md](./PHASE2_OVERVIEW.md)
+- [CHANGELOG.md](./CHANGELOG.md)
+
+## Phase 2 Anchors
+- [PHASE2_CARRYOVER_TEMPLATE.md](./PHASE2_CARRYOVER_TEMPLATE.md) — Daily carryover instructions (Codex/Mobile/PM roles, guardrails, workflows).
+
+## Runbooks
+- Android: [RUNBOOK_ANDROID.md](./RUNBOOK_ANDROID.md)
+- Backend (Postgres/PostGIS & API): [runbooks/runbook_backend.md](./runbooks/runbook_backend.md)
+- Webapp: [runbooks/runbook_web.md](./runbooks/runbook_web.md)
+
+## Architecture
+- System Overview: [architecture/SYSTEM_OVERVIEW.md](./architecture/SYSTEM_OVERVIEW.md)
+- ADRs: [architecture/DECISIONS](./architecture/DECISIONS)
+

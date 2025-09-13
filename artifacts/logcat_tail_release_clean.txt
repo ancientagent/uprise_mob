@@ -1,0 +1,431 @@
+--------- beginning of main
+09-10 23:17:02.975 21142 21142 W Monkey  : args: [-p, com.app.uprise, -c, android.intent.category.LAUNCHER, 1]
+09-10 23:17:02.975 21142 21142 W Monkey  :  arg: "-p"
+09-10 23:17:02.975 21142 21142 W Monkey  :  arg: "com.app.uprise"
+09-10 23:17:02.975 21142 21142 W Monkey  :  arg: "-c"
+09-10 23:17:02.975 21142 21142 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+09-10 23:17:02.975 21142 21142 W Monkey  :  arg: "1"
+09-10 23:17:02.975 21142 21142 W Monkey  : data="com.app.uprise"
+09-10 23:17:02.975 21142 21142 W Monkey  : data="android.intent.category.LAUNCHER"
+--------- beginning of system
+09-10 23:17:02.998   523   577 W BroadcastQueue: Skipping deliver [background] BroadcastRecord{c76095c u-1 android.net.conn.CONNECTIVITY_CHANGE} to ReceiverList{e443465 21142 (unknown name)/2000/u-1 remote:282142e}: process gone or crashing
+09-10 23:17:03.011   523  1643 D CompatibilityChangeReporter: Compat change id reported: 161252188; UID 10177; state: DISABLED
+09-10 23:17:03.011   523  1643 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.app.uprise/.MainActivity} from uid 2000
+09-10 23:17:03.012   523  1643 D CompatibilityChangeReporter: Compat change id reported: 265464455; UID 10177; state: DISABLED
+09-10 23:17:03.012   523  1643 D CompatibilityChangeReporter: Compat change id reported: 265452344; UID 10177; state: DISABLED
+09-10 23:17:03.012   523  1643 D CompatibilityChangeReporter: Compat change id reported: 266124927; UID 10177; state: DISABLED
+09-10 23:17:03.013   523  1643 D CompatibilityChangeReporter: Compat change id reported: 265451093; UID 10177; state: DISABLED
+09-10 23:17:03.013   523  1643 D CompatibilityChangeReporter: Compat change id reported: 265456536; UID 10177; state: DISABLED
+09-10 23:17:03.013   523  1643 D CompatibilityChangeReporter: Compat change id reported: 255940284; UID 10177; state: DISABLED
+09-10 23:17:03.013   523  1643 D CompatibilityChangeReporter: Compat change id reported: 236283604; UID 10177; state: DISABLED
+09-10 23:17:03.013   523  1643 D CompatibilityChangeReporter: Compat change id reported: 263959004; UID 10177; state: DISABLED
+09-10 23:17:03.013   523  1643 D CompatibilityChangeReporter: Compat change id reported: 264304459; UID 10177; state: DISABLED
+09-10 23:17:03.013   523  1643 D CompatibilityChangeReporter: Compat change id reported: 264301586; UID 10177; state: DISABLED
+09-10 23:17:03.013   523  1643 D CompatibilityChangeReporter: Compat change id reported: 254631730; UID 10177; state: DISABLED
+09-10 23:17:03.013   523  1643 D CompatibilityChangeReporter: Compat change id reported: 273509367; UID 10177; state: DISABLED
+09-10 23:17:03.013   523  1643 D CompatibilityChangeReporter: Compat change id reported: 263259275; UID 10177; state: DISABLED
+09-10 23:17:03.016   523  1643 D CompatibilityChangeReporter: Compat change id reported: 194480991; UID 10177; state: ENABLED
+09-10 23:17:03.016   523  1643 D CompatibilityChangeReporter: Compat change id reported: 174042980; UID 10177; state: DISABLED
+09-10 23:17:03.019   523  1643 D CompatibilityChangeReporter: Compat change id reported: 184838306; UID 10177; state: DISABLED
+09-10 23:17:03.020   523  1643 D CompatibilityChangeReporter: Compat change id reported: 185004937; UID 10177; state: DISABLED
+09-10 23:17:03.020   523  1643 D CompatibilityChangeReporter: Compat change id reported: 181136395; UID 10177; state: DISABLED
+09-10 23:17:03.020   523  1643 D CompatibilityChangeReporter: Compat change id reported: 174042936; UID 10177; state: DISABLED
+09-10 23:17:03.020   523  1643 D CompatibilityChangeReporter: Compat change id reported: 197654537; UID 10177; state: ENABLED
+09-10 23:17:03.021   523  1643 D CompatibilityChangeReporter: Compat change id reported: 205907456; UID 10177; state: DISABLED
+09-10 23:17:03.024   523  1643 D CompatibilityChangeReporter: Compat change id reported: 194833441; UID 10177; state: DISABLED
+09-10 23:17:03.025 21142 21142 I Monkey  : Events injected: 1
+09-10 23:17:03.032   523   569 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10177; state: DISABLED
+09-10 23:17:03.033 21142 21142 I Monkey  : ## Network stats: elapsed time=21ms (0ms mobile, 0ms wifi, 21ms not connected)
+09-10 23:17:03.033   523   578 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10177; state: ENABLED
+09-10 23:17:03.039 21142 21142 I app_process: System.exit called, status: 0
+09-10 23:17:03.039 21142 21142 I AndroidRuntime: VM exiting with result code 0.
+09-10 23:17:03.042   305   305 D Zygote  : Forked child process 21156
+09-10 23:17:03.042   523   578 I ActivityManager: Start proc 21156:com.app.uprise/u0a177 for next-top-activity {com.app.uprise/com.app.uprise.MainActivity}
+09-10 23:17:03.054   743   802 W Parcel  : Expecting binder but got null!
+09-10 23:17:03.056   523  1611 D CompatibilityChangeReporter: Compat change id reported: 168419799; UID 10177; state: DISABLED
+09-10 23:17:03.056   523  1611 D CompatibilityChangeReporter: Compat change id reported: 273564678; UID 10177; state: DISABLED
+09-10 23:17:03.058 21156 21156 I com.app.uprise: Late-enabling -Xcheck:jni
+09-10 23:17:03.059   523  1644 D CoreBackPreview: Window{6acbc19 u0 Splash Screen com.app.uprise}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@3ae46bf, mPriority=0}
+09-10 23:17:03.066   523  1644 W AutofillManagerServiceImpl: getFillEventHistory() called by UID 10107, but service UID is 10120
+09-10 23:17:03.084  1196 20423 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-10 23:17:03.086   962  1539 D EGL_emulation: app_time_stats: avg=20917.17ms min=20917.17ms max=20917.17ms count=1
+09-10 23:17:03.087   523  1644 W Binder  : Caught a RuntimeException from the binder stub implementation.
+09-10 23:17:03.087   523  1644 W Binder  : java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 0
+09-10 23:17:03.087   523  1644 W Binder  : 	at android.util.ArraySet.valueAt(ArraySet.java:422)
+09-10 23:17:03.087   523  1644 W Binder  : 	at com.android.server.contentcapture.ContentCapturePerUserService$ContentCaptureServiceRemoteCallback.updateContentCaptureOptions(ContentCapturePerUserService.java:733)
+09-10 23:17:03.087   523  1644 W Binder  : 	at com.android.server.contentcapture.ContentCapturePerUserService$ContentCaptureServiceRemoteCallback.setContentCaptureWhitelist(ContentCapturePerUserService.java:646)
+09-10 23:17:03.087   523  1644 W Binder  : 	at android.service.contentcapture.IContentCaptureServiceCallback$Stub.onTransact(IContentCaptureServiceCallback.java:115)
+09-10 23:17:03.087   523  1644 W Binder  : 	at android.os.Binder.execTransactInternal(Binder.java:1285)
+09-10 23:17:03.087   523  1644 W Binder  : 	at android.os.Binder.execTransact(Binder.java:1244)
+09-10 23:17:03.101 21156 21156 I com.app.uprise: Using CollectorTypeCMC GC.
+09-10 23:17:03.101 21156 21156 W com.app.uprise: Unexpected CPU variant for x86: x86_64.
+09-10 23:17:03.101 21156 21156 W com.app.uprise: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, alderlake, default
+09-10 23:17:03.114   428   437 I adbd    : jdwp connection from 21156
+09-10 23:17:03.117 21156 21156 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+09-10 23:17:03.141   743   802 E OpenGLRenderer: Unable to match the desired swap behavior.
+09-10 23:17:03.142  1675  1675 I bmrp    : onPause
+09-10 23:17:03.204 21156 21156 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10177; state: ENABLED
+09-10 23:17:03.205   523   576 D IntervalStats: Unable to parse usage stats packages: [221]
+09-10 23:17:03.206   523   576 D IntervalStats: Unable to parse event packages: [221]
+09-10 23:17:03.207   523   576 D IntervalStats: Unable to parse usage stats packages: [221]
+09-10 23:17:03.207   523   576 D IntervalStats: Unable to parse event packages: [221]
+09-10 23:17:03.360 21156 21156 D nativeloader: Configuring clns-4 for other apk /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/base.apk. target_sdk_version=31, uses_libraries=, library_path=/data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64:/data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.app.uprise
+09-10 23:17:03.370 21156 21156 D nativeloader: Load libframework-connectivity-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity.jar: ok
+09-10 23:17:03.374 21156 21156 V GraphicsEnvironment: ANGLE Developer option for 'com.app.uprise' set to: 'default'
+09-10 23:17:03.375 21156 21156 V GraphicsEnvironment: ANGLE GameManagerService for com.app.uprise: false
+09-10 23:17:03.375 21156 21156 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+09-10 23:17:03.378 21156 21156 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-10 23:17:03.379 21156 21156 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-10 23:17:03.393 21156 21156 W FirebaseApp: Default FirebaseApp failed to initialize because no default options were found. This usually means that com.google.gms:google-services was not applied to your gradle project.
+09-10 23:17:03.393 21156 21156 I FirebaseInitProvider: FirebaseApp initialization unsuccessful
+09-10 23:17:03.394 21156 21156 D ReactNativeFirebaseApp: received application context.
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: initialization failed
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: java.lang.IllegalStateException: Default FirebaseApp is not initialized in this process com.app.uprise. Make sure to call FirebaseApp.initializeApp(Context) first.
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at com.google.firebase.FirebaseApp.getInstance(FirebaseApp.java:186)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at com.google.firebase.crashlytics.FirebaseCrashlytics.getInstance(FirebaseCrashlytics.java:183)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at io.invertase.firebase.crashlytics.ReactNativeFirebaseCrashlyticsInitProvider.onCreate(ReactNativeFirebaseCrashlyticsInitProvider.java:119)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2451)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2421)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at io.invertase.firebase.common.ReactNativeFirebaseInitProvider.attachInfo(ReactNativeFirebaseInitProvider.java:33)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at android.app.ActivityThread.installProvider(ActivityThread.java:7514)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at android.app.ActivityThread.installContentProviders(ActivityThread.java:7025)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:6796)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2133)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at android.os.Looper.loopOnce(Looper.java:201)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at android.os.Looper.loop(Looper.java:288)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at android.app.ActivityThread.main(ActivityThread.java:7924)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at java.lang.reflect.Method.invoke(Native Method)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:548)
+09-10 23:17:03.398 21156 21156 E RNFBCrashlyticsInit: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:936)
+09-10 23:17:03.408 21156 21156 D SoLoader: init start
+09-10 23:17:03.409 21156 21156 D SoLoader: adding system library source: /vendor/lib64
+09-10 23:17:03.410 21156 21156 D SoLoader: adding system library source: /system/lib64
+09-10 23:17:03.410 21156 21156 D SoLoader: adding application source: com.facebook.soloader.DirectorySoSource[root = /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64 flags = 0]
+09-10 23:17:03.412 21156 21156 D SoLoader: adding backup source from : com.facebook.soloader.ApkSoSource[root = /data/data/com.app.uprise/lib-main flags = 1]
+09-10 23:17:03.412 21156 21156 D SoLoader: Preparing SO source: com.facebook.soloader.DirectorySoSource[root = /system/lib64 flags = 2]
+09-10 23:17:03.413 21156 21156 D SoLoader: Preparing SO source: com.facebook.soloader.DirectorySoSource[root = /vendor/lib64 flags = 2]
+09-10 23:17:03.413 21156 21156 D SoLoader: Preparing SO source: com.facebook.soloader.DirectorySoSource[root = /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64 flags = 0]
+09-10 23:17:03.413 21156 21156 D SoLoader: Preparing SO source: com.facebook.soloader.ApkSoSource[root = /data/data/com.app.uprise/lib-main flags = 1]
+09-10 23:17:03.414 21156 21156 V fb-UnpackingSoSource: locked dso store /data/user/0/com.app.uprise/lib-main
+09-10 23:17:03.417 21156 21156 I fb-UnpackingSoSource: dso store is up-to-date: /data/user/0/com.app.uprise/lib-main
+09-10 23:17:03.417 21156 21156 V fb-UnpackingSoSource: releasing dso store lock for /data/user/0/com.app.uprise/lib-main
+09-10 23:17:03.417 21156 21156 D SoLoader: init finish: 4 SO sources prepared
+09-10 23:17:03.417 21156 21156 D SoLoader: init exiting
+09-10 23:17:03.441 21156 21156 D SoLoader: init exiting
+09-10 23:17:03.442 21156 21156 D SoLoader: About to load: libjscexecutor.so
+09-10 23:17:03.442 21156 21156 D SoLoader: libjscexecutor.so not found on /data/data/com.app.uprise/lib-main
+09-10 23:17:03.442 21156 21156 D SoLoader: libjscexecutor.so found on /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64
+09-10 23:17:03.442 21156 21156 D SoLoader: Not resolving dependencies for libjscexecutor.so
+09-10 23:17:03.455 21156 21156 D nativeloader: Load /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64/libjscexecutor.so using class loader ns clns-4 (caller=/data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/base.apk): dlopen failed: library "libjsc.so" not found: needed by /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64/libjscexecutor.so in namespace clns-4
+09-10 23:17:03.456 21156 21156 W System.err: java.lang.UnsatisfiedLinkError: dlopen failed: library "libjsc.so" not found: needed by /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64/libjscexecutor.so in namespace clns-4
+09-10 23:17:03.456 21156 21156 W System.err: 	at java.lang.Runtime.load0(Runtime.java:941)
+09-10 23:17:03.456 21156 21156 W System.err: 	at java.lang.System.load(System.java:1729)
+09-10 23:17:03.456 21156 21156 W System.err: 	at com.facebook.soloader.SoLoader$1.load(SoLoader.java:405)
+09-10 23:17:03.456 21156 21156 W System.err: 	at com.facebook.soloader.DirectorySoSource.loadLibraryFrom(DirectorySoSource.java:77)
+09-10 23:17:03.456 21156 21156 W System.err: 	at com.facebook.soloader.DirectorySoSource.loadLibrary(DirectorySoSource.java:50)
+09-10 23:17:03.456 21156 21156 W System.err: 	at com.facebook.soloader.ApplicationSoSource.loadLibrary(ApplicationSoSource.java:89)
+09-10 23:17:03.456 21156 21156 W System.err: 	at com.facebook.soloader.SoLoader.doLoadLibraryBySoName(SoLoader.java:860)
+09-10 23:17:03.456 21156 21156 W System.err: 	at com.facebook.soloader.SoLoader.loadLibraryBySoNameImpl(SoLoader.java:740)
+09-10 23:17:03.457 21156 21156 W System.err: 	at com.facebook.soloader.SoLoader.loadLibraryBySoName(SoLoader.java:654)
+09-10 23:17:03.457 21156 21156 W System.err: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:634)
+09-10 23:17:03.457 21156 21156 W System.err: 	at com.facebook.soloader.SoLoader.loadLibrary(SoLoader.java:582)
+09-10 23:17:03.457 21156 21156 W System.err: 	at com.facebook.react.ReactInstanceManagerBuilder.getDefaultJSExecutorFactory(ReactInstanceManagerBuilder.java:305)
+09-10 23:17:03.457 21156 21156 W System.err: 	at com.facebook.react.ReactInstanceManagerBuilder.build(ReactInstanceManagerBuilder.java:277)
+09-10 23:17:03.457 21156 21156 W System.err: 	at com.facebook.react.ReactNativeHost.createReactInstanceManager(ReactNativeHost.java:89)
+09-10 23:17:03.457 21156 21156 W System.err: 	at com.facebook.react.ReactNativeHost.getReactInstanceManager(ReactNativeHost.java:39)
+09-10 23:17:03.457 21156 21156 W System.err: 	at com.app.uprise.MainApplication.onCreate(MainApplication.java:58)
+09-10 23:17:03.457 21156 21156 W System.err: 	at android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1277)
+09-10 23:17:03.457 21156 21156 W System.err: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:6811)
+09-10 23:17:03.457 21156 21156 W System.err: 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+09-10 23:17:03.457 21156 21156 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2133)
+09-10 23:17:03.457 21156 21156 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-10 23:17:03.457 21156 21156 W System.err: 	at android.os.Looper.loopOnce(Looper.java:201)
+09-10 23:17:03.457 21156 21156 W System.err: 	at android.os.Looper.loop(Looper.java:288)
+09-10 23:17:03.457 21156 21156 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:7924)
+09-10 23:17:03.457 21156 21156 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-10 23:17:03.457 21156 21156 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:548)
+09-10 23:17:03.458 21156 21156 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:936)
+09-10 23:17:03.458 21156 21156 E SoLoader: couldn't find DSO to load: libjscexecutor.so caused by: dlopen failed: library "libjsc.so" not found: needed by /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64/libjscexecutor.so in namespace clns-4 result: 0
+09-10 23:17:03.462 21156 21156 D SoLoader: init exiting
+09-10 23:17:03.511   743   802 D EGL_emulation: app_time_stats: avg=9333.70ms min=13.98ms max=316492.62ms count=34
+09-10 23:17:03.631   523  1643 D CompatibilityChangeReporter: Compat change id reported: 161145287; UID 10177; state: DISABLED
+09-10 23:17:03.653 21156 21177 D SoLoader: About to load: libfbjni.so
+09-10 23:17:03.654 21156 21177 D SoLoader: libfbjni.so not found on /data/data/com.app.uprise/lib-main
+09-10 23:17:03.654 21156 21177 D SoLoader: libfbjni.so found on /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64
+09-10 23:17:03.654 21156 21177 D SoLoader: Not resolving dependencies for libfbjni.so
+09-10 23:17:03.672 21156 21177 D nativeloader: Load /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64/libfbjni.so using class loader ns clns-4 (caller=/data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/base.apk): ok
+09-10 23:17:03.673 21156 21177 D SoLoader: Loaded: libfbjni.so
+09-10 23:17:03.673 21156 21177 D SoLoader: About to load: libflipper.so
+09-10 23:17:03.673 21156 21177 D SoLoader: libflipper.so not found on /data/data/com.app.uprise/lib-main
+09-10 23:17:03.673 21156 21177 D SoLoader: libflipper.so found on /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64
+09-10 23:17:03.673 21156 21177 D SoLoader: Not resolving dependencies for libflipper.so
+09-10 23:17:03.747 21156 21177 D nativeloader: Load /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64/libflipper.so using class loader ns clns-4 (caller=/data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/base.apk): ok
+09-10 23:17:03.749 21156 21177 D SoLoader: Loaded: libflipper.so
+09-10 23:17:03.760   523  1644 W BatteryExternalStatsWorker: error reading Bluetooth stats: 11
+09-10 23:17:03.770   523  1643 D TelephonyManager: requestModemActivityInfo: Sending result to app: ModemActivityInfo{ mTimestamp=18000048 mSleepTimeMs=0 mIdleTimeMs=17939515 mActivityStatsTechSpecificInfo=[{mRat=UNKNOWN,mFrequencyRange=UNKNOWN,mTxTimeMs[]=[0, 0, 0, 0, 0],mRxTimeMs=0}]}
+09-10 23:17:03.797 21156 21156 I com.app.uprise: hiddenapi: Accessing hidden field Landroid/view/View;->mKeyedTags:Landroid/util/SparseArray; (runtime_flags=0, domain=platform, api=unsupported) from Lcom/facebook/flipper/plugins/inspector/descriptors/ViewDescriptor; (domain=app) using reflection: allowed
+09-10 23:17:03.797 21156 21156 I com.app.uprise: hiddenapi: Accessing hidden field Landroid/view/View;->mListenerInfo:Landroid/view/View$ListenerInfo; (runtime_flags=0, domain=platform, api=unsupported) from Lcom/facebook/flipper/plugins/inspector/descriptors/ViewDescriptor; (domain=app) using reflection: allowed
+09-10 23:17:03.797 21156 21156 I com.app.uprise: hiddenapi: Accessing hidden field Landroid/view/View$ListenerInfo;->mOnClickListener:Landroid/view/View$OnClickListener; (runtime_flags=0, domain=platform, api=unsupported) from Lcom/facebook/flipper/plugins/inspector/descriptors/ViewDescriptor; (domain=app) using reflection: allowed
+09-10 23:17:03.812 21156 21156 I flipper : flipper: FlipperClient::addPlugin Inspector
+09-10 23:17:03.812 21156 21156 I flipper : flipper: FlipperClient::addPlugin React
+09-10 23:17:03.815 21156 21156 I flipper : flipper: FlipperClient::addPlugin Databases
+09-10 23:17:03.823 21156 21156 I flipper : flipper: FlipperClient::addPlugin Preferences
+09-10 23:17:03.823 21156 21156 I flipper : flipper: FlipperClient::addPlugin CrashReporter
+09-10 23:17:03.827 21156 21156 I flipper : flipper: FlipperClient::addPlugin Network
+09-10 23:17:03.891 21156 21195 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+09-10 23:17:03.894 21156 21195 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+09-10 23:17:03.897 21156 21195 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+09-10 23:17:03.962 21156 21156 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10177; state: DISABLED
+09-10 23:17:03.973 21156 21192 W Parcel  : Expecting binder but got null!
+09-10 23:17:03.978   523  1643 D CoreBackPreview: Window{ccc08b9 u0 com.app.uprise/com.app.uprise.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@586777b, mPriority=0}
+09-10 23:17:04.011   743   802 D EGL_emulation: app_time_stats: avg=3972.13ms min=3972.13ms max=3972.13ms count=1
+09-10 23:17:04.030 21156 21156 I com.app.uprise: hiddenapi: Accessing hidden method Landroid/view/View;->computeFitSystemWindows(Landroid/graphics/Rect;Landroid/graphics/Rect;)Z (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/appcompat/widget/ViewUtils; (domain=app) using reflection: allowed
+09-10 23:17:04.031 21156 21156 I com.app.uprise: hiddenapi: Accessing hidden method Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/appcompat/widget/ViewUtils; (domain=app) using reflection: allowed
+09-10 23:17:04.035 21156 21192 W Parcel  : Expecting binder but got null!
+09-10 23:17:04.039   523  1643 D CoreBackPreview: Window{db915f1 u0 com.app.uprise/com.app.uprise.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@7b1057, mPriority=0}
+09-10 23:17:04.046   356   385 W ServiceManager: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10177 pid=21156
+09-10 23:17:04.046   356   385 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10177 => denied (351 us)
+09-10 23:17:04.046   356   385 W ServiceManager: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10177 pid=21156
+09-10 23:17:04.046   356   385 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10177 => denied (522 us)
+09-10 23:17:04.047   356   385 W ServiceManager: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10177 pid=21156
+09-10 23:17:04.047   356   385 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10177 => denied (421 us)
+09-10 23:17:04.058 21156 21192 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_vulkan_queue_submit_with_commands ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_1 
+09-10 23:17:04.059 21156 21192 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+09-10 23:17:04.059 21156 21192 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+09-10 23:17:04.072 21156 21192 D EGL_emulation: eglCreateContext: 0x750260128950: maj 3 min 1 rcv 4
+09-10 23:17:04.105 21156 21192 D EGL_emulation: eglMakeCurrent: 0x750260128950: ver 3 1 (tinfo 0x75048c353080) (first time)
+09-10 23:17:04.120   151   151 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+09-10 23:17:04.120 21156 21192 I Gralloc4: mapper 4.x is not supported
+09-10 23:17:04.125   151   151 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.allocator@4.0::IAllocator/default in either framework or device VINTF manifest.
+09-10 23:17:04.126   146   146 I servicemanager: Could not find android.hardware.graphics.allocator.IAllocator/default in the VINTF manifest.
+09-10 23:17:04.126 21156 21192 W Gralloc4: allocator 4.x is not supported
+09-10 23:17:04.150 21156 21192 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_vulkan_queue_submit_with_commands ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_1 
+09-10 23:17:04.152 21156 21192 E OpenGLRenderer: Unable to match the desired swap behavior.
+09-10 23:17:04.206 21156 21156 W unknown:ReactNative: Packager connection already open, nooping.
+09-10 23:17:04.233 21156 21192 E OpenGLRenderer: Unable to match the desired swap behavior.
+09-10 23:17:04.275   523   566 I ActivityTaskManager: Displayed com.app.uprise/.MainActivity: +1s253ms
+09-10 23:17:04.285 21156 21156 D CompatibilityChangeReporter: Compat change id reported: 210923482; UID 10177; state: DISABLED
+09-10 23:17:04.285 21156 21156 D CompatibilityChangeReporter: Compat change id reported: 37756858; UID 10177; state: ENABLED
+09-10 23:17:04.297 21156 21192 W Parcel  : Expecting binder but got null!
+09-10 23:17:04.298   523  1643 D CoreBackPreview: Window{c239229 u0 PopupWindow:2baf047}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@451b34f, mPriority=0}
+09-10 23:17:04.306 21156 21160 I com.app.uprise: Compiler allocated 4151KB to compile void android.view.ViewRootImpl.performTraversals()
+09-10 23:17:04.330 21156 21192 E OpenGLRenderer: Unable to match the desired swap behavior.
+09-10 23:17:04.363   523  1644 D CompatibilityChangeReporter: Compat change id reported: 214016041; UID 10177; state: DISABLED
+09-10 23:17:04.366  1235  1235 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2054 
+09-10 23:17:04.369  1235  1235 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+09-10 23:17:04.371  1235  1235 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1315 onStartInput(EditorInfo{EditorInfo{packageName=com.app.uprise, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=-1, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+09-10 23:17:04.372  1235  1235 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+09-10 23:17:04.388  1675  1675 I bmrp    : onStop
+09-10 23:17:04.390   962  1579 D OneSearchSuggestProvider: Shut down the binder channel
+09-10 23:17:04.391   962  2746 I s.nexuslauncher: oneway function results for code 2 on binder at 0x7501f017b7e0 will be dropped but finished with status UNKNOWN_TRANSACTION
+09-10 23:17:04.428 17897 17897 I Finsky  : [2] SCH: job service start with id 9618.
+09-10 23:17:04.434 17897 21058 I Finsky  : [220] SCH: Satisfied jobs for 9618 are: 12-1
+09-10 23:17:04.444 17897 21119 I Finsky  : [233] SCH: Job 12-1 starting
+09-10 23:17:04.445 17897 17897 I Finsky  : [2] WM::SCH: Logging work start for 12-1
+09-10 23:17:04.445 17897 17897 I Finsky  : [2] [ContentSync] job started
+09-10 23:17:04.551   743   802 D EGL_emulation: app_time_stats: avg=19.05ms min=1.37ms max=51.46ms count=49
+09-10 23:17:04.576 17897 21204 I android.vending: IncrementDisableThreadFlip blocked for 5.119ms
+09-10 23:17:04.660   523  1643 W InputManager-JNI: Input channel object '6acbc19 Splash Screen com.app.uprise (client)' was disposed without first being removed with the input manager!
+09-10 23:17:04.662   523  1639 D CoreBackPreview: Window{6acbc19 u0 Splash Screen com.app.uprise EXITING}: Setting back callback null
+09-10 23:17:04.663   523   552 I system_server: Background concurrent mark compact GC freed 22MB AllocSpace bytes, 36(2688KB) LOS objects, 43% free, 31MB/55MB, paused 1.707ms,8.066ms total 132.511ms
+09-10 23:17:04.675   523   554 W System  : A resource failed to call release. 
+09-10 23:17:04.675   523   554 W System  : A resource failed to call HardwareBuffer.close. 
+09-10 23:17:04.712   743   794 W FrameTracker: Missed App frame:UNKNOWN: 24, 14915853, 33887446, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 24, 14915853, 33887446, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 80, 14915882, 31152980, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 80, 14915911, 0, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missing HWUI jank callback for vsyncId: 14915911, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed App frame:UNKNOWN: 88, 14915940, 0, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 88, 14915940, 0, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missing HWUI jank callback for vsyncId: 14915940, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 80, 14915955, 34004382, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed App frame:UNKNOWN: 88, 14915970, 0, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 88, 14915970, 0, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missing HWUI jank callback for vsyncId: 14915970, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 80, 14915985, 0, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missing HWUI jank callback for vsyncId: 14915985, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 80, 14916014, 38517784, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 80, 14916043, 38300318, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 80, 14916058, 38202852, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 80, 14916073, 39327386, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 80, 14916095, 0, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missing HWUI jank callback for vsyncId: 14916095, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed App frame:UNKNOWN: 88, 14916110, 51843454, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 88, 14916110, 51843454, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed App frame:UNKNOWN: 88, 14916132, 52076788, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 88, 14916132, 52076788, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed App frame:UNKNOWN: 88, 14916147, 68075922, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 88, 14916147, 68075922, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.712   743   794 W FrameTracker: Missed SF frame:UNKNOWN: 80, 14916185, 34697924, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.713   743   794 W FrameTracker: Missed SF frame:PREDICTION_ERROR, 14916215, 13627492, CUJ=J<SPLASHSCREEN_EXIT_ANIM>
+09-10 23:17:04.739 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.mainline.primary.libs' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:04.750 21156 21179 D SoLoader: About to load: libreactnativejni.so
+09-10 23:17:04.751 21156 21179 D SoLoader: libreactnativejni.so not found on /data/data/com.app.uprise/lib-main
+09-10 23:17:04.751 21156 21179 D SoLoader: libreactnativejni.so found on /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64
+09-10 23:17:04.751 21156 21179 D SoLoader: Not resolving dependencies for libreactnativejni.so
+09-10 23:17:04.779 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.uwb' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:04.797 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.tzdata4' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:04.827 21156 21179 D nativeloader: Load /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64/libreactnativejni.so using class loader ns clns-4 (caller=/data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/base.apk): ok
+09-10 23:17:04.829 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.permission' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:04.829 21156 21179 D SoLoader: Loaded: libreactnativejni.so
+09-10 23:17:04.893 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.wifi' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:04.993   523  1643 D CoreBackPreview: Window{c239229 u0 PopupWindow:2baf047}: Setting back callback null
+09-10 23:17:04.998   523  1643 W InputManager-JNI: Input channel object 'c239229 PopupWindow:2baf047 (client)' was disposed without first being removed with the input manager!
+09-10 23:17:05.004 21156 21206 D SoLoader: About to load: libhermes.so
+09-10 23:17:05.005 21156 21206 D SoLoader: libhermes.so not found on /data/data/com.app.uprise/lib-main
+09-10 23:17:05.006 21156 21206 D SoLoader: libhermes.so found on /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64
+09-10 23:17:05.006 21156 21206 D SoLoader: Not resolving dependencies for libhermes.so
+09-10 23:17:05.015 21156 21206 D nativeloader: Load /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64/libhermes.so using class loader ns clns-4 (caller=/data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/base.apk): ok
+09-10 23:17:05.015 21156 21206 D SoLoader: Loaded: libhermes.so
+09-10 23:17:05.015 21156 21206 D SoLoader: About to load: libhermes-executor-debug.so
+09-10 23:17:05.020 21156 21206 D SoLoader: libhermes-executor-debug.so not found on /data/data/com.app.uprise/lib-main
+09-10 23:17:05.020 21156 21206 D SoLoader: libhermes-executor-debug.so found on /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64
+09-10 23:17:05.020 21156 21206 D SoLoader: Not resolving dependencies for libhermes-executor-debug.so
+09-10 23:17:05.059 21156 21206 D nativeloader: Load /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64/libhermes-executor-debug.so using class loader ns clns-4 (caller=/data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/base.apk): ok
+09-10 23:17:05.059 21156 21206 D SoLoader: Loaded: libhermes-executor-debug.so
+09-10 23:17:05.105 21156 21206 I RNFusedLocation: RNFusedLocation initialized
+09-10 23:17:05.527 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.appsearch' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.527 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.media.swcodec' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.528 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.art' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.554   743   802 D EGL_emulation: app_time_stats: avg=3.64ms min=0.87ms max=36.11ms count=59
+09-10 23:17:05.562 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.mediaprovider' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.578 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.btservices' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.580 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.adbd' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.590 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.resolv' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.616 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.conscrypt' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.616 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.media' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.642 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.neuralnetworks' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.647 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.ipsec' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.678 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.ondevicepersonalization' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.678 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.sdkext' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.695 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.adservices' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.695 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.tethering' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.709 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.extservices' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.747 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.os.statsd' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.754 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.cellbroadcast' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.796 17897 17897 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.scheduling' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-10 23:17:05.813 17897 17897 I Finsky  : [2] App states replicator found 31 unowned apps
+09-10 23:17:05.843 17897 18021 I Finsky  : [89] Completed 0 account content syncs with 0 successful.
+09-10 23:17:05.847 17897 17897 I Finsky  : [2] [ContentSync] Installation state replication succeeded.
+09-10 23:17:05.847 17897 17897 I Finsky  : [2] SCH: jobFinished: 12-1. TimeElapsed: 1403ms.
+09-10 23:17:05.847 17897 17897 I Finsky  : [2] WM::SCH: Logging work end for 12-1
+09-10 23:17:05.865 17897 18039 I Finsky  : [102] SCH: Scheduling phonesky job Id: 1-1337, CT: 1757544319995, Constraints: [{ L: 42939561, D: 86139561, C: CHARGING_NONE, I: IDLE_NONE, N: NET_ANY, B: BATTERY_ANY }]
+09-10 23:17:05.865 17897 18039 I Finsky  : [102] SCH: Scheduling phonesky job Id: 34-286, CT: 1757544339518, Constraints: [{ L: 604800000, D: 2591999753, C: CHARGING_NONE, I: IDLE_NONE, N: NET_ANY, B: BATTERY_ANY }]
+09-10 23:17:05.865 17897 18039 I Finsky  : [102] SCH: Scheduling phonesky job Id: 34-288, CT: 1757544336901, Constraints: [{ L: 79189825, D: 1375189825, C: CHARGING_NONE, I: IDLE_NONE, N: NET_ANY, B: BATTERY_ANY }]
+09-10 23:17:05.870 17897 18030 I Finsky  : [93] SCH: Scheduling 1 system job(s)
+09-10 23:17:05.870 17897 18030 I Finsky  : [93] SCH: Scheduling system job Id: 9626, L: 23033686, D: 66233686, C: false, I: false, N: 1
+09-10 23:17:05.874 17897 21119 I Finsky  : [233] SCH: job service finished with id 9618.
+09-10 23:17:05.877   523  1644 I ActivityManager: Killing 20508:com.google.android.documentsui/u0a75 (adj 975): empty #17
+09-10 23:17:05.885   523   579 I libprocessgroup: Successfully killed process cgroup uid 10075 pid 20508 in 6ms
+09-10 23:17:05.888   305   305 I Zygote  : Process 20508 exited due to signal 9 (Killed)
+09-10 23:17:05.890   523   672 D CompatibilityChangeReporter: Compat change id reported: 218533173; UID 10075; state: ENABLED
+09-10 23:17:07.213 21156 21206 W [REANIMATED]: Since 2.5.0, Reanimated autoinstalls on Android - you can remove getJSIModulePackage() override in MainApplication.java.
+09-10 23:17:07.218 21156 21156 W unknown:ReactNative: Packager connection already open, nooping.
+09-10 23:17:07.261 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.drawer.ReactDrawerLayoutManager
+09-10 23:17:07.263 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.uimanager.LayoutShadowNode
+09-10 23:17:07.264 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollViewManager
+09-10 23:17:07.265 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollContainerViewManager
+09-10 23:17:07.265 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.progressbar.ReactProgressBarViewManager
+09-10 23:17:07.266 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.progressbar.ProgressBarShadowNode
+09-10 23:17:07.266 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.scroll.ReactScrollViewManager
+09-10 23:17:07.266 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.slider.ReactSliderManager
+09-10 23:17:07.267 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.slider.ReactSliderManager$ReactSliderShadowNode
+09-10 23:17:07.267 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchManager
+09-10 23:17:07.268 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchManager$ReactSwitchShadowNode
+09-10 23:17:07.268 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.swiperefresh.SwipeRefreshLayoutManager
+09-10 23:17:07.268 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageViewManager
+09-10 23:17:07.268 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageShadowNode
+09-10 23:17:07.269 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.image.ReactImageManager
+09-10 23:17:07.270 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.modal.ReactModalHostManager
+09-10 23:17:07.270 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.modal.ModalHostShadowNode
+09-10 23:17:07.270 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactRawTextManager
+09-10 23:17:07.270 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactRawTextShadowNode
+09-10 23:17:07.270 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputManager
+09-10 23:17:07.271 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputShadowNode
+09-10 23:17:07.272 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactTextViewManager
+09-10 23:17:07.272 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactTextShadowNode
+09-10 23:17:07.273 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.view.ReactViewManager
+09-10 23:17:07.273 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextViewManager
+09-10 23:17:07.273 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextShadowNode
+09-10 23:17:07.273 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.unimplementedview.ReactUnimplementedViewManager
+09-10 23:17:07.274 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class org.reactnative.maskedview.RNCMaskedViewManager
+09-10 23:17:07.274 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.reactnativegooglesignin.RNGoogleSigninButtonViewManager
+09-10 23:17:07.274 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.gesturehandler.react.RNGestureHandlerRootViewManager
+09-10 23:17:07.274 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.gesturehandler.react.RNGestureHandlerButtonViewManager
+09-10 23:17:07.275 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.BV.LinearGradient.LinearGradientManager
+09-10 23:17:07.275 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.reactnativepagerview.PagerViewViewManager
+09-10 23:17:07.276 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaProviderManager
+09-10 23:17:07.276 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaViewManager
+09-10 23:17:07.276 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaViewShadowNode
+09-10 23:17:07.277 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenContainerViewManager
+09-10 23:17:07.277 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenViewManager
+09-10 23:17:07.277 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenStackViewManager
+09-10 23:17:07.277 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenStackHeaderConfigViewManager
+09-10 23:17:07.278 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenStackHeaderSubviewManager
+09-10 23:17:07.278 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.SearchBarManager
+09-10 23:17:07.278 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$GroupViewManager
+09-10 23:17:07.279 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$RenderableShadowNode
+09-10 23:17:07.280 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$PathViewManager
+09-10 23:17:07.280 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$CircleViewManager
+09-10 23:17:07.280 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$EllipseViewManager
+09-10 23:17:07.280 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$LineViewManager
+09-10 23:17:07.281 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$RectViewManager
+09-10 23:17:07.281 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$TextViewManager
+09-10 23:17:07.281 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$TSpanViewManager
+09-10 23:17:07.281 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$TextPathViewManager
+09-10 23:17:07.282 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$ImageViewManager
+09-10 23:17:07.282 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$ClipPathViewManager
+09-10 23:17:07.282 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$DefsViewManager
+09-10 23:17:07.282 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$UseViewManager
+09-10 23:17:07.282 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$SymbolManager
+09-10 23:17:07.282 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$LinearGradientManager
+09-10 23:17:07.283 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$RadialGradientManager
+09-10 23:17:07.283 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$PatternManager
+09-10 23:17:07.283 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$MaskManager
+09-10 23:17:07.283 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$ForeignObjectManager
+09-10 23:17:07.284 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$MarkerManager
+09-10 23:17:07.284 21156 21208 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.SvgViewManager
+09-10 23:17:07.294 21156 21208 I com.app.uprise: hiddenapi: Accessing hidden field Ljava/lang/reflect/Field;->accessFlags:I (runtime_flags=0, domain=core-platform, api=unsupported) from Lcom/swmansion/reanimated/layoutReanimation/ReanimatedNativeHierarchyManager; (domain=app) using reflection: allowed
+09-10 23:17:07.303 21156 21208 D SoLoader: About to load: libyoga.so
+09-10 23:17:07.303 21156 21208 D SoLoader: libyoga.so not found on /data/data/com.app.uprise/lib-main
+09-10 23:17:07.303 21156 21208 D SoLoader: libyoga.so found on /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64
+09-10 23:17:07.303 21156 21208 D SoLoader: Not resolving dependencies for libyoga.so
+09-10 23:17:07.304 21156 21208 D nativeloader: Load /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64/libyoga.so using class loader ns clns-4 (caller=/data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/base.apk): ok
+09-10 23:17:07.305 21156 21208 D SoLoader: Loaded: libyoga.so
+09-10 23:17:07.367   523  1643 D ConnectivityService: requestNetwork for uid/pid:10177/21156 activeRequest: null callbackRequest: 315 [NetworkRequest [ REQUEST id=316, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10177 RequestorUid: 10177 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOSING|LOST|UNAVAIL|NC|LP
+09-10 23:17:07.368   523   673 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=316, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10177 RequestorUid: 10177 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-10 23:17:07.368   523   673 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=316, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10177 RequestorUid: 10177 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-10 23:17:07.368   523   673 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=316, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10177 RequestorUid: 10177 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-10 23:17:07.368   523   673 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=316, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10177 RequestorUid: 10177 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-10 23:17:07.368   523   679 D ConnectivityService: NetReassign [316 : null → 100] [c 0] [a 0] [i 1]
+09-10 23:17:07.373 21156 21208 I flipper : flipper: FlipperClient::addPlugin Fresco
+09-10 23:17:07.469 21156 21207 D SoLoader: About to load: libreactnativeblob.so
+09-10 23:17:07.469 21156 21207 D SoLoader: libreactnativeblob.so not found on /data/data/com.app.uprise/lib-main
+09-10 23:17:07.469 21156 21207 D SoLoader: libreactnativeblob.so found on /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64
+09-10 23:17:07.469 21156 21207 D SoLoader: Not resolving dependencies for libreactnativeblob.so
+09-10 23:17:07.473 21156 21207 D nativeloader: Load /data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/lib/x86_64/libreactnativeblob.so using class loader ns clns-4 (caller=/data/app/~~UsduLuQSNU4VDp9hffV7-Q==/com.app.uprise-jRs1uhqzU29eJBnSLijSfg==/base.apk): ok
+09-10 23:17:07.473 21156 21207 D SoLoader: Loaded: libreactnativeblob.so
+09-10 23:17:07.486 21156 21208 I WebViewFactory: Loading com.google.android.webview version 139.0.7258.143 (code 725814338)
+09-10 23:17:07.491 21156 21208 W com.app.uprise: Failed to find entry 'classes.dex': Entry not found
+09-10 23:17:07.491 21156 21208 D nativeloader: Configuring clns-5 for other apk /data/app/~~SSEbxose8UCu0hEsIySZuA==/com.google.android.trichromelibrary_725814338-SNhaRDuRcfPuh-Ntuau95A==/base.apk. target_sdk_version=35, uses_libraries=ALL, library_path=/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/lib/x86_64:/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/base.apk!/lib/x86_64:/data/app/~~SSEbxose8UCu0hEsIySZuA==/com.google.android.trichromelibrary_725814338-SNhaRDuRcfPuh-Ntuau95A==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand
+09-10 23:17:07.496 21156 21208 D nativeloader: Configuring clns-6 for other apk /system_ext/framework/androidx.window.extensions.jar. target_sdk_version=35, uses_libraries=ALL, library_path=/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/lib/x86_64:/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/base.apk!/lib/x86_64:/data/app/~~SSEbxose8UCu0hEsIySZuA==/com.google.android.trichromelibrary_725814338-SNhaRDuRcfPuh-Ntuau95A==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand
+09-10 23:17:07.497 21156 21208 D nativeloader: Configuring clns-7 for other apk /data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/base.apk. target_sdk_version=35, uses_libraries=, library_path=/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/lib/x86_64:/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/base.apk!/lib/x86_64:/data/app/~~SSEbxose8UCu0hEsIySZuA==/com.google.android.trichromelibrary_725814338-SNhaRDuRcfPuh-Ntuau95A==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand
+09-10 23:17:07.560 21156 21208 I cr_WVCFactoryProvider: version=139.0.7258.143 (725814338) minSdkVersion=29 multiprocess=true packageId=2 splits=<none>
+09-10 23:17:07.570 21156 21208 D nativeloader: Load /data/app/~~SSEbxose8UCu0hEsIySZuA==/com.google.android.trichromelibrary_725814338-SNhaRDuRcfPuh-Ntuau95A==/base.apk!/lib/x86_64/libmonochrome_64.so using class loader ns clns-7 (caller=/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/base.apk): ok
+09-10 23:17:07.573 21156 21208 D nativeloader: Load /system/lib64/libwebviewchromium_plat_support.so using class loader ns clns-7 (caller=/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/base.apk): ok
+09-10 23:17:07.585 21156 21219 E chromium: [ERROR:android_webview/browser/variations/variations_seed_loader.cc:39] Seed missing signature.
+09-10 23:17:07.585 21156 21219 I chromium: [INFO:android_webview/browser/variations/variations_seed_loader.cc:67] Failed to open file for reading.: No such file or directory (2)
+09-10 23:17:07.587 21156 21208 I cr_LibraryLoader: Successfully loaded native library
+09-10 23:17:07.588   523  1517 D CompatibilityChangeReporter: Compat change id reported: 161252188; UID 10126; state: DISABLED
+09-10 23:17:07.588 21156 21208 I cr_CachingUmaRecorder: Flushed 13 samples from 13 histograms, 0 samples were dropped.
+09-10 23:17:07.590   523  1517 D CompatibilityChangeReporter: Compat change id reported: 168419799; UID 10126; state: DISABLED
+09-10 23:17:07.590   523  1517 D CompatibilityChangeReporter: Compat change id reported: 273564678; UID 10126; state: DISABLED
+09-10 23:17:07.643 21156 21207 V AsyncStorageExpoMigration: No scoped database found
+09-10 23:17:07.661 21156 21207 W ReactNativeJS: `new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method.
+09-10 23:17:07.661 21156 21207 W ReactNativeJS: `new NativeEventEmitter()` was called with a non-null argument without the required `removeListeners` method.
+09-10 23:17:07.806 21156 21207 E com.app.uprise: Invalid ID 0x00000000.
+09-10 23:17:07.812 21156 21207 W ReactNativeJS: Require cycle: node_modules\axios\lib\defaults.js -> node_modules\axios\lib\adapters\xhr.js -> node_modules\axios\lib\defaults.js
+09-10 23:17:07.812 21156 21207 W ReactNativeJS: 
+09-10 23:17:07.812 21156 21207 W ReactNativeJS: Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.

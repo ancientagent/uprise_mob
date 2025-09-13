@@ -18,7 +18,7 @@ import styles from './ProfileTab.styles';
 import BlackEdit from '../../../../assets/images/BlackEdit.svg';
 import SvgImage from '../../../components/SvgImage/SvgImage';
 import Colors from '../../../theme/colors';
-import { getUserDetails, currentScreen } from '../../../state/selectors/UserProfile';
+import { getUserDetails, currentScreen, isSuperAdmin } from '../../../state/selectors/UserProfile';
 import { currentScreenAction } from '../../../state/actions/currentScreen/currentScreen.action';
 import { SIGN_OUT } from '../../../state/types/ActionTypes';
 import { upDateProfileSagaAction, getUserAvatarSagaAction, getInstrumentSagaAction } from '../../../state/actions/sagas';
@@ -34,6 +34,7 @@ const ProfileTab = props => {
   // const [visible, setVisible] = useState(false);
   const userDetails = useSelector(getUserDetails);
   const screenDetails = useSelector(currentScreen);
+  const superAdmin = useSelector(isSuperAdmin);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -286,6 +287,20 @@ const ProfileTab = props => {
               >
                 <Text style={ styles.logoutText }>Instruments interested in</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                onPress={ () => navigation.navigate('CommunitySetup') }
+                style={ { marginTop: 10 } }
+              >
+                <Text style={ styles.logoutText }>My Community</Text>
+              </TouchableOpacity>
+              {superAdmin && (
+                <TouchableOpacity
+                  onPress={ () => navigation.navigate('AdminTools') }
+                  style={ { marginTop: 10 } }
+                >
+                  <Text style={ styles.logoutText }>Admin Tools</Text>
+                </TouchableOpacity>
+              )}
               <TouchableOpacity onPress={ handleLogOut }>
                 <Text style={ styles.logoutText }>Logout</Text>
               </TouchableOpacity>

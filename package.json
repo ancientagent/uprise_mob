@@ -73,7 +73,7 @@
     "react-native-swiper": "^1.6.0",
     "react-native-swiper-flatlist": "^3.0.17",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-video": "^5.2.2",
+    "react-native-video": "file:shims/react-native-video",
     "react-native-video-player": "^0.12.0",
     "react-native-virtualized-view": "^0.1.5",
     "react-navigation": "^4.4.4",
@@ -94,7 +94,7 @@
     "@babel/runtime": "7.16.7",
     "@react-native-community/eslint-config": "2.0.0",
     "babel-jest": "26.6.3",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "eslint": "7.14.0",
@@ -115,5 +115,15 @@
   "overrides": {
     "react-native-screens": "3.10.1"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "resolutions": {
+    "react-native-video": "file:shims/react-native-video",
+    "metro": "0.66.2",
+    "metro-core": "0.66.2",
+    "metro-config": "0.66.2",
+    "metro-runtime": "0.66.2",
+    "metro-babel-transformer": "0.66.2",
+    "metro-react-native-babel-transformer": "0.66.2",
+    "metro-transform-worker": "0.66.2"
+  }
 }

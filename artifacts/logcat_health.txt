@@ -1,0 +1,212 @@
+
+09-12 22:02:37.892  2027  2027 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.neuralnetworks' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-12 22:02:50.107  2027  2189 I PlayCommon: [69] Connecting to server: https://play.googleapis.com/play/log?format=raw&proto_v2=true
+09-12 22:03:26.259   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=265, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10184 RequestorUid: 10184 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ] (release request)
+09-12 22:03:26.884   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{56534dc com.app.uprise.debug}
+09-12 22:03:26.895   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{9d0176b com.app.uprise.debug}
+09-12 22:03:27.149   529   661 D NetworkStatsObservers: Registering observer for RequestInfo from pid/uid:529/1000(android) for DataUsageRequest [ requestId=11, networkTemplate=NetworkTemplate: matchRule=MOBILE, matchSubscriberIds=[310260...], matchWifiNetworkKeys=[], metered=YES, defaultNetwork=NO, thresholdInBytes=17510760 ] accessLevel:3
+09-12 22:03:27.153   529   740 D NetworkStatsObservers: Unregistering RequestInfo from pid/uid:529/1000(android) for DataUsageRequest [ requestId=10, networkTemplate=NetworkTemplate: matchRule=MOBILE, matchSubscriberIds=[310260...], matchWifiNetworkKeys=[], metered=YES, defaultNetwork=NO, thresholdInBytes=17510857 ] accessLevel:3
+09-12 22:03:27.858  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package removed for userId: 0]
+09-12 22:03:27.918 10086 10086 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:03:27.919 10086 10086 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:03:30.139  1161 10070 W NetworkScheduler: Unexpected forwarded intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package: flg=0x4000010 pkg=com.google.android.gms cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+09-12 22:03:30.395  1305  1305 I AiAiEcho: EchoSearch: AppFetcherImpl is initialized with [19] apps [time=12, reason=com.app.uprise is added]
+09-12 22:03:30.508  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package added for userId: 0]
+09-12 22:03:30.813 10120 10120 I Monkey  : ## Network stats: elapsed time=179ms (0ms mobile, 0ms wifi, 179ms not connected)
+09-12 22:03:31.005 10141 10141 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:03:31.007 10141 10141 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:03:31.719   529   799 D ConnectivityService: requestNetwork for uid/pid:10185/10141 activeRequest: null callbackRequest: 266 [NetworkRequest [ REQUEST id=267, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10185 RequestorUid: 10185 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOSING|LOST|UNAVAIL|NC|LP
+09-12 22:03:31.731   529   665 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=267, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10185 RequestorUid: 10185 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:03:31.731   529   665 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=267, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10185 RequestorUid: 10185 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:03:31.731   529   665 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=267, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10185 RequestorUid: 10185 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:03:31.731   529   665 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=267, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10185 RequestorUid: 10185 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:03:32.400   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=267, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10185 RequestorUid: 10185 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ] (release request)
+09-12 22:03:45.209  2027  2027 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.neuralnetworks' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-12 22:04:00.215  1018  1018 I AiAiSuggestUi: Fetching contents, isPrimaryTask = false
+09-12 22:04:00.315  1018  1438 I AiAiSuggestUi: Fetched content back in callback
+09-12 22:04:02.083 10188 10188 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:04:02.083 10188 10188 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:04:02.445   529  1431 D ConnectivityService: requestNetwork for uid/pid:10185/10188 activeRequest: null callbackRequest: 268 [NetworkRequest [ REQUEST id=269, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10185 RequestorUid: 10185 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOSING|LOST|UNAVAIL|NC|LP
+09-12 22:04:02.459   529   665 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=269, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10185 RequestorUid: 10185 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:04:02.459   529   665 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=269, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10185 RequestorUid: 10185 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:04:02.459   529   665 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=269, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10185 RequestorUid: 10185 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:04:02.459   529   665 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=269, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10185 RequestorUid: 10185 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:04:04.684   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=269, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10185 RequestorUid: 10185 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ] (release request)
+09-12 22:04:13.976   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{3a3660d com.app.uprise}
+09-12 22:04:14.023   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{c5c5abf com.app.uprise}
+09-12 22:04:14.598  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package removed for userId: 0]
+09-12 22:04:16.067  1161 10275 W NetworkScheduler: Unexpected forwarded intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package: flg=0x4000010 pkg=com.google.android.gms cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+09-12 22:04:16.336 10302 10302 I Monkey  : ## Network stats: elapsed time=26ms (0ms mobile, 0ms wifi, 26ms not connected)
+09-12 22:04:16.539 10318 10318 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:04:16.539 10318 10318 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:04:16.750  1305  1305 I AiAiEcho: EchoSearch: AppFetcherImpl is initialized with [19] apps [time=22, reason=com.app.uprise is added]
+09-12 22:04:16.847  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package added for userId: 0]
+09-12 22:04:17.209   529   801 D ConnectivityService: requestNetwork for uid/pid:10186/10318 activeRequest: null callbackRequest: 270 [NetworkRequest [ REQUEST id=271, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10186 RequestorUid: 10186 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOSING|LOST|UNAVAIL|NC|LP
+09-12 22:04:17.210   529   665 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=271, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10186 RequestorUid: 10186 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:04:17.211   529   665 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=271, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10186 RequestorUid: 10186 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:04:17.211   529   665 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=271, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10186 RequestorUid: 10186 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:04:17.211   529   665 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=271, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10186 RequestorUid: 10186 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:04:17.578   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=271, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10186 RequestorUid: 10186 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ] (release request)
+09-12 22:04:31.841  2027  2027 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.neuralnetworks' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-12 22:04:58.005   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{c647ec7 com.app.uprise}
+09-12 22:04:58.035   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{e24a7b7 com.app.uprise}
+09-12 22:04:58.393  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package removed for userId: 0]
+09-12 22:04:59.402  1161 10422 W NetworkScheduler: Unexpected forwarded intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package: flg=0x4000010 pkg=com.google.android.gms cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+09-12 22:04:59.804 10439 10439 I Monkey  : ## Network stats: elapsed time=36ms (0ms mobile, 0ms wifi, 36ms not connected)
+09-12 22:05:00.289 10456 10456 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: true
+09-12 22:05:00.293 10456 10456 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: true
+09-12 22:05:00.477  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package added for userId: 0]
+09-12 22:05:00.486  1305  1305 I AiAiEcho: EchoSearch: AppFetcherImpl is initialized with [19] apps [time=134, reason=com.app.uprise.debug is added]
+09-12 22:05:01.290 10456 10456 I flipper : flipper: FlipperClient::addPlugin Network
+09-12 22:05:03.560   529  2085 D ConnectivityService: requestNetwork for uid/pid:10188/10456 activeRequest: null callbackRequest: 272 [NetworkRequest [ REQUEST id=273, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10188 RequestorUid: 10188 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOSING|LOST|UNAVAIL|NC|LP
+09-12 22:05:03.562   529   665 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=273, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10188 RequestorUid: 10188 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:05:03.562   529   665 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=273, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10188 RequestorUid: 10188 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:05:03.562   529   665 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=273, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10188 RequestorUid: 10188 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:05:03.562   529   665 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=273, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10188 RequestorUid: 10188 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:05:16.315  2027  2027 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.neuralnetworks' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-12 22:05:50.965 10456 10481 E unknown:InspectorPackagerConnection: 	at okhttp3.internal.ws.WebSocketReader.readHeader(WebSocketReader.kt:119)
+09-12 22:05:50.965 10456 10481 E unknown:InspectorPackagerConnection: 	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:102)
+09-12 22:05:50.965 10456 10481 E unknown:InspectorPackagerConnection: 	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:293)
+09-12 22:05:50.965 10456 10481 E unknown:InspectorPackagerConnection: 	at okhttp3.internal.ws.RealWebSocket$connect$1.onResponse(RealWebSocket.kt:195)
+09-12 22:05:50.965 10456 10481 E unknown:InspectorPackagerConnection: 	at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:519)
+09-12 22:05:50.965 10456 10482 E unknown:ReconnectingWebSocket: 	at okhttp3.internal.ws.WebSocketReader.readHeader(WebSocketReader.kt:119)
+09-12 22:05:50.965 10456 10482 E unknown:ReconnectingWebSocket: 	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:102)
+09-12 22:05:50.965 10456 10482 E unknown:ReconnectingWebSocket: 	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:293)
+09-12 22:05:50.965 10456 10482 E unknown:ReconnectingWebSocket: 	at okhttp3.internal.ws.RealWebSocket$connect$1.onResponse(RealWebSocket.kt:195)
+09-12 22:05:50.965 10456 10482 E unknown:ReconnectingWebSocket: 	at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:519)
+09-12 22:05:50.976 10456 10531 W ReactNativeJS: - Ensure that Metro is running and available on the same network
+09-12 22:05:50.976 10456 10531 W ReactNativeJS: - If your device is on the same Wi-Fi network, set 'Debug server host & port for device' in 'Dev settings' to your machine's IP address and the port of the local dev server - e.g. 10.0.1.1:8081
+09-12 22:06:37.880   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=273, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10188 RequestorUid: 10188 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ] (release request)
+09-12 22:06:38.232   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{94bf46a com.app.uprise.debug}
+09-12 22:06:38.234   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{92ced36 com.app.uprise.debug}
+09-12 22:06:39.160  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package removed for userId: 0]
+09-12 22:06:41.477  1161 10717 W NetworkScheduler: Unexpected forwarded intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package: flg=0x4000010 pkg=com.google.android.gms cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+09-12 22:06:41.821 10751 10751 I Monkey  : ## Network stats: elapsed time=32ms (0ms mobile, 0ms wifi, 32ms not connected)
+09-12 22:06:42.035  1305  1305 I AiAiEcho: EchoSearch: AppFetcherImpl is initialized with [19] apps [time=17, reason=com.app.uprise is added]
+09-12 22:06:42.133  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package added for userId: 0]
+09-12 22:06:42.226 10768 10768 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:06:42.227 10768 10768 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:06:42.631   529   896 D ConnectivityService: requestNetwork for uid/pid:10189/10768 activeRequest: null callbackRequest: 274 [NetworkRequest [ REQUEST id=275, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10189 RequestorUid: 10189 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOSING|LOST|UNAVAIL|NC|LP
+09-12 22:06:42.633   529   665 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=275, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10189 RequestorUid: 10189 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:06:42.633   529   665 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=275, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10189 RequestorUid: 10189 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:06:42.633   529   665 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=275, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10189 RequestorUid: 10189 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:06:42.633   529   665 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=275, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10189 RequestorUid: 10189 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:06:42.882   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=275, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10189 RequestorUid: 10189 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ] (release request)
+09-12 22:06:55.999  2027  2027 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.neuralnetworks' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-12 22:07:16.857  1161 10814 I NearbySharing: Network state changed: NetworkState(isRestricted=false, isOnline=true, isCongested=false, isMetered=false, isWifiConnected=true)
+09-12 22:07:16.858  1161 10814 I NearbySharing: Network state changed: NetworkState(isRestricted=false, isOnline=true, isCongested=false, isMetered=false, isWifiConnected=true)
+09-12 22:07:16.930  1161 10813 I NearbyMediums: [WifiNetworkV2] WifiStatusChangedCallback unregistered for NearbySharing (wifiStatusChangedCallbacks.size:0)
+09-12 22:07:17.046   529   675 I serviceDiscovery: [MdnsAdvertiser] Adding service name: IzNSNkT8n14AAA, type: _FC9F5ED42C8A._tcp, subtypes: , hostAddresses: , hostname: null, port: 53601, network: null, expirationTime: null, txtRecord: {f=2447, n=MhDIoB1Ro4g4yE-aZ35tJkQ, IPv4=10.0.2.16} with ID 12 and subtypes {} advertisingOptions MdnsAdvertisingOptions{ }
+09-12 22:07:17.831  1161  7389 I NearbyMediums: [WifiNetworkV2] WifiStatusChangedCallback registered for NearbySharing (wifiStatusChangedCallbacks.size:1)
+09-12 22:09:56.589  1161 10743 I FrewleTileCacheManagerV: (REDACTED) Fetched %d AP models from cache
+09-12 22:09:56.593  1161 10743 I FrewleTileCacheManagerV: (REDACTED) Fetched %d AP models from cache
+09-12 22:09:56.593  1161 10743 I FrewleTileCacheManagerV: (REDACTED) Fetched %d AP models from cache
+09-12 22:09:56.593  1161 10743 I FrewleTileCacheManagerV: (REDACTED) Fetched %d AP models from cache
+09-12 22:09:56.593  1161 10743 I FrewleTileCacheManagerV: (REDACTED) Fetched %d AP models from cache
+09-12 22:10:53.209   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{7c9a97b com.app.uprise}
+09-12 22:10:53.257   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{4f25f61 com.app.uprise}
+09-12 22:10:53.927  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package removed for userId: 0]
+09-12 22:10:55.297  1161 10902 W NetworkScheduler: Unexpected forwarded intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package: flg=0x4000010 pkg=com.google.android.gms cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+09-12 22:10:55.570  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package added for userId: 0]
+09-12 22:10:55.583  1305  1305 I AiAiEcho: EchoSearch: AppFetcherImpl is initialized with [19] apps [time=134, reason=com.app.uprise.debug is added]
+09-12 22:10:55.642 10924 10924 I Monkey  : ## Network stats: elapsed time=212ms (0ms mobile, 0ms wifi, 212ms not connected)
+09-12 22:10:57.081 10940 10940 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: true
+09-12 22:10:57.085 10940 10940 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: true
+09-12 22:10:58.226 10940 10940 I flipper : flipper: FlipperClient::addPlugin Network
+09-12 22:11:11.287  1161 10438 I NetworkScheduler.Stats: (REDACTED) Task %s/%s started execution. cause:%s exec_start_elapsed_seconds: %s
+09-12 22:11:11.459  1161 10743 I NetworkScheduler.Stats: (REDACTED) Task %s/%s started execution. cause:%s exec_start_elapsed_seconds: %s
+09-12 22:11:11.835  1161 10921 I NetworkScheduler.Stats: (REDACTED) Task %s/%s finished executing. cause:%s result: %s elapsed_millis: %s uptime_millis: %s exec_start_elapsed_seconds: %s
+09-12 22:11:13.162 11029 11029 D nativeloader: Configuring clns-4 for other apk /system/framework/org.apache.http.legacy.jar. target_sdk_version=36, uses_libraries=ALL, library_path=/data/app/~~Sl8cJyIwQNJAwFN8b0T5Gw==/com.google.android.gms-jPsbaOT9rUfe5QPYk1fEMA==/lib/x86_64:/data/app/~~Sl8cJyIwQNJAwFN8b0T5Gw==/com.google.android.gms-jPsbaOT9rUfe5QPYk1fEMA==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.google.android.gms
+09-12 22:11:14.244 11029 11029 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: false
+09-12 22:11:14.261 11029 11029 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: false
+09-12 22:11:14.825  2027  2027 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.neuralnetworks' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-12 22:11:15.481  1161  1255 W GmsUrlRequestImpl: [https://android.googleapis.com/auth/devicekey] Content-Type header is overwritten.
+09-12 22:11:16.034   529  1428 D ConnectivityService: requestNetwork for uid/pid:10190/10940 activeRequest: null callbackRequest: 276 [NetworkRequest [ REQUEST id=277, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10190 RequestorUid: 10190 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOSING|LOST|UNAVAIL|NC|LP
+09-12 22:11:16.036   529   665 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=277, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10190 RequestorUid: 10190 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:11:16.037   529   665 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=277, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10190 RequestorUid: 10190 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:11:16.037   529   665 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=277, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10190 RequestorUid: 10190 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:11:16.037   529   665 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=277, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10190 RequestorUid: 10190 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:11:16.324  1161 10921 I NetworkScheduler.Stats: (REDACTED) Task %s/%s finished executing. cause:%s result: %s elapsed_millis: %s uptime_millis: %s exec_start_elapsed_seconds: %s
+09-12 22:11:23.471   806  1013 W AlarmManager: Unrecognized alarm listener com.android.networkstack.android.net.ip.IpClientLinkObserver$Dhcp6PdPreferredPrefixAlarmListener@f7a14c4
+09-12 22:11:24.302 11118 11118 D nativeloader: Configuring clns-4 for other apk /system/framework/org.apache.http.legacy.jar. target_sdk_version=33, uses_libraries=ALL, library_path=/product/priv-app/SettingsIntelligenceGooglePrebuilt/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.google.android.settings.intelligence
+09-12 22:11:24.319 11118 11118 D nativeloader: InitLlndkLibrariesProduct: libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libRS.so:libandroid_net.so:libbinder_ndk.so:libc.so:libcgrouprc.so:libclang_rt.asan-x86_64-android.so:libdl.so:libft2.so:liblog.so:libm.so:libmediandk.so:libnativewindow.so:libneuralnetworks.so:libselinux.so:libsync.so:libvndksupport.so:libvulkan.so
+09-12 22:11:24.367 11118 11118 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:11:24.368 11118 11118 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:11:24.583   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=254, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10143 RequestorUid: 10143 RequestorPkg: com.google.android.youtube UnderlyingNetworks: Null] ] (release request)
+09-12 22:11:24.585   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=257, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10143 RequestorUid: 10143 RequestorPkg: com.google.android.youtube UnderlyingNetworks: Null] ] (release request)
+09-12 22:11:24.585   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=259, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10143 RequestorUid: 10143 RequestorPkg: com.google.android.youtube UnderlyingNetworks: Null] ] (release request)
+09-12 22:11:24.585   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=261, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10143 RequestorUid: 10143 RequestorPkg: com.google.android.youtube UnderlyingNetworks: Null] ] (release request)
+09-12 22:11:24.586   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=263, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10143 RequestorUid: 10143 RequestorPkg: com.google.android.youtube UnderlyingNetworks: Null] ] (release request)
+09-12 22:11:25.325   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=277, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10190 RequestorUid: 10190 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ] (release request)
+09-12 22:11:26.014   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{6883834 com.app.uprise.debug}
+09-12 22:11:26.132   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{2096d82 com.app.uprise.debug}
+09-12 22:11:27.652  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package removed for userId: 0]
+09-12 22:11:28.450  1161 11187 W NetworkScheduler: Unexpected forwarded intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package: flg=0x4000010 pkg=com.google.android.gms cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+09-12 22:11:29.158 11219 11219 I Monkey  : ## Network stats: elapsed time=54ms (0ms mobile, 0ms wifi, 54ms not connected)
+09-12 22:11:29.307  1305  1305 I AiAiEcho: EchoSearch: AppFetcherImpl is initialized with [19] apps [time=60, reason=com.app.uprise.debug is added]
+09-12 22:11:29.355  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package added for userId: 0]
+09-12 22:11:29.676 11238 11238 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: true
+09-12 22:11:29.677 11238 11238 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: true
+09-12 22:11:31.005 11238 11238 I flipper : flipper: FlipperClient::addPlugin Network
+09-12 22:11:33.137   529   799 D ConnectivityService: requestNetwork for uid/pid:10191/11238 activeRequest: null callbackRequest: 278 [NetworkRequest [ REQUEST id=279, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10191 RequestorUid: 10191 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOSING|LOST|UNAVAIL|NC|LP
+09-12 22:11:33.141   529   665 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=279, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10191 RequestorUid: 10191 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:11:33.141   529   665 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=279, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10191 RequestorUid: 10191 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:11:33.142   529   665 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=279, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10191 RequestorUid: 10191 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:11:33.143   529   665 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=279, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10191 RequestorUid: 10191 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:11:44.936  1400  2879 W Auth.Api.SignIn: APIs, see https://goo.gle/gsi-migration.
+09-12 22:11:45.627  2027  2027 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.neuralnetworks' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-12 22:11:53.595  1227  1829 I DelightDataFileManagerLanguageModelProvider: DelightDataFileManagerLanguageModelProvider.fetchLanguageModel():76 find data en-840 mdd
+09-12 22:11:53.610  1227  1829 I DelightDataFileManagerLanguageModelProvider: DelightDataFileManagerLanguageModelProvider.fetchLanguageModel():76 find data en-US bundled_delight
+09-12 22:11:53.649  1227 11381 I ManifestedDataDownloader: ManifestedDataDownloader.download():63 downloading manifest https://www.gstatic.com/android/keyboard/dictionarypack/2025052121/metadata.json-perlang/en-840.json?v=2025080800
+09-12 22:11:53.664  1227 11368 I ManifestedDataDownloader: ManifestedDataDownloader.download():63 downloading manifest https://www.gstatic.com/android/keyboard/dictionarypack/2025052121/metadata.json-perlang/en-840.json?v=2025080800
+09-12 22:11:54.744   529  2087 D ConnectivityService: requestNetwork for uid/pid:10120/1161 activeRequest: null callbackRequest: 280 [NetworkRequest [ REQUEST id=281, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10120 RequestorUid: 10120 RequestorPkg: com.google.android.gms UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOST
+09-12 22:11:54.746   529   665 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=281, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10120 RequestorUid: 10120 RequestorPkg: com.google.android.gms UnderlyingNetworks: Null] ]
+09-12 22:11:54.746   529   665 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=281, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10120 RequestorUid: 10120 RequestorPkg: com.google.android.gms UnderlyingNetworks: Null] ]
+09-12 22:11:54.746   529   665 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=281, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10120 RequestorUid: 10120 RequestorPkg: com.google.android.gms UnderlyingNetworks: Null] ]
+09-12 22:11:54.747   529   665 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=281, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10120 RequestorUid: 10120 RequestorPkg: com.google.android.gms UnderlyingNetworks: Null] ]
+09-12 22:11:55.168 11406 11406 D nativeloader: Configuring clns-4 for other apk /system/framework/org.apache.http.legacy.jar. target_sdk_version=36, uses_libraries=ALL, library_path=/data/app/~~Sl8cJyIwQNJAwFN8b0T5Gw==/com.google.android.gms-jPsbaOT9rUfe5QPYk1fEMA==/lib/x86_64:/data/app/~~Sl8cJyIwQNJAwFN8b0T5Gw==/com.google.android.gms-jPsbaOT9rUfe5QPYk1fEMA==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.google.android.gms
+09-12 22:11:55.689 11406 11406 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: false
+09-12 22:11:55.700 11406 11406 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: false
+09-12 22:12:11.415  1227  1227 W InputContextProxy: InputContextProxy.applyClientDiffInternal():938 Ignore [FetchSuggestions] diff due to stale request: 19<22, inputStateId=7, lastInputStateId=9
+09-12 22:12:13.408  1227  1227 W InputContextProxy: InputContextProxy.applyClientDiffInternal():938 Ignore [FetchSuggestions] diff due to stale request: 29<30, inputStateId=16, lastInputStateId=17
+09-12 22:12:13.435  1227  1227 W InputContextProxy: InputContextProxy.applyClientDiffInternal():938 Ignore [FetchSuggestions] diff due to stale request: 32<33, inputStateId=19, lastInputStateId=18
+09-12 22:12:13.553  1227  1227 W InputContextProxy: InputContextProxy.applyClientDiffInternal():938 Ignore [FetchSuggestions] diff due to stale request: 36<37, inputStateId=23, lastInputStateId=22
+09-12 22:15:07.428   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=279, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10191 RequestorUid: 10191 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ] (release request)
+09-12 22:15:08.382   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{50b1dbc com.app.uprise.debug}
+09-12 22:15:08.390   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{4332145 com.app.uprise.debug}
+09-12 22:15:10.477 11705 11705 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:15:10.477 11705 11705 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:15:11.353  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package removed for userId: 0]
+09-12 22:15:12.931  1161 11688 W NetworkScheduler: Unexpected forwarded intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package: flg=0x4000010 pkg=com.google.android.gms cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+09-12 22:15:12.969 11746 11746 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:15:12.970 11746 11746 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:15:13.759 11740 11740 I Monkey  : ## Network stats: elapsed time=183ms (0ms mobile, 0ms wifi, 183ms not connected)
+09-12 22:15:14.042 11772 11772 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:15:14.042 11772 11772 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+09-12 22:15:14.248  1305  1305 I AiAiEcho: EchoSearch: AppFetcherImpl is initialized with [19] apps [time=64, reason=com.app.uprise is added]
+09-12 22:15:14.258  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package added for userId: 0]
+09-12 22:15:15.403   529  2088 D ConnectivityService: requestNetwork for uid/pid:10192/11772 activeRequest: null callbackRequest: 282 [NetworkRequest [ REQUEST id=283, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10192 RequestorUid: 10192 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOSING|LOST|UNAVAIL|NC|LP
+09-12 22:15:15.437   529   665 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=283, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10192 RequestorUid: 10192 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:15:15.440   529   665 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=283, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10192 RequestorUid: 10192 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:15:15.449   529   665 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=283, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10192 RequestorUid: 10192 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:15:15.449   529   665 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=283, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10192 RequestorUid: 10192 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ]
+09-12 22:15:15.794   529   671 D ConnectivityService: releasing NetworkRequest [ REQUEST id=283, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10192 RequestorUid: 10192 RequestorPkg: com.app.uprise UnderlyingNetworks: Null] ] (release request)
+09-12 22:15:26.660  2027  2027 W Finsky  : [2] STU: Failed to get storage stats for package 'com.google.android.neuralnetworks' (1601: Error getting stats: android.content.pm.PackageManager.NameNotFoundException)
+09-12 22:16:53.560   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{d21ab8f com.app.uprise}
+09-12 22:16:53.599   529   665 D WifiConfigManager: Remove all networks for app ApplicationInfo{51093a1 com.app.uprise}
+09-12 22:16:53.972   529   740 D NetworkStatsObservers: Unregistering RequestInfo from pid/uid:529/1000(android) for DataUsageRequest [ requestId=11, networkTemplate=NetworkTemplate: matchRule=MOBILE, matchSubscriberIds=[310260...], matchWifiNetworkKeys=[], metered=YES, defaultNetwork=NO, thresholdInBytes=17510760 ] accessLevel:3
+09-12 22:16:53.972   529   661 D NetworkStatsObservers: Registering observer for RequestInfo from pid/uid:529/1000(android) for DataUsageRequest [ requestId=12, networkTemplate=NetworkTemplate: matchRule=MOBILE, matchSubscriberIds=[310260...], matchWifiNetworkKeys=[], metered=YES, defaultNetwork=NO, thresholdInBytes=17510566 ] accessLevel:3
+09-12 22:16:54.618  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package removed for userId: 0]
+09-12 22:16:55.616  1161 11876 W NetworkScheduler: Unexpected forwarded intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package: flg=0x4000010 pkg=com.google.android.gms cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+09-12 22:16:56.153  1305  1305 I AiAiEcho: EchoSearch: AppFetcherImpl is initialized with [19] apps [time=8, reason=com.app.uprise.debug is added]
+09-12 22:16:56.178  1305  1539 I AiAiEcho: EchoSearch: WidgetFetcherImpl is initialized with [35] widgets [reason=package added for userId: 0]
+09-12 22:16:56.375 11910 11910 I Monkey  : ## Network stats: elapsed time=175ms (0ms mobile, 0ms wifi, 175ms not connected)
+09-12 22:16:56.933 11928 11928 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: true
+09-12 22:16:56.934 11928 11928 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: true
+09-12 22:16:57.813 11928 11928 I flipper : flipper: FlipperClient::addPlugin Network
+09-12 22:16:59.367   529   552 D ConnectivityService: requestNetwork for uid/pid:10193/11928 activeRequest: null callbackRequest: 284 [NetworkRequest [ REQUEST id=285, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10193 RequestorUid: 10193 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOSING|LOST|UNAVAIL|NC|LP
+09-12 22:16:59.387   529   665 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=285, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10193 RequestorUid: 10193 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:16:59.396   529   665 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=285, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10193 RequestorUid: 10193 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:16:59.396   529   665 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=285, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10193 RequestorUid: 10193 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-12 22:16:59.396   529   665 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=285, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10193 RequestorUid: 10193 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+

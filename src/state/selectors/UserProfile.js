@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import jwtDecode from 'jwt-decode';
 
 export const accessToken = state => state.userAuth.accessToken;
 export const refreshToken = state => state.userAuth.refreshToken;
@@ -52,3 +53,24 @@ export const getUserAvatar = state => _.get(state.getUserAvatar, 'result.data', 
 export const getUserGenresList = state => _.get(state.getUserGenres, 'result.data', []);
 export const getInstrumentList = state => _.get(state.getInstrument, 'result.data', []);
 export const updateInstrument = state => _.get(state.updateInstrument, 'result.data', []);
+export const getCommunityKey = state => _.get(state, 'community.communityKey', null);
+
+// Roles helpers (decoded from access token)
+export const getRoles = state => {
+  try {
+    const token = _.get(state, 'userAuth.accessToken');
+    if (!token) return [];
+    const decoded = jwtDecode(token);
+    const roles = decoded.roles || decoded.role || decoded.authorities || [];
+    if (Array.isArray(roles)) return roles;
+    if (typeof roles === 'string') return [roles];
+    return [];
+  } catch (_) {
+    return [];
+  }
+};
+
+export const isSuperAdmin = state => {
+  const roles = getRoles(state);
+  return roles.includes('SUPERADMIN');
+};

@@ -1,5 +1,15 @@
 # Phase 2 Execution Plan
 
+For daily carryover protocol, see [PHASE2_CARRYOVER_TEMPLATE.md](./PHASE2_CARRYOVER_TEMPLATE.md).  
+For navigation, see [INDEX.md](./INDEX.md).  
+For current state, see [CHANGELOG.md](./CHANGELOG.md).
+
+## Doc Canonicalization (Phase 2)
+- Community/Location spec = 04_UPRISE_Community_Location_System.md (treat other location docs as archived).
+- "Station" references in code are legacy; all new logic must route through src/contracts/community helpers.
+- Discovery = visualization + recommendations; Location = authoritative source of geo/genre keys.
+- Future features (ambassadors, advanced promos, extended business integrations) are tracked in 10_UPRISE_Phase2_Features.md, not Phase 2 execution.
+
 ## Workstreams
 - Auth & Identity
 - Locations & Geo
@@ -10,127 +20,7 @@
 
 ---
 
-## Auth & Identity
-- Current state
-  - Users authenticate; Artist, Band, Venue, Promoter roles exist; migrations include `artistprofile` and band linkage.
-  - Tokens are user-scoped; partial band management flows present in API routes.
-- Gaps
-  - Canonical performer id not enforced end-to-end in writes/reads.
-  - Profile switching header/context not standardized.
-- Tasks
-  - Add `artist_canonical_id` as required on content writes (songs/events/promos).
-  - Support profile context via `X-Artist-Canonical-Id` header; authorize against memberships.
-  - Ensure band admin privileges propagate for writes referencing `band_id`.
-- Acceptance criteria
-  - CRUD endpoints reject writes without authorized canonical id.
-  - Reads return canonical ids for client linking.
-- Test hooks
-  - curl: `-H 'X-Artist-Canonical-Id: <id>'` to create song/event; verify 403 on unauthorized ids.
 
-## Locations & Geo
-- Current state
-  - PostGIS enabled database on port 5433; models for `locations`, `songs` contain lat/lng columns.
-- Gaps
-  - Inconsistent API params across endpoints; lack of standardized community key echo.
-- Tasks
-  - Standardize params: `city,state,genre,lat,lng,radius,community_key`.
-  - Add GIST indexes on geography columns; verify ST_DWithin and ST_Contains usage.
-  - Ensure GPS verification for vote/engagement endpoints.
-- Acceptance criteria
-  - Endpoints accept common geo params and echo `community_key` in responses.
-  - Spatial filters produce expected counts in QA seed data.
-- Test hooks
-  - psql: `SELECT PostGIS_Full_Version();` then sample `ST_DWithin` queries.
-  - curl: `/api/discovery?city=Austin&state=Texas&genre=Hip%20Hop` returns community_key.
-
-## Radio/Community
-- Current state
-  - Radio routes and Fair Play utilities exist; communities route present.
-- Gaps
-  - Divergent filter shapes; radio not explicitly expressed as community projection.
-- Tasks
-  - Unify radio endpoints to require `community_key` (with fallback to lat/lng).
-  - Align queue generation with community stats and taxonomy rollups.
-- Acceptance criteria
-  - Radio responses include `community_key`, `genre_id`, and tier attribution.
-- Test hooks
-  - curl: `/api/radio?community_key=austin-texas-hip-hop` returns queue with tiers.
-
-## Genre Taxonomy
-- Current state
-  - `genres` model exists; songs link via `songgenres`.
-- Gaps
-  - No explicit taxonomy tree or tag array for secondary discovery facets.
-- Tasks
-  - Define parent/child taxonomy and optional `genre_tags[]`.
-  - Update ingestion to store primary `genre_id` + optional tags.
-- Acceptance criteria
-  - Discovery and promotions can filter by genre hierarchy and tags.
-- Test hooks
-  - curl: `/api/discovery?genre=hip-hop&tag=trap` yields filtered set.
-
-## API Integration
-- Current state
-  - Node/Sequelize API with routes: auth, radio, discovery, communities, events, promotions.
-- Gaps
-  - Param naming inconsistencies; missing `community_key` echo on many responses.
-- Tasks
-  - Normalize params/responses; add explicit geo/genre contract docs.
-- Acceptance criteria
-  - OpenAPI/route docs list standard params; responses include effective filters.
-- Test hooks
-  - curl smoke suite hitting key routes with shared params; validate 200 + schema.
-
-### July Model Alignment (from architecture/feature realignment)
-- Confirm feed behavior
-  - Feed returns notifications only (not songs/events), as per Architectural Realignment.
-  - Mobile uses radio/discovery for music content.
-- Fix discovery geo filtering
-  - Discovery endpoints must apply city/state/genre or community_key filters.
-  - Add `community_key` echo in responses.
-- Genre endpoint correctness
-  - Use `/onboarding/all-genres` and hierarchical endpoints for onboarding.
-- Artist unification usage
-  - Mobile reads/updates via `/user/band` and `/user/artist-profile` instead of legacy band routes.
-
-## Mobile UI hooks
-- Current state
-  - Mobile consumes radio/discovery; needs canonical id + community filters.
-- Gaps
-  - Profile switching and filter persistence not aligned with new contracts.
-- Tasks
-  - Add active profile context to API calls; persist `community_key` in state.
-- Acceptance criteria
-  - Radio/discovery reflect selected city/state/genre consistently.
-- Test hooks
-  - Network inspector shows requests carrying `community_key` and active artist context.
-
----
-
-## Migration Checklist (Sequelize/SQL)
-- Identity
-  - Backfill `artist_canonical_id` on Songs, Events, Promotions from existing relations.
-  - Create/confirm `artistprofile` records for solo artists; link bands → members.
-- Geo
-  - Ensure geometry/geography columns exist where needed; add GIST indexes.
-  - Seed city/state lookup with centroids and boundaries.
-- Genre
-  - Add `parent_genre_id` to taxonomy; optional `genre_tags` array column.
-- API
-  - Update route validators to accept standard geo/genre params.
-
----
-
-## Quick Test Hooks
-- psql
-  - `SELECT PostGIS_Full_Version();`
-  - `SELECT COUNT(*) FROM songs WHERE ST_DWithin(artist_geom, ST_SetSRID(ST_MakePoint(-97.7431,30.2672),4326)::geography, 40000);`
-- curl
-  - `curl \
-    -H 'Authorization: Bearer <token>' \
-    -H 'X-Artist-Canonical-Id: <id>' \
-    "http://localhost:3000/api/radio?community_key=austin-texas-hip-hop"`
-  - `curl "http://localhost:3000/api/discovery?city=Austin&state=Texas&genre=Hip%20Hop&radius=25"`
 # UPRISE Phase 2 Execution Plan
 
 ## Purpose  
@@ -182,6 +72,7 @@ Unify the July Model realignments with current Phase 2 specs so that **mobile, A
 - References:  
   - `docs/specs/09_PROMOTIONS_BUSINESS.md`  
   - `docs/specs/08_EVENTS.md`
+- See 10_UPRISE_Phase2_Features.md for post-Phase 2 roadmap items.
 
 ---
 
@@ -211,11 +102,45 @@ Unify the July Model realignments with current Phase 2 specs so that **mobile, A
 - `docs/scripts/health_checks.sh`
 
 **Acceptance Criteria**  
-- Login/refresh works reliably.  
-- Onboarding shows 97-genre list + home scene.  
-- ArtistProfile is linked and editable.  
-- Radio responses include `community_key`.  
-- Feed = notifications only.  
+- Build & smoke PASS; artifacts saved with standard names/paths.
+- Release logs show no fatal runtime and no Metro references.
+- Requests include community_key when available.
+- Onboarding: 97-genre taxonomy visible; home scene set; Dashboard opens without AppRegistry/TrackPlayer issues.
+- Docs updated (CHANGELOG + any runbook/KB touched).  
+
+---
+
+## Android Build & Install Guardrails (Carryover)
+
+Use these to avoid flaky installs, empty artifacts, and missing JS bundles during Debug/Release work.
+
+- Tooling alignment
+  - SDK/Tools: `compileSdkVersion=33`, `targetSdkVersion=33`, `buildToolsVersion=33.0.2`.
+  - Emulator: API 30+ (prefer 33), ABI matches APK (usually `x86_64`).
+
+- Bundle integrity (Release)
+  - Embed JS bundle before install: `yarn bundle:android`.
+  - Verify in APK: `aapt list app-release.apk | find "index.android.bundle"`.
+
+- Manifest validation (before install)
+  - Print merged manifest: `apkanalyzer manifest print app-release.apk`.
+  - Check for `android:exported` on any component with an `intent-filter` (API 31+).
+  - Permissions: `POST_NOTIFICATIONS` implies target SDK 33.
+
+- Install triage (adb)
+  - Uninstall both IDs first: `adb uninstall com.app.uprise[.debug]` then `adb shell pm uninstall -k --user 0 ...`.
+  - Install flags: `adb install -r -d -t app-*.apk`.
+  - If failure: filter logcat
+    - `adb logcat -d | findstr "PackageManager PARSE_FAILED NO_MATCHING_ABIS UPDATE_INCOMPATIBLE VERSION_DOWNGRADE TEST_ONLY install"`.
+
+- ABI checks
+  - APK: `aapt dump badging app-*.apk | find "native-code"`.
+  - Device: `adb shell getprop ro.product.cpu.abi`.
+  - Mismatch → use matching AVD, or enable per‑ABI splits.
+
+- Logging discipline (PowerShell)
+  - Capture stdout+stderr: use `*> artifacts\logs\file.txt` or `2>&1 | Tee-Object`.
+  - Prefer short commands or scripts to avoid PSReadLine console bugs with long one‑liners.
 
 ---
 
@@ -230,6 +155,91 @@ Unify the July Model realignments with current Phase 2 specs so that **mobile, A
 - `docs/specs/08_EVENTS.md`  
 - `docs/specs/09_PROMOTIONS_BUSINESS.md`  
 
-### July Model (Previous Investigations)  
-- `docs/july model/architecture realignment/`  
-- `docs/july model/Feature realignment/`  
+
+---
+
+## Sprint Plan (Phase 2)
+
+### P2-00 — Bootstrapping (Done)
+- Emulator: Debug + Release stable; Hermes enabled; Release avoids Metro
+- Dev server host auto-config: persists `ReactNativeDevServerHost`, ADB reverse 8081
+- CI: Android Test Release workflow builds APK + emulator smoke
+- Copy: user-visible “Station” → “Community”
+
+### P2-S01 — Communities + Onboarding Groundwork
+Goal: make Community first-class; ensure discovery/radio use `community_key`; wire onboarding to super‑genres.
+
+- Contracts + State
+  - Helpers: `toCommunityKey`, `fromCommunityKey`, `buildGeoGenreParams`
+  - Persist `community_key` in redux; hydrate on app start
+  - Selector: `getCommunityKey()`
+- Onboarding (client)
+  - Services: `GET /onboarding/super-genres`, `GET /onboarding/all-genres`
+  - UI: Home Scene Creation (first login)
+    - Super‑genre picker (required) via typeahead
+    - City/State picker (required) with typeahead + optional “Use my GPS (recommended)”
+    - Note: GPS verification is optional, but only GPS‑verified users can upvote songs in Home Scene
+  - Persist: location (city/state), superGenre, `community_key={city}-{state}-{supergenre}` (sub‑genres stored later)
+  - Revolutionary flow:
+    - `validate-community` determines if local community is active
+    - If inactive: tag user as revolutionary, show invite modal, route to nearest active hub, persist `active_community_key`
+    - Summon back: on app start, if local becomes active, prompt user to return to home community
+- Requests
+  - Use `buildGeoGenreParams` for discovery/radio/events (prefer `community_key`, else normalized geo, else radius)
+  - Minimal param debug logs guarded by `__DEV__`
+- Copy/Terminology
+  - All user‑visible references “Station” → “Community”; Radio title “Community Radio”
+
+Acceptance
+- Onboarding shows super‑genres; optional sub‑genre tags
+- `community_key` persists and appears in Debug logs before discovery/radio
+- Discovery/radio requests carry `community_key` (or normalized fallbacks)
+- No “Station” in UI
+
+### P2-S02 — Auth/Refresh + ArtistProfile Unification
+Goal: align mobile with webapp/API: refresh flows, canonical ArtistProfile identity, creator context.
+
+- Auth/Refresh
+  - Keep 401→refresh→retry interceptor; add smoke verification
+- Artist Upgrade
+  - Profile CTA: “Become an Artist”
+  - Step 1: Artist Basics (name + super‑genre), inherit location
+  - Step 2: Optional Band (skip allowed)
+  - Services: `GET /user/artist-profile` (alias `/user/band`), `PUT /user/artist-profile`
+  - Persist canonical artist ID; add `X-Artist-Canonical-Id` on creator writes
+  - Success screen with dashboard URL
+  - Upload crediting: song uploads default `primary_community_key` to artist’s home community so minutes accrue toward activation
+- Community Integration
+  - Preserve and reuse `community_key` post‑upgrade
+
+Acceptance
+- Upgrade flow saves ArtistProfile + canonicalId
+- Creator writes include `X-Artist-Canonical-Id` and 403s surface correctly
+- Refresh flow works during/after upgrade
+- Success screen and handoff
+
+Notes
+- Viability gating & suggestions (nearest active, related super‑genres, "Righteous Revolutionary") staged behind a flag until API provides payloads.
+- See 10_UPRISE_Phase2_Features.md for post-Phase 2 roadmap items.
+
+---
+
+## Operational Toggles & Admin
+
+- Viability bypass (testing):
+  - Server: `COMMUNITY_VIABILITY_BYPASS=true` (or `/admin/toggles/viability-bypass`) — staging only
+  - Client (Debug/staging): `COMMUNITY_VIABILITY_BYPASS=true` in react-native-config (guards onboarding validate)
+  - Optional header for targeted tests: `X-Bypass-Viability: 1` (SUPERADMIN only)
+
+- Superadmin role (staging):
+  - Role: `SUPERADMIN` in JWT `roles[]`
+  - Admin endpoints (staging):
+    - `POST /admin/communities/seed-minutes { community_key, minutes }`
+    - `POST /admin/communities/activate { community_key }`
+    - `POST /admin/toggles/viability-bypass { enabled }`
+  - Mobile: Profile → Admin Tools (visible only if SUPERADMIN)
+
+- Client PATCHs (recommended):
+  - Onboarding completion → `PATCH /user/home-community { community_key }`
+  - Routing to hub → `PATCH /user/active-community { community_key }`
+  - Summon return → `PATCH /user/active-community { community_key: home }`

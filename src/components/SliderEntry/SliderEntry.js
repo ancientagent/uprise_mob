@@ -14,9 +14,11 @@ const SliderEntry = props => {
       uri, parallax, parallaxProps, even, defultImage,
     } = props;
 
+    const safeFallback = defultImage || require('../../../assets/images/music_default_img.png');
+    const imgSource = uri ? { uri } : safeFallback;
     return parallax ? (
       <ParallaxImage
-        source={ uri ? { uri } : defultImage }
+        source={ imgSource }
         containerStyle={ [styles.imageContainer, even ? styles.imageContainerEven : {}] }
         style={ styles.image }
         parallaxFactor={ 0.35 }
@@ -27,7 +29,7 @@ const SliderEntry = props => {
       />
     ) : (
       <Image
-        source={ { uri } }
+        source={ imgSource }
         style={ styles.image }
       />
     );

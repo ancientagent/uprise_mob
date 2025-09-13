@@ -34,8 +34,7 @@ const SignupUserName = props => {
       lastName: userInfo.user.familyName,
       firstName: userInfo.user.givenName,
       avatar: userInfo.user.photo,
-      role: values.artistCheck ? 'artist' : 'listener',
-      title: values.bandName,
+      role: 'listener',
     };
     dispatch(verifyUserNameSagaAction(payload));
   };
@@ -58,19 +57,14 @@ const SignupUserName = props => {
         </View>
         <View style={ styles.SignupUserNameField }>
           <Formik
-            initialValues={ {
-              userName: '',
-              artistCheck: false,
-              bandName: '',
-            } }
-            validationSchema={ SignupUserNameValidators(showRequire) }
+            initialValues={ { userName: '' } }
+            validationSchema={ SignupUserNameValidators(false) }
             onSubmit={ value => onSubmitForm(value) }
           >
             { ({
               handleSubmit,
               isValid,
               values,
-              setFieldValue,
             }) => (
               <>
                 <Field
@@ -83,32 +77,6 @@ const SignupUserName = props => {
                   label={ strings('SignUp.usernameLabel') }
                   showAstric
                 />
-                { values.artistCheck && (
-                <Field
-                  inputBox={ styles.inputBox }
-                  placeholder='Enter your band name'
-                  component={ URTextfield }
-                  name='bandName'
-                  autoCapitalize='none'
-                  autoCorrect={ false }
-                  label='Band name'
-                  showAstric
-                />
-                ) }
-                <View style={ { flexDirection: 'row', alignItems: 'center', marginTop: 10 } }>
-                  <URCheckBox
-                    checked={ values.artistCheck }
-                    iconSize={ 16 }
-                    containerStyle={ styles.iconContainer }
-                    onPress={ () => {
-                      setShowRequire(!values.artistCheck);
-                      setFieldValue('artistCheck', !values.artistCheck);
-                    } }
-                  />
-                  <Text style={ styles.checkText }>
-                    { strings('SignUp.registerArtist') }
-                  </Text>
-                </View>
                 <View style={ { marginTop: 23 } }>
                   <Button
                     containerStyle={ styles.containerStyle }

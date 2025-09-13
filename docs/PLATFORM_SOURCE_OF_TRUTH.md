@@ -25,7 +25,7 @@
 ### Implementation Status
 - **Current Progress**: `docs/Repository-Status/PROJECT_OVERVIEW.md`
 - **Change Log**: `docs/CHANGELOG.md`
-- **Android Runbook**: `docs/runbooks/runbook_android.md`
+- **Android Runbook**: `docs/RUNBOOK_ANDROID.md`
 
 ### Previous Investigations
 - **API Audit**: `docs/july model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md`
@@ -68,7 +68,7 @@
 
 #### Known Issues & Solutions
 - **Issue**: 85+ undefined environment variables
-- **Solution**: See `COMPREHENSIVE-API-ENDPOINT-AUDIT.md`
+- **Solution**: See `docs/july model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md`
 - **Fix Applied**: `.env` file updated with all variables
 
 ---
@@ -285,7 +285,7 @@
 - [ ] Analytics dashboards - **See**: Statistics endpoints in API audit
 
 ### Phase 4: Enhancement (Future)
-- [ ] Phase 2 Features - **See**: `10_UPRISE_Phase2_Features.md`
+- [ ] Phase 2 Features - **See**: `docs/project narrative/10_UPRISE_Phase2_Features.md`
 - [ ] WebApp Integration - **See**: `docs/webapp reviews/jules webapp api report/`
 - [ ] Performance optimization
 - [ ] Advanced analytics
@@ -314,8 +314,8 @@
 ## 📋 Quick Reference
 
 ### Environment Setup
-1. PostgreSQL connection: See `DEVELOPMENT_GUARDRAILS.md`
-2. Environment variables: See `COMPREHENSIVE-API-ENDPOINT-AUDIT.md`
+1. PostgreSQL connection: See `docs/scripts/psql_postgis_check.sh`
+2. Environment variables: See `docs/july model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md`
 3. Android build: See `RUNBOOK_ANDROID.md`
 
 ### Common Tasks

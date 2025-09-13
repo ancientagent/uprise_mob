@@ -6,14 +6,22 @@ Welcome to Phase 2. This folder is the **single source of truth** for UPRISE doc
 - [PHASE2_OVERVIEW.md](./PHASE2_OVERVIEW.md)
 - [CHANGELOG.md](./CHANGELOG.md)
 
+## Phase 2 Anchors
+- [PHASE2_CARRYOVER_TEMPLATE.md](./PHASE2_CARRYOVER_TEMPLATE.md) — Daily carryover instructions (Codex/Mobile/PM roles, guardrails, workflows).
+
 ## Runbooks
-- Android: [runbooks/runbook_android.md](./runbooks/runbook_android.md)
+- Android: [RUNBOOK_ANDROID.md](./RUNBOOK_ANDROID.md)
+- Crash Triage (Android): [RUNBOOK_ANDROID.md#crash-triage-android](./RUNBOOK_ANDROID.md#crash-triage-android)
 - Backend (Postgres/PostGIS & API): [runbooks/runbook_backend.md](./runbooks/runbook_backend.md)
 - Webapp: [runbooks/runbook_web.md](./runbooks/runbook_web.md)
 
 ## Architecture
 - System Overview: [architecture/SYSTEM_OVERVIEW.md](./architecture/SYSTEM_OVERVIEW.md)
 - ADRs: [architecture/DECISIONS](./architecture/DECISIONS)
+
+## Knowledge-Base
+- Artist Onboarding: [Knowledge-Base/ARTIST_ONBOARDING_FLOW.md](./Knowledge-Base/ARTIST_ONBOARDING_FLOW.md)
+- Onboarding Smokes: [Knowledge-Base/ONBOARDING_SMOKES.md](./Knowledge-Base/ONBOARDING_SMOKES.md)
 
 ## Specs
 - Auth: [specs/03_AUTHENTICATION.md](./specs/03_AUTHENTICATION.md)
@@ -32,3 +40,9 @@ Welcome to Phase 2. This folder is the **single source of truth** for UPRISE doc
 ## Tools & Scripts
 - Tools Index: [TOOLS_INDEX.md](./TOOLS_INDEX.md)
 - Session Kickoff Template: [SESSION_KICKOFF_TEMPLATE.md](./SESSION_KICKOFF_TEMPLATE.md)
+
+## Knowledge-Base
+- [ARTIST_ONBOARDING_FLOW.md](Knowledge-Base/ARTIST_ONBOARDING_FLOW.md) — Exact user flow for listener → artist onboarding.
+
+## Previous Build Documentation
+- [July Build Postmortem](july-model/JULY_BUILD_POSTMORTEM.md) — Legacy stabilization lessons and architectural realities.

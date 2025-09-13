@@ -75,3 +75,42 @@ Mapped actions (Phase 2)
 - Ensure onboarding uses super/all-genre endpoints; align mobile services accordingly.
 - Use ArtistProfile endpoints from mobile; enforce canonical ID ownership on writes.
 - Treat Radio as a projection of Community queues with same filters and tiers.
+
+---
+
+## Session Log — 2025-09-10 (Codex/WSL)
+
+Checklist outcomes
+- Phase anchor present (`docs/PHASE2_EXECUTION_PLAN.md`), context docs loaded.
+- Smokes: API discovery/radio endpoints unreachable at time of run; health endpoint OK.
+- Health checks: API `/health` OK; Postgres and PostGIS checks OK.
+- DB checks: Added safe `.env` parser to `psql_postgis_check.sh` (handles BOM/CRLF and `$` in secrets); verified migration status via `yarn db:migrate:status` (read‑only).
+
+Next deliverables (backend)
+- Enforce `X-Artist-Canonical-Id` on creator writes with membership authorization (403 on mismatch).
+- Normalize geo/genre params across discovery/radio/events and echo `community_key`.
+- Ensure `/onboarding/all-genres` returns 97 items for onboarding.
+
+Notes
+- Non‑destructive DB policy observed (no migrations executed).
+
+---
+
+## Session Log — 2025-09-11 (Codex/WSL)
+
+Checklist outcomes
+- Phase anchor present (`docs/PHASE2_EXECUTION_PLAN.md`), SYSTEM_OVERVIEW and params fragment loaded.
+- Smokes: `session_kickoff.sh` + `phase2_smoke.sh` executed; API discovery/radio endpoints not reachable at run time.
+- Health checks: `docs/scripts/health_checks.sh` → API `/health` OK; Postgres and PostGIS OK (jq missing).
+- DB checks: `psql_postgis_check.sh` reports PostGIS 3.4.2 on PG 16; `migration_guard.sh` shows schema up-to-date.
+
+Next deliverables (backend)
+- Auth refresh + mobile state
+  - Acceptance: refresh works; app boot reflects authenticated state; 401s handled; tokens persisted/rotated.
+- Onboarding 97-genre taxonomy
+  - Acceptance: `/onboarding/all-genres` returns 97; onboarding selection sets home scene and persists `community_key`.
+- Radio/Discovery community filters
+  - Acceptance: `/api/radio|/api/discovery` accept standard geo/genre params or `community_key` and echo `community_key` in responses.
+
+Notes
+- Kept operations idempotent and non-destructive; no schema changes executed.

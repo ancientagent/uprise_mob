@@ -20,14 +20,13 @@ const SignupForm = props => {
   const [showRequire, setShowRequire] = useState(false);
   const dispatch = useDispatch();
   const onSubmitForm = values => {
-    // eslint-disable-next-line no-undef
-    const formData = new FormData();
-    formData.append('userName', values.userName.trim());
-    formData.append('email', values.email);
-    formData.append('password', values.password.trim());
-    formData.append('role', values.artistCheck ? 'artist' : 'listener');
-    formData.append('title', values.bandName);
-    dispatch(signupRequestSagaAction(formData));
+    const payload = {
+      userName: values.userName.trim(),
+      email: values.email,
+      password: values.password.trim(),
+      role: 'listener',
+    };
+    dispatch(signupRequestSagaAction(payload));
   };
   const screenHeight = Platform.OS === 'ios' ? 200 : 100;
   const height = Dimensions.get('window').height - screenHeight;
@@ -37,13 +36,11 @@ const SignupForm = props => {
         initialValues={ {
           userName: '',
           email: '',
-          bandName: '',
           password: '',
           confirmPassword: '',
-          artistCheck: false,
           privacyCheck: false,
         } }
-        validationSchema={ SignupValidators(showRequire) }
+        validationSchema={ SignupValidators(false) }
         onSubmit={ value => onSubmitForm(value) }
       >
         { ({
@@ -116,33 +113,7 @@ const SignupForm = props => {
               secureTextEntry={ !!hideConfirmPassword }
               label={ strings('SignUp.confirmPasswordLabel') }
             />
-            { values.artistCheck && (
-            <Field
-              inputBox={ styles.inputBox }
-              placeholder='Enter your band name'
-              component={ URTextfield }
-              name='bandName'
-              autoCapitalize='none'
-              autoCorrect={ false }
-              label='Band name'
-              showAstric
-            />
-            ) }
             <View style={ { marginTop: 10 } }>
-              <View style={ { flexDirection: 'row', alignItems: 'center' } }>
-                <URCheckBox
-                  checked={ values.artistCheck }
-                  iconSize={ 16 }
-                  containerStyle={ styles.iconContainer }
-                  onPress={ () => {
-                    setShowRequire(!values.artistCheck);
-                    setFieldValue('artistCheck', !values.artistCheck);
-                  } }
-                />
-                <Text style={ styles.checkText }>
-                  { strings('SignUp.registerArtist') }
-                </Text>
-              </View>
               <View style={ { flexDirection: 'row', alignItems: 'center' } }>
                 <URCheckBox
                   checked={ values.privacyCheck }
@@ -163,15 +134,20 @@ const SignupForm = props => {
                   { strings('SignUp.privacy') }
                 </Text>
               </View>
+              { (!values.privacyCheck && showRequire) && (
+                <Text style={ { color: Colors.URbtnColor, marginTop: 6 } }>
+                  { strings('SignupValidators.acceptTerms') || 'Please accept Terms & Privacy to continue.' }
+                </Text>
+              ) }
             </View>
             <View style={ { marginTop: 23 } }>
               <Button
                 buttonStyle={ styles.signupBtn }
                 titleStyle={ styles.signupTitle }
-                onPress={ handleSubmit }
+                onPress={ () => { setShowRequire(true); handleSubmit(); } }
                 TouchableComponent={ TouchableOpacity }
                 title={ strings('SignUp.signUp') }
-                // disabled={ !isValid }
+                disabled={ !isValid }
               />
               <View style={ styles.signUpContainer }>
                 <Text style={ styles.accountText }>{ strings('SignUp.account') }</Text>

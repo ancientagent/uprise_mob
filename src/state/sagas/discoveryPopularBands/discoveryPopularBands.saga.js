@@ -5,7 +5,7 @@ import discoveryPopularBandsRequest from '../../../services/discoveryPopularBand
 import { discoveryPopularBandsSagaType } from '../../types/sagas';
 import { discoveryPopularBandsActions } from '../../actions/request/discoveryPopularBands/discoveryPopularBands.actions';
 import showAlert from '../AlertUtility';
-import { accessToken } from '../../selectors/UserProfile';
+import { accessToken, getCommunityKey } from '../../selectors/UserProfile';
 
 export default function* discoveryPopularBandsWatcherSaga() {
   yield takeLatest(discoveryPopularBandsSagaType, discoveryPopularBandsWorkerSaga);
@@ -15,9 +15,11 @@ export function* discoveryPopularBandsWorkerSaga(action) {
   yield put(discoveryPopularBandsActions.start());
   try {
     const userToken = yield select(accessToken);
+    const communityKey = yield select(getCommunityKey);
     const payload = {
       accessToken: userToken,
       count: action.payload.count,
+      communityKey,
     };
     const response = yield call(discoveryPopularBandsRequest, payload);
     if (response !== null) {
@@ -28,4 +30,3 @@ export function* discoveryPopularBandsWorkerSaga(action) {
     yield call(showAlert, e.error);
   }
 }
-

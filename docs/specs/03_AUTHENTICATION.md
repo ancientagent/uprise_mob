@@ -264,7 +264,7 @@ const adminPermissions = {
 }
 ```
 
-### **Phase 2 Roles (Feature Flagged)**
+### **Future Roles (Feature Flagged)**
 
 #### **🎛️ MIXOLOGIST**
 ```javascript

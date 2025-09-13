@@ -1,0 +1,344 @@
+--------- beginning of main
+09-11 08:07:44.737 28695 28695 E unknown:ReactNative: Got DOWN touch before receiving UP or CANCEL from last gesture
+09-11 08:07:49.639  1196 21909 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:07:52.660   919   940 W System  : A resource failed to call AbstractCursor.close. 
+09-11 08:07:52.660   919   940 W System  : A resource failed to call AbstractCursor.close. 
+09-11 08:07:52.660   919   940 W System  : A resource failed to call AbstractCursor.close. 
+09-11 08:07:52.660   919   940 W System  : A resource failed to call AbstractCursor.close. 
+09-11 08:07:52.660   919   940 W System  : A resource failed to call AbstractCursor.close. 
+09-11 08:07:52.660   919   940 W System  : A resource failed to call AbstractCursor.close. 
+09-11 08:07:52.660   919   940 W System  : A resource failed to call AbstractCursor.close. 
+09-11 08:07:52.660   919   940 W System  : A resource failed to call AbstractCursor.close. 
+09-11 08:07:52.660   919   940 W System  : A resource failed to call AbstractCursor.close. 
+09-11 08:07:56.347  1329  1329 W ThreadPoolForeg: type=1400 audit(0.0:3362): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:07:59.641  1196 21909 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:08:00.015 27890 27906 I AiAiEcho: Predicting[0]: 
+09-11 08:08:00.015 27890 27906 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+09-11 08:08:00.022 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0
+09-11 08:08:00.025 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0
+09-11 08:08:00.026 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface media_data_manager with targets# 0
+09-11 08:08:00.036   743   743 D SsMediaDataProvider: Forwarding Smartspace updates []
+09-11 08:08:00.037   743   802 D EGL_emulation: app_time_stats: avg=27375.11ms min=27375.11ms max=27375.11ms count=1
+09-11 08:08:01.071  1196  1196 W ThreadPoolForeg: type=1400 audit(0.0:3363): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:08:05.460   523   554 W System  : A resource failed to call release. 
+09-11 08:08:05.460   523   554 W System  : A resource failed to call HardwareBuffer.close. 
+09-11 08:08:09.411 25353 25353 E chromium: [ERROR:chrome/browser/commerce/merchant_viewer/merchant_viewer_data_manager.cc:103] Clearing 1 merchants.
+09-11 08:08:09.643  1196 21909 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:08:15.716  1329  1329 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+--------- beginning of system
+09-11 08:08:18.181   523  1100 I ActivityManager: Killing 25277:com.android.vending:background/u0a114 (adj 985): empty #17
+09-11 08:08:18.183   523   579 I libprocessgroup: Successfully killed process cgroup uid 10114 pid 25277 in 0ms
+09-11 08:08:18.199   523   679 D ConnectivityService: releasing NetworkRequest [ REQUEST id=425, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10114 RequestorUid: 10114 RequestorPkg: com.android.vending UnderlyingNetworks: Null] ] (release request)
+09-11 08:08:18.200   523   679 D ConnectivityService: releasing NetworkRequest [ REQUEST id=416, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10114 RequestorUid: 10114 RequestorPkg: com.android.vending UnderlyingNetworks: Null] ] (release request)
+09-11 08:08:18.200   523   679 D ConnectivityService: releasing NetworkRequest [ REQUEST id=414, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10114 RequestorUid: 10114 RequestorPkg: com.android.vending UnderlyingNetworks: Null] ] (release request)
+09-11 08:08:18.200   305   305 I Zygote  : Process 25277 exited due to signal 9 (Killed)
+09-11 08:08:19.644  1196 21909 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:08:26.371  1329  1329 W ThreadPoolForeg: type=1400 audit(0.0:3364): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:08:29.646  1196 21909 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:08:31.099  1196  1196 W ThreadPoolForeg: type=1400 audit(0.0:3365): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:08:34.199  1196 28419 I AlarmManager: setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 51690480]
+09-11 08:08:34.300  1196 28546 I AlarmManager: setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 50010571]
+09-11 08:08:34.340  1196 28419 I AlarmManager: setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 51690621]
+09-11 08:08:34.343   523   577 D CompatibilityChangeReporter: Compat change id reported: 168419799; UID 10121; state: DISABLED
+09-11 08:08:34.343   523   577 D CompatibilityChangeReporter: Compat change id reported: 273564678; UID 10121; state: DISABLED
+09-11 08:08:34.452 28464 28464 I FirebaseApp: Device unlocked: initializing all Firebase APIs for app CHIME_ANDROID_SDK
+09-11 08:08:34.484 28464 28914 E FirebaseMessaging: Default FirebaseApp has not been initialized. Skip logging event to GA.
+09-11 08:08:34.485 28464 28914 I FirebaseMessaging: FirebaseApp has not being initialized. Device might be in direct boot mode. Skip exporting delivery metrics to Big Query
+09-11 08:08:34.593 28464 28921 I DynamiteModule: Considering local module com.google.android.gms.measurement.dynamite:159 and remote module com.google.android.gms.measurement.dynamite:155
+09-11 08:08:34.596 28464 28921 I DynamiteModule: Selected local version of com.google.android.gms.measurement.dynamite
+09-11 08:08:34.666 28464 28923 I FA      : App measurement initialized, version: 137004
+09-11 08:08:34.666 28464 28923 I FA      : To enable debug logging run: adb shell setprop log.tag.FA VERBOSE
+09-11 08:08:34.666 28464 28923 I FA      : To enable faster debug mode event logging run:
+09-11 08:08:34.666 28464 28923 I FA      :   adb shell setprop debug.firebase.analytics.app com.google.android.googlequicksearchbox
+09-11 08:08:34.674 28464 28923 W FA      : Failed to retrieve Firebase Instance Id
+09-11 08:08:34.698   523  1637 D CompatibilityChangeReporter: Compat change id reported: 194532703; UID 10121; state: ENABLED
+09-11 08:08:34.718 28464 28923 W FA      : Failed to retrieve Firebase Instance Id
+09-11 08:08:34.718  1329  1329 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.measurement.START pkg=com.google.android.gms }
+09-11 08:08:34.718  1329  1329 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.measurement.START pkg=com.google.android.gms }
+09-11 08:08:34.719 28464 28923 W FA      : Failed to retrieve Firebase Instance Id
+09-11 08:08:34.726 28464 28509 I bmca    : (REDACTED) Count changed: counts=%s, shown=%s, shouldUpdate=%s
+09-11 08:08:34.788  1329 28926 D AdvertisingIdClient: AdvertisingIdClient already created.
+09-11 08:08:34.788  1329 28926 D AdvertisingIdClient: AdvertisingIdClient is not bounded. Starting to bind it...
+09-11 08:08:34.793  1329 28926 D AdvertisingIdClient: AdvertisingIdClient is bounded
+09-11 08:08:34.802 28464 28495 I bmyo    : Chime Filter is invoked.
+09-11 08:08:34.813  1329 28926 I AdvertisingIdClient: shouldSendLog 48149655
+09-11 08:08:34.813  1329 28926 I AdvertisingIdClient: GetInfoInternal elapse 25ms
+09-11 08:08:34.815 28464 28508 I bmyo    : Notification was not filtered.
+09-11 08:08:34.871 28464 28509 I GnpSdk  : (REDACTED) Setting channel Id: '%s'
+09-11 08:08:34.927 28464 28495 I GnpSdk  : (REDACTED) Setting channel Id: '%s'
+09-11 08:08:34.985 28464 28914 I GnpSdk  : Message handled by GNP Firebase handler.
+09-11 08:08:35.006 28464 28508 I dnve    : Received an intent for GNP, won't process
+09-11 08:08:35.023 28562 28625 I dnve    : Received an intent for GNP, won't process
+09-11 08:08:35.196 27890 27909 W AiAiEcho: SmartspaceNotificationPredictor no parser can handle this notification or notification is invalid
+09-11 08:08:35.205 27890 27909 W AiAiEcho: SmartspaceNotificationPredictor no parser can handle this notification or notification is invalid
+09-11 08:08:35.239   743   802 D EGL_emulation: app_time_stats: avg=35201.97ms min=35201.97ms max=35201.97ms count=1
+09-11 08:08:35.348  1196  1196 D BoundBrokerSvc: onRebind: Intent { act=com.google.android.gms.libs.gmscorelogger.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentDirectBootAwareApiService }
+09-11 08:08:35.352   743  4731 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_vulkan_queue_submit_with_commands ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_1 
+09-11 08:08:35.353   743  4731 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+09-11 08:08:35.353   743  4731 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+09-11 08:08:35.376   743  4731 D EGL_emulation: eglCreateContext: 0x75026019bb50: maj 3 min 1 rcv 4
+09-11 08:08:35.409   743  4731 D EGL_emulation: eglMakeCurrent: 0x75026019bb50: ver 3 1 (tinfo 0x75048c3530c0) (first time)
+09-11 08:08:39.648  1196 21909 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:08:40.701 25353 25353 E chromium: [ERROR:chrome/browser/commerce/merchant_viewer/merchant_viewer_data_manager.cc:103] Clearing 1 merchants.
+09-11 08:08:44.848  1329  1329 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.measurement.START pkg=com.google.android.gms }
+09-11 08:08:49.650  1196 21909 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:08:50.400  1196  1196 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.libs.gmscorelogger.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentDirectBootAwareApiService }
+09-11 08:08:56.383  1329  1329 W ThreadPoolForeg: type=1400 audit(0.0:3366): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:08:59.651  1196 21909 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:09:00.010 27890 27906 I AiAiEcho: Predicting[0]: 
+09-11 08:09:00.010 27890 27906 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+09-11 08:09:00.011 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0
+09-11 08:09:00.011 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0
+09-11 08:09:00.012 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface media_data_manager with targets# 0
+09-11 08:09:00.018   743   743 D SsMediaDataProvider: Forwarding Smartspace updates []
+09-11 08:09:00.019   743   802 D EGL_emulation: app_time_stats: avg=2242.21ms min=3.86ms max=24337.37ms count=11
+09-11 08:09:01.131  1196  1196 W ThreadPoolForeg: type=1400 audit(0.0:3367): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:09:09.652  1196 21909 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:09:12.649   743   802 D EGL_emulation: app_time_stats: avg=12629.59ms min=12629.59ms max=12629.59ms count=1
+09-11 08:09:13.383 25353 25353 E chromium: [ERROR:chrome/browser/commerce/merchant_viewer/merchant_viewer_data_manager.cc:103] Clearing 1 merchants.
+09-11 08:09:19.657  1196 21909 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:09:20.899   336   336 E android.hardware.power.stats@1.0-service-mock: Failed to getEnergyData
+09-11 08:09:21.884   523  2278 D WifiNl80211Manager: Scan result ready event
+09-11 08:09:21.885   523  2278 D WifiNative: Scan result ready event
+09-11 08:09:21.890  1196  3839 I WifiScanner: onFullResults
+09-11 08:09:21.899   523   673 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+09-11 08:09:26.419  1329  1329 W ThreadPoolForeg: type=1400 audit(0.0:3368): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:09:29.504   523   727 E ClipboardService: Denying clipboard access to com.android.chrome, application is not in focus nor is it a system service for user 0
+09-11 08:09:29.514   743   743 I ClipboardListener: Clipboard overlay suppressed.
+09-11 08:09:29.533 27890 27910 I AiAiTranslate: C2T - not in a conversation
+09-11 08:09:29.535 27890 27967 I AiAiTextClassifier: Initialize textClassifierLib, privileged changed = [true], TC null = [false]
+09-11 08:09:29.537 27890 27967 I AiAiTextClassifier: ===> [TextClassifierLibProviderImpl]: Maybe loading personalized slice in TcLib
+09-11 08:09:29.549 27890 27967 I SP.Model.AiAi: Downloadable packs for webref-2-en-us are not ready
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: [TextClassifierLibProviderImpl]: Failed to load webref in TcLib, keeping the existing instance
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: iwv: No downloadable or bundled packs are available.
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at iwr.a(PG:19)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at hcj.c(PG:1)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at hdq.h(PG:3)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at hdq.a(PG:6)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at hbg.f(PG:1)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at hbg.g(PG:2)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at hbg.d(PG:12)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at hbb.d(PG:3)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at bxh.d(PG:2)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at bxg.run(PG:25)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:524)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:348)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at dum.run(PG:65)
+09-11 08:09:29.566 27890 27967 E AiAiTextClassifier: 	at java.lang.Thread.run(Thread.java:1119)
+09-11 08:09:29.585  1235 29008 D androidtc: Initializing SystemTextClassifier, type = System
+09-11 08:09:29.613 27890 27935 I AiAiTextClassifier: Initialize textClassifierLib, privileged changed = [true], TC null = [false]
+09-11 08:09:29.659 27890 27967 I AiAiTextClassifier: GenerateLinks did not find valid links, returning empty result
+09-11 08:09:29.661  1196 21909 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:09:29.727 27890 27910 W AiAiClearcutLogger: Trying to use Clearcut counters (disabled via policy). [CONTEXT ratelimit_period="1 HOURS" ]
+09-11 08:09:31.147  1196  1196 W ThreadPoolForeg: type=1400 audit(0.0:3369): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:09:37.378  1196 28901 I FrewleTileCacheManagerV: (REDACTED) Fetched %d AP models from cache
+09-11 08:09:37.387  1196 28901 I FrewleTileCacheManagerV: (REDACTED) Fetched %d AP models from cache
+09-11 08:09:37.388  1196 28901 I FrewleTileCacheManagerV: (REDACTED) Fetched %d AP models from cache
+09-11 08:09:37.388  1196 28901 I FrewleTileCacheManagerV: (REDACTED) Fetched %d AP models from cache
+09-11 08:09:37.388  1196 28901 I FrewleTileCacheManagerV: (REDACTED) Fetched %d AP models from cache
+09-11 08:09:37.431  1196  1369 I FusedLocation: (REDACTED) location delivery to %s blocked - too close
+09-11 08:09:37.433  1196  1369 I FusedLocation: (REDACTED) location delivery to %s blocked - too close
+09-11 08:09:37.434  1196  1369 I FusedLocation: (REDACTED) location delivery to %s blocked - too close
+09-11 08:09:37.435  1196  1369 I FusedLocation: (REDACTED) location delivery to %s blocked - too close
+09-11 08:09:37.435  1196  1369 I FusedLocation: (REDACTED) location delivery to %s blocked - too close
+09-11 08:09:37.437   523  1230 E LocationManagerService: non-monotonic location received from passive provider
+09-11 08:09:37.466   523   566 E GnssUtilsJni: IGnss injectLocation() failed.
+09-11 08:09:37.467   523   566 E GnssUtilsJni: IGnss injectLocation() failed.
+09-11 08:09:37.467   523   566 E GnssUtilsJni: IGnss injectLocation() failed.
+09-11 08:09:37.467   523   566 E GnssUtilsJni: IGnss injectLocation() failed.
+09-11 08:09:37.467   523   566 E GnssUtilsJni: IGnss injectLocation() failed.
+09-11 08:09:37.592  1196 28901 I TFLite-in-PlayServices: Created interpreter.
+09-11 08:09:37.605  1196 28901 I TFLite-in-PlayServices: Created interpreter.
+09-11 08:09:37.619  1196 28901 I SemanticLocation: (REDACTED) [Inferrer] %s%s
+09-11 08:09:37.868   523  1230 W AppOps  : Noting op not finished: uid 10120 pkg com.google.android.gms code 113 startTime of in progress event=1757546241896
+09-11 08:09:37.870   523  1230 W AppOps  : Noting op not finished: uid 10120 pkg com.google.android.gms code 113 startTime of in progress event=1757546241896
+09-11 08:09:37.874   523   653 W AppOps  : Noting op not finished: uid 10120 pkg com.google.android.gms code 113 startTime of in progress event=1757546241896
+09-11 08:09:37.877   523   653 W AppOps  : Noting op not finished: uid 10120 pkg com.google.android.gms code 79 startTime of in progress event=1757546292710
+09-11 08:09:37.880   523   653 W AppOps  : Noting op not finished: uid 10120 pkg com.google.android.gms code 113 startTime of in progress event=1757546264858
+09-11 08:09:37.885  1196  1436 I ActivityScheduler: nextTriggerTime: 50192263, in 238098ms, detectorType: 39, FULL_TYPE alarmWindowMillis: 80000
+09-11 08:09:38.159  1196  1196 D BoundBrokerSvc: onRebind: Intent { act=com.google.android.gms.libs.gmscorelogger.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentDirectBootAwareApiService }
+09-11 08:09:39.662  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:09:45.417   523   552 I system_server: Background concurrent mark compact GC freed 24MB AllocSpace bytes, 9(224KB) LOS objects, 43% free, 31MB/55MB, paused 1.050ms,1.690ms total 166.991ms
+09-11 08:09:48.656   523   600 W PackageManager: Not removing package com.google.android.trichromelibrary hosting lib com.google.android.trichromelibrary version 725812338 used by [VersionedPackage[com.android.chrome/725812338]] for user 0
+09-11 08:09:48.656   523   600 W PackageManager: Not removing package com.google.android.trichromelibrary hosting lib com.google.android.trichromelibrary version 725814338 used by [VersionedPackage[com.google.android.webview/725814338]] for user 0
+09-11 08:09:49.664  1196 29023 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:09:50.707 25353 25353 E chromium: [ERROR:chrome/browser/commerce/merchant_viewer/merchant_viewer_data_manager.cc:103] Clearing 1 merchants.
+09-11 08:09:50.774 25100 25199 I Finsky  : [100] AIM: AppInfoManager-Perf > Destroying AppInfoManager ...
+09-11 08:09:52.662   743   802 D EGL_emulation: app_time_stats: avg=40012.63ms min=40012.63ms max=40012.63ms count=1
+09-11 08:09:53.172  1196  1196 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.libs.gmscorelogger.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentDirectBootAwareApiService }
+09-11 08:09:55.572  1196  1542 I NearbyDiscovery: FastPair: isDestroyable: Scanner is alive. [CONTEXT service_id=265 ]
+09-11 08:09:55.572  1196  1542 I NearbyDiscovery: DiscoveryService: Skip stopSelf(), fast pair controller is not destroyable. [CONTEXT service_id=265 ]
+09-11 08:09:56.431  1329  1329 W ThreadPoolForeg: type=1400 audit(0.0:3370): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:09:59.665  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:10:00.032   743   802 D EGL_emulation: app_time_stats: avg=7369.79ms min=7369.79ms max=7369.79ms count=1
+09-11 08:10:00.033 27890 27906 I AiAiEcho: Predicting[0]: 
+09-11 08:10:00.033 27890 27906 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+09-11 08:10:00.034 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0
+09-11 08:10:00.034 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0
+09-11 08:10:00.035 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface media_data_manager with targets# 0
+09-11 08:10:00.035   743   743 D SsMediaDataProvider: Forwarding Smartspace updates []
+09-11 08:10:01.179  1196  1196 W ThreadPoolForeg: type=1400 audit(0.0:3371): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:10:09.667  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:10:19.668  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:10:26.463  1329  1329 W ThreadPoolForeg: type=1400 audit(0.0:3372): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:10:29.566 25353 25353 E chromium: [ERROR:chrome/browser/commerce/merchant_viewer/merchant_viewer_data_manager.cc:103] Clearing 0 merchants.
+09-11 08:10:29.671  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:10:31.195  1196  1196 W ThreadPoolForeg: type=1400 audit(0.0:3373): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:10:32.653   743   802 D EGL_emulation: app_time_stats: avg=32620.80ms min=32620.80ms max=32620.80ms count=1
+09-11 08:10:39.672  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:10:49.674  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:10:56.475  1329  1329 W ThreadPoolForeg: type=1400 audit(0.0:3374): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:10:59.675  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:11:00.005 27890 27906 I AiAiEcho: Predicting[0]: 
+09-11 08:11:00.005 27890 27906 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+09-11 08:11:00.005 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0
+09-11 08:11:00.005 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0
+09-11 08:11:00.006 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface media_data_manager with targets# 0
+09-11 08:11:00.019   743   743 D SsMediaDataProvider: Forwarding Smartspace updates []
+09-11 08:11:00.021   743   802 D EGL_emulation: app_time_stats: avg=27367.59ms min=27367.59ms max=27367.59ms count=1
+09-11 08:11:01.211  1196  1196 W ThreadPoolForeg: type=1400 audit(0.0:3375): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:11:08.331 25353 25353 E chromium: [ERROR:chrome/browser/commerce/merchant_viewer/merchant_viewer_data_manager.cc:103] Clearing 0 merchants.
+09-11 08:11:09.677  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:11:13.401   523   727 E ClipboardService: Denying clipboard access to com.android.chrome, application is not in focus nor is it a system service for user 0
+09-11 08:11:13.404   743   743 I ClipboardListener: Clipboard overlay suppressed.
+09-11 08:11:13.404 27890 27910 I AiAiTranslate: C2T - not in a conversation
+09-11 08:11:13.404 27890 27967 I AiAiTextClassifier: Initialize textClassifierLib, privileged changed = [true], TC null = [false]
+09-11 08:11:13.406 27890 27935 I AiAiTextClassifier: Initialize textClassifierLib, privileged changed = [true], TC null = [false]
+09-11 08:11:13.423 27890 27967 I AiAiTextClassifier: GenerateLinks did not find valid links, returning empty result
+09-11 08:11:19.679  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:11:20.896   336   336 E android.hardware.power.stats@1.0-service-mock: Failed to getEnergyData
+09-11 08:11:26.511  1329  1329 W ThreadPoolForeg: type=1400 audit(0.0:3376): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:11:27.139 28695 28725 E unknown:InspectorPackagerConnection: Error occurred, shutting down websocket connection: Websocket exception
+09-11 08:11:27.139 28695 28725 E unknown:InspectorPackagerConnection: java.io.EOFException
+09-11 08:11:27.139 28695 28725 E unknown:InspectorPackagerConnection: 	at okio.RealBufferedSource.require(RealBufferedSource.kt:199)
+09-11 08:11:27.139 28695 28725 E unknown:InspectorPackagerConnection: 	at okio.RealBufferedSource.readByte(RealBufferedSource.kt:209)
+09-11 08:11:27.139 28695 28725 E unknown:InspectorPackagerConnection: 	at okhttp3.internal.ws.WebSocketReader.readHeader(WebSocketReader.kt:119)
+09-11 08:11:27.139 28695 28725 E unknown:InspectorPackagerConnection: 	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:102)
+09-11 08:11:27.139 28695 28725 E unknown:InspectorPackagerConnection: 	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:293)
+09-11 08:11:27.139 28695 28725 E unknown:InspectorPackagerConnection: 	at okhttp3.internal.ws.RealWebSocket$connect$1.onResponse(RealWebSocket.kt:195)
+09-11 08:11:27.139 28695 28725 E unknown:InspectorPackagerConnection: 	at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:519)
+09-11 08:11:27.139 28695 28725 E unknown:InspectorPackagerConnection: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+09-11 08:11:27.139 28695 28725 E unknown:InspectorPackagerConnection: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+09-11 08:11:27.139 28695 28725 E unknown:InspectorPackagerConnection: 	at java.lang.Thread.run(Thread.java:1119)
+09-11 08:11:27.139 28695 29194 E unknown:ReconnectingWebSocket: Error occurred, shutting down websocket connection: Websocket exception
+09-11 08:11:27.139 28695 29194 E unknown:ReconnectingWebSocket: java.io.EOFException
+09-11 08:11:27.139 28695 29194 E unknown:ReconnectingWebSocket: 	at okio.RealBufferedSource.require(RealBufferedSource.kt:199)
+09-11 08:11:27.139 28695 29194 E unknown:ReconnectingWebSocket: 	at okio.RealBufferedSource.readByte(RealBufferedSource.kt:209)
+09-11 08:11:27.139 28695 29194 E unknown:ReconnectingWebSocket: 	at okhttp3.internal.ws.WebSocketReader.readHeader(WebSocketReader.kt:119)
+09-11 08:11:27.139 28695 29194 E unknown:ReconnectingWebSocket: 	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:102)
+09-11 08:11:27.139 28695 29194 E unknown:ReconnectingWebSocket: 	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:293)
+09-11 08:11:27.139 28695 29194 E unknown:ReconnectingWebSocket: 	at okhttp3.internal.ws.RealWebSocket$connect$1.onResponse(RealWebSocket.kt:195)
+09-11 08:11:27.139 28695 29194 E unknown:ReconnectingWebSocket: 	at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:519)
+09-11 08:11:27.139 28695 29194 E unknown:ReconnectingWebSocket: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+09-11 08:11:27.139 28695 29194 E unknown:ReconnectingWebSocket: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+09-11 08:11:27.139 28695 29194 E unknown:ReconnectingWebSocket: 	at java.lang.Thread.run(Thread.java:1119)
+09-11 08:11:27.140 28695 29194 W unknown:ReconnectingWebSocket: Couldn't connect to "ws://localhost:8081/message?device=sdk_gphone64_x86_64%20-%2013%20-%20API%2033&app=com.app.uprise.debug&clientid=BridgeDevSupportManager", will silently retry
+09-11 08:11:29.681  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:11:31.231  1196  1196 W ThreadPoolForeg: type=1400 audit(0.0:3377): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:11:37.347  1196 28419 W SystemServiceRegistry: No service published for: wifirtt
+09-11 08:11:37.546   523   584 D KernelCpuUidUserSysTimeReader: Removing uids 99001-99001
+09-11 08:11:38.148   523  1638 D WifiNl80211Manager: Scan result ready event
+09-11 08:11:38.148   523  1638 D WifiNative: Scan result ready event
+09-11 08:11:38.150  1196  2362 I WifiScanner: onFullResults
+09-11 08:11:38.150  1196  1207 I WifiScanner: onFullResults
+09-11 08:11:38.157   523   673 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+09-11 08:11:38.159  1196  1436 I ActivityScheduler: nextTriggerTime: 50194626, in 120186ms, detectorType: 39, FULL_TYPE alarmWindowMillis: 80000
+09-11 08:11:39.682  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:11:48.698 25353 25353 E chromium: [ERROR:chrome/browser/commerce/merchant_viewer/merchant_viewer_data_manager.cc:103] Clearing 0 merchants.
+09-11 08:11:49.684  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:11:56.523  1329  1329 W ThreadPoolForeg: type=1400 audit(0.0:3378): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:11:59.687  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:12:00.004 27890 27906 I AiAiEcho: Predicting[0]: 
+09-11 08:12:00.005 27890 27906 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+09-11 08:12:00.007 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0
+09-11 08:12:00.007 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0
+09-11 08:12:00.007 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface media_data_manager with targets# 0
+09-11 08:12:00.019   743   743 D SsMediaDataProvider: Forwarding Smartspace updates []
+09-11 08:12:00.021   743   802 D EGL_emulation: app_time_stats: avg=60000.36ms min=60000.36ms max=60000.36ms count=1
+09-11 08:12:01.263  1196  1196 W ThreadPoolForeg: type=1400 audit(0.0:3379): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:12:01.883   523  1230 D WifiNl80211Manager: Scan result ready event
+09-11 08:12:01.883   523  1230 D WifiNative: Scan result ready event
+09-11 08:12:01.885  1196  2362 I WifiScanner: onFullResults
+09-11 08:12:01.891   523   673 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+09-11 08:12:09.689  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:12:12.651   743   802 D EGL_emulation: app_time_stats: avg=12629.12ms min=12629.12ms max=12629.12ms count=1
+09-11 08:12:16.455   523   584 D KernelCpuUidUserSysTimeReader: Removing uids 10186-10186
+09-11 08:12:17.491  1329  1329 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.cobalt.api.CobaltLoggerApiService.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsApiService }
+09-11 08:12:17.605  1329  1329 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.credential.manager.service.firstparty.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsApiService }
+09-11 08:12:18.164  1196  1196 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.auth.aang.events.services.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentApiService }
+09-11 08:12:18.167  1329  1329 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.mdisync.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsApiService }
+09-11 08:12:19.692  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:12:25.787   859  1094 E bluetooth: packages/modules/Bluetooth/system/gd/hci/le_advertising_manager.cc:1363 on_set_advertising_set_random_address_complete: Got a command complete with status COMMAND_DISALLOWED
+09-11 08:12:26.490  1329  1329 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.mobstore.service.START pkg=com.google.android.gms }
+09-11 08:12:26.531  1329  1329 W ThreadPoolForeg: type=1400 audit(0.0:3380): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:12:27.464  1329  1329 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.inappreach.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsApiService }
+09-11 08:12:27.613 25353 25353 E chromium: [ERROR:chrome/browser/commerce/merchant_viewer/merchant_viewer_data_manager.cc:103] Clearing 0 merchants.
+09-11 08:12:29.694  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:12:31.263  1196  1196 W ThreadPoolForeg: type=1400 audit(0.0:3381): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:12:33.062 29272 29272 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-11 08:12:33.125 29272 29272 I app_process: MMAP_TRYLOCK is not supported in uffd addr:0x7950c6541000 page-size:4096
+09-11 08:12:33.126 29272 29272 I AndroidRuntime: Using default boot image
+09-11 08:12:33.126 29272 29272 I AndroidRuntime: Leaving lock profiling enabled
+09-11 08:12:33.140 29272 29272 I app_process: Using CollectorTypeCMC GC.
+09-11 08:12:33.483 29272 29272 D nativeloader: InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+09-11 08:12:33.555 29272 29272 D nativeloader: Load libicu_jni.so using APEX ns com_android_art for caller /apex/com.android.art/javalib/core-oj.jar: ok
+09-11 08:12:33.557 29272 29272 D app_process: Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+09-11 08:12:33.557 29272 29272 D app_process: I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt70l.dat
+09-11 08:12:33.580 29272 29272 D nativeloader: Load libjavacore.so using APEX ns com_android_art for caller /apex/com.android.art/javalib/core-oj.jar: ok
+09-11 08:12:33.595 29272 29272 D nativeloader: Load libopenjdk.so using APEX ns com_android_art for caller /apex/com.android.art/javalib/core-oj.jar: ok
+09-11 08:12:33.604 29272 29272 W app_process: Unexpected CPU variant for x86: x86_64.
+09-11 08:12:33.604 29272 29272 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, alderlake, default
+09-11 08:12:33.900 29272 29272 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+09-11 08:12:33.902 29272 29272 D AndroidRuntime: Calling main entry com.android.commands.monkey.Monkey
+09-11 08:12:33.906 29272 29272 W Monkey  : args: [-p, com.app.uprise.debug, -c, android.intent.category.LAUNCHER, 1]
+09-11 08:12:33.906 29272 29272 W Monkey  :  arg: "-p"
+09-11 08:12:33.906 29272 29272 W Monkey  :  arg: "com.app.uprise.debug"
+09-11 08:12:33.906 29272 29272 W Monkey  :  arg: "-c"
+09-11 08:12:33.906 29272 29272 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+09-11 08:12:33.907 29272 29272 W Monkey  :  arg: "1"
+09-11 08:12:33.907 29272 29272 W Monkey  : data="com.app.uprise.debug"
+09-11 08:12:33.907 29272 29272 W Monkey  : data="android.intent.category.LAUNCHER"
+09-11 08:12:34.077   523   577 W BroadcastQueue: Skipping deliver [background] BroadcastRecord{c9bb1bc u-1 android.net.conn.CONNECTIVITY_CHANGE} to ReceiverList{1da2545 29272 (unknown name)/2000/u-1 remote:5edad8e}: process gone or crashing
+09-11 08:12:34.113   523  2278 D CompatibilityChangeReporter: Compat change id reported: 161252188; UID 10185; state: DISABLED
+09-11 08:12:34.113   523  2278 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.app.uprise.debug/com.app.uprise.MainActivity} from uid 2000
+09-11 08:12:34.132   523  2278 D CompatibilityChangeReporter: Compat change id reported: 265464455; UID 10185; state: DISABLED
+09-11 08:12:34.132   523  2278 D CompatibilityChangeReporter: Compat change id reported: 265452344; UID 10185; state: DISABLED
+09-11 08:12:34.132   523  2278 D CompatibilityChangeReporter: Compat change id reported: 266124927; UID 10185; state: DISABLED
+09-11 08:12:34.132   523  2278 D CompatibilityChangeReporter: Compat change id reported: 265451093; UID 10185; state: DISABLED
+09-11 08:12:34.132   523  2278 D CompatibilityChangeReporter: Compat change id reported: 265456536; UID 10185; state: DISABLED
+09-11 08:12:34.133   523  2278 D CompatibilityChangeReporter: Compat change id reported: 255940284; UID 10185; state: DISABLED
+09-11 08:12:34.133   523  2278 D CompatibilityChangeReporter: Compat change id reported: 236283604; UID 10185; state: DISABLED
+09-11 08:12:34.133   523  2278 D CompatibilityChangeReporter: Compat change id reported: 263959004; UID 10185; state: DISABLED
+09-11 08:12:34.133   523  2278 D CompatibilityChangeReporter: Compat change id reported: 264304459; UID 10185; state: DISABLED
+09-11 08:12:34.133   523  2278 D CompatibilityChangeReporter: Compat change id reported: 264301586; UID 10185; state: DISABLED
+09-11 08:12:34.133   523  2278 D CompatibilityChangeReporter: Compat change id reported: 254631730; UID 10185; state: DISABLED
+09-11 08:12:34.134   523  2278 D CompatibilityChangeReporter: Compat change id reported: 273509367; UID 10185; state: DISABLED
+09-11 08:12:34.134   523  2278 D CompatibilityChangeReporter: Compat change id reported: 263259275; UID 10185; state: DISABLED
+09-11 08:12:34.135   523  2278 D CompatibilityChangeReporter: Compat change id reported: 194480991; UID 10185; state: ENABLED
+09-11 08:12:34.140   523  2278 D CompatibilityChangeReporter: Compat change id reported: 174042980; UID 10185; state: DISABLED
+09-11 08:12:34.149   523  2278 D CompatibilityChangeReporter: Compat change id reported: 197654537; UID 10185; state: ENABLED
+09-11 08:12:34.168   523  2278 D CompatibilityChangeReporter: Compat change id reported: 181136395; UID 10185; state: DISABLED
+09-11 08:12:34.168   523  2278 D CompatibilityChangeReporter: Compat change id reported: 174042936; UID 10185; state: DISABLED
+09-11 08:12:34.179   523  2278 D CompatibilityChangeReporter: Compat change id reported: 194833441; UID 10185; state: DISABLED
+09-11 08:12:34.185 29272 29272 I Monkey  : Events injected: 1
+09-11 08:12:34.270 29272 29272 I Monkey  : ## Network stats: elapsed time=157ms (0ms mobile, 0ms wifi, 157ms not connected)
+09-11 08:12:34.273 29272 29272 I app_process: System.exit called, status: 0
+09-11 08:12:34.273 29272 29272 I AndroidRuntime: VM exiting with result code 0.
+09-11 08:12:34.285   428 29273 E adbd    : error reading output FD 31: Connection reset by peer
+09-11 08:12:39.695  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:12:49.697  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:12:52.650   743   802 D EGL_emulation: app_time_stats: avg=39999.59ms min=39999.59ms max=39999.59ms count=1
+09-11 08:12:56.543  1329  1329 W ThreadPoolForeg: type=1400 audit(0.0:3382): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:12:59.698  1196 29027 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+09-11 08:13:00.004 27890 27906 I AiAiEcho: Predicting[0]: 
+09-11 08:13:00.004 27890 27906 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+09-11 08:13:00.004 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0
+09-11 08:13:00.004 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0
+09-11 08:13:00.005 27890 27906 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface media_data_manager with targets# 0
+09-11 08:13:00.017   743   743 D SsMediaDataProvider: Forwarding Smartspace updates []
+09-11 08:13:00.019   743   802 D EGL_emulation: app_time_stats: avg=7368.18ms min=7368.18ms max=7368.18ms count=1
+09-11 08:13:01.295  1196  1196 W ThreadPoolForeg: type=1400 audit(0.0:3383): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=685 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-11 08:13:03.055   822  1017 W AlarmManager: Unrecognized alarm listener com.android.networkstack.android.net.ip.IpClientLinkObserver$Dhcp6PdPreferredPrefixAlarmListener@661b4a

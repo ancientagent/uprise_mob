@@ -6,15 +6,48 @@ set -euo pipefail
 
 ENV_FILE="${ENV_FILE:-../webapp_api/.env}"
 
-if [ -f "$ENV_FILE" ]; then
-  # shellcheck disable=SC1090
-  set -a; . "$ENV_FILE"; set +a
-else
+if [[ ! -f "$ENV_FILE" ]]; then
   echo "Env file not found: $ENV_FILE" >&2
   exit 1
 fi
 
-: "${DB_HOST:?}" "${DB_PORT:?}" "${DB_NAME:?}" "${DB_USERNAME:?}" "${DB_PASSWORD:?}"
+# Parse .env safely (no shell expansion; supports BOM/CRLF)
+declare -A _env
+while IFS= read -r line || [[ -n "$line" ]]; do
+  # strip BOM on first line
+  line="${line#$'\xEF\xBB\xBF'}"
+  # remove comments
+  line="${line%%#*}"
+  # trim whitespace
+  line="${line##[[:space:]]}"
+  line="${line%%[[:space:]]}"
+  [[ -z "$line" ]] && continue
+  # split key=value
+  key="${line%%=*}"
+  val="${line#*=}"
+  # trim again
+  key="${key##[[:space:]]}"; key="${key%%[[:space:]]}"
+  val="${val##[[:space:]]}"; val="${val%%[[:space:]]}"
+  # drop surrounding quotes
+  val="${val%$'\r'}"
+  if [[ ${val:0:1} == '"' && ${val: -1} == '"' ]]; then
+    val="${val:1:${#val}-2}"
+  elif [[ ${val:0:1} == "'" && ${val: -1} == "'" ]]; then
+    val="${val:1:${#val}-2}"
+  fi
+  _env["$key"]="$val"
+done < "$ENV_FILE"
+
+DB_HOST="${_env[DB_HOST]:-}"
+DB_PORT="${_env[DB_PORT]:-}"
+DB_NAME="${_env[DB_NAME]:-}"
+DB_USERNAME="${_env[DB_USERNAME]:-}"
+DB_PASSWORD="${_env[DB_PASSWORD]:-}"
+
+if [[ -z "$DB_HOST" || -z "$DB_PORT" || -z "$DB_NAME" || -z "$DB_USERNAME" || -z "$DB_PASSWORD" ]]; then
+  echo "Missing one or more DB_* keys in $ENV_FILE" >&2
+  exit 1
+fi
 
 export PGPASSWORD="$DB_PASSWORD"
 
@@ -45,4 +78,3 @@ END$$;\
 "
 
 echo "\nDone. Non-destructive checks completed."
-

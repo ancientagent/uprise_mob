@@ -8,7 +8,18 @@ export const showminiPlayer = ['UserProfile', 'Discovery', 'Following', 'Followe
 export const genrePreferencePieChartColor = ['rgba(248, 174, 76, 1)', 'rgba(55, 24, 180, 1)', 'rgba(165, 64, 118, 1)', 'rgba(254, 112, 0, 1)', 'rgba(252, 207, 85, 1)', 'rgba(253, 29, 5, 1)'];
 
 export function getRequestURL(path) {
-  return `${Config.BASE_URL}${path}`;
+  const base = (Config.API_BASE_URL || Config.BASE_URL || '').trim();
+  const p = String(path || '').trim();
+  if (__DEV__) {
+    try {
+      // eslint-disable-next-line no-console
+      console.log('getRequestURL', { base, path: p });
+    } catch (_) { /* noop */ }
+  }
+  if (!base) return p; // return as-is if no base configured
+  if (base.endsWith('/') && p.startsWith('/')) return base + p.slice(1);
+  if (!base.endsWith('/') && !p.startsWith('/')) return `${base}/${p}`;
+  return base + p;
 }
 
 export function hasValue(value) {

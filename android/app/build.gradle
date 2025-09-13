@@ -84,7 +84,7 @@ apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.grad
 // Bundle JS into Debug so you can run the debug APK without Metro (optional but recommended)
 project.ext.react = [
     entryFile     : "index.js",
-    enableHermes  : true,  // clean and rebuild if changing
+    enableHermes  : false,  // disabled for Debug to get full RedBox stack traces
     bundleInDebug : true,
     bundleCommand: "bundle",
     nodeExecutableAndArgs: ["node", "--openssl-legacy-provider"]
@@ -147,6 +147,29 @@ android {
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    packagingOptions {
+        // Resolve duplicate font assets from react-native-vector-icons vs app assets
+        pickFirst 'assets/fonts/*.ttf'
+        pickFirst 'assets/fonts/*.otf'
+        // Common native duplicate in some builds
+        pickFirst '**/libc++_shared.so'
+        // Avoid META-INF conflicts across libs - exclude all META-INF files except the main one
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/*.kotlin_module'
+        // Resolve duplicate drawable resources - pick first occurrence for all duplicates
+        pickFirst '**/drawable-*/node_modules_reactnativecalendars_src_*'
+        pickFirst '**/drawable-*/node_modules_reactnavigation_elements_src_*'
+        pickFirst '**/drawable-*/node_modules_reactnativeratings_dist_*'
+        pickFirst '**/drawable-*/assets_images_*'
     }
 
     splits {
