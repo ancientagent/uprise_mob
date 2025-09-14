@@ -125,7 +125,7 @@ $appId = 'com.app.uprise.debug'
 ## First Login Flow (Home Scene)
 
 - After first login, the app opens the Home Scene Creation page:
-  - Super Genre: typeahead suggestions (from `/onboarding/super-genres`)
+  - Sub‑Genre: typeahead suggestions (via alpha list or `GET /onboarding/genre-suggestions`)
   - City, State: typeahead (plus “Use my GPS” to auto‑fill)
   - Note: GPS verification is optional, but only GPS‑verified users can upvote songs in their Home Scene.
 - Submit behavior:

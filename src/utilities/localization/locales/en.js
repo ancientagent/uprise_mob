@@ -37,7 +37,7 @@ export default {
     favorites: 'Your Favorites Songs list',
   },
   statistics: {
-    radioStation: 'Community',
+    radioStation: 'Uprise',
     popularArtist: 'Popular Artist',
     popularArtistPerGenre: 'Popular Artist per Genre',
     users: 'Users',
@@ -76,7 +76,7 @@ export default {
     popularAlbums: 'Popular Albums',
     popularSongs: 'Popular Songs',
     popularGenre: 'Popular Genre',
-    popularRadioStation: 'Popular Communities',
+    popularRadioStation: 'Popular Uprises',
   },
   GenreSelection: {
     suggested: 'No place is suggested for this search',
@@ -187,7 +187,7 @@ export default {
     newReleases: 'New Releases',
     welcomeText: 'Welcome to Uprise Radiyo..!!',
     followText: 'Follow users for more feed.',
-    radioStations: 'Recommended Communities',
+    radioStations: 'Uprises',
     moreDetails: 'Check it out for more details!!',
     Close: 'Close',
     upvotedSong: ' upvoted a song ',

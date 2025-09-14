@@ -1,5 +1,11 @@
 # UPRISE Community & Location System - Detailed Technical Specification
 
+> Phase 2 Migration Note (Alpha Update)
+> - Onboarding classification now uses Direct Sub‑Genres. See specs/GENRE_SYSTEM_ALPHA.md.
+> - Community key for alpha flows: city-state-sub-genre-id (e.g., austin-texas-hardcore-punk).
+> - Families/Alliances are deprecated for Alpha; legacy references remain for archival context only.
+> - When sending filters, prefer `community_key`; `genre` may be used as a fallback.
+
 ## Phase 2 Alignment: Location Filters, PostGIS, API Params
 - Standard API params for geo queries: `city`, `state`, `genre`, `community_key`, `lat`, `lng`, `radius`.
 - Community key format: `city-state-genre` (normalized, lowercase, dash-separated).

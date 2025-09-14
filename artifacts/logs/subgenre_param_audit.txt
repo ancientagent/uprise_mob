@@ -1,0 +1,62 @@
+=== PARAM/ENDPOINT AUDIT (superGenre) ===
+src/screens/Onboarding/CommunitySetup.js:93:      const targetKey = nearest && (nearest.community_key || toCommunityKey({ city: nearest.city, state: nearest.state, genre: (nearest.subGenre || nearest.superGenre) })) || key;
+src/services/onboarding/validateCommunity.service.js:6:// Validate if a local community (city/state/superGenre) is active and suggest nearest hub if not.
+src/services/onboarding/validateCommunity.service.js:8:export default function validateCommunityRequest({ city, state, superGenre, accessToken } = {}) {
+src/services/onboarding/validateCommunity.service.js:16:    data: JSON.stringify({ city, state, superGenre }),
+src/services/onboarding/validateCommunity.service.js:26:        params: { city, state, super_genre: superGenre },
+src/state/actions/community/community.actions.js:11:// original should include { city, state, superGenre, community_key }
+src/state/reducers/community/community.reducer.js:7:    original: null, // { city, state, superGenre, community_key }
+docs/july-model/Feature realignment/MODERN-GENRES-SYSTEM.md:80:### 3. `/onboarding/sub-genres/{superGenreId}`
+
+=== ENDPOINTS (super-genres/all-genres) ===
+docs/TOOLS_INDEX.md:29:  - Verifies basic contract for /health, /onboarding/all-genres, /api/discovery, /api/radio.
+src/services/onboarding/getSuperGenres.service.js:8:  const endpoint = Config.ONBOARDING_SUPER_GENRES || '/onboarding/super-genres';
+src/services/onboarding/getAllGenres.service.js:8:  const endpoint = Config.GET_ALL_GENRES_URL || '/onboarding/all-genres';
+docs/RUNBOOK_ANDROID.md:128:  - Super Genre: typeahead suggestions (from `/onboarding/super-genres`)
+docs/Session-Logs/CODEX-PHASE2-INTAKE-REPORT.md:68:- Genre onboarding used outdated endpoint; needed `/onboarding/all-genres` (97 genres).
+docs/Session-Logs/CODEX-PHASE2-INTAKE-REPORT.md:92:- Ensure `/onboarding/all-genres` returns 97 items for onboarding.
+docs/Session-Logs/CODEX-PHASE2-INTAKE-REPORT.md:111:  - Acceptance: `/onboarding/all-genres` returns 97; onboarding selection sets home scene and persists `community_key`.
+docs/Session-Logs/CODEX-JULY-MODEL-DELTA.md:28:  - Ensure mobile uses `/onboarding/all-genres` and sets home scene (city/state).
+docs/Session-Logs/CLAUDE-KNOWLEDGE-SNAPSHOT-2025-09-07.md:37:- **Should Be**: 97 hierarchical genres via `/onboarding/all-genres`
+docs/scripts/api_contract_check.sh:20:if curl -sf "$BASE_URL/onboarding/all-genres" >/dev/null; then
+docs/scripts/api_contract_check.sh:22:    if curl -sf "$BASE_URL/onboarding/all-genres" | jq -e '.data | arrays' >/dev/null; then ok "GET /onboarding/all-genres returns data[]"; else bad "GET /onboarding/all-genres shape"; fi
+docs/scripts/api_contract_check.sh:24:    ok "GET /onboarding/all-genres (no jq)"
+docs/scripts/api_contract_check.sh:26:else bad "GET /onboarding/all-genres"; fi
+docs/PLATFORM_SOURCE_OF_TRUTH.md:181:**Target**: 97 genres via `/onboarding/all-genres`  
+docs/PHASE2_EXECUTION_PLAN.md:61:  - `/onboarding/all-genres` → flat 97 list  
+docs/PHASE2_EXECUTION_PLAN.md:62:  - `/onboarding/super-genres` → hierarchy  
+docs/project-narrative/UPRISE Onboarding Flow & API Spec.md:10:2. **App immediately calls** `GET /onboarding/super-genres` and loads autocomplete data
+docs/project-narrative/UPRISE Onboarding Flow & API Spec.md:25:### GET /onboarding/super-genres
+docs/Knowledge-Base/ONBOARDING_SMOKES.md:12:    - Pick Super‑genre (typeahead hits `/onboarding/super-genres`)
+docs/Knowledge-Base/ONBOARDING_SMOKES.md:22:  - Requests to `/onboarding/super-genres` and `/onboarding/all-genres`
+docs/july-model/PROJECT-MANAGER-REPORT-SONG-UPLOAD-SUCCESS.md:88:- **Solution**: Updated to use comprehensive 97-genre endpoint (`/onboarding/all-genres`)
+docs/july-model/MANUAL-SETUP-GUIDE.md:201:GET_ALL_GENRES_URL=/onboarding/all-genres
+docs/july-model/MANUAL-SETUP-GUIDE.md:202:ONBOARDING_SUPER_GENRES=/onboarding/super-genres
+docs/july-model/ENVIRONMENT-VARIABLES-REFERENCE.md:200:GET_ALL_GENRES_URL=/onboarding/all-genres
+docs/july-model/ENVIRONMENT-VARIABLES-REFERENCE.md:201:ONBOARDING_SUPER_GENRES=/onboarding/super-genres
+docs/july-model/july-model  build state/QUICK-FIXES.md:157:- **Part 1**: Corrected onboarding data source to use `/onboarding/all-genres`
+docs/july-model/july-model  build state/QUICK-FIXES.md:299:**Root Cause**: Frontend was using `/auth/genres` (23 basic genres) instead of `/onboarding/all-genres` (97 comprehensive genres)
+docs/july-model/july-model  build state/QUICK-FIXES.md:301:**Note**: Changed `getAllGenres.service.js` to use `/onboarding/all-genres` instead of `Config.GET_ALL_GENRES_URL`
+docs/july-model/july-model  build state/QUICK-FIXES.md:658:- ✅ **Part 1**: Corrected onboarding data source to use `/onboarding/all-genres`
+docs/july-model/july-model  build state/QUICK-FIXES.md:859:- ✅ Updated `getAllGenres.service.js` to use `/onboarding/all-genres`
+docs/july-model/july-model  build state/CHANGELOG-SESSION-2025-01-17.md:29:**Root Cause**: Frontend using `/auth/genres` instead of `/onboarding/all-genres`  
+docs/july-model/july-model  build state/CHANGELOG-SESSION-2025-01-17.md:63:- **Comprehensive Genres**: 97 genres available via `/onboarding/all-genres`
+docs/july-model/july-model  build state/CHANGELOG-SESSION-2025-01-17.md:73:- Genres: `/onboarding/all-genres` (97 genres)
+docs/july-model/july-model  build state/CHANGELOG-SESSION-2025-01-17.md:81:   - Changed endpoint from `/auth/genres` to `/onboarding/all-genres`
+docs/july-model/Feature realignment/MODERN-GENRES-SYSTEM.md:28:### 1. `/onboarding/super-genres`
+docs/july-model/Feature realignment/MODERN-GENRES-SYSTEM.md:54:### 2. `/onboarding/all-genres`
+docs/july-model/Feature realignment/MODERN-GENRES-SYSTEM.md:207:- The new `/onboarding/all-genres` provides the expanded list
+docs/july-model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md:108:GET /onboarding/all-genres
+docs/july-model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md:109:GET /onboarding/super-genres
+docs/july-model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md:136:- `getAllGenres/getAllGenres.service.js` - Uses hardcoded `/onboarding/all-genres` instead of `Config.GET_ALL_GENRES_URL`
+docs/july-model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md:351:GET_ALL_GENRES_URL=/onboarding/all-genres
+docs/july-model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md:352:ONBOARDING_SUPER_GENRES=/onboarding/super-genres
+docs/july-model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md:415:const url = '/onboarding/all-genres';
+docs/july-model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md:424:const url = getRequestURL('/onboarding/super-genres');
+docs/july-model/architecture realignment/ARCHITECTURAL-REALIGNMENT-IMPLEMENTATION.md:27:The mobile app's "Home Scene Creation" screen was fetching genres from an outdated endpoint (`/auth/genres`) instead of the comprehensive 97-genre list (`/onboarding/all-genres`).
+docs/july-model/architecture realignment/ARCHITECTURAL-REALIGNMENT-IMPLEMENTATION.md:35:const url = Config.GET_ALL_GENRES_URL; // Could be /auth/genres or /onboarding/all-genres
+docs/july-model/architecture realignment/ARCHITECTURAL-REALIGNMENT-IMPLEMENTATION.md:38:const url = '/onboarding/all-genres'; // Always uses comprehensive 97-genre list
+docs/CHANGELOG.md:238:  - `/onboarding/all-genres` returns 97 items; mobile shows list and sets home scene.
+docs/CHANGELOG.md:281:  - Super‑genre typeahead (`/onboarding/super-genres`)
+docs/CHANGELOG.md:317:  - Wire `/onboarding/super-genres` + `/onboarding/all-genres` in UI flow; persist selected super‑genre + `community_key`.
+docs/CHANGELOG.md:1358:- Onboarding 97-genre taxonomy: `/onboarding/all-genres` returns 97; selection sets home scene with `community_key`

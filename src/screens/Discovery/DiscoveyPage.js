@@ -104,7 +104,7 @@ const DiscoveyPage = props => {
           <TouchableOpacity
             activeOpacity={ 0.8 }
             onPress={ () => {
-              navigation.navigate('RadioStations', { genreId: item.id, genreName: item.name, isDiscovery: true });
+              navigation.navigate('Uprises', { genreId: item.id, genreName: item.name, isDiscovery: true });
             } }
           >
             <View style={ styles.genreImageView }>
@@ -155,7 +155,7 @@ const DiscoveyPage = props => {
       containerCustomStyle={ { marginTop: 15, overflow: 'visible' } }
     />
   );
-  const renderRadioStations = () => {
+  const renderUprises = () => {
     const colorsList = getStationBgColor;
     return (
       <View style={ styles.radioStaionView }>
@@ -173,7 +173,7 @@ const DiscoveyPage = props => {
               showRadioStation
               title={ item }
               bgColor={ colorsList[index] }
-              onDone={ () => navigation.navigate('RadioStations', {
+              onDone={ () => navigation.navigate('Uprises', {
                 stateName: item,
                 bgColor: colorsList[index],
               }) }
@@ -191,7 +191,7 @@ const DiscoveyPage = props => {
             flexDirection: 'row',
           } }
           onPress={ () => {
-            navigation.navigate('RadioStations', {
+            navigation.navigate('Uprises', {
               stateName: item,
               bgColor: colorsList[index],
             });
@@ -372,7 +372,7 @@ const DiscoveyPage = props => {
           { renderAlbumsFlatList(_.slice(popularAlbums, 0, 10)) }
         </View>
         ) } */ }
-        { renderRadioStations() }
+        { renderUprises() }
         { treandingSongs.length > 0
         && (
         <View>

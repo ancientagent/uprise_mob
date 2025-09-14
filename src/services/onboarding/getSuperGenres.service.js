@@ -3,7 +3,8 @@ import { request } from '../request/request.service';
 import { GET } from '../constants/Constants';
 import { getRequestURL } from '../../utilities/utilities';
 
-// Fetch super genres for onboarding (community-forming categories)
+// DEPRECATED (Alpha): Super‑genre onboarding is superseded by direct sub‑genre selection.
+// Prefer using src/services/onboarding/genreAlpha.service.js
 export default function getSuperGenresRequest(payload = {}) {
   const endpoint = Config.ONBOARDING_SUPER_GENRES || '/onboarding/super-genres';
   const requestOptions = {
@@ -13,4 +14,3 @@ export default function getSuperGenresRequest(payload = {}) {
   };
   return request(requestOptions).then(response => response);
 }
-

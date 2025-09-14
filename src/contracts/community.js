@@ -14,6 +14,12 @@ export const toCommunityKey = ({ city, state, genre }) => {
   return [slug(city), slug(state), slug(genre)].join('-');
 };
 
+// Family-based community key: city-state-familyId
+export const toFamilyCommunityKey = ({ city, state, familyId }) => {
+  if (!city || !state || !familyId) return null;
+  return [slug(city), slug(state), slug(familyId)].join('-');
+};
+
 export const fromCommunityKey = key => {
   if (!key) return { city: '', state: '', genre: '' };
   const parts = key.split('-');
@@ -42,5 +48,5 @@ export default {
   fromCommunityKey,
   buildGeoGenreParams,
   stationToCommunityKey,
+  toFamilyCommunityKey,
 };
-

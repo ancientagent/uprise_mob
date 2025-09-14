@@ -23,7 +23,7 @@ import FullEventView from '../screens/BandDetails/FullEventView/FullEventView';
 import AlbumSongs from '../screens/BandDetails/AlbumSongs/AlbumSongs';
 import RadioPreferences from '../screens/RadioPreferences/RadioPreferences';
 import ChangePassword from '../screens/ChangePassword/ChangePassword';
-import RadioStations from '../screens/Feed/RadioStations/RadioStations';
+import Uprises from '../screens/Feed/Uprises/Uprises';
 import ChangeAvatar from '../screens/userProfile/ProfileTab/ChangeAvatar';
 import ChangeInstrument from '../screens/userProfile/ProfileTab/ChangeInstrument';
 import AllPopularBands from '../screens/Discovery/AllPopularBands/AllPopularBands';
@@ -58,8 +58,8 @@ function DiscoveryStackScreen() {
     >
       <DiscoveryStack.Screen name='Discovery' component={ Discovery } options={ () => ({ headerShown: false }) } />
       <DiscoveryStack.Screen
-        name='RadioStations'
-        component={ RadioStations }
+        name='Uprises'
+        component={ Uprises }
         options={ () => ({ headerShown: false }) }
       />
       <DiscoveryStack.Screen

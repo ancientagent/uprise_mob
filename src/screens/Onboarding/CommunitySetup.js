@@ -3,8 +3,9 @@ import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, Alert, Share, TouchableOpacity, Platform, PermissionsAndroid, ToastAndroid } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import TypeaheadInput from '../../components/TypeaheadInput/TypeaheadInput';
-import getSuperGenresRequest from '../../services/onboarding/getSuperGenres.service';
 import validateCommunityRequest from '../../services/onboarding/validateCommunity.service';
+import assignCommunityRequest from '../../services/onboarding/assignCommunity.service';
+import { getApprovedSubGenres, getSubGenreSuggestions, requestSubGenre } from '../../services/onboarding/genreAlpha.service';
 import { request } from '../../services/request/request.service';
 import { setCommunityKey, setRevolutionary } from '../../state/actions/community/community.actions';
 import { accessToken } from '../../state/selectors/UserProfile';
@@ -17,18 +18,21 @@ import Geolocation from 'react-native-geolocation-service';
 export default function CommunitySetup({ navigation, route }) {
   const dispatch = useDispatch();
   const token = useSelector(accessToken);
-  const [superGenre, setSuperGenre] = useState(null);
+  const [subGenre, setSubGenre] = useState(null);
   const [city, setCity] = useState(null);
   const [stateName, setStateName] = useState(null);
 
-  const fetchSuperGenres = async (query) => {
-    const res = await getSuperGenresRequest({ accessToken: token });
-    const list = (res && res.genres) || res || [];
-    const q = query.toLowerCase();
-    return list
-      .filter(g => (g.name || g.title || '').toLowerCase().includes(q))
+  const fetchSubGenres = async (query) => {
+    const list = await getApprovedSubGenres();
+    const q = (query || '').toLowerCase();
+    return (list || [])
+      .filter(g => (
+        ((g.name || '').toLowerCase().includes(q))
+        || ((g.id || '').toLowerCase().includes(q))
+        || (Array.isArray(g.aliases) && g.aliases.some(a => (a || '').toLowerCase().includes(q)))
+      ))
       .slice(0, 20)
-      .map(g => ({ key: g.id?.toString() || (g.slug || g.name), label: (g.display || g.name || g.title), value: g }));
+      .map(g => ({ key: g.id, label: g.name, value: g }));
   };
 
   const fetchCities = async (query) => {
@@ -51,12 +55,17 @@ export default function CommunitySetup({ navigation, route }) {
   };
 
   const onSubmit = async () => {
-    if (!superGenre || !city || !stateName) {
-      Alert.alert('Incomplete', 'Please select a super genre and your city/state.');
+    if (!city || !stateName) {
+      Alert.alert('Incomplete', 'Please select your city/state.');
       return;
     }
-    const superSlug = superGenre.slug || superGenre.name || superGenre.title || (superGenre.value && (superGenre.value.slug || superGenre.value.name));
-    const key = toCommunityKey({ city, state: stateName, genre: superSlug });
+    if (!subGenre) {
+      Alert.alert('Incomplete', 'Please choose your sub‑genre and city/state.');
+      return;
+    }
+
+    const subSlug = subGenre && (subGenre.id || subGenre.slug || subGenre.value?.id || subGenre.value?.slug || (subGenre.name && subGenre.name.toLowerCase().replace(/\s+/g, '-')));
+    const key = toCommunityKey({ city, state: stateName, genre: subSlug });
     try {
       if ((Config.COMMUNITY_VIABILITY_BYPASS || '').toString() === 'true') {
         dispatch(setCommunityKey(key));
@@ -67,7 +76,7 @@ export default function CommunitySetup({ navigation, route }) {
         }
         return;
       }
-      const resp = await validateCommunityRequest({ city, state: stateName, superGenre: superSlug, accessToken: token });
+      const resp = await validateCommunityRequest({ city, state: stateName, subGenre: subSlug, accessToken: token });
       if (resp && resp.active) {
         dispatch(setCommunityKey(resp.primary?.community_key || key));
         if (route && route.params && route.params.fromLogin) {
@@ -78,20 +87,20 @@ export default function CommunitySetup({ navigation, route }) {
         return;
       }
       // Revolutionary flow
-      const original = { city, state: stateName, superGenre: superSlug, community_key: key };
+      const original = { city, state: stateName, subGenre: subSlug, community_key: key };
       dispatch(setRevolutionary(original));
       const nearest = resp && (resp.nearestActive || (resp.alternatives && resp.alternatives[0]));
-      const targetKey = nearest && (nearest.community_key || toCommunityKey({ city: nearest.city, state: nearest.state, genre: nearest.superGenre })) || key;
+      const targetKey = nearest && (nearest.community_key || toCommunityKey({ city: nearest.city, state: nearest.state, genre: (nearest.subGenre || nearest.superGenre) })) || key;
 
       Alert.alert(
         'You’re a Revolutionary',
-        `The ${city}, ${stateName} ${superSlug} community isn’t active yet. Invite your network to bring it to life! We’ll connect you to the nearest active hub meanwhile.`,
+        `The ${city}, ${stateName} ${subSlug} community isn’t active yet. Invite your network to bring it to life! We’ll connect you to the nearest active hub meanwhile.`,
         [
           {
             text: 'Invite',
             onPress: async () => {
               try {
-                const message = `Help me bring the ${city} ${superSlug} uprising to life on UPRISE! Join: https://uprise.app/join?community=${key}`;
+                const message = `Help me bring the ${city} ${subSlug} uprising to life on UPRISE! Join: https://uprise.app/join?community=${key}`;
                 // dynamic import to avoid RN bundler complain if not linked
                 const RN = require('react-native');
                 await RN.Share.share({ message });
@@ -185,9 +194,12 @@ export default function CommunitySetup({ navigation, route }) {
         GPS verification is optional. However, only GPS‑verified users can upvote songs in their Home Scene.
       </Text>
       <TypeaheadInput
-        placeholder='Super Genre (e.g., Rock, Hip Hop)'
-        fetchSuggestions={ fetchSuperGenres }
-        onSelect={ item => setSuperGenre(item.value) }
+        placeholder='Sub-Genre (e.g., Hardcore Punk, Trap)'
+        fetchSuggestions={ async (q) => {
+          const list = await getSubGenreSuggestions({ q });
+          return list.map(g => ({ key: g.id || g.key, label: g.name || g.label, value: g }));
+        } }
+        onSelect={ item => setSubGenre(item.value) }
       />
       <TypeaheadInput
         placeholder='City, State (e.g., Austin, Texas)'

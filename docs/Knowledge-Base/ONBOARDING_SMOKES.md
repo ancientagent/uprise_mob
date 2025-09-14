@@ -9,17 +9,17 @@ Purpose: Verify the first‑login onboarding path and that requests carry `commu
 - Flow
   - Launch app → Signup
   - Home Scene Creation:
-    - Pick Super‑genre (typeahead hits `/onboarding/super-genres`)
+    - Pick Sub‑genre (typeahead uses alpha list or `/onboarding/genre-suggestions`)
     - Pick City/State (typeahead or Use my GPS)
     - Submit
   - Expect Dashboard
 
 ## What to Observe
 - UI
-  - Super‑genre list renders; City/State input responds
+  - Sub‑genre suggestions render; City/State input responds
   - Revolutionary modal only if local community is inactive
 - Network (Debug)
-  - Requests to `/onboarding/super-genres` and `/onboarding/all-genres`
+  - Requests to `/onboarding/genre-suggestions` (if endpoint configured) or local suggestions
   - Discovery/Radio requests include `community_key` when available
   - Fallback: normalized `city`, `state`, `genre`, optional `lat`, `lng`, `radius`
 
@@ -37,4 +37,3 @@ ReactNativeJS GET /api/discovery?community_key=austin-texas-hip-hop
 ## Tips
 - During debugging, add `.env`: `DISABLE_TRACK_PLAYER=true`, `DISABLE_FIREBASE_MESSAGING=true`
 - Use `scripts\windows\capture-logcat.ps1` to capture logs if a crash occurs
-

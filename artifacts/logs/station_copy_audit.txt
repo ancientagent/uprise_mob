@@ -1,0 +1,366 @@
+=== STATION COPY AUDIT (capitalized) ===
+src/screens/Statistics/Statistics.styles.js:75:  radioStationLocationText: {
+src/screens/Statistics/Statistics.styles.js:82:  radioStationLocationView: {
+src/screens/Statistics/Statistics.styles.js:88:  circleRadioStation: {
+src/screens/Statistics/Statistics.styles.js:100:  radioStationCircleRing5: {
+src/screens/Statistics/Statistics.styles.js:108:  radioStationCircleRing4: {
+src/screens/Statistics/Statistics.styles.js:116:  radioStationCircleRing3: {
+src/screens/Statistics/Statistics.styles.js:125:  radioStationCircleRing2: {
+src/screens/Statistics/Statistics.styles.js:134:  radioStationCircleRing1: {
+src/screens/Statistics/Statistics.styles.js:143:  radioStationCircleView: {
+src/screens/Statistics/Statistics.styles.js:147:  radioStationView: {
+src/screens/Statistics/Statistics.styles.js:151:  renderRadioStationCardContainerStyle: {
+src/screens/Statistics/Statistics.styles.js:155:  radioStationText: {
+src/screens/Statistics/Statistics.js:13:  getUserStatistics, getRadioStationStatistics,
+src/screens/Statistics/Statistics.js:25:  getRadioStationStatisticsSagaAction,
+src/screens/Statistics/Statistics.js:36:  const RadioStationStatisticsData = useSelector(getRadioStationStatistics);
+src/screens/Statistics/Statistics.js:66:    dispatch(getRadioStationStatisticsSagaAction());
+src/screens/Statistics/Statistics.js:75:    || state.getUserStatistics.isWaiting || state.getRadioStationStatistics.isWaiting
+src/screens/Statistics/Statistics.js:80:  && RadioStationStatisticsData === null && (genrePreferencePieChatData
+src/screens/Statistics/Statistics.js:112:  const renderRadioStationCard = () => (
+src/screens/Statistics/Statistics.js:113:    <View style={ styles.renderRadioStationCardContainerStyle }>
+src/screens/Statistics/Statistics.js:114:      <Text style={ styles.radioStationText }>
+src/screens/Statistics/Statistics.js:115:        { strings('statistics.radioStation') }
+src/screens/Statistics/Statistics.js:117:      <View style={ styles.radioStationView }>
+src/screens/Statistics/Statistics.js:119:          <View style={ styles.radioStationCircleView }>
+src/screens/Statistics/Statistics.js:120:            <View style={ styles.radioStationCircleRing1 }>
+src/screens/Statistics/Statistics.js:121:              <View style={ styles.radioStationCircleRing2 }>
+src/screens/Statistics/Statistics.js:122:                <View style={ styles.radioStationCircleRing3 }>
+src/screens/Statistics/Statistics.js:123:                  <View style={ styles.radioStationCircleRing4 }>
+src/screens/Statistics/Statistics.js:124:                    <View style={ styles.radioStationCircleRing5 }>
+src/screens/Statistics/Statistics.js:126:                        { RadioStationStatisticsData.count }
+src/screens/Statistics/Statistics.js:128:                      <Text style={ styles.circleRadioStation }>
+src/screens/Statistics/Statistics.js:129:                        { strings('statistics.radioStation') }
+src/screens/Statistics/Statistics.js:138:        <View style={ styles.radioStationLocationView }>
+src/screens/Statistics/Statistics.js:143:          <Text style={ styles.radioStationLocationText }>
+src/screens/Statistics/Statistics.js:145:            { RadioStationStatisticsData.station }
+src/screens/Statistics/Statistics.js:250:                { RadioStationStatisticsData !== null && renderRadioStationCard() }
+src/state/types/listener/listener.js:55:export const getRadioStationsType = createRequestResponseActionTypeSet(`${ActionNamespace}/GETRADIOSTATIONS`);
+src/state/types/listener/listener.js:56:export const getRadioStationsSongsType = createRequestResponseActionTypeSet(`${ActionNamespace}/GETRADIOSTATIONSSONGS`);
+src/state/types/listener/listener.js:76:export const getRadioStationStatisticsType = createRequestResponseActionTypeSet(`${ActionNamespace}/GET_RADIO_STATIONS_STATISTICS`);
+src/screens/RadioPreferences/RadioPreferences.js:30:  const [stationType, setStationType] = useState(null);
+src/screens/RadioPreferences/RadioPreferences.js:202:          setStationType(e.stationType);
+src/state/types/sagas/index.js:55:export const getRadioStationsSagaType = `${namespace}/GETRADIOSTATIONS`;
+src/state/types/sagas/index.js:56:export const getRadioStationsSongsSagaType = `${namespace}/GETRADIOSTATIONSSONGS`;
+src/state/types/sagas/index.js:75:export const getRadioStationStatisticsSagaType = `${namespace}/GET_RADIO_STATIONS_STATISTICS`;
+src/screens/Discovery/DiscoveyPage.js:14:import radioStations from '../../../assets/images/radio_stations.svg';
+src/screens/Discovery/DiscoveyPage.js:15:import { getStationBgColor } from '../../utilities/utilities';
+src/screens/Discovery/DiscoveyPage.js:19:  getRadioStations,
+src/screens/Discovery/DiscoveyPage.js:47:  const stateName = useSelector(getRadioStations);
+src/screens/Discovery/DiscoveyPage.js:107:              navigation.navigate('RadioStations', { genreId: item.id, genreName: item.name, isDiscovery: true });
+src/screens/Discovery/DiscoveyPage.js:158:  const renderRadioStations = () => {
+src/screens/Discovery/DiscoveyPage.js:159:    const colorsList = getStationBgColor;
+src/screens/Discovery/DiscoveyPage.js:163:          { strings('DiscoveyPage.popularRadioStation') }
+src/screens/Discovery/DiscoveyPage.js:173:              showRadioStation
+src/screens/Discovery/DiscoveyPage.js:176:              onDone={ () => navigation.navigate('RadioStations', {
+src/screens/Discovery/DiscoveyPage.js:194:            navigation.navigate('RadioStations', {
+src/screens/Discovery/DiscoveyPage.js:201:            iconName={ radioStations }
+src/screens/Discovery/DiscoveyPage.js:375:        { renderRadioStations() }
+src/screens/Feed/RadioStations/RadioStations.js:15:import styles from './RadioStations.styles';
+src/screens/Feed/RadioStations/RadioStations.js:16:import fullRadioStations from '../../../../assets/images/full_radio_station.svg';
+src/screens/Feed/RadioStations/RadioStations.js:18:  getRadioStationsSongsSagaAction, getSongsByGenreSagaAction,
+src/screens/Feed/RadioStations/RadioStations.js:20:import { getRadioStationsSongs, getsongsByGenre } from '../../../state/selectors/UserProfile';
+src/screens/Feed/RadioStations/RadioStations.js:23:const RadioStations = ({ route, navigation }) => {
+src/screens/Feed/RadioStations/RadioStations.js:31:  const showLoading = useSelector(state => state.getRadioStationsSongs.isWaiting || state.songsByGenre.isWaiting);
+src/screens/Feed/RadioStations/RadioStations.js:32:  const songData = useSelector(getRadioStationsSongs);
+src/screens/Feed/RadioStations/RadioStations.js:39:      dispatch(getRadioStationsSongsSagaAction(stateName));
+src/screens/Feed/RadioStations/RadioStations.js:161:                    iconName={ fullRadioStations }
+src/screens/Feed/RadioStations/RadioStations.js:205:export default RadioStations;
+src/screens/Feed/Feed.js:20:import radioStations from '../../../assets/images/radio_stations.svg';
+src/screens/Feed/Feed.js:22:  getHomeFeed, getRadioStations, getNewReleases, getUserDetails,
+src/screens/Feed/Feed.js:26:  getRadioStationsSagaAction, removeEventSagaAction,
+src/screens/Feed/Feed.js:30:import { getStationBgColor } from '../../utilities/utilities';
+src/screens/Feed/Feed.js:35:  const stateName = useSelector(getRadioStations);
+src/screens/Feed/Feed.js:41:    || state.getRadioStations.isWaiting || state.homeFeed.isWaiting);
+src/screens/Feed/Feed.js:67:    dispatch(getRadioStationsSagaAction());
+src/screens/Feed/Feed.js:124:        return renderRadioStations();
+src/screens/Feed/Feed.js:656:  const renderRadioStations = () => (
+src/screens/Feed/Feed.js:659:        { strings('Feed.radioStations') }
+src/screens/Feed/Feed.js:673:              navigation.navigate('RadioStations', {
+src/screens/Feed/Feed.js:675:                bgColor: getStationBgColor[index],
+src/screens/Feed/Feed.js:680:              iconName={ radioStations }
+src/screens/Feed/Feed.js:682:                backgroundColor: getStationBgColor[index],
+src/screens/Discovery/AllPopularGenres/AllPopularGenres.js:39:                  navigation.navigate('RadioStations', { genreId: item.id, genreName: item.name, isDiscovery: true });
+src/state/selectors/UserProfile.js:10:export const getRadioStationStatistics = state => _.get(state.getRadioStationStatistics, 'result.data', {});
+src/state/selectors/UserProfile.js:46:export const getRadioStations = state => _.get(state.getRadioStations, 'result.states', []);
+src/state/selectors/UserProfile.js:48:export const getRadioStationsSongs = state => _.get(state.getRadioStationsSongs, 'result.data', []);
+src/components/SliderEntry/SliderEntry.js:6:import radioStations from '../../../assets/images/radio_stations.svg';
+src/components/SliderEntry/SliderEntry.js:38:    even, onDone, title, bgColor, showRadioStation,
+src/components/SliderEntry/SliderEntry.js:43:      style={ showRadioStation ? styles.radioSlideInnerContainer : styles.slideInnerContainer }
+src/components/SliderEntry/SliderEntry.js:48:          { showRadioStation ? (
+src/components/SliderEntry/SliderEntry.js:50:              iconName={ radioStations }
+src/components/SliderEntry/SliderEntry.js:61:        <Text style={ showRadioStation ? styles.titleStyle1 : styles.titleStyle2 }>
+src/state/sagas/upDateCity/upDateCity.saga.js:13:  getRadioStationStatisticsSagaAction, getPopularArtistStatisticsSagaAction,
+src/state/sagas/upDateCity/upDateCity.saga.js:58:        yield put(getRadioStationStatisticsSagaAction());
+src/state/reducers/index.js:61:import getRadioStationsReducer from './request/getRadioStations/getRadioStations.reducer';
+src/state/reducers/index.js:62:import getRadioStationsSongsReducer from './request/getRadioStationsSongs/getRadioStationsSongs.reducer';
+src/state/reducers/index.js:85:import getRadioStationStatisticsReducer from './request/getRadioStationStatistics/getRadioStationStatistics.reducer';
+src/state/reducers/index.js:98:  getRadioStationStatistics: getRadioStationStatisticsReducer,
+src/state/reducers/index.js:161:  getRadioStations: getRadioStationsReducer,
+src/state/reducers/index.js:162:  getRadioStationsSongs: getRadioStationsSongsReducer,
+src/state/actions/sagas/index.js:55:export const getRadioStationsSagaAction = () => ({ type: types.getRadioStationsSagaType });
+src/state/actions/sagas/index.js:56:export const getRadioStationsSongsSagaAction = payload => ({ type: types.getRadioStationsSongsSagaType, payload });
+src/state/actions/sagas/index.js:76:export const getRadioStationStatisticsSagaAction = () => ({ type: types.getRadioStationStatisticsSagaType });
+src/state/reducers/request/getRadioStationStatistics/getRadioStationStatistics.reducer.js:2:import { getRadioStationStatisticsType } from '../../../types/listener/listener';
+src/state/reducers/request/getRadioStationStatistics/getRadioStationStatistics.reducer.js:4:export default createRequestResponseReducer(getRadioStationStatisticsType);
+src/state/reducers/request/getRadioStationsSongs/getRadioStationsSongs.reducer.js:2:import { getRadioStationsSongsType } from '../../../types/listener/listener';
+src/state/reducers/request/getRadioStationsSongs/getRadioStationsSongs.reducer.js:4:export default createRequestResponseReducer(getRadioStationsSongsType);
+src/state/reducers/request/getRadioStations/getRadioStations.reducer.js:2:import { getRadioStationsType } from '../../../types/listener/listener';
+src/state/reducers/request/getRadioStations/getRadioStations.reducer.js:4:export default createRequestResponseReducer(getRadioStationsType);
+src/state/actions/request/getRadioStationsSongs/getRadioStationsSongs.actions.js:3:  getRadioStationsSongsType,
+src/state/actions/request/getRadioStationsSongs/getRadioStationsSongs.actions.js:6:export const getRadioStationsSongsActions = createRequestResponseActionSet(getRadioStationsSongsType);
+src/state/actions/request/getRadioStationStatistics/getRadioStationStatistics.actions.js:3:  getRadioStationStatisticsType,
+src/state/actions/request/getRadioStationStatistics/getRadioStationStatistics.actions.js:6:export const getRadioStationStatisticsRequestActions = createRequestResponseActionSet(getRadioStationStatisticsType);
+src/state/actions/request/getRadioStations/getRadioStations.actions.js:3:  getRadioStationsType,
+src/state/actions/request/getRadioStations/getRadioStations.actions.js:6:export const getRadioStationsActions = createRequestResponseActionSet(getRadioStationsType);
+src/state/sagas/stationSwitching/stationSwitching.saga.js:13:  getRadioStationStatisticsSagaAction, getPopularArtistStatisticsSagaAction,
+src/state/sagas/stationSwitching/stationSwitching.saga.js:58:        yield put(getRadioStationStatisticsSagaAction());
+src/state/sagas/index.js:52:import getRadioStationsWatcherSaga from './getRadioStations/getRadioStations.saga';
+src/state/sagas/index.js:53:import getRadioStationsSongsWatcherSaga from './getRadioStationsSongs/getRadioStationsSongs.saga';
+src/state/sagas/index.js:73:import getRadioStationStatisticsWatcherSaga from './getRadioStationStatistics/getRadioStationStatistics.saga';
+src/state/sagas/index.js:129:    getRadioStationsWatcherSaga(),
+src/state/sagas/index.js:130:    getRadioStationsSongsWatcherSaga(),
+src/state/sagas/index.js:150:    getRadioStationStatisticsWatcherSaga(),
+src/state/sagas/getRadioStationsSongs/getRadioStationsSongs.saga.js:4:import getRadioStationsSongsRequest from '../../../services/getRadioStationsSongs/getRadioStationsSongs.service';
+src/state/sagas/getRadioStationsSongs/getRadioStationsSongs.saga.js:5:import { getRadioStationsSongsSagaType } from '../../types/sagas';
+src/state/sagas/getRadioStationsSongs/getRadioStationsSongs.saga.js:6:import { getRadioStationsSongsActions } from '../../actions/request/getRadioStationsSongs/getRadioStationsSongs.actions';
+src/state/sagas/getRadioStationsSongs/getRadioStationsSongs.saga.js:10:export default function* getRadioStationsSongsWatcherSaga() {
+src/state/sagas/getRadioStationsSongs/getRadioStationsSongs.saga.js:11:  yield takeLatest(getRadioStationsSongsSagaType, getRadioStationsSongsWorkerSaga);
+src/state/sagas/getRadioStationsSongs/getRadioStationsSongs.saga.js:14:export function* getRadioStationsSongsWorkerSaga(action) {
+src/state/sagas/getRadioStationsSongs/getRadioStationsSongs.saga.js:15:  yield put(getRadioStationsSongsActions.start());
+src/state/sagas/getRadioStationsSongs/getRadioStationsSongs.saga.js:24:    const response = yield call(getRadioStationsSongsRequest, payload);
+src/state/sagas/getRadioStationsSongs/getRadioStationsSongs.saga.js:26:      yield put(getRadioStationsSongsActions.succeed(response));
+src/state/sagas/getRadioStationsSongs/getRadioStationsSongs.saga.js:29:    yield put(getRadioStationsSongsActions.fail(e));
+src/state/sagas/getRadioStationStatistics/getRadioStationStatistics.saga.js:4:import getRadioStationStatisticsRequest from '../../../services/getRadioStationStatistics/getRadioStationStatistics.service';
+src/state/sagas/getRadioStationStatistics/getRadioStationStatistics.saga.js:5:import { getRadioStationStatisticsSagaType } from '../../types/sagas';
+src/state/sagas/getRadioStationStatistics/getRadioStationStatistics.saga.js:6:import { getRadioStationStatisticsRequestActions } from '../../actions/request/getRadioStationStatistics/getRadioStationStatistics.actions';
+src/state/sagas/getRadioStationStatistics/getRadioStationStatistics.saga.js:10:export default function* getRadioStationStatisticsWatcherSaga() {
+src/state/sagas/getRadioStationStatistics/getRadioStationStatistics.saga.js:11:  yield takeLatest(getRadioStationStatisticsSagaType, getRadioStationStatisticsWorkerSaga);
+src/state/sagas/getRadioStationStatistics/getRadioStationStatistics.saga.js:14:export function* getRadioStationStatisticsWorkerSaga() {
+src/state/sagas/getRadioStationStatistics/getRadioStationStatistics.saga.js:15:  yield put(getRadioStationStatisticsRequestActions.start());
+src/state/sagas/getRadioStationStatistics/getRadioStationStatistics.saga.js:21:    const response = yield call(getRadioStationStatisticsRequest, payload);
+src/state/sagas/getRadioStationStatistics/getRadioStationStatistics.saga.js:23:      yield put(getRadioStationStatisticsRequestActions.succeed(response));
+src/state/sagas/getRadioStationStatistics/getRadioStationStatistics.saga.js:26:    yield put(getRadioStationStatisticsRequestActions.fail(e));
+src/state/sagas/getRadioStations/getRadioStations.saga.js:4:import getRadioStationsRequest from '../../../services/getRadioStations/getRadioStations.service';
+src/state/sagas/getRadioStations/getRadioStations.saga.js:5:import { getRadioStationsSagaType } from '../../types/sagas';
+src/state/sagas/getRadioStations/getRadioStations.saga.js:6:import { getRadioStationsActions } from '../../actions/request/getRadioStations/getRadioStations.actions';
+src/state/sagas/getRadioStations/getRadioStations.saga.js:10:export default function* getRadioStationsWatcherSaga() {
+src/state/sagas/getRadioStations/getRadioStations.saga.js:11:  yield takeLatest(getRadioStationsSagaType, getRadioStationsWorkerSaga);
+src/state/sagas/getRadioStations/getRadioStations.saga.js:14:export function* getRadioStationsWorkerSaga() {
+src/state/sagas/getRadioStations/getRadioStations.saga.js:15:  yield put(getRadioStationsActions.start());
+src/state/sagas/getRadioStations/getRadioStations.saga.js:21:    const response = yield call(getRadioStationsRequest, payload);
+src/state/sagas/getRadioStations/getRadioStations.saga.js:23:      yield put(getRadioStationsActions.succeed(response));
+src/state/sagas/getRadioStations/getRadioStations.saga.js:26:    yield put(getRadioStationsActions.fail(e));
+src/state/sagas/genreSelection/genreSelection.saga.js:17:  getRadioStationStatisticsSagaAction, getPopularArtistStatisticsSagaAction,
+src/state/sagas/genreSelection/genreSelection.saga.js:71:          yield put(getRadioStationStatisticsSagaAction());
+src/navigators/DiscoveryStack.js:26:import RadioStations from '../screens/Feed/RadioStations/RadioStations';
+src/navigators/DiscoveryStack.js:61:        name='RadioStations'
+src/navigators/DiscoveryStack.js:62:        component={ RadioStations }
+src/navigators/HomeStack.js:29:import RadioStations from '../screens/Feed/RadioStations/RadioStations';
+src/navigators/HomeStack.js:62:      <HomeStack.Screen name='RadioStations' component={ RadioStations } options={ () => ({ headerShown: false }) } />
+src/services/getRadioStationsSongs/getRadioStationsSongs.service.js:9:export default function getRadioStationsSongsRequest(payload) {
+src/services/getRadioStations/getRadioStations.service.js:9:export default function getRadioStationsRequest(payload) {
+src/services/getRadioStationStatistics/getRadioStationStatistics.service.js:8:export default function getRadioStationStatisticsRequest(payload) {
+src/utilities/utilities.js:4:export const getStationBgColor = ['#B16D17', '#7BA0B2', '#AD7DD2', '#D1260E', '#DE5B11', '#D05798', '#3E1BCC', '#3B8D6F', '#F26157', '#DF8D26', '#80CED7', '#A54657', '#73956F', '#723D46', '#6461A0', '#7A3B69', '#2A628F', '#FFBA08', '#D4AFB9', '#216869'];
+src/utilities/utilities.js:6:export const showminiPlayer = ['UserProfile', 'Discovery', 'Following', 'FollowersPage', 'OtherProfile', 'RadioStations', 'AllTrendingSongs', 'AllPopularBands', 'FullGalleryView', 'FullEventView', 'AllBandSongs', 'AllBandList', 'BandDetails', 'Home'];
+src/utilities/localization/locales/en.js:40:    radioStation: 'Community',
+src/utilities/localization/locales/en.js:79:    popularRadioStation: 'Popular Communities',
+src/utilities/localization/locales/en.js:190:    radioStations: 'Recommended Communities',
+docs/project-narrative/uprise_promotions_section_spec.md:21:- **Fixed tab** within each community's "Exploration Station"
+docs/project-narrative/uprise_community_location_system_detailed.md:761:├── Exploration Station Updates
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:1:# 🔍 **UPRISE Station/Community Assignment System - Archaeological Report**
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:23:- `Webapp_API-Develop/src/utils/songQueue.js` - Station-based song queue logic
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:27:- `Webapp_API-Develop/src/routes/user.js` - Station switching logic (lines 424-520)
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:30:- `Webapp_API-Develop/src/routes/statistics.js` - Station-based statistics
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:34:- `src/screens/RadioPreferences/RadioPreferences.js` - Station switching interface
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:35:- `src/services/stationSwitching/stationSwitching.service.js` - Station switching API calls
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:78:### **Phase 2: Station-Based System (Current)**
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:82:UserStationPrefrence.init({
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:107:## **🎯 Key Code Snippets - Station Assignment Logic**
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:111:// 3. Create Default Station Preference
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:113:const defaultStationPref = await UserStationPrefrence.create({
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:119:console.log('Default station preference created:', defaultStationPref.id, 'with preference:', city || 'CITYWIDE');
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:122:### **2. Station Switching Logic (user.js lines 424-520)**
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:124:let userPrefrence = await UserStationPrefrence.findOne({
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:138:    let stationPrefrences = await UserStationPrefrence.findAll({
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:158:### **3. Song Queue Based on Station (songQueue.js)**
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:160:const userStationType = await UserStationPrefrence.findOne({
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:164:if(!userStationType) throw new Error('Invalid station prefrence');
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:167:if (userStationType.stationType === '1') {
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:172:} else if(userStationType.stationType === '2') {
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:190:        JOIN "UserStationPrefrences" usp ON u.id = usp."userId"
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:207:        const userStationPref = await UserStationPrefrence.findOne({
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:214:        if (!userStationPref) {
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:239:3. **Station Assignment**: System automatically creates default station preference:
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:245:### **2. Station Types & Hierarchy**
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:247:Station Type 1: CITYWIDE (Default)
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:253:Station Type 2: STATEWIDE  
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:259:Station Type 3: NATIONAL
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:275:// - Station type preference (City/State/National)
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:306:### **Current Schema (UserStationPrefrence)**
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:309:UserStationPrefrences: 
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:340:- **"Stations"** = Geographic communities (City/State/National radio stations)
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:354:- **Station Types**: Three-tier geographic hierarchy with different engagement thresholds
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:362:4. **Default Station Creation**: Automatic CITYWIDE station preference
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:364:6. **Station Switching**: Manual user control between City/State/National levels
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:380:UserStationPrefrence.findOne({ where: { userId, active: true } })
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:400:1. **One Active Station**: Users can only have one active station preference at a time
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:410:### **When Working with Communities/Stations:**
+docs/project-narrative/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:419:2. Create dedicated HomeScenes table instead of deriving from UserStationPrefrence
+docs/project-narrative/10_UPRISE_Phase2_Features.md:187:        curatedStations: {
+docs/project-narrative/04_UPRISE_Community_Location_System.md:761:├── Exploration Station Updates
+docs/project-narrative/08_UPRISE_Events_System.md:620:            nearbyStations: 'AUTOMATIC_DETECTION',
+docs/project-narrative/02_UPRISE_Skeleton_Framework.md:184:│   ├── 🔍 Exploration Station (5 Tabs)
+docs/Session-Logs/CLAUDE-KNOWLEDGE-SNAPSHOT-2025-09-07.md:32:- **Solution**: Add `UserStationPrefrences` filtering to queries
+docs/Session-Logs/CLAUDE-KNOWLEDGE-SNAPSHOT-2025-09-07.md:47:### **4. Stations vs Community Architecture** 📚
+docs/Session-Logs/CLAUDE-KNOWLEDGE-SNAPSHOT-2025-09-07.md:49:- **Issue**: "Stations" used to mean geographic communities
+docs/specs/artist_onboarding_flow.md:139:- UserStationPreference with default citywide assignment
+docs/specs/08_EVENTS.md:628:            nearbyStations: 'AUTOMATIC_DETECTION',
+docs/specs/04_COMMUNITY_LOCATION.md:780:├── Exploration Station Updates
+docs/PLATFORM_SOURCE_OF_TRUTH.md:96:**Solution Required**: Refactor UserStationPreferences to include location
+docs/PLATFORM_SOURCE_OF_TRUTH.md:175:**Solution**: Add UserStationPreferences filtering  
+docs/PHASE2_EXECUTION_PLAN.md:9:- "Station" references in code are legacy; all new logic must route through src/contracts/community helpers.
+docs/PHASE2_EXECUTION_PLAN.md:166:- Copy: user-visible “Station” → “Community”
+docs/PHASE2_EXECUTION_PLAN.md:190:  - All user‑visible references “Station” → “Community”; Radio title “Community Radio”
+docs/PHASE2_EXECUTION_PLAN.md:196:- No “Station”, “super‑genre”, or “families” in UI
+docs/architecture/SYSTEM_OVERVIEW.md:39:- Station Community System Analysis (imported)
+docs/architecture/SYSTEM_OVERVIEW.md:304:*This overview document provides the structural foundation for understanding how all 9 detailed system specifications integrate to create the complete UPRISE platform ecosystem.*\n---\n\n## Station Community System Analysis (Legacy)
+docs/architecture/SYSTEM_OVERVIEW.md:305:# 🔍 **UPRISE Station/Community Assignment System - Archaeological Report**
+docs/architecture/SYSTEM_OVERVIEW.md:327:- `Webapp_API-Develop/src/utils/songQueue.js` - Station-based song queue logic
+docs/architecture/SYSTEM_OVERVIEW.md:331:- `Webapp_API-Develop/src/routes/user.js` - Station switching logic (lines 424-520)
+docs/architecture/SYSTEM_OVERVIEW.md:334:- `Webapp_API-Develop/src/routes/statistics.js` - Station-based statistics
+docs/architecture/SYSTEM_OVERVIEW.md:338:- `src/screens/RadioPreferences/RadioPreferences.js` - Station switching interface
+docs/architecture/SYSTEM_OVERVIEW.md:339:- `src/services/stationSwitching/stationSwitching.service.js` - Station switching API calls
+docs/architecture/SYSTEM_OVERVIEW.md:382:### **Phase 2: Station-Based System (Current)**
+docs/architecture/SYSTEM_OVERVIEW.md:386:UserStationPrefrence.init({
+docs/architecture/SYSTEM_OVERVIEW.md:411:## **🎯 Key Code Snippets - Station Assignment Logic**
+docs/architecture/SYSTEM_OVERVIEW.md:415:// 3. Create Default Station Preference
+docs/architecture/SYSTEM_OVERVIEW.md:417:const defaultStationPref = await UserStationPrefrence.create({
+docs/architecture/SYSTEM_OVERVIEW.md:423:console.log('Default station preference created:', defaultStationPref.id, 'with preference:', city || 'CITYWIDE');
+docs/architecture/SYSTEM_OVERVIEW.md:426:### **2. Station Switching Logic (user.js lines 424-520)**
+docs/architecture/SYSTEM_OVERVIEW.md:428:let userPrefrence = await UserStationPrefrence.findOne({
+docs/architecture/SYSTEM_OVERVIEW.md:442:    let stationPrefrences = await UserStationPrefrence.findAll({
+docs/architecture/SYSTEM_OVERVIEW.md:462:### **3. Song Queue Based on Station (songQueue.js)**
+docs/architecture/SYSTEM_OVERVIEW.md:464:const userStationType = await UserStationPrefrence.findOne({
+docs/architecture/SYSTEM_OVERVIEW.md:468:if(!userStationType) throw new Error('Invalid station prefrence');
+docs/architecture/SYSTEM_OVERVIEW.md:471:if (userStationType.stationType === '1') {
+docs/architecture/SYSTEM_OVERVIEW.md:476:} else if(userStationType.stationType === '2') {
+docs/architecture/SYSTEM_OVERVIEW.md:494:        JOIN "UserStationPrefrences" usp ON u.id = usp."userId"
+docs/architecture/SYSTEM_OVERVIEW.md:511:        const userStationPref = await UserStationPrefrence.findOne({
+docs/architecture/SYSTEM_OVERVIEW.md:518:        if (!userStationPref) {
+docs/architecture/SYSTEM_OVERVIEW.md:543:3. **Station Assignment**: System automatically creates default station preference:
+docs/architecture/SYSTEM_OVERVIEW.md:549:### **2. Station Types & Hierarchy**
+docs/architecture/SYSTEM_OVERVIEW.md:551:Station Type 1: CITYWIDE (Default)
+docs/architecture/SYSTEM_OVERVIEW.md:557:Station Type 2: STATEWIDE  
+docs/architecture/SYSTEM_OVERVIEW.md:563:Station Type 3: NATIONAL
+docs/architecture/SYSTEM_OVERVIEW.md:579:// - Station type preference (City/State/National)
+docs/architecture/SYSTEM_OVERVIEW.md:610:### **Current Schema (UserStationPrefrence)**
+docs/architecture/SYSTEM_OVERVIEW.md:613:UserStationPrefrences: 
+docs/architecture/SYSTEM_OVERVIEW.md:644:- **"Stations"** = Geographic communities (City/State/National radio stations)
+docs/architecture/SYSTEM_OVERVIEW.md:658:- **Station Types**: Three-tier geographic hierarchy with different engagement thresholds
+docs/architecture/SYSTEM_OVERVIEW.md:666:4. **Default Station Creation**: Automatic CITYWIDE station preference
+docs/architecture/SYSTEM_OVERVIEW.md:668:6. **Station Switching**: Manual user control between City/State/National levels
+docs/architecture/SYSTEM_OVERVIEW.md:684:UserStationPrefrence.findOne({ where: { userId, active: true } })
+docs/architecture/SYSTEM_OVERVIEW.md:704:1. **One Active Station**: Users can only have one active station preference at a time
+docs/architecture/SYSTEM_OVERVIEW.md:714:### **When Working with Communities/Stations:**
+docs/architecture/SYSTEM_OVERVIEW.md:723:2. Create dedicated HomeScenes table instead of deriving from UserStationPrefrence
+docs/july-model/PROJECT-STATUS-REPORT.md:28:- **User Location Setup**: Station preferences saved correctly
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-DIAGNOSIS.md:12:- **User Station Preference**: Correctly created with `active: true` ✅
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-DIAGNOSIS.md:38:Station Preference: Austin (active: true)
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-DIAGNOSIS.md:122:- ✅ Station preferences working
+docs/july-model/Feature realignment/HOME-SCENE-GENRE-FILTERING-IMPLEMENTATION.md:131:   - City-wide: `lower(s."cityName") = lower('${userStationType.stationPrefrence}')`
+docs/july-model/Feature realignment/HOME-SCENE-GENRE-FILTERING-IMPLEMENTATION.md:132:   - State-wide: `lower(s."stateName") = lower('${userStationType.stationPrefrence}')`
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:31:// FIXED: Use the correct location data from UserStationPrefrence
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:32:let userStationLocation = '';
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:37:  userStationLocation = selectedLocation.radioPrefrence.location;
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:39:  userStationLocation = selectedLocation.city;
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:41:  userStationLocation = selectedLocation.state;
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:43:  userStationLocation = userLocation.city;
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:45:  userStationLocation = LoginData.user.city;
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:85:### **User Station Preference Creation** ✅ **WORKING**
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:86:The `/auth/user-location` endpoint correctly creates `UserStationPrefrence` records:
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:89:const defaultStationPref = await UserStationPrefrence.create({
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:102:user.city = await getUserSwitchStationsByCity({userId:user.id});
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:103:user.state = await getUserSwitchStationsByState({userId:user.id});
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:105:user.radioPrefrence.stationType = await getUserStationType({userId:user.id});
+docs/july-model/Feature realignment/HOME-SCENE-DATA-LOADING-FIX.md:165:--- EVENTS SAGA: userStationLocation --- Austin
+docs/july-model/Feature realignment/FEED-INTEGRATION-GUIDE.md:134:const userStation = await UserStationPrefrence.findOne({
+docs/july-model/Feature realignment/FEED-INTEGRATION-GUIDE.md:139:const locationFilter = `AND lower(s."cityName") = lower('${userStation.stationPrefrence}')`;
+docs/july-model/Feature realignment/FEED-INTEGRATION-GUIDE.md:216:#### **UserStationPrefrences Table**
+docs/july-model/Feature realignment/FEED-INTEGRATION-GUIDE.md:218:CREATE TABLE "UserStationPrefrences" (
+docs/july-model/Feature realignment/FEED-INTEGRATION-GUIDE.md:386:CREATE INDEX idx_userstationpref_userid ON "UserStationPrefrences"("userId");
+docs/july-model/july-model  build state/QUICK-FIXES.md:330:### **19. Radio Stations 404 Error** ⭐ **NEW - FIXED**
+docs/july-model/july-model  build state/QUICK-FIXES.md:337:- Updated `getRadioStations.service.js` to use correct endpoint
+docs/july-model/july-model  build state/QUICK-FIXES.md:339:- `src/services/getRadioStations/getRadioStations.service.js` (updated to use HOME_RECOMMENDED_STATIONS)
+docs/july-model/july-model  build state/QUICK-FIXES.md:467:const userStationType = await UserStationPrefrence.findOne({
+docs/july-model/july-model  build state/QUICK-FIXES.md:472:// For CITYWIDE: AND lower(s."cityName") = lower('${userStationType.stationPrefrence}')
+docs/july-model/july-model  build state/QUICK-FIXES.md:473:// For STATEWIDE: AND lower(s."stateName") = lower('${userStationType.stationPrefrence}')
+docs/july-model/july-model  build state/QUICK-FIXES.md:898:6. **Radio Stations 404 Error** - ✅ **FIXED**
+docs/july-model/july-model  build state/CHANGELOG-SESSION-2025-07-29.md:55:- ✅ `getRadioStations` → `Config.HOME_RECOMMENDED_STATIONS`
+docs/july-model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md:132:- `getRadioStations/getRadioStations.service.js` - Uses `Config.GET_RADIO_STATIONS`
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:1:# 🔍 **UPRISE Station/Community Assignment System - Archaeological Report**
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:23:- `Webapp_API-Develop/src/utils/songQueue.js` - Station-based song queue logic
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:27:- `Webapp_API-Develop/src/routes/user.js` - Station switching logic (lines 424-520)
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:30:- `Webapp_API-Develop/src/routes/statistics.js` - Station-based statistics
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:34:- `src/screens/RadioPreferences/RadioPreferences.js` - Station switching interface
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:35:- `src/services/stationSwitching/stationSwitching.service.js` - Station switching API calls
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:78:### **Phase 2: Station-Based System (Current)**
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:82:UserStationPrefrence.init({
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:107:## **🎯 Key Code Snippets - Station Assignment Logic**
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:111:// 3. Create Default Station Preference
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:113:const defaultStationPref = await UserStationPrefrence.create({
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:119:console.log('Default station preference created:', defaultStationPref.id, 'with preference:', city || 'CITYWIDE');
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:122:### **2. Station Switching Logic (user.js lines 424-520)**
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:124:let userPrefrence = await UserStationPrefrence.findOne({
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:138:    let stationPrefrences = await UserStationPrefrence.findAll({
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:158:### **3. Song Queue Based on Station (songQueue.js)**
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:160:const userStationType = await UserStationPrefrence.findOne({
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:164:if(!userStationType) throw new Error('Invalid station prefrence');
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:167:if (userStationType.stationType === '1') {
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:172:} else if(userStationType.stationType === '2') {
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:190:        JOIN "UserStationPrefrences" usp ON u.id = usp."userId"
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:207:        const userStationPref = await UserStationPrefrence.findOne({
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:214:        if (!userStationPref) {
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:239:3. **Station Assignment**: System automatically creates default station preference:
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:245:### **2. Station Types & Hierarchy**
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:247:Station Type 1: CITYWIDE (Default)
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:253:Station Type 2: STATEWIDE  
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:259:Station Type 3: NATIONAL
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:275:// - Station type preference (City/State/National)
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:306:### **Current Schema (UserStationPrefrence)**
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:309:UserStationPrefrences: 
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:340:- **"Stations"** = Geographic communities (City/State/National radio stations)
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:354:- **Station Types**: Three-tier geographic hierarchy with different engagement thresholds
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:362:4. **Default Station Creation**: Automatic CITYWIDE station preference
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:364:6. **Station Switching**: Manual user control between City/State/National levels
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:380:UserStationPrefrence.findOne({ where: { userId, active: true } })
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:400:1. **One Active Station**: Users can only have one active station preference at a time
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:410:### **When Working with Communities/Stations:**
+docs/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md:419:2. Create dedicated HomeScenes table instead of deriving from UserStationPrefrence
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:56:    WHEN userStationType.stationType = '1' THEN lower(s."cityName") = lower('${userStationType.stationPrefrence}')
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:57:    WHEN userStationType.stationType = '2' THEN lower(s."stateName") = lower('${userStationType.stationPrefrence}')
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:72:if (userStationType.stationType === '1') {
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:75:} else if(userStationType.stationType === '2') {
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:89:if (userStationType.stationType === '1') {
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:90:    query =` am.live is true and lower(am."city") = lower('${userStationType.stationPrefrence}')`;
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:91:} else if(userStationType.stationType === '2') {
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:92:    query = `am.live is true and lower(am."state") = lower('${userStationType.stationPrefrence}')`;
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:110:const tier = tierMapping[userStationPrefrence.stationType] || 'CITYWIDE';
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:142:if (userStationType.stationType === '1') {
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:144:    and lower(l.city) = lower('${userStationType.stationPrefrence}')`;
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:145:} else if(userStationType.stationType === '2') {
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:147:     and lower(l.state) = lower('${userStationType.stationPrefrence}')`;
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:171:1. **Inconsistent Implementation**: Some endpoints properly check `UserStationPrefrence` and filter by location, while others don't
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:175:### **User Station Preference System**
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:179:// UserStationPrefrence model structure:
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:190:2. System creates `UserStationPrefrence` record
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:211:const userStationType = await UserStationPrefrence.findOne({
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:218:if (!userStationType) {
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:222:// Then use userStationType.stationPrefrence and userStationType.stationType
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:242:    const userStationType = await UserStationPrefrence.findOne({
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:249:    if (!userStationType) {
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:253:    switch (userStationType.stationType) {
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:255:            return `AND lower(${tableAlias}."cityName") = lower('${userStationType.stationPrefrence}')`;
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:257:            return `AND lower(${tableAlias}."stateName") = lower('${userStationType.stationPrefrence}')`;
+docs/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md:297:4. **No Station Preference**
+docs/july-model/architecture realignment/ARCHITECTURAL-REALIGNMENT-IMPLEMENTATION.md:159:Station preference: None found

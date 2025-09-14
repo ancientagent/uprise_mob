@@ -1,3 +1,13 @@
+2025-09-14 - Refactor: RadioStations → Uprises (Component & UI)
+- **Component Rename**: `src/screens/Feed/RadioStations/` → `src/screens/Feed/Uprises/`
+- **File Rename**: `RadioStations.js` → `Uprises.js`, `RadioStations.styles.js` → `Uprises.styles.js`
+- **Component Update**: Changed component name from `RadioStations` to `Uprises`
+- **Navigation Update**: Updated imports and references in `HomeStack.js` and `DiscoveryStack.js`
+- **Function Rename**: `renderRadioStations` → `renderUprises` in Feed.js and DiscoveryPage.js
+- **i18n Verified**: Localization strings already correctly set to "Uprises"
+- **Documentation**: Swept docs (excluding `docs/july-model/` per instructions)
+- **Impact**: Complete UI refactor following naming convention "Radio Station(s)" → "Uprise(s)"
+
 2025-09-12 - Android build verification (Windows)
 - Gradle detected SDK; listed :app tasks successfully
 - Debug built via scripts/build_install_verify_v2.ps1 (Metro enabled)
@@ -27,6 +37,13 @@
 - **Optional Profile Details**: Enhanced profile customization and preferences
 
 ---
+
+## 2025-09-13 - Musical Families Spec (Phase 2)
+- **Created**: `docs/specs/04A_MUSICAL_FAMILIES.md` — replaces super/sub‑genre onboarding with Musical Families; community key = `{city}-{state}-{family-id}`; all families selectable in all cities.
+- **Updated**: `docs/INDEX.md` to include the new spec under Specs.
+- **Updated**: `docs/PHASE2_EXECUTION_PLAN.md` Doc Canonicalization to reference the Musical Families spec.
+- **Client (flag-ready)**: Added feature flag `FAMILY_COMMUNITIES_ENABLED` and family-based community key helper for onboarding (see `src/contracts/families.js`, `src/contracts/community.js`).
+
 
 ## 2025-01-11 - July Build Postmortem Documentation - 15:30 UTC
 
@@ -1402,3 +1419,12 @@ Ask ChatGPT
 ### Fix
 - `src/utilities/utilities.js` `getRequestURL()` now prefers `API_BASE_URL` and safely joins paths.
 - Adds a dev log of `{ base, path }` to aid troubleshooting.
+## 2025-09-14 - Genre System (Alpha) — Direct Sub-Genre Communities
+- Finalized alpha direction: direct sub-genre registration; removed families/alliances hierarchy from plan.
+- Added spec: `docs/specs/GENRE_SYSTEM_ALPHA.md` (editable alpha list, admin endpoints, viability unchanged).
+- Updated: `docs/PHASE2_EXECUTION_PLAN.md` P2-S01 to use sub-genre selection; acceptance updated.
+- Updated: `docs/INDEX.md` to link new spec and mark families doc deprecated for alpha.
+- Code (alpha wiring):
+  - Added `src/config/alpha_genres.js` (editable list).
+  - Added `src/services/onboarding/genreAlpha.service.js` (approved list, suggestions, request stub; prefers API if configured).
+  - Updated `src/screens/Onboarding/CommunitySetup.js` to use direct sub-genre selection and build community_key from sub-genre.

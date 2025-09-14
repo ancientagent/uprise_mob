@@ -26,7 +26,7 @@ import ChangePassword from '../screens/ChangePassword/ChangePassword';
 import AllMostPopularBands from '../screens/Statistics/AllMostPopularBands/AllMostPopularBands';
 import AllMostRatedSongs from '../screens/Statistics/AllMostRatedSongs/AllMostRatedSongs';
 import AllMostPlayedSongs from '../screens/Statistics/AllMostPlayedSongs/AllMostPlayedSongs';
-import RadioStations from '../screens/Feed/RadioStations/RadioStations';
+import Uprises from '../screens/Feed/Uprises/Uprises';
 import ChangeAvatar from '../screens/userProfile/ProfileTab/ChangeAvatar';
 import ChangeInstrument from '../screens/userProfile/ProfileTab/ChangeInstrument';
 import CommunitySetup from '../screens/Onboarding/CommunitySetup';
@@ -59,7 +59,7 @@ function HomeStackScreen() {
       }) }
     >
       <HomeStack.Screen name='Home' component={ Home } options={ () => ({ headerShown: false }) } />
-      <HomeStack.Screen name='RadioStations' component={ RadioStations } options={ () => ({ headerShown: false }) } />
+      <HomeStack.Screen name='Uprises' component={ Uprises } options={ () => ({ headerShown: false }) } />
       <HomeStack.Screen name='AlbumSongs' component={ AlbumSongs } options={ () => ({ headerShown: false }) } />
       <HomeStack.Screen
         name='FollowersPage'

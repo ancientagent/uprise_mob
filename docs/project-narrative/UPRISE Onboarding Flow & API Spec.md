@@ -1,5 +1,7 @@
 # UPRISE Onboarding Flow & API Specification
 
+> Note (Alpha): This document reflects a legacy super‑genre flow and is superseded by `docs/specs/GENRE_SYSTEM_ALPHA.md`. For the Alpha implementation, use direct sub‑genre selection and the endpoints described in the alpha spec.
+
 ## Complete User Flow
 
 ### 1. Genre and Location Selection Screen

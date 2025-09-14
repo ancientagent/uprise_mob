@@ -121,7 +121,7 @@ const Feed = props => {
         return renderNewReleases();
 
       case 'RADIO_STATIONS':
-        return renderRadioStations();
+        return renderUprises();
 
       default:
         return null;
@@ -653,7 +653,7 @@ const Feed = props => {
     </View>
   );
 
-  const renderRadioStations = () => (
+  const renderUprises = () => (
     <View style={ styles.radioStaionView }>
       <Text style={ styles.radioStaion }>
         { strings('Feed.radioStations') }
@@ -670,7 +670,7 @@ const Feed = props => {
               flexDirection: 'row',
             } }
             onPress={ () => {
-              navigation.navigate('RadioStations', {
+              navigation.navigate('Uprises', {
                 stateName: item,
                 bgColor: getStationBgColor[index],
               });

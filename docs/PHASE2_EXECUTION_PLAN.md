@@ -9,6 +9,7 @@ For current state, see [CHANGELOG.md](./CHANGELOG.md).
 - "Station" references in code are legacy; all new logic must route through src/contracts/community helpers.
 - Discovery = visualization + recommendations; Location = authoritative source of geo/genre keys.
 - Future features (ambassadors, advanced promos, extended business integrations) are tracked in 10_UPRISE_Phase2_Features.md, not Phase 2 execution.
+ - Genre System (Alpha): see specs/GENRE_SYSTEM_ALPHA.md. Musical Families doc is deprecated for Alpha.
 
 ## Workstreams
 - Auth & Identity
@@ -20,8 +21,6 @@ For current state, see [CHANGELOG.md](./CHANGELOG.md).
 
 ---
 
-
-# UPRISE Phase 2 Execution Plan
 
 ## Purpose  
 Unify the July Model realignments with current Phase 2 specs so that **mobile, API, and webapp** all converge on one canonical architecture. This document is the single source of truth for backend integration, onboarding, and smokes.
@@ -166,20 +165,20 @@ Use these to avoid flaky installs, empty artifacts, and missing JS bundles durin
 - CI: Android Test Release workflow builds APK + emulator smoke
 - Copy: user-visible “Station” → “Community”
 
-### P2-S01 — Communities + Onboarding Groundwork
-Goal: make Community first-class; ensure discovery/radio use `community_key`; wire onboarding to super‑genres.
+### P2-S01 — Communities + Onboarding Groundwork (Direct Sub‑Genre)
+Goal: Community is first‑class; discovery/radio use `community_key`; onboarding uses direct sub‑genre selection (no super‑genre/families).
 
 - Contracts + State
   - Helpers: `toCommunityKey`, `fromCommunityKey`, `buildGeoGenreParams`
   - Persist `community_key` in redux; hydrate on app start
   - Selector: `getCommunityKey()`
 - Onboarding (client)
-  - Services: `GET /onboarding/super-genres`, `GET /onboarding/all-genres`
+  - Services (alpha): `GET /onboarding/approved-genres`, `GET /onboarding/genre-suggestions`, `POST /onboarding/request-genre`
   - UI: Home Scene Creation (first login)
-    - Super‑genre picker (required) via typeahead
+    - Sub‑genre picker (required) via typeahead/autocomplete
     - City/State picker (required) with typeahead + optional “Use my GPS (recommended)”
     - Note: GPS verification is optional, but only GPS‑verified users can upvote songs in Home Scene
-  - Persist: location (city/state), superGenre, `community_key={city}-{state}-{supergenre}` (sub‑genres stored later)
+  - Persist: location (city/state), `subGenreId`, `community_key={city}-{state}-{subGenreId}`
   - Revolutionary flow:
     - `validate-community` determines if local community is active
     - If inactive: tag user as revolutionary, show invite modal, route to nearest active hub, persist `active_community_key`
@@ -191,10 +190,10 @@ Goal: make Community first-class; ensure discovery/radio use `community_key`; wi
   - All user‑visible references “Station” → “Community”; Radio title “Community Radio”
 
 Acceptance
-- Onboarding shows super‑genres; optional sub‑genre tags
+- Onboarding shows direct sub‑genre selection with autocomplete
 - `community_key` persists and appears in Debug logs before discovery/radio
 - Discovery/radio requests carry `community_key` (or normalized fallbacks)
-- No “Station” in UI
+- No “Station”, “super‑genre”, or “families” in UI
 
 ### P2-S02 — Auth/Refresh + ArtistProfile Unification
 Goal: align mobile with webapp/API: refresh flows, canonical ArtistProfile identity, creator context.

@@ -36,7 +36,7 @@ const AllPopularGenres = props => {
               <TouchableOpacity
                 activeOpacity={ 0.8 }
                 onPress={ () => {
-                  navigation.navigate('RadioStations', { genreId: item.id, genreName: item.name, isDiscovery: true });
+                  navigation.navigate('Uprises', { genreId: item.id, genreName: item.name, isDiscovery: true });
                 } }
               >
                 <View style={ styles.genreImageView }>

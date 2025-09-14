@@ -26,6 +26,8 @@ Welcome to Phase 2. This folder is the **single source of truth** for UPRISE doc
 ## Specs
 - Auth: [specs/03_AUTHENTICATION.md](./specs/03_AUTHENTICATION.md)
 - Community/Location: [specs/04_COMMUNITY_LOCATION.md](./specs/04_COMMUNITY_LOCATION.md)
+- Genre System (Alpha): [specs/GENRE_SYSTEM_ALPHA.md](./specs/GENRE_SYSTEM_ALPHA.md)
+- Musical Families (DEPRECATED for Alpha): [specs/04A_MUSICAL_FAMILIES.md](./specs/04A_MUSICAL_FAMILIES.md)
 - Fair Play: [specs/05_FAIR_PLAY_ALGO.md](./specs/05_FAIR_PLAY_ALGO.md)
 - Songs: [specs/06_SONG_MANAGEMENT.md](./specs/06_SONG_MANAGEMENT.md)
 - Discovery Map: [specs/07_DISCOVERY_MAP.md](./specs/07_DISCOVERY_MAP.md)
