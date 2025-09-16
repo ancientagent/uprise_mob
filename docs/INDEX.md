@@ -38,10 +38,15 @@ Welcome to Phase 2. This folder is the **single source of truth** for UPRISE doc
 - CI Workflows: [ops/CI_WORKFLOWS.md](./ops/CI_WORKFLOWS.md)
 - Troubleshooting: [ops/TROUBLESHOOTING.md](./ops/TROUBLESHOOTING.md)
 - Checklists: [ops/CHECKLISTS.md](./ops/CHECKLISTS.md)
+- Orchestration (Mobile ↔ WSL): [ops/ORCHESTRATION.md](./ops/ORCHESTRATION.md)
+- Mobile Flow: [ops/MOBILE_FLOW.md](./ops/MOBILE_FLOW.md)
+- WSL Flow: [ops/WSL_FLOW.md](./ops/WSL_FLOW.md)
+- Test Plan: [ops/TEST_PLAN_PHASE2.md](./ops/TEST_PLAN_PHASE2.md)
 
 ## Tools & Scripts
 - Tools Index: [TOOLS_INDEX.md](./TOOLS_INDEX.md)
 - Session Kickoff Template: [SESSION_KICKOFF_TEMPLATE.md](./SESSION_KICKOFF_TEMPLATE.md)
+- Codex WSL Prompt: [prompts/WSL_CODEX_KICKOFF.md](./prompts/WSL_CODEX_KICKOFF.md)
 
 ## Knowledge-Base
 - [ARTIST_ONBOARDING_FLOW.md](Knowledge-Base/ARTIST_ONBOARDING_FLOW.md) — Exact user flow for listener → artist onboarding.

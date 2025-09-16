@@ -91,6 +91,9 @@ Unify the July Model realignments with current Phase 2 specs so that **mobile, A
   - Always filtered by `community_key`.  
   - Echo back params for consistency.  
 
+### Post-Login Routing (Authoritative)
+- After successful login, route to Home Scene Creation (`CommunitySetup`) unless explicitly bypassed in debug; Dashboard only after onboarding completes and a community exists.
+
 ---
 
 ## Smokes & Verification
@@ -100,11 +103,23 @@ Unify the July Model realignments with current Phase 2 specs so that **mobile, A
 - `docs/scripts/psql_postgis_check.sh`  
 - `docs/scripts/health_checks.sh`
 
+### Emulator Networking (Standard)
+- **API Base URL**: `http://10.0.2.2:3000` for Android emulator backend connectivity
+- **Environment Variables**: Ensure `.env.development` contains:
+  - `API_BASE_URL=http://10.0.2.2:3000`
+  - `REFRESH_TOKEN_URL=/auth/refresh`
+  - `UPDATED_USERDETAILS=/user/me`
+- **Verification Steps**:
+  1. Launch emulator and install debug APK
+  2. Verify backend health: `curl http://localhost:3000/health` (from host)
+  3. Check mobile logs for successful API calls to `10.0.2.2:3000`
+  4. Confirm authentication flow works (login → `/user/me` fetch)
+
 **Acceptance Criteria**  
 - Build & smoke PASS; artifacts saved with standard names/paths.
 - Release logs show no fatal runtime and no Metro references.
 - Requests include community_key when available.
-- Onboarding: 97-genre taxonomy visible; home scene set; Dashboard opens without AppRegistry/TrackPlayer issues.
+- After login: route to Home Scene Creation (`CommunitySetup`) unless explicitly bypassed in debug; 97-genre taxonomy visible; home scene set without AppRegistry/TrackPlayer issues; Dashboard only after onboarding completes and a community exists.
 - Docs updated (CHANGELOG + any runbook/KB touched).  
 
 ---

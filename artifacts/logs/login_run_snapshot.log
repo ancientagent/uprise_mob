@@ -1,0 +1,992 @@
+--------- beginning of system
+09-14 22:39:00.396 I/ActivityManager(  533): Force stopping com.app.uprise.debug appid=10200 user=0: from pid 16314
+09-14 22:39:00.400 I/ActivityManager(  533): Killing 15572:com.app.uprise.debug/u0a200 (adj 0): stop com.app.uprise.debug due to from pid 16314
+09-14 22:39:00.405 W/ActivityTaskManager(  533): Force removing ActivityRecord{4d878c2 u0 com.app.uprise.debug/com.app.uprise.MainActivity} t131 f}}: app died, no saved state
+--------- beginning of main
+09-14 22:39:00.409 I/libprocessgroup(  533): Successfully killed process cgroup uid 10200 pid 15572 in 0ms
+09-14 22:39:00.455 W/InputManager-JNI(  533): Input channel object '19bc4c0 com.app.uprise.debug/com.app.uprise.MainActivity (client)' was disposed without first being removed with the input manager!
+09-14 22:39:00.476 I/adbd    (  429): Remote process closed the socket (on MSG_PEEK)
+09-14 22:39:00.488 D/AutofillSession(  533): handling death of Token{ceb610d ActivityRecord{4d878c2 u0 com.app.uprise.debug/com.app.uprise.MainActivity} t-1 f}}} when saving=false
+09-14 22:39:00.488 D/ConnectivityService(  533): releasing NetworkRequest [ REQUEST id=452, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10200 RequestorUid: 10200 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ] (release request)
+09-14 22:39:00.498 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onFinishInputView():1540 onFinishInputView(false)
+09-14 22:39:00.499 I/GlobeKeyExtension( 1219): GlobeKeyExtension.onDeactivate():144 
+09-14 22:39:00.502 I/VoiceInputManagerWrapper( 1219): VoiceInputManagerWrapper.shutdown():131 shutdown()
+09-14 22:39:00.502 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020465, callback=gbl@ab1e7fe, lastModifier=2, keyCodes=[62], actions=[0]}
+09-14 22:39:00.505 W/ExtensionWrapper( 1219): ExtensionWrapper.setAllowUpdateNavigationBarStyle():818 class jpb is not activate
+09-14 22:39:00.505 I/Zygote  (  301): Process 15572 exited due to signal 9 (Killed)
+09-14 22:39:00.515 W/ExtensionWrapper( 1219): ExtensionWrapper.setAllowUpdateNavigationBarStyle():818 class jpb is not activate
+09-14 22:39:00.530 W/RemoteInputConnection( 1219): requestCursorUpdates() was failed with an exception=android.os.DeadObjectException
+09-14 22:39:00.532 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+09-14 22:39:00.534 I/AndroidIME( 1219): AbstractIme.onDeactivate():216 PasswordIme.onDeactivate()
+09-14 22:39:00.539 V/WindowManager(  533): Unknown focus tokens, dropping reportFocusChanged
+09-14 22:39:00.546 E/BpTransactionCompletedListener(  349): Failed to transact (-32)
+09-14 22:39:00.579 V/ActivityManager(  533): Got obituary of 15572:com.app.uprise.debug
+09-14 22:39:00.621 E/OpenGLRenderer( 1654): Unable to match the desired swap behavior.
+09-14 22:39:00.624 D/CarrierSvcBindHelper(  920): onHandleForceStop: [com.app.uprise.debug]
+09-14 22:39:00.625 D/EGL_emulation( 1219): app_time_stats: avg=48459.38ms min=8.95ms max=339092.47ms count=7
+09-14 22:39:00.626 D/CarrierSvcBindHelper(  920): No carrier app for: 0
+09-14 22:39:00.640 W/ActivityManager(  533): setHasOverlayUi called on unknown pid: 15572
+09-14 22:39:00.800 E/OpenGLRenderer(  953): Unable to match the desired swap behavior.
+09-14 22:39:00.800 I/bmrp    ( 1654): onStart
+09-14 22:39:00.818 I/ndroid.systemui(  748): Background concurrent mark compact GC freed 13MB AllocSpace bytes, 0(0B) LOS objects, 49% free, 14MB/28MB, paused 1.034ms,3.022ms total 192.499ms
+09-14 22:39:00.908 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onFinishInput():2054 
+09-14 22:39:00.909 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+09-14 22:39:00.911 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onStartInput():1315 onStartInput(EditorInfo{EditorInfo{packageName=com.google.android.apps.nexuslauncher, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=-1, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+09-14 22:39:00.912 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=0, callback=gbl@af6781e, lastModifier=0, keyCodes=[57, 57], actions=[1, 0]}
+09-14 22:39:00.913 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=0, callback=gbl@e231d15, lastModifier=0, keyCodes=[58, 58], actions=[1, 0]}
+09-14 22:39:00.913 W/ContentCaptureService( 1286): handleSendEvents() received empty list of events
+09-14 22:39:00.916 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+09-14 22:39:00.927 D/QuickstepModelDelegate(  953): notifyAppTargetEvent action=1 launchLocation=
+09-14 22:39:01.007 I/AiAiEcho( 1286): Predicting[0]: 
+09-14 22:39:01.007 I/AiAiEcho( 1286): Ranked targets strategy: SORT, count: 0, ranking metadata: 
+09-14 22:39:01.012 I/AiAiEcho( 1286): #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0
+09-14 22:39:01.012 I/bkjf    ( 1654): (REDACTED) [%s] onStart()
+09-14 22:39:01.012 I/AiAiEcho( 1286): #postPredictionTargets: Sending updates to UISurface home with targets# 0
+09-14 22:39:01.013 I/AiAiEcho( 1286): #postPredictionTargets: Sending updates to UISurface media_data_manager with targets# 0
+09-14 22:39:01.024 I/bklj    ( 1654): Reloading theme data
+09-14 22:39:01.038 D/SsMediaDataProvider(  748): Forwarding Smartspace updates []
+09-14 22:39:01.041 D/EGL_emulation(  748): app_time_stats: avg=24081.83ms min=13.38ms max=432938.62ms count=18
+09-14 22:39:01.053 D/EGL_emulation(  748): app_time_stats: avg=200.58ms min=8.35ms max=948.01ms count=5
+09-14 22:39:01.096 D/BoundBrokerSvc( 1318): onBind: Intent { act=com.google.android.gms.inappreach.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsApiService }
+09-14 22:39:01.098 D/BoundBrokerSvc( 1318): Loading bound service for intent: Intent { act=com.google.android.gms.inappreach.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsApiService }
+09-14 22:39:01.149 I/bmrp    ( 1654): onResume
+09-14 22:39:02.048 D/EGL_emulation(  748): app_time_stats: avg=5.22ms min=0.95ms max=26.53ms count=61
+09-14 22:39:05.885 D/AndroidRuntime(16325): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-14 22:39:05.925 I/app_process(16325): MMAP_TRYLOCK is not supported in uffd addr:0x719efddfb000 page-size:4096
+09-14 22:39:05.927 I/AndroidRuntime(16325): Using default boot image
+09-14 22:39:05.927 I/AndroidRuntime(16325): Leaving lock profiling enabled
+09-14 22:39:05.937 I/app_process(16325): Using CollectorTypeCMC GC.
+09-14 22:39:06.083 D/nativeloader(16325): InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+09-14 22:39:06.123 D/nativeloader(16325): Load libicu_jni.so using APEX ns com_android_art for caller /apex/com.android.art/javalib/core-oj.jar: ok
+09-14 22:39:06.123 D/app_process(16325): Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+09-14 22:39:06.123 D/app_process(16325): I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt70l.dat
+09-14 22:39:06.131 D/nativeloader(16325): Load libjavacore.so using APEX ns com_android_art for caller /apex/com.android.art/javalib/core-oj.jar: ok
+09-14 22:39:06.139 D/nativeloader(16325): Load libopenjdk.so using APEX ns com_android_art for caller /apex/com.android.art/javalib/core-oj.jar: ok
+09-14 22:39:06.143 W/app_process(16325): Unexpected CPU variant for x86: x86_64.
+09-14 22:39:06.143 W/app_process(16325): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, alderlake, default
+09-14 22:39:06.219 D/nativeloader(16325): Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+09-14 22:39:06.220 D/AndroidRuntime(16325): Calling main entry com.android.commands.monkey.Monkey
+09-14 22:39:06.221 W/Monkey  (16325): args: [-p, com.app.uprise.debug, -c, android.intent.category.LAUNCHER, 1]
+09-14 22:39:06.222 W/Monkey  (16325):  arg: "-p"
+09-14 22:39:06.222 W/Monkey  (16325):  arg: "com.app.uprise.debug"
+09-14 22:39:06.223 W/Monkey  (16325):  arg: "-c"
+09-14 22:39:06.223 W/Monkey  (16325):  arg: "android.intent.category.LAUNCHER"
+09-14 22:39:06.223 W/Monkey  (16325):  arg: "1"
+09-14 22:39:06.223 W/Monkey  (16325): data="com.app.uprise.debug"
+09-14 22:39:06.223 W/Monkey  (16325): data="android.intent.category.LAUNCHER"
+09-14 22:39:06.266 W/BroadcastQueue(  533): Skipping deliver [background] BroadcastRecord{d97959d u-1 android.net.conn.CONNECTIVITY_CHANGE} to ReceiverList{d8eba12 16325 (unknown name)/2000/u-1 remote:5ffcc47}: process gone or crashing
+09-14 22:39:06.287 D/CompatibilityChangeReporter(  533): Compat change id reported: 161252188; UID 10200; state: DISABLED
+09-14 22:39:06.290 I/ActivityTaskManager(  533): START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.app.uprise.debug/com.app.uprise.MainActivity} from uid 2000
+09-14 22:39:06.302 D/CompatibilityChangeReporter(  533): Compat change id reported: 265464455; UID 10200; state: DISABLED
+09-14 22:39:06.302 D/CompatibilityChangeReporter(  533): Compat change id reported: 265452344; UID 10200; state: DISABLED
+09-14 22:39:06.302 D/CompatibilityChangeReporter(  533): Compat change id reported: 266124927; UID 10200; state: DISABLED
+09-14 22:39:06.302 D/CompatibilityChangeReporter(  533): Compat change id reported: 265451093; UID 10200; state: DISABLED
+09-14 22:39:06.302 D/CompatibilityChangeReporter(  533): Compat change id reported: 265456536; UID 10200; state: DISABLED
+09-14 22:39:06.303 D/CompatibilityChangeReporter(  533): Compat change id reported: 255940284; UID 10200; state: DISABLED
+09-14 22:39:06.303 D/CompatibilityChangeReporter(  533): Compat change id reported: 236283604; UID 10200; state: DISABLED
+09-14 22:39:06.303 D/CompatibilityChangeReporter(  533): Compat change id reported: 263959004; UID 10200; state: DISABLED
+09-14 22:39:06.303 D/CompatibilityChangeReporter(  533): Compat change id reported: 264304459; UID 10200; state: DISABLED
+09-14 22:39:06.304 D/CompatibilityChangeReporter(  533): Compat change id reported: 264301586; UID 10200; state: DISABLED
+09-14 22:39:06.304 D/CompatibilityChangeReporter(  533): Compat change id reported: 254631730; UID 10200; state: DISABLED
+09-14 22:39:06.304 D/CompatibilityChangeReporter(  533): Compat change id reported: 273509367; UID 10200; state: DISABLED
+09-14 22:39:06.305 D/CompatibilityChangeReporter(  533): Compat change id reported: 263259275; UID 10200; state: DISABLED
+09-14 22:39:06.308 D/CompatibilityChangeReporter(  533): Compat change id reported: 194480991; UID 10200; state: ENABLED
+09-14 22:39:06.313 D/CompatibilityChangeReporter(  533): Compat change id reported: 174042980; UID 10200; state: DISABLED
+09-14 22:39:06.315 D/CompatibilityChangeReporter(  533): Compat change id reported: 184838306; UID 10200; state: DISABLED
+09-14 22:39:06.316 D/CompatibilityChangeReporter(  533): Compat change id reported: 185004937; UID 10200; state: DISABLED
+09-14 22:39:06.318 D/CompatibilityChangeReporter(  533): Compat change id reported: 205907456; UID 10200; state: ENABLED
+09-14 22:39:06.324 D/CompatibilityChangeReporter(  533): Compat change id reported: 194833441; UID 10200; state: ENABLED
+09-14 22:39:06.329 I/Monkey  (16325): Events injected: 1
+09-14 22:39:06.348 D/CompatibilityChangeReporter(  533): Compat change id reported: 135634846; UID 10200; state: DISABLED
+09-14 22:39:06.356 D/CompatibilityChangeReporter(  533): Compat change id reported: 143937733; UID 10200; state: ENABLED
+09-14 22:39:06.365 I/Monkey  (16325): ## Network stats: elapsed time=57ms (0ms mobile, 0ms wifi, 57ms not connected)
+09-14 22:39:06.369 I/app_process(16325): System.exit called, status: 0
+09-14 22:39:06.369 I/AndroidRuntime(16325): VM exiting with result code 0.
+09-14 22:39:06.373 W/AutofillManagerServiceImpl(  533): getFillEventHistory() called by UID 10107, but service UID is 10120
+09-14 22:39:06.379 W/Parcel  (  748): Expecting binder but got null!
+09-14 22:39:06.381 D/Zygote  (  301): Forked child process 16337
+09-14 22:39:06.382 W/ActivityManager(  533): Slow operation: 56ms so far, now at startProcess: returned from zygote!
+09-14 22:39:06.383 W/ActivityManager(  533): Slow operation: 56ms so far, now at startProcess: done updating battery stats
+09-14 22:39:06.383 W/ActivityManager(  533): Slow operation: 57ms so far, now at startProcess: building log message
+09-14 22:39:06.383 I/ActivityManager(  533): Start proc 16337:com.app.uprise.debug/u0a200 for next-top-activity {com.app.uprise.debug/com.app.uprise.MainActivity}
+09-14 22:39:06.383 W/ActivityManager(  533): Slow operation: 57ms so far, now at startProcess: starting to update pids map
+09-14 22:39:06.383 W/ActivityManager(  533): Slow operation: 57ms so far, now at startProcess: done updating pids map
+09-14 22:39:06.386 D/CoreBackPreview(  533): Window{23796a u0 Splash Screen com.app.uprise.debug}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@604d7d1, mPriority=0}
+09-14 22:39:06.396 I/pp.uprise.debug(16337): Late-enabling -Xcheck:jni
+09-14 22:39:06.402 D/EGL_emulation(  953): app_time_stats: avg=692.51ms min=12.81ms max=5368.59ms count=8
+09-14 22:39:06.427 I/bmrp    ( 1654): onPause
+09-14 22:39:06.441 W/ActivityTaskManager(  533): takeTaskSnapshot: taskId=132 not found or not visible
+09-14 22:39:06.461 I/pp.uprise.debug(16337): Using CollectorTypeCMC GC.
+09-14 22:39:06.463 W/pp.uprise.debug(16337): Unexpected CPU variant for x86: x86_64.
+09-14 22:39:06.463 W/pp.uprise.debug(16337): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, alderlake, default
+09-14 22:39:06.466 E/OpenGLRenderer(  748): Unable to match the desired swap behavior.
+09-14 22:39:06.505 I/adbd    (  429): jdwp connection from 16337
+09-14 22:39:06.522 D/nativeloader(16337): Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+09-14 22:39:06.582 D/CompatibilityChangeReporter(16337): Compat change id reported: 171979766; UID 10200; state: ENABLED
+09-14 22:39:06.599 W/ActivityThread(16337): Application com.app.uprise.debug can be debugged on port 8100...
+09-14 22:39:06.755 D/nativeloader(16337): Configuring clns-4 for other apk /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/base.apk. target_sdk_version=33, uses_libraries=, library_path=/data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64:/data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.app.uprise.debug
+09-14 22:39:06.770 D/nativeloader(16337): Load libframework-connectivity-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity.jar: ok
+09-14 22:39:06.774 V/GraphicsEnvironment(16337): ANGLE Developer option for 'com.app.uprise.debug' set to: 'default'
+09-14 22:39:06.774 V/GraphicsEnvironment(16337): ANGLE GameManagerService for com.app.uprise.debug: false
+09-14 22:39:06.774 V/GraphicsEnvironment(16337): Neither updatable production driver nor prerelease driver is supported.
+09-14 22:39:06.784 D/NetworkSecurityConfig(16337): Using Network Security Config from resource network_security_config debugBuild: true
+09-14 22:39:06.790 D/NetworkSecurityConfig(16337): Using Network Security Config from resource network_security_config debugBuild: true
+09-14 22:39:06.806 W/FirebaseApp(16337): Default FirebaseApp failed to initialize because no default options were found. This usually means that com.google.gms:google-services was not applied to your gradle project.
+09-14 22:39:06.806 I/FirebaseInitProvider(16337): FirebaseApp initialization unsuccessful
+09-14 22:39:06.808 D/ReactNativeFirebaseApp(16337): received application context.
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): initialization failed
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): java.lang.IllegalStateException: Default FirebaseApp is not initialized in this process com.app.uprise.debug. Make sure to call FirebaseApp.initializeApp(Context) first.
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at com.google.firebase.FirebaseApp.getInstance(FirebaseApp.java:186)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at com.google.firebase.crashlytics.FirebaseCrashlytics.getInstance(FirebaseCrashlytics.java:183)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at io.invertase.firebase.crashlytics.ReactNativeFirebaseCrashlyticsInitProvider.onCreate(ReactNativeFirebaseCrashlyticsInitProvider.java:119)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2451)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2421)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at io.invertase.firebase.common.ReactNativeFirebaseInitProvider.attachInfo(ReactNativeFirebaseInitProvider.java:33)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at android.app.ActivityThread.installProvider(ActivityThread.java:7514)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at android.app.ActivityThread.installContentProviders(ActivityThread.java:7025)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:6796)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2133)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at android.os.Looper.loopOnce(Looper.java:201)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at android.os.Looper.loop(Looper.java:288)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at android.app.ActivityThread.main(ActivityThread.java:7924)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at java.lang.reflect.Method.invoke(Native Method)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:548)
+09-14 22:39:06.816 E/RNFBCrashlyticsInit(16337): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:936)
+09-14 22:39:06.850 D/SoLoader(16337): init start
+09-14 22:39:06.852 D/SoLoader(16337): adding system library source: /vendor/lib64
+09-14 22:39:06.853 D/SoLoader(16337): adding system library source: /system/lib64
+09-14 22:39:06.855 D/SoLoader(16337): adding application source: com.facebook.soloader.DirectorySoSource[root = /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64 flags = 0]
+09-14 22:39:06.857 D/SoLoader(16337): adding backup source from : com.facebook.soloader.ApkSoSource[root = /data/data/com.app.uprise.debug/lib-main flags = 1]
+09-14 22:39:06.858 D/SoLoader(16337): Preparing SO source: com.facebook.soloader.DirectorySoSource[root = /system/lib64 flags = 2]
+09-14 22:39:06.858 D/SoLoader(16337): Preparing SO source: com.facebook.soloader.DirectorySoSource[root = /vendor/lib64 flags = 2]
+09-14 22:39:06.858 D/SoLoader(16337): Preparing SO source: com.facebook.soloader.DirectorySoSource[root = /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64 flags = 0]
+09-14 22:39:06.858 D/SoLoader(16337): Preparing SO source: com.facebook.soloader.ApkSoSource[root = /data/data/com.app.uprise.debug/lib-main flags = 1]
+09-14 22:39:06.862 V/fb-UnpackingSoSource(16337): locked dso store /data/user/0/com.app.uprise.debug/lib-main
+09-14 22:39:06.865 I/fb-UnpackingSoSource(16337): dso store is up-to-date: /data/user/0/com.app.uprise.debug/lib-main
+09-14 22:39:06.865 V/fb-UnpackingSoSource(16337): releasing dso store lock for /data/user/0/com.app.uprise.debug/lib-main
+09-14 22:39:06.865 D/SoLoader(16337): init finish: 4 SO sources prepared
+09-14 22:39:06.865 D/SoLoader(16337): init exiting
+09-14 22:39:06.889 D/SoLoader(16337): init exiting
+09-14 22:39:06.889 D/SoLoader(16337): About to load: libjscexecutor.so
+09-14 22:39:06.890 D/SoLoader(16337): libjscexecutor.so not found on /data/data/com.app.uprise.debug/lib-main
+09-14 22:39:06.890 D/SoLoader(16337): libjscexecutor.so found on /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64
+09-14 22:39:06.891 D/SoLoader(16337): Not resolving dependencies for libjscexecutor.so
+09-14 22:39:07.052 D/JavaScriptCore.Version(16337): 250230.2.1
+09-14 22:39:07.053 D/nativeloader(16337): Load /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64/libjscexecutor.so using class loader ns clns-4 (caller=/data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/base.apk): ok
+09-14 22:39:07.053 D/SoLoader(16337): Loaded: libjscexecutor.so
+09-14 22:39:07.057 D/SoLoader(16337): init exiting
+09-14 22:39:07.209 D/CompatibilityChangeReporter(  533): Compat change id reported: 161145287; UID 10200; state: DISABLED
+09-14 22:39:07.225 D/SoLoader(16337): About to load: libfbjni.so
+09-14 22:39:07.225 D/SoLoader(16337): libfbjni.so not found on /data/data/com.app.uprise.debug/lib-main
+09-14 22:39:07.226 D/SoLoader(16337): libfbjni.so found on /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64
+09-14 22:39:07.226 D/SoLoader(16337): Not resolving dependencies for libfbjni.so
+09-14 22:39:07.230 D/nativeloader(16337): Load /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64/libfbjni.so using class loader ns clns-4 (caller=/data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/base.apk): ok
+09-14 22:39:07.230 D/SoLoader(16337): Loaded: libfbjni.so
+09-14 22:39:07.231 D/SoLoader(16337): About to load: libflipper.so
+09-14 22:39:07.231 D/SoLoader(16337): libflipper.so not found on /data/data/com.app.uprise.debug/lib-main
+09-14 22:39:07.232 D/SoLoader(16337): libflipper.so found on /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64
+09-14 22:39:07.232 D/SoLoader(16337): Not resolving dependencies for libflipper.so
+09-14 22:39:07.296 D/nativeloader(16337): Load /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64/libflipper.so using class loader ns clns-4 (caller=/data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/base.apk): ok
+09-14 22:39:07.297 D/SoLoader(16337): Loaded: libflipper.so
+09-14 22:39:07.322 I/pp.uprise.debug(16337): hiddenapi: Accessing hidden field Landroid/view/View;->mKeyedTags:Landroid/util/SparseArray; (runtime_flags=0, domain=platform, api=unsupported) from Lcom/facebook/flipper/plugins/inspector/descriptors/ViewDescriptor; (domain=app) using reflection: allowed
+09-14 22:39:07.322 I/pp.uprise.debug(16337): hiddenapi: Accessing hidden field Landroid/view/View;->mListenerInfo:Landroid/view/View$ListenerInfo; (runtime_flags=0, domain=platform, api=unsupported) from Lcom/facebook/flipper/plugins/inspector/descriptors/ViewDescriptor; (domain=app) using reflection: allowed
+09-14 22:39:07.322 I/pp.uprise.debug(16337): hiddenapi: Accessing hidden field Landroid/view/View$ListenerInfo;->mOnClickListener:Landroid/view/View$OnClickListener; (runtime_flags=0, domain=platform, api=unsupported) from Lcom/facebook/flipper/plugins/inspector/descriptors/ViewDescriptor; (domain=app) using reflection: allowed
+09-14 22:39:07.332 I/flipper (16337): flipper: FlipperClient::addPlugin Inspector
+09-14 22:39:07.332 I/flipper (16337): flipper: FlipperClient::addPlugin React
+09-14 22:39:07.336 I/flipper (16337): flipper: FlipperClient::addPlugin Databases
+09-14 22:39:07.338 I/flipper (16337): flipper: FlipperClient::addPlugin Preferences
+09-14 22:39:07.339 I/flipper (16337): flipper: FlipperClient::addPlugin CrashReporter
+09-14 22:39:07.345 I/flipper (16337): flipper: FlipperClient::addPlugin Network
+09-14 22:39:07.369 D/libEGL  (16337): loaded /vendor/lib64/egl/libEGL_emulation.so
+09-14 22:39:07.372 D/libEGL  (16337): loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+09-14 22:39:07.378 D/libEGL  (16337): loaded /vendor/lib64/egl/libGLESv2_emulation.so
+09-14 22:39:07.457 D/CompatibilityChangeReporter(16337): Compat change id reported: 237531167; UID 10200; state: DISABLED
+09-14 22:39:07.465 W/Parcel  (16337): Expecting binder but got null!
+09-14 22:39:07.471 D/CoreBackPreview(  533): Window{692b1 u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@779f1b3, mPriority=0}
+09-14 22:39:07.518 I/pp.uprise.debug(16337): hiddenapi: Accessing hidden method Landroid/view/View;->computeFitSystemWindows(Landroid/graphics/Rect;Landroid/graphics/Rect;)Z (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/appcompat/widget/ViewUtils; (domain=app) using reflection: allowed
+09-14 22:39:07.519 I/pp.uprise.debug(16337): hiddenapi: Accessing hidden method Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/appcompat/widget/ViewUtils; (domain=app) using reflection: allowed
+09-14 22:39:07.526 W/Parcel  (16337): Expecting binder but got null!
+09-14 22:39:07.529 D/CoreBackPreview(  533): Window{98be6e9 u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@897f60f, mPriority=0}
+09-14 22:39:07.550 D/HostConnection(16337): HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_vulkan_queue_submit_with_commands ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_1 
+09-14 22:39:07.552 W/OpenGLRenderer(16337): Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+09-14 22:39:07.552 W/OpenGLRenderer(16337): Failed to initialize 101010-2 format, error = EGL_SUCCESS
+09-14 22:39:07.569 D/EGL_emulation(16337): eglCreateContext: 0x728b48835310: maj 3 min 1 rcv 4
+09-14 22:39:07.602 D/EGL_emulation(16337): eglMakeCurrent: 0x728b48835310: ver 3 1 (tinfo 0x728d7870b080) (first time)
+09-14 22:39:07.633 I/hwservicemanager(  151): getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+09-14 22:39:07.633 I/Gralloc4(16337): mapper 4.x is not supported
+09-14 22:39:07.639 I/hwservicemanager(  151): getTransport: Cannot find entry android.hardware.graphics.allocator@4.0::IAllocator/default in either framework or device VINTF manifest.
+09-14 22:39:07.643 I/servicemanager(  146): Could not find android.hardware.graphics.allocator.IAllocator/default in the VINTF manifest.
+09-14 22:39:07.643 W/Gralloc4(16337): allocator 4.x is not supported
+09-14 22:39:07.676 D/HostConnection(16337): HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_vulkan_queue_submit_with_commands ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_1 
+09-14 22:39:07.677 E/OpenGLRenderer(16337): Unable to match the desired swap behavior.
+09-14 22:39:07.688 W/ndroid.systemui(  748): Suspending all threads took: 6.899ms
+09-14 22:39:07.701 I/ndroid.systemui(  748): Background concurrent mark compact GC freed 13MB AllocSpace bytes, 0(0B) LOS objects, 49% free, 13MB/27MB, paused 8.872ms,1.825ms total 40.476ms
+09-14 22:39:07.728 W/unknown:ReactNative(16337): Packager connection already open, nooping.
+09-14 22:39:07.762 E/OpenGLRenderer(16337): Unable to match the desired swap behavior.
+09-14 22:39:07.825 D/CompatibilityChangeReporter(16337): Compat change id reported: 210923482; UID 10200; state: ENABLED
+09-14 22:39:07.829 I/ActivityTaskManager(  533): Displayed com.app.uprise.debug/com.app.uprise.MainActivity: +1s512ms
+09-14 22:39:07.836 I/pp.uprise.debug(16337): Compiler allocated 4151KB to compile void android.view.ViewRootImpl.performTraversals()
+09-14 22:39:07.840 W/Parcel  (16337): Expecting binder but got null!
+09-14 22:39:07.844 D/CoreBackPreview(  533): Window{4708a21 u0 PopupWindow:2b0b475}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@3fe9807, mPriority=0}
+09-14 22:39:07.859 D/EGL_emulation(  748): app_time_stats: avg=1700.25ms min=17.00ms max=6738.57ms count=4
+09-14 22:39:07.884 E/OpenGLRenderer(16337): Unable to match the desired swap behavior.
+09-14 22:39:07.944 D/CompatibilityChangeReporter(  533): Compat change id reported: 214016041; UID 10200; state: ENABLED
+09-14 22:39:07.947 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onFinishInput():2054 
+09-14 22:39:07.948 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+09-14 22:39:07.950 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onStartInput():1315 onStartInput(EditorInfo{EditorInfo{packageName=com.app.uprise.debug, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=-1, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+09-14 22:39:07.952 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+09-14 22:39:08.128 D/BoundBrokerSvc( 1176): onRebind: Intent { act=com.google.android.gms.auth.aang.events.services.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentApiService }
+09-14 22:39:08.173 D/CoreBackPreview(  533): Window{23796a u0 Splash Screen com.app.uprise.debug EXITING}: Setting back callback null
+09-14 22:39:08.173 W/InputManager-JNI(  533): Input channel object '23796a Splash Screen com.app.uprise.debug (client)' was disposed without first being removed with the input manager!
+09-14 22:39:08.185 I/bmrp    ( 1654): onStop
+09-14 22:39:08.254 D/EGL_emulation(  748): app_time_stats: avg=141.60ms min=1.13ms max=5539.93ms count=40
+09-14 22:39:08.323 D/SoLoader(16337): About to load: libreactnativejni.so
+09-14 22:39:08.323 D/SoLoader(16337): libreactnativejni.so not found on /data/data/com.app.uprise.debug/lib-main
+09-14 22:39:08.323 D/SoLoader(16337): libreactnativejni.so found on /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64
+09-14 22:39:08.323 D/SoLoader(16337): Not resolving dependencies for libreactnativejni.so
+09-14 22:39:08.325 D/nativeloader(16337): Load /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64/libreactnativejni.so using class loader ns clns-4 (caller=/data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/base.apk): ok
+09-14 22:39:08.328 D/SoLoader(16337): Loaded: libreactnativejni.so
+09-14 22:39:08.443 D/CoreBackPreview(  533): Window{4708a21 u0 PopupWindow:2b0b475}: Setting back callback null
+09-14 22:39:08.450 W/InputManager-JNI(  533): Input channel object '4708a21 PopupWindow:2b0b475 (client)' was disposed without first being removed with the input manager!
+09-14 22:39:08.453 W/SystemServiceRegistry( 1176): No service published for: wifirtt
+09-14 22:39:08.486 I/RNFusedLocation(16337): RNFusedLocation initialized
+09-14 22:39:08.550 W/[REANIMATED](16337): Since 2.5.0, Reanimated autoinstalls on Android - you can remove getJSIModulePackage() override in MainApplication.java.
+09-14 22:39:08.556 W/unknown:ReactNative(16337): Packager connection already open, nooping.
+09-14 22:39:08.611 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.drawer.ReactDrawerLayoutManager
+09-14 22:39:08.617 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.uimanager.LayoutShadowNode
+09-14 22:39:08.618 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollViewManager
+09-14 22:39:08.620 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollContainerViewManager
+09-14 22:39:08.620 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.progressbar.ReactProgressBarViewManager
+09-14 22:39:08.621 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.progressbar.ProgressBarShadowNode
+09-14 22:39:08.623 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.scroll.ReactScrollViewManager
+09-14 22:39:08.623 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.slider.ReactSliderManager
+09-14 22:39:08.624 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.slider.ReactSliderManager$ReactSliderShadowNode
+09-14 22:39:08.624 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchManager
+09-14 22:39:08.624 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchManager$ReactSwitchShadowNode
+09-14 22:39:08.624 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.swiperefresh.SwipeRefreshLayoutManager
+09-14 22:39:08.625 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageViewManager
+09-14 22:39:08.625 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageShadowNode
+09-14 22:39:08.627 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.image.ReactImageManager
+09-14 22:39:08.627 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.modal.ReactModalHostManager
+09-14 22:39:08.628 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.modal.ModalHostShadowNode
+09-14 22:39:08.628 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.text.ReactRawTextManager
+09-14 22:39:08.628 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.text.ReactRawTextShadowNode
+09-14 22:39:08.628 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputManager
+09-14 22:39:08.629 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputShadowNode
+09-14 22:39:08.631 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.text.ReactTextViewManager
+09-14 22:39:08.632 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.text.ReactTextShadowNode
+09-14 22:39:08.634 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.view.ReactViewManager
+09-14 22:39:08.635 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextViewManager
+09-14 22:39:08.635 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextShadowNode
+09-14 22:39:08.636 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.facebook.react.views.unimplementedview.ReactUnimplementedViewManager
+09-14 22:39:08.636 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class org.reactnative.maskedview.RNCMaskedViewManager
+09-14 22:39:08.636 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.reactnativegooglesignin.RNGoogleSigninButtonViewManager
+09-14 22:39:08.637 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.swmansion.gesturehandler.react.RNGestureHandlerRootViewManager
+09-14 22:39:08.637 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.swmansion.gesturehandler.react.RNGestureHandlerButtonViewManager
+09-14 22:39:08.637 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.BV.LinearGradient.LinearGradientManager
+09-14 22:39:08.637 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.reactnativepagerview.PagerViewViewManager
+09-14 22:39:08.638 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaProviderManager
+09-14 22:39:08.638 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaViewManager
+09-14 22:39:08.640 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaViewShadowNode
+09-14 22:39:08.641 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.swmansion.rnscreens.ScreenContainerViewManager
+09-14 22:39:08.642 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.swmansion.rnscreens.ScreenViewManager
+09-14 22:39:08.643 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.swmansion.rnscreens.ScreenStackViewManager
+09-14 22:39:08.644 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.swmansion.rnscreens.ScreenStackHeaderConfigViewManager
+09-14 22:39:08.644 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.swmansion.rnscreens.ScreenStackHeaderSubviewManager
+09-14 22:39:08.645 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.swmansion.rnscreens.SearchBarManager
+09-14 22:39:08.646 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$GroupViewManager
+09-14 22:39:08.648 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$RenderableShadowNode
+09-14 22:39:08.648 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$PathViewManager
+09-14 22:39:08.649 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$CircleViewManager
+09-14 22:39:08.649 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$EllipseViewManager
+09-14 22:39:08.652 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$LineViewManager
+09-14 22:39:08.652 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$RectViewManager
+09-14 22:39:08.653 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$TextViewManager
+09-14 22:39:08.654 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$TSpanViewManager
+09-14 22:39:08.655 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$TextPathViewManager
+09-14 22:39:08.655 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$ImageViewManager
+09-14 22:39:08.655 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$ClipPathViewManager
+09-14 22:39:08.656 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$DefsViewManager
+09-14 22:39:08.657 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$UseViewManager
+09-14 22:39:08.658 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$SymbolManager
+09-14 22:39:08.658 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$LinearGradientManager
+09-14 22:39:08.659 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$RadialGradientManager
+09-14 22:39:08.659 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$PatternManager
+09-14 22:39:08.660 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$MaskManager
+09-14 22:39:08.660 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$ForeignObjectManager
+09-14 22:39:08.660 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.RenderableViewManager$MarkerManager
+09-14 22:39:08.660 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.horcrux.svg.SvgViewManager
+09-14 22:39:08.673 I/pp.uprise.debug(16337): hiddenapi: Accessing hidden field Ljava/lang/reflect/Field;->accessFlags:I (runtime_flags=0, domain=core-platform, api=unsupported) from Lcom/swmansion/reanimated/layoutReanimation/ReanimatedNativeHierarchyManager; (domain=app) using reflection: allowed
+09-14 22:39:08.685 D/SoLoader(16337): About to load: libyoga.so
+09-14 22:39:08.685 D/SoLoader(16337): libyoga.so not found on /data/data/com.app.uprise.debug/lib-main
+09-14 22:39:08.686 D/SoLoader(16337): libyoga.so found on /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64
+09-14 22:39:08.686 D/SoLoader(16337): Not resolving dependencies for libyoga.so
+09-14 22:39:08.688 D/nativeloader(16337): Load /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64/libyoga.so using class loader ns clns-4 (caller=/data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/base.apk): ok
+09-14 22:39:08.688 D/SoLoader(16337): Loaded: libyoga.so
+09-14 22:39:08.781 D/ConnectivityService(  533): requestNetwork for uid/pid:10200/16337 activeRequest: null callbackRequest: 455 [NetworkRequest [ REQUEST id=456, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10200 RequestorUid: 10200 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOSING|LOST|UNAVAIL|NC|LP
+09-14 22:39:08.784 D/WifiNetworkFactory(  533): got request NetworkRequest [ REQUEST id=456, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10200 RequestorUid: 10200 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-14 22:39:08.784 D/ConnectivityService(  533): NetReassign [456 : null ΓåÆ 100] [c 0] [a 1] [i 2]
+09-14 22:39:08.784 D/UntrustedWifiNetworkFactory(  533): got request NetworkRequest [ REQUEST id=456, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10200 RequestorUid: 10200 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-14 22:39:08.784 D/OemPaidWifiNetworkFactory(  533): got request NetworkRequest [ REQUEST id=456, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10200 RequestorUid: 10200 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-14 22:39:08.784 D/MultiInternetWifiNetworkFactory(  533): got request NetworkRequest [ REQUEST id=456, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10200 RequestorUid: 10200 RequestorPkg: com.app.uprise.debug UnderlyingNetworks: Null] ]
+09-14 22:39:08.800 I/flipper (16337): flipper: FlipperClient::addPlugin Fresco
+09-14 22:39:08.814 W/ThreadPoolForeg( 1176): type=1400 audit(0.0:1788): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=684 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-14 22:39:08.989 D/NetworkStatsObservers(  533): Registering observer for RequestInfo from pid/uid:533/1000(android) for DataUsageRequest [ requestId=31, networkTemplate=NetworkTemplate: matchRule=MOBILE, matchSubscriberIds=[310260...], matchWifiNetworkKeys=[], metered=YES, defaultNetwork=NO, thresholdInBytes=26655843 ] accessLevel:3
+09-14 22:39:08.989 D/NetworkStatsObservers(  533): Unregistering RequestInfo from pid/uid:533/1000(android) for DataUsageRequest [ requestId=30, networkTemplate=NetworkTemplate: matchRule=MOBILE, matchSubscriberIds=[310260...], matchWifiNetworkKeys=[], metered=YES, defaultNetwork=NO, thresholdInBytes=26655941 ] accessLevel:3
+09-14 22:39:08.993 D/SoLoader(16337): About to load: libreactnativeblob.so
+09-14 22:39:08.994 W/AppOps  (  533): Noting op not finished: uid 10120 pkg com.google.android.gms code 113 startTime of in progress event=1757884495451
+09-14 22:39:08.995 D/SoLoader(16337): libreactnativeblob.so not found on /data/data/com.app.uprise.debug/lib-main
+09-14 22:39:08.995 D/SoLoader(16337): libreactnativeblob.so found on /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64
+09-14 22:39:08.995 D/SoLoader(16337): Not resolving dependencies for libreactnativeblob.so
+09-14 22:39:08.999 D/nativeloader(16337): Load /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64/libreactnativeblob.so using class loader ns clns-4 (caller=/data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/base.apk): ok
+09-14 22:39:08.999 D/SoLoader(16337): Loaded: libreactnativeblob.so
+09-14 22:39:09.003 D/CompatibilityChangeReporter(  533): Compat change id reported: 168419799; UID 10120; state: DISABLED
+09-14 22:39:09.003 D/CompatibilityChangeReporter(  533): Compat change id reported: 273564678; UID 10120; state: DISABLED
+09-14 22:39:09.005 W/AppOps  (  533): Noting op not finished: uid 10120 pkg com.google.android.gms code 113 startTime of in progress event=1757884520372
+09-14 22:39:09.013 W/AppOps  (  533): Noting op not finished: uid 10120 pkg com.google.android.gms code 113 startTime of in progress event=1757884495451
+09-14 22:39:09.017 W/AppOps  (  533): Noting op not finished: uid 10120 pkg com.google.android.gms code 113 startTime of in progress event=1757884495451
+09-14 22:39:09.036 I/WebViewFactory(16337): Loading com.google.android.webview version 139.0.7258.143 (code 725814338)
+09-14 22:39:09.037 I/ActivityScheduler( 1176): nextTriggerTime: 23320586, in 238100ms, detectorType: 39, FULL_TYPE alarmWindowMillis: 80000
+09-14 22:39:09.054 W/pp.uprise.debug(16337): Failed to find entry 'classes.dex': Entry not found
+09-14 22:39:09.056 D/nativeloader(16337): Configuring clns-5 for other apk /data/app/~~SSEbxose8UCu0hEsIySZuA==/com.google.android.trichromelibrary_725814338-SNhaRDuRcfPuh-Ntuau95A==/base.apk. target_sdk_version=35, uses_libraries=ALL, library_path=/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/lib/x86_64:/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/base.apk!/lib/x86_64:/data/app/~~SSEbxose8UCu0hEsIySZuA==/com.google.android.trichromelibrary_725814338-SNhaRDuRcfPuh-Ntuau95A==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand
+09-14 22:39:09.060 E/pp.uprise.debug(16337): Invalid ID 0x00000000.
+09-14 22:39:09.062 D/ReactNative(16337): ReactConfig: Could not find BuildConfig class
+09-14 22:39:09.065 D/nativeloader(16337): Configuring clns-6 for other apk /system_ext/framework/androidx.window.extensions.jar. target_sdk_version=35, uses_libraries=ALL, library_path=/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/lib/x86_64:/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/base.apk!/lib/x86_64:/data/app/~~SSEbxose8UCu0hEsIySZuA==/com.google.android.trichromelibrary_725814338-SNhaRDuRcfPuh-Ntuau95A==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand
+09-14 22:39:09.072 I/ReactNativeJS(16337): 'ENV MISSING', { missing: 
+09-14 22:39:09.072 I/ReactNativeJS(16337):    [ 'API_BASE_URL',
+09-14 22:39:09.072 I/ReactNativeJS(16337):      'SIGNUP_URL',
+09-14 22:39:09.072 I/ReactNativeJS(16337):      'VERIFY_USERNAME',
+09-14 22:39:09.072 I/ReactNativeJS(16337):      'VERIFY_USER',
+09-14 22:39:09.072 I/ReactNativeJS(16337):      'LOGIN_URL',
+09-14 22:39:09.072 I/ReactNativeJS(16337):      'REGISTER_DEVICE_TOKEN' ],
+09-14 22:39:09.072 I/ReactNativeJS(16337):   Config: {} }
+09-14 22:39:09.082 D/nativeloader(16337): Configuring clns-7 for other apk /data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/base.apk. target_sdk_version=35, uses_libraries=, library_path=/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/lib/x86_64:/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/base.apk!/lib/x86_64:/data/app/~~SSEbxose8UCu0hEsIySZuA==/com.google.android.trichromelibrary_725814338-SNhaRDuRcfPuh-Ntuau95A==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand
+09-14 22:39:09.124 I/ReactNativeJS(16337): 'Firebase messaging disabled (no default app):', 'No Firebase App \'[DEFAULT]\' has been created - call firebase.initializeApp()'
+09-14 22:39:09.135 D/BoundBrokerSvc( 1176): onRebind: Intent { act=com.google.android.gms.libs.gmscorelogger.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentDirectBootAwareApiService }
+09-14 22:39:09.255 D/WifiNl80211Manager(  533): Scan result ready event
+09-14 22:39:09.255 D/WifiNative(  533): Scan result ready event
+09-14 22:39:09.257 I/WifiScanner( 1176): onFullResults
+09-14 22:39:09.257 I/WifiScanner( 1176): onFullResults
+09-14 22:39:09.261 I/HalDevMgr(  533): bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+09-14 22:39:09.266 D/EGL_emulation(  748): app_time_stats: avg=14.74ms min=3.19ms max=33.41ms count=59
+09-14 22:39:09.308 I/FrewleTileCacheManagerV( 1176): (REDACTED) Fetched %d AP models from cache
+09-14 22:39:09.318 I/FrewleTileCacheManagerV( 1176): (REDACTED) Fetched %d AP models from cache
+09-14 22:39:09.318 I/FrewleTileCacheManagerV( 1176): (REDACTED) Fetched %d AP models from cache
+09-14 22:39:09.320 I/FrewleTileCacheManagerV( 1176): (REDACTED) Fetched %d AP models from cache
+09-14 22:39:09.321 I/FrewleTileCacheManagerV( 1176): (REDACTED) Fetched %d AP models from cache
+09-14 22:39:09.331 I/cr_WVCFactoryProvider(16337): version=139.0.7258.143 (725814338) minSdkVersion=29 multiprocess=true packageId=2 splits=<none>
+09-14 22:39:09.346 D/nativeloader(16337): Load /data/app/~~SSEbxose8UCu0hEsIySZuA==/com.google.android.trichromelibrary_725814338-SNhaRDuRcfPuh-Ntuau95A==/base.apk!/lib/x86_64/libmonochrome_64.so using class loader ns clns-7 (caller=/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/base.apk): ok
+09-14 22:39:09.367 D/nativeloader(16337): Load /system/lib64/libwebviewchromium_plat_support.so using class loader ns clns-7 (caller=/data/app/~~zlAGpwMcwoxzr7Jc-0IT8g==/com.google.android.webview-Rhhnz4yiXeIUZ1SRbOVBPg==/base.apk): ok
+09-14 22:39:09.386 D/CompatibilityChangeReporter(  533): Compat change id reported: 171306433; UID 10120; state: ENABLED
+09-14 22:39:09.386 D/CompatibilityChangeReporter(  533): Compat change id reported: 218533173; UID 10120; state: ENABLED
+09-14 22:39:09.390 I/ActivityScheduler( 1176): nextTriggerTime: 23320586, in 237747ms, detectorType: 39, FULL_TYPE alarmWindowMillis: 80000
+09-14 22:39:09.431 E/chromium(16337): [0914/223909.412910:ERROR:android_webview/browser/variations/variations_seed_loader.cc:39] Seed missing signature.
+09-14 22:39:09.442 I/chromium(16337): [0914/223909.440682:INFO:android_webview/browser/variations/variations_seed_loader.cc:67] Failed to open file for reading.: No such file or directory (2)
+09-14 22:39:09.445 E/LocationManagerService(  533): non-monotonic location received from passive provider
+09-14 22:39:09.475 E/GnssUtilsJni(  533): IGnss injectLocation() failed.
+09-14 22:39:09.481 E/GnssUtilsJni(  533): IGnss injectLocation() failed.
+09-14 22:39:09.481 E/GnssUtilsJni(  533): IGnss injectLocation() failed.
+09-14 22:39:09.481 E/GnssUtilsJni(  533): IGnss injectLocation() failed.
+09-14 22:39:09.481 E/GnssUtilsJni(  533): IGnss injectLocation() failed.
+09-14 22:39:09.511 I/cr_LibraryLoader(16337): Successfully loaded native library
+09-14 22:39:09.512 W/GLSUser ( 1176): [DeviceKeyStore] Cannot load key: Device key file not found.
+09-14 22:39:09.519 I/cr_CachingUmaRecorder(16337): Flushed 13 samples from 13 histograms, 0 samples were dropped.
+09-14 22:39:09.532 I/ReactNativeJS(16337): Running "Uprise" with {"rootTag":1}
+09-14 22:39:09.589 W/AlarmManager(  820): Unrecognized alarm listener com.android.networkstack.android.net.ip.IpClientLinkObserver$Dhcp6PdPreferredPrefixAlarmListener@2fa36bc
+09-14 22:39:09.618 I/ReactNativeJS(16337): 'CONFIG', { API_BASE_URL: undefined,
+09-14 22:39:09.618 I/ReactNativeJS(16337):   SIGNUP_URL: undefined,
+09-14 22:39:09.618 I/ReactNativeJS(16337):   VERIFY_USERNAME: undefined,
+09-14 22:39:09.618 I/ReactNativeJS(16337):   VERIFY_USER: undefined,
+09-14 22:39:09.618 I/ReactNativeJS(16337):   LOGIN_URL: undefined,
+09-14 22:39:09.618 I/ReactNativeJS(16337):   REGISTER_DEVICE_TOKEN: undefined,
+09-14 22:39:09.618 I/ReactNativeJS(16337):   APPROVED_GENRES_ENDPOINT: undefined,
+09-14 22:39:09.618 I/ReactNativeJS(16337):   GENRE_SUGGESTIONS_ENDPOINT: undefined,
+09-14 22:39:09.618 I/ReactNativeJS(16337):   REQUEST_GENRE_ENDPOINT: undefined }
+09-14 22:39:09.669 W/libc    (15856): Access denied finding property "persist.adb.tls_server.enable"
+09-14 22:39:09.666 W/binder:15856_4(15856): type=1400 audit(0.0:1789): avc: denied { read } for name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=268 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+09-14 22:39:09.701 D/CompatibilityChangeReporter(16337): Compat change id reported: 171228096; UID 10200; state: ENABLED
+09-14 22:39:09.728 W/Parcel  (16337): Expecting binder but got null!
+09-14 22:39:09.734 I/TFLite-in-PlayServices( 1176): Created interpreter.
+09-14 22:39:09.738 D/CoreBackPreview(  533): Window{6d20973 u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@d746265, mPriority=0}
+09-14 22:39:09.766 W/GmsUrlRequestImpl( 1176): [https://android.googleapis.com/auth/devicekey] Content-Type header is overwritten.
+09-14 22:39:09.771 I/ReactNativeJS(16337): 'CONFIG (App.js)', { API_BASE_URL: undefined,
+09-14 22:39:09.771 I/ReactNativeJS(16337):   SIGNUP_URL: undefined,
+09-14 22:39:09.771 I/ReactNativeJS(16337):   VERIFY_USERNAME: undefined,
+09-14 22:39:09.771 I/ReactNativeJS(16337):   VERIFY_USER: undefined,
+09-14 22:39:09.771 I/ReactNativeJS(16337):   LOGIN_URL: undefined,
+09-14 22:39:09.771 I/ReactNativeJS(16337):   REGISTER_DEVICE_TOKEN: undefined,
+09-14 22:39:09.771 I/ReactNativeJS(16337):   APPROVED_GENRES_ENDPOINT: undefined,
+09-14 22:39:09.771 I/ReactNativeJS(16337):   GENRE_SUGGESTIONS_ENDPOINT: undefined,
+09-14 22:39:09.771 I/ReactNativeJS(16337):   REQUEST_GENRE_ENDPOINT: undefined }
+09-14 22:39:09.777 I/TFLite-in-PlayServices( 1176): Created interpreter.
+09-14 22:39:09.826 E/OpenGLRenderer(16337): Unable to match the desired swap behavior.
+09-14 22:39:09.830 W/ThreadPoolForeg( 1318): type=1400 audit(0.0:1790): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=684 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-14 22:39:09.882 I/SemanticLocation( 1176): (REDACTED) [Inferrer] %s%s
+09-14 22:39:10.001 W/GLSUser ( 1176): [AppCertManager] Exception while requesting key: 
+09-14 22:39:10.001 W/GLSUser ( 1176): java.util.concurrent.ExecutionException: ckbp: Parse Proto Exception with response code 400
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at gjrh.j(:com.google.android.gms@253133032@25.31.33 (190800-795226510):21)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at gjrq.u(:com.google.android.gms@253133032@25.31.33 (190800-795226510):71)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at ahri.b(:com.google.android.gms@253133032@25.31.33 (190800-795226510):439)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at ahrg.a(:com.google.android.gms@253133032@25.31.33 (190800-795226510):83)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at ahrc.a(:com.google.android.gms@253133032@25.31.33 (190800-795226510):3)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at ahre.a(:com.google.android.gms@253133032@25.31.33 (190800-795226510):58)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at ahre.b(:com.google.android.gms@253133032@25.31.33 (190800-795226510):21)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at bali.m(:com.google.android.gms@253133032@25.31.33 (190800-795226510):13)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at balx.f(:com.google.android.gms@253133032@25.31.33 (190800-795226510):10)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at fsxo.a(:com.google.android.gms@253133032@25.31.33 (190800-795226510):45)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at fsxi.b(:com.google.android.gms@253133032@25.31.33 (190800-795226510):279)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at fuab.e(:com.google.android.gms@253133032@25.31.33 (190800-795226510):442)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at ftzy.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):123)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at bash.c(:com.google.android.gms@253133032@25.31.33 (190800-795226510):50)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at bash.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):89)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at baya.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):8)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at java.lang.Thread.run(Thread.java:1119)
+09-14 22:39:10.001 W/GLSUser ( 1176): Caused by: ckbp: Parse Proto Exception with response code 400
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at ckcs.b(:com.google.android.gms@253133032@25.31.33 (190800-795226510):71)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at ckfi.d(:com.google.android.gms@253133032@25.31.33 (190800-795226510):18)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at ckfz.onSucceeded(:com.google.android.gms@253133032@25.31.33 (190800-795226510):9)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at m1.nc.onSucceeded(:com.google.android.gms.dynamite_cronetdynamite@253133032@25.31.33 (190800-0):3)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at m1.ly.run(:com.google.android.gms.dynamite_cronetdynamite@253133032@25.31.33 (190800-0):21)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at m1.ls.run(:com.google.android.gms.dynamite_cronetdynamite@253133032@25.31.33 (190800-0):31)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at bash.c(:com.google.android.gms@253133032@25.31.33 (190800-795226510):50)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at bash.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):70)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	... 4 more
+09-14 22:39:10.001 W/GLSUser ( 1176): Caused by: hdlb: Protocol message contained an invalid tag (zero).
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at hdhz.k(:com.google.android.gms@253133032@25.31.33 (190800-795226510):43)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at hdmb.c(:com.google.android.gms@253133032@25.31.33 (190800-795226510):398)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at hdmb.i(:com.google.android.gms@253133032@25.31.33 (190800-795226510):8)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at hdkf.y(:com.google.android.gms@253133032@25.31.33 (190800-795226510):23)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at hdka.g(:com.google.android.gms@253133032@25.31.33 (190800-795226510):3)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at hdhv.e(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at hdhv.d(:com.google.android.gms@253133032@25.31.33 (190800-795226510):3)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at hdhv.p(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at ckcs.g(:com.google.android.gms@253133032@25.31.33 (190800-795226510):69)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	at ckcs.b(:com.google.android.gms@253133032@25.31.33 (190800-795226510):11)
+09-14 22:39:10.001 W/GLSUser ( 1176): 	... 11 more
+09-14 22:39:10.004 W/GLSUser ( 1176): [DeviceKeyStore] Cannot load key: Device key file not found.
+09-14 22:39:10.082 W/Conscrypt( 1176): Could not set socket write timeout: java.net.SocketException: Socket closed
+09-14 22:39:10.085 W/Conscrypt( 1176): 	at com.google.android.gms.org.conscrypt.Platform.setSocketWriteTimeout(:com.google.android.gms@253133032@25.31.33 (190800-795226510):204)
+09-14 22:39:10.085 W/Conscrypt( 1176): 	at com.google.android.gms.org.conscrypt.ConscryptFileDescriptorSocket.setSoWriteTimeout(:com.google.android.gms@253133032@25.31.33 (190800-795226510):4)
+09-14 22:39:10.127 W/Conscrypt( 1176): Could not set socket write timeout: java.net.SocketException: Socket closed
+09-14 22:39:10.127 W/Conscrypt( 1176): 	at com.google.android.gms.org.conscrypt.Platform.setSocketWriteTimeout(:com.google.android.gms@253133032@25.31.33 (190800-795226510):204)
+09-14 22:39:10.127 W/Conscrypt( 1176): 	at com.google.android.gms.org.conscrypt.ConscryptFileDescriptorSocket.setSoWriteTimeout(:com.google.android.gms@253133032@25.31.33 (190800-795226510):4)
+09-14 22:39:10.464 I/ReactNativeJS(16337): redux-persist: versions match, noop migration
+09-14 22:39:10.532 W/unknown:ViewManagerPropertyUpdater(16337): Could not find generated setter for class com.swmansion.rnscreens.ScreensShadowNode
+09-14 22:39:10.558 D/CompatibilityChangeReporter(  533): Compat change id reported: 197654537; UID 10200; state: ENABLED
+09-14 22:39:10.838 I/pp.uprise.debug(16337): hiddenapi: Accessing hidden field Landroid/widget/ScrollView;->mScroller:Landroid/widget/OverScroller; (runtime_flags=0, domain=platform, api=unsupported) from Lcom/facebook/react/views/scroll/ReactScrollView; (domain=app) using reflection: allowed
+09-14 22:39:10.914 D/BoundBrokerSvc( 1318): onBind: Intent { act=com.google.android.gms.auth.api.signin.service.START pkg=com.google.android.gms }
+09-14 22:39:10.915 D/BoundBrokerSvc( 1318): Loading bound service for intent: Intent { act=com.google.android.gms.auth.api.signin.service.START pkg=com.google.android.gms }
+09-14 22:39:10.966 W/Auth.Api.SignIn( 1318): [Service,SignInChimeraService] **************************** WARNING ***************************
+09-14 22:39:10.966 W/Auth.Api.SignIn( 1318): You are using the deprecated legacy Google Sign-In APIs from
+09-14 22:39:10.966 W/Auth.Api.SignIn( 1318): play-services-auth SDK. Please migrate to the Credential Manager
+09-14 22:39:10.966 W/Auth.Api.SignIn( 1318): APIs, see https://goo.gle/gsi-migration.
+09-14 22:39:10.966 W/Auth.Api.SignIn( 1318): ****************************************************************
+09-14 22:39:10.968 I/ReactNativeJS(16337): FCM disabled (no default Firebase app)
+09-14 22:39:10.979 D/SoLoader(16337): About to load: libimagepipeline.so
+09-14 22:39:10.980 D/SoLoader(16337): libimagepipeline.so not found on /data/data/com.app.uprise.debug/lib-main
+09-14 22:39:10.980 D/SoLoader(16337): libimagepipeline.so found on /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64
+09-14 22:39:10.980 D/SoLoader(16337): Not resolving dependencies for libimagepipeline.so
+09-14 22:39:10.984 D/nativeloader(16337): Load /data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/lib/x86_64/libimagepipeline.so using class loader ns clns-4 (caller=/data/app/~~9NcaI71qbKYmSq5NvweA9Q==/com.app.uprise.debug-GWanmswYOWyohVC6yAxGdQ==/base.apk): ok
+09-14 22:39:10.985 D/SoLoader(16337): Loaded: libimagepipeline.so
+09-14 22:39:11.146 D/CoreBackPreview(  533): Window{692b1 u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback null
+09-14 22:39:11.167 W/InputManager-JNI(  533): Input channel object '692b1 com.app.uprise.debug/com.app.uprise.MainActivity (client)' was disposed without first being removed with the input manager!
+09-14 22:39:11.332 D/EGL_emulation(16337): app_time_stats: avg=102.81ms min=2.59ms max=1237.41ms count=13
+09-14 22:39:12.463 D/EGL_emulation(16337): app_time_stats: avg=103.07ms min=1.34ms max=2686.67ms count=42
+09-14 22:39:20.510 I/VoiceInputManagerWrapper( 1219): VoiceInputManagerWrapper.shutdownVoiceInternal():148 shutdownVoiceInternal()
+09-14 22:39:20.510 W/NotificationCenter( 1219): NotificationCenter.unregisterListener():480 Listener hwm@e3c5e32 was not registered for notification class nfk
+09-14 22:39:23.145 D/BoundBrokerSvc( 1176): onUnbind: Intent { act=com.google.android.gms.auth.aang.events.services.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentApiService }
+09-14 22:39:25.317 W/BufferPoolAccessor2.0(  456): invalidator thread spinning
+09-14 22:39:25.422 D/BoundBrokerSvc( 1176): onUnbind: Intent { act=com.google.android.gms.libs.gmscorelogger.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentDirectBootAwareApiService }
+09-14 22:39:36.743 D/androidtc(  533): Initializing SystemTextClassifier, type = System
+09-14 22:39:36.748 D/InputDispatcher(  533): Touch mode switch rejected, caller (pid=0, uid=10200) doesn't own the focused window nor none of the previously interacted window
+09-14 22:39:36.749 I/AiAiTextClassifier( 1286): onCreateTextClassificationSession = TextClassificationSessionId {50b8f133-bda3-4f59-bcb6-d4fadc6ed809}
+09-14 22:39:36.757 I/AiAiTextClassifier( 1286): Initialize textClassifierLib, privileged changed = [true], TC null = [false]
+09-14 22:39:36.768 I/AiAiTranslate( 1286): C2T - not in a conversation
+09-14 22:39:36.769 D/EGL_emulation(16337): app_time_stats: avg=1496.14ms min=14.13ms max=25172.81ms count=17
+09-14 22:39:36.769 I/AiAiTextClassifier( 1286): GenerateLinks did not find valid links, returning empty result
+09-14 22:39:36.772 I/ClipboardListener(  748): Clipboard overlay suppressed.
+09-14 22:39:36.773 I/AiAiTextClassifier( 1286): GenerateLinks did not find valid links, returning empty result
+09-14 22:39:36.775 I/AiAiTextClassifier( 1286): Initialize textClassifierLib, privileged changed = [true], TC null = [false]
+09-14 22:39:36.779 I/AiAiTextClassifier( 1286): GenerateLinks did not find valid links, returning empty result
+09-14 22:39:36.785 I/ClipboardListener(  748): Clipboard overlay suppressed.
+09-14 22:39:36.851 D/CoreBackPreview(  533): Window{6d20973 u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback null
+09-14 22:39:36.856 D/OpenGLRenderer(16337): endAllActiveAnimators on 0x728bc885a720 (RippleDrawable) with handle 0x728ad8882f90
+09-14 22:39:36.859 W/InputManager-JNI(  533): Input channel object '6d20973 com.app.uprise.debug/com.app.uprise.MainActivity (client)' was disposed without first being removed with the input manager!
+09-14 22:39:36.871 D/AudioFlinger(  346): mixer(0x778295a989a0) throttle end: throttle time(38)
+09-14 22:39:36.880 V/WindowManager(  533): Unknown focus tokens, dropping reportFocusChanged
+09-14 22:39:36.897 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onFinishInput():2054 
+09-14 22:39:36.897 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+09-14 22:39:36.899 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onStartInput():1315 onStartInput(EditorInfo{EditorInfo{packageName=com.app.uprise.debug, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=-1, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+09-14 22:39:36.899 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+09-14 22:39:36.922 D/EGL_emulation(16337): app_time_stats: avg=1358.59ms min=13.49ms max=24172.51ms count=18
+09-14 22:39:38.822 W/ThreadPoolForeg( 1176): type=1400 audit(0.0:1791): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=684 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-14 22:39:39.830 W/ThreadPoolForeg( 1318): type=1400 audit(0.0:1792): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=684 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-14 22:39:39.862 W/adbd    (  429): timeout expired while flushing socket, closing
+09-14 22:39:45.182 D/EGL_emulation(  748): app_time_stats: avg=5329.62ms min=7.74ms max=37201.75ms count=7
+09-14 22:39:48.283 D/InputDispatcher(  533): Touch mode switch rejected, caller (pid=0, uid=10200) doesn't own the focused window nor none of the previously interacted window
+09-14 22:39:48.315 D/EGL_emulation(16337): app_time_stats: avg=1627.42ms min=7.58ms max=11299.19ms count=7
+09-14 22:39:49.367 D/AudioFlinger(  346): mixer(0x778295a989a0) throttle end: throttle time(38)
+09-14 22:39:49.464 D/EGL_emulation(16337): app_time_stats: avg=1149.50ms min=1149.50ms max=1149.50ms count=1
+09-14 22:39:50.156 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onFinishInput():2054 
+09-14 22:39:50.156 D/AutofillSession(  533): clearPendingIntentLocked
+09-14 22:39:50.156 D/CompatibilityChangeReporter(16337): Compat change id reported: 163400105; UID 10200; state: ENABLED
+09-14 22:39:50.156 D/InputMethodManager(16337): showSoftInput() view=com.facebook.react.views.textinput.ReactEditText{8c2b660 VFED..CL. .F.P..ID 0,0-860,105 #9b aid=1073741825} flags=0 reason=SHOW_SOFT_INPUT
+09-14 22:39:50.159 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+09-14 22:39:50.159 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onStartInput():1315 onStartInput(EditorInfo{EditorInfo{packageName=com.app.uprise.debug, inputType=80001, inputTypeString=Normal[NoSuggestion], enableLearning=true, autoCorrection=true, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=0, label=null, fieldId=155, fieldName=null, extras=null, hintText=non-empty, hintLocales=[]}}, false)
+09-14 22:39:50.161 D/AudioFlinger(  346): mixer(0x778295a989a0) throttle end: throttle time(38)
+09-14 22:39:50.162 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+09-14 22:39:50.163 V/InlineSuggestionRenderService(  946): handleDestroySuggestionViews called for 0:319766569
+09-14 22:39:50.173 I/AssistStructure(16337): Flattened final assist data: 3040 bytes, containing 1 windows, 17 views
+09-14 22:39:50.173 D/AutofillSession(  533): createPendingIntent for request 32
+09-14 22:39:50.174 D/ContentCapturePerUserService(  533): Notified activity assist data for activity: Token{85cee99 ActivityRecord{39a655e u0 com.app.uprise.debug/com.app.uprise.MainActivity} t132}} without a session Id
+09-14 22:39:50.175 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onStartInputView():1408 onStartInputView(EditorInfo{EditorInfo{packageName=com.app.uprise.debug, inputType=80001, inputTypeString=Normal[NoSuggestion], enableLearning=true, autoCorrection=true, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=0, label=null, fieldId=155, fieldName=null, extras=null, hintText=non-empty, hintLocales=[]}}, false)
+09-14 22:39:50.177 W/ModuleManager( 1219): ModuleManager.loadModule():567 Module nfr is not available
+09-14 22:39:50.177 I/KeyboardHeightUtil( 1219): KeyboardHeightUtil.getOemKeyboardHeightRatio():108 systemKeyboardHeightRatio:1.000000.
+09-14 22:39:50.184 I/AndroidIME( 1219): InputBundleManager.loadActiveInputBundleId():528 loadActiveInputBundleId: en-US, ime_english_united_states
+09-14 22:39:50.188 I/AndroidIME( 1219): AbstractIme.onActivate():96 LatinIme.onActivate() : EditorInfo = EditorInfo{packageName=com.app.uprise.debug, inputType=80001, inputTypeString=Normal[NoSuggestion], enableLearning=true, autoCorrection=true, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=0, label=null, fieldId=155, fieldName=null, extras=null, hintText=non-empty, hintLocales=[]}, IncognitoMode = false, DeviceLocked = false
+09-14 22:39:50.205 I/InputBundle( 1219): InputBundle.consumeEvent():1005 Skip consuming an event as keyboard status is 0
+09-14 22:39:50.214 I/Delight5Facilitator( 1219): Delight5Facilitator.initializeForIme():731 initializeForIme() : Locale = [en_US], layout = qwerty
+09-14 22:39:50.232 I/LatinIme( 1219): LatinIme.updateEnableInlineSuggestionsOnDecoderSideFlags():1241 inline flag updated to:false
+09-14 22:39:50.249 I/LatinIme( 1219): LatinIme.updateEnableInlineSuggestionsOnDecoderSideFlags():1241 inline flag updated to:false
+09-14 22:39:50.377 I/InputBundle( 1219): InputBundle.consumeEvent():1005 Skip consuming an event as keyboard status is 0
+09-14 22:39:50.377 I/LatinIme( 1219): LatinIme.resetInputContext():2249 resetInputContext(): reason=1, externalEditsInfo=ExternalEditsInfo{action=0, offset=-1, text=null, originalText=null, edits=null}
+09-14 22:39:50.377 I/InputBundle( 1219): InputBundle.consumeEvent():1005 Skip consuming an event as keyboard status is 0
+09-14 22:39:50.390 I/KeyboardWrapper( 1219): KeyboardWrapper.activateKeyboard():580 activateKeyboard(): type=accessory, status=0, imeDef=mib{stringId=ime_english_united_states, language=en-US, languageTag=en-US, processedConditions={writing_helper_enable_by_word_revert=false, true=true, enable_number_row=false, device=phone, enable_pk_simulator=false}, className=com.google.android.apps.inputmethod.libs.latin5.LatinIme, label=0, keyEventInterpreter=null, inlineComposing=true, autoCapital=true, announceAutoSelectedCandidate=true, statusIcon=0, indicatorIcon=0, indicatorLabel=US, displayAppCompletions=true, extraValues=mhu{#0x7f0b02c9=TypedValue{t=0x3/d=0x0 "com.google.android.apps.inputmethod.libs.latin5.LatinIme"}}, processors=mjs@513e038, unacceptableMetaKeys=4098, languageSpecificSettings=0, asciiCapable=true, alwaysShowSuggestions=false, useAsciiPasswordKeyboard=false, keyboardGroupDef=mjb@2383a62, phenotypeFlagId=0, localizationLanguageTag=null, supportsInlineSuggestion=true}
+09-14 22:39:50.391 I/KeyboardManager( 1219): KeyboardManager.requestKeyboard():248 Creating keyboard accessory, imeId=ime_english_united_states, cacheKey=theme,!gsf,!pgsans,!pgsf,!use_system_font,BORDER,FLAVOR_DPI=XXHDPI,GOOGLE_ICONS,IS_LIGHT,KEYBOARD_WIDTH_CATEGORY=NORMAL,KEY_BORDER_SHAPE=1,LIGHT_THEME=true,PHYSICAL_DIAGONAL=5.9809904,POPUP,SCREEN_SHORTEST_WIDTH=411,SCREEN_SHORTEST_WIDTH_NO_SCALE=411,SW400DP,XXHDPI,bottom4dp,enable_google_fonts_icons=true,enable_popup_on_keypress=true,keyboard_redesign_google_sans=true,noshadow,overlay_builtin_dynamic_color_light_base.binarypb:gm3-light-fff6faff-ff00668b-56f817bf6f42ccf90a80ef5515de5bdc,silkpopup
+09-14 22:39:50.392 I/KeyboardWrapper( 1219): KeyboardWrapper.onKeyboardReady():223 onKeyboardReady(): type=accessory(accessory), kb=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard@29f35a3
+09-14 22:39:50.393 I/KeyboardWrapper( 1219): KeyboardWrapper.doActivateKeyboard():610 doActivateKeyboard(): accessory
+09-14 22:39:50.393 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=HEADER, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:50.394 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=BODY, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:50.395 I/GlobeKeyExtension( 1219): GlobeKeyExtension.getKeyboardInitialStates():175 
+09-14 22:39:50.405 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=HEADER, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:50.405 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=BODY, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:50.405 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=FLOATING_CANDIDATES, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:50.405 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=WIDGET, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:50.406 I/KeyboardManager( 1219): KeyboardManager.requestKeyboard():248 Creating keyboard accessory_candidates_consumer, imeId=ime_english_united_states, cacheKey=theme,!gsf,!pgsans,!pgsf,!use_system_font,BORDER,FLAVOR_DPI=XXHDPI,GOOGLE_ICONS,IS_LIGHT,KEYBOARD_WIDTH_CATEGORY=NORMAL,KEY_BORDER_SHAPE=1,LIGHT_THEME=true,PHYSICAL_DIAGONAL=5.9809904,POPUP,SCREEN_SHORTEST_WIDTH=411,SCREEN_SHORTEST_WIDTH_NO_SCALE=411,SW400DP,XXHDPI,bottom4dp,enable_google_fonts_icons=true,enable_popup_on_keypress=true,keyboard_redesign_google_sans=true,noshadow,overlay_builtin_dynamic_color_light_base.binarypb:gm3-light-fff6faff-ff00668b-56f817bf6f42ccf90a80ef5515de5bdc,silkpopup
+09-14 22:39:50.418 I/GlobeKeyExtension( 1219): GlobeKeyExtension.getKeyboardInitialStates():175 
+09-14 22:39:50.418 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={global_theme_key=theme,!gsf,!pgsans,!pgsf,!use_system_font,BORDER,FLAVOR_DPI=XXHDPI,GOOGLE_ICONS,IS_LIGHT,KEYBOARD_WIDTH_CATEGORY=NORMAL,KEY_BORDER_SHAPE=1,LIGHT_THEME=true,PHYSICAL_DIAGONAL=5.9809904,POPUP,SCREEN_SHORTEST_WIDTH=411,SCREEN_SHORTEST_WIDTH_NO_SCALE=411,SW400DP,XXHDPI,bottom4dp,enable_google_fonts_icons=true,enable_popup_on_keypress=true,keyboard_redesign_google_sans=true,noshadow,overlay_builtin_dynamic_color_light_base.binarypb:gm3-light-fff6faff-ff00668b-56f817bf6f42ccf90a80ef5515de5bdc,silkpopup, global_locale=en_US, global_density_dpi=420, global_orientation=1}, className=.latin.keyboard.AccessoryKeyboard, resourceIds=[#0x7f17004c], initialStates=0, keyboardViewDefs=[mjj{direction=null, id=#0x7f0b020d, isScalable=false, layoutId=#0x7f0e0032, type=FLOATING_CANDIDATES, touchable=true, defaultShow=false}], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=#0x7f0e05ed, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=HEADER, helpersCreated=[null, null, lvj@86dd0f9, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:50.419 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={global_theme_key=theme,!gsf,!pgsans,!pgsf,!use_system_font,BORDER,FLAVOR_DPI=XXHDPI,GOOGLE_ICONS,IS_LIGHT,KEYBOARD_WIDTH_CATEGORY=NORMAL,KEY_BORDER_SHAPE=1,LIGHT_THEME=true,PHYSICAL_DIAGONAL=5.9809904,POPUP,SCREEN_SHORTEST_WIDTH=411,SCREEN_SHORTEST_WIDTH_NO_SCALE=411,SW400DP,XXHDPI,bottom4dp,enable_google_fonts_icons=true,enable_popup_on_keypress=true,keyboard_redesign_google_sans=true,noshadow,overlay_builtin_dynamic_color_light_base.binarypb:gm3-light-fff6faff-ff00668b-56f817bf6f42ccf90a80ef5515de5bdc,silkpopup, global_locale=en_US, global_density_dpi=420, global_orientation=1}, className=.latin.keyboard.AccessoryKeyboard, resourceIds=[#0x7f17004c], initialStates=0, keyboardViewDefs=[mjj{direction=null, id=#0x7f0b020d, isScalable=false, layoutId=#0x7f0e0032, type=FLOATING_CANDIDATES, touchable=true, defaultShow=false}], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=#0x7f0e05ed, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=BODY, helpersCreated=[null, null, lvj@86dd0f9, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:50.436 I/AndroidIME( 1219): InputBundleManager.startInput():358 startInput() with mjf[keyboardType=accessory, payload=null]
+09-14 22:39:50.437 I/GlobeKeyExtension( 1219): GlobeKeyExtension.onActivate():120 
+09-14 22:39:50.450 W/AutoPasteSuggestionHelper( 1219): AutoPasteSuggestionHelper.setMaxWidthOfChipTextView():1066 Failed to get the width of the proactive suggestion view holder in HEADER.
+09-14 22:39:50.450 I/Delight5Decoder( 1219): Delight5DecoderWrapper.setKeyboardLayout():537 setKeyboardLayout()
+09-14 22:39:50.452 W/AutoPasteSuggestionHelper( 1219): AutoPasteSuggestionHelper.setMaxWidthOfChipTextView():1066 Failed to get the width of the proactive suggestion view holder in HEADER.
+09-14 22:39:50.455 W/AutoPasteSuggestionHelper( 1219): AutoPasteSuggestionHelper.setMaxWidthOfChipTextView():1066 Failed to get the width of the proactive suggestion view holder in WIDGET.
+09-14 22:39:50.455 I/ProactiveSuggestionsHolderManager( 1219): ProactiveSuggestionsHolderManager$2.display():216 Requesting to show proactive suggestions: CLIPBOARD PREEMPTIVE_WITH_SUPPRESSION in HEADER
+09-14 22:39:50.455 I/ProactiveSuggestionsHolderManager( 1219): ProactiveSuggestionsHolderManager$2.display():228 suggestions CLIPBOARD are pending to show on HEADER
+09-14 22:39:50.455 I/ProactiveSuggestionsHolderManager( 1219): ProactiveSuggestionsHolderManager$2.display():216 Requesting to show proactive suggestions: CLIPBOARD PREEMPTIVE_WITH_SUPPRESSION in FLOATING_CANDIDATES
+09-14 22:39:50.455 I/ProactiveSuggestionsHolderManager( 1219): ProactiveSuggestionsHolderManager$2.display():228 suggestions CLIPBOARD are pending to show on FLOATING_CANDIDATES
+09-14 22:39:50.456 I/ProactiveSuggestionsHolderManager( 1219): ProactiveSuggestionsHolderManager$2.display():216 Requesting to show proactive suggestions: CLIPBOARD PREEMPTIVE_WITH_SUPPRESSION in WIDGET
+09-14 22:39:50.456 I/ProactiveSuggestionsHolderManager( 1219): ProactiveSuggestionsHolderManager$2.display():228 suggestions CLIPBOARD are pending to show on WIDGET
+09-14 22:39:50.469 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020457, callback=cgn@f1b23c1, lastModifier=2, keyCodes=[56], actions=[0]}
+09-14 22:39:50.471 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020457, callback=cgn@6c11a65, lastModifier=2, keyCodes=[56], actions=[0]}
+09-14 22:39:50.478 I/VoiceInputManagerWrapper( 1219): VoiceInputManagerWrapper.cancelShutdown():109 cancelShutdown()
+09-14 22:39:50.481 I/VoiceInputManagerWrapper( 1219): VoiceInputManagerWrapper.syncLanguagePacks():121 syncLanguagePacks()
+09-14 22:39:50.488 I/VoiceInputManager( 1219): VoiceInputManager.onKeyboardActivated():1120 onKeyboardActivated() [UD]
+09-14 22:39:50.488 I/SpeechFactory( 1219): SpeechRecognitionFactory.maybeScheduleAutoPackDownloadForFallback():217 maybeScheduleAutoPackDownloadForFallback()
+09-14 22:39:50.488 I/FallbackOnDeviceRecognitionProvider( 1219): FallbackOnDeviceRecognitionProvider.maybeScheduleAutoPackDownload():200 maybeScheduleAutoPackDownload() for language tag en-US
+09-14 22:39:50.489 I/PkModeUpdater( 1219): PkModeUpdater.onActivate():74 onActivate true true
+09-14 22:39:50.489 I/AccessoryInputModeManager( 1219): AccessoryInputModeManager.onModeStarted():317 Accessory input mode started: PK
+09-14 22:39:50.490 W/ExtensionWrapper( 1219): ExtensionWrapper.setAllowUpdateNavigationBarStyle():818 class jpb is not activate
+09-14 22:39:50.491 I/WidgetViewShowingController( 1219): WidgetViewShowingController.showWidgetKeyboardInternal():527 Show companion widget
+09-14 22:39:50.522 W/ExtensionWrapper( 1219): ExtensionWrapper.setAllowUpdateNavigationBarStyle():818 class jpb is not activate
+09-14 22:39:50.523 I/WidgetViewShowingPositionHandler( 1219): WidgetViewShowingPositionHandler.updateAvailableArea():194 update available area Rect(21, 153 - 1059, 2270)
+09-14 22:39:50.526 W/NotificationCenter( 1219): NotificationCenter$NotificationQueue.notifyPendingNotificationsOnExecutor():877 Heavy notify work detected on UI thread: [jqv->joy] takes 37ms
+09-14 22:39:50.526 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020465, callback=gbl@f1f5a69, lastModifier=2, keyCodes=[62], actions=[0]}
+09-14 22:39:50.528 I/KeyboardModeUtils( 1219): KeyboardModeUtils.getKeyboardBottomOffset():435 inch: 0.000000 ydpi: 420.000000 adjustKeyboardBottomByDisplaySize: false currentDensityDpi: 420 defaultDensityDpi: 420 keyboardBottomToScreenPx: 0 keyboardBottomToNavBarPx: -126 navBarHeight: 126
+09-14 22:39:50.528 I/KeyboardHeightUtil( 1219): KeyboardHeightUtil.calculateMaxKeyboardBodyHeight():50 leave 281 height for app when ime window height:2142, header height:116 and isFullscreenMode:false, so the max keyboard body height is:1745
+09-14 22:39:50.529 I/KeyboardHeightUtil( 1219): KeyboardHeightUtil.calculateMaxKeyboardBodyHeight():50 leave 281 height for app when ime window height:2142, header height:116 and isFullscreenMode:false, so the max keyboard body height is:1745
+09-14 22:39:50.529 I/KeyboardHeightUtil( 1219): KeyboardHeightUtil.calculateMaxKeyboardBodyHeight():50 leave 281 height for app when ime window height:2142, header height:116 and isFullscreenMode:false, so the max keyboard body height is:1745
+09-14 22:39:50.529 I/KeyboardHeightUtil( 1219): KeyboardHeightUtil.calculateMaxKeyboardBodyHeight():50 leave 281 height for app when ime window height:2142, header height:116 and isFullscreenMode:false, so the max keyboard body height is:1745
+09-14 22:39:50.529 W/ExtensionWrapper( 1219): ExtensionWrapper.setExtensionViewVisibility():809 interface lyo is not activate
+09-14 22:39:50.531 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+09-14 22:39:50.532 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020461, callback=cgn@5937f31, lastModifier=2, keyCodes=[48], actions=[0]}
+09-14 22:39:50.533 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020461, callback=cgn@f573208, lastModifier=2, keyCodes=[48], actions=[0]}
+09-14 22:39:50.534 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020457, callback=cgn@666ada2, lastModifier=2, keyCodes=[56], actions=[0]}
+09-14 22:39:50.534 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020457, callback=cgn@a8bc2dd, lastModifier=2, keyCodes=[56], actions=[0]}
+09-14 22:39:50.535 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020461, callback=cgn@dd9868f, lastModifier=2, keyCodes=[48], actions=[0]}
+09-14 22:39:50.535 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020461, callback=cgn@bc32d9e, lastModifier=2, keyCodes=[48], actions=[0]}
+09-14 22:39:50.536 I/VoiceImeExtension( 1219): VoiceImeExtension.shouldStartVoiceInputAutomaticallyInCurrentInputBox():387 No private IME option set to start voice input.
+09-14 22:39:50.537 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020462, callback=cgn@d46df08, lastModifier=2, keyCodes=[32], actions=[0]}
+09-14 22:39:50.537 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020462, callback=cgn@a5ee59b, lastModifier=2, keyCodes=[32], actions=[0]}
+09-14 22:39:50.537 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020462, callback=cgn@24ffbdd, lastModifier=2, keyCodes=[32], actions=[0]}
+09-14 22:39:50.537 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020462, callback=cgn@655e4e4, lastModifier=2, keyCodes=[32], actions=[0]}
+09-14 22:39:50.537 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020462, callback=cgn@e8cc29e, lastModifier=2, keyCodes=[32], actions=[0]}
+09-14 22:39:50.537 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020462, callback=cgn@7e64149, lastModifier=2, keyCodes=[32], actions=[0]}
+09-14 22:39:50.543 D/BoundBrokerSvc( 1318): onBind: Intent { act=com.google.firebase.dynamiclinks.service.START pkg=com.google.android.gms }
+09-14 22:39:50.544 I/DeviceIntelligenceExtension( 1219): DeviceIntelligenceExtension.getInlineSuggestionsRequest():257 Inline suggestions disabled in stylus mode or vertical PK/Voice toolbar
+09-14 22:39:50.544 D/CoreBackPreview(  533): Window{98be6e9 u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@f36b5a1, mPriority=0}
+09-14 22:39:50.548 D/BoundBrokerSvc( 1318): Loading bound service for intent: Intent { act=com.google.firebase.dynamiclinks.service.START pkg=com.google.android.gms }
+09-14 22:39:50.555 I/WindowMetricsNotification( 1219): WindowMetricsNotification.notifyWithWindow():166 
+09-14 22:39:50.555 I/WindowMetricsNotification( 1219): WindowMetricsNotification.notify():159 pct[bounds=Rect(0, 132 - 1080, 2400), insets=Rect(0, 0 - 0, 126), densityDpi=420, smallestScreenWidthDp=411, displayWidth=1080, displayHeight=2400, xdpi=420.0, ydpi=420.0, isTrustable=true, displayId=0]; DisplayMetrics{density=2.625, width=1080, height=2400, scaledDensity=2.625, xdpi=420.0, ydpi=420.0}
+09-14 22:39:50.596 E/OpenGLRenderer( 1219): Unable to match the desired swap behavior.
+09-14 22:39:50.669 I/GoogleInputMethodService( 1219): GoogleInputMethodService$1.onKeyboardViewShown():321 onKeyboardViewShown: keyboardType=accessory, keyboardViewType=HEADER keyboardView=null
+09-14 22:39:50.670 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=BODY, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:50.670 I/GoogleInputMethodService( 1219): GoogleInputMethodService$1.onKeyboardViewShown():321 onKeyboardViewShown: keyboardType=accessory, keyboardViewType=BODY keyboardView=null
+09-14 22:39:50.671 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=BODY, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:50.671 D/EGL_emulation(16337): app_time_stats: avg=68.19ms min=4.43ms max=483.72ms count=17
+09-14 22:39:50.683 D/BoundBrokerSvc( 1318): onBind: Intent { act=com.google.android.mdd.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsBoundBrokerService }
+09-14 22:39:50.685 D/BoundBrokerSvc( 1318): Loading bound service for intent: Intent { act=com.google.android.mdd.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsBoundBrokerService }
+09-14 22:39:50.696 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+09-14 22:39:50.728 I/ndroid.systemui(  748): Background concurrent mark compact GC freed 14MB AllocSpace bytes, 0(0B) LOS objects, 49% free, 14MB/28MB, paused 6.028ms,3.737ms total 93.923ms
+09-14 22:39:50.756 D/InsetsController(16337): show(ime(), fromIme=true)
+09-14 22:39:50.792 D/BoundBrokerSvc( 1318): onBind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+09-14 22:39:50.805 D/BoundBrokerSvc( 1318): Loading bound service for intent: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+09-14 22:39:50.835 D/BoundBrokerSvc( 1318): onBind: Intent { act=com.google.android.gms.wallet.service.BIND pkg=com.google.android.gms }
+09-14 22:39:50.835 D/BoundBrokerSvc( 1318): Loading bound service for intent: Intent { act=com.google.android.gms.wallet.service.BIND pkg=com.google.android.gms }
+09-14 22:39:50.843 I/AssistStructure(  533): Flattened final assist data: 2172 bytes, containing 1 windows, 17 views
+09-14 22:39:50.876 D/BoundBrokerSvc( 1318): onBind: Intent { act=com.google.android.gms.chromesync.service.zeroparty.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsApiService }
+09-14 22:39:50.876 D/BoundBrokerSvc( 1318): Loading bound service for intent: Intent { act=com.google.android.gms.chromesync.service.zeroparty.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsApiService }
+09-14 22:39:50.890 D/BoundBrokerSvc( 1318): onBind: Intent { act=com.google.android.gms.auth.api.phone.service.SmsRetrieverApiService.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsApiService }
+09-14 22:39:50.890 D/BoundBrokerSvc( 1318): Loading bound service for intent: Intent { act=com.google.android.gms.auth.api.phone.service.SmsRetrieverApiService.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsApiService }
+09-14 22:39:50.941 D/BoundBrokerSvc( 1176): onRebind: Intent { act=com.google.android.gms.auth.aang.events.services.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentApiService }
+09-14 22:39:50.948 W/ammy    ( 1176): Failed to retrieve prediction data. [CONTEXT service_id=177 ]
+09-14 22:39:50.948 W/ammy    ( 1176): java.util.concurrent.ExecutionException: fish: No data was found for the table autofill-domain-predictions-prod-spanner.
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.j(:com.google.android.gms@253133032@25.31.33 (190800-795226510):21)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrq.v(:com.google.android.gms@253133032@25.31.33 (190800-795226510):31)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.get(:com.google.android.gms@253133032@25.31.33 (190800-795226510):2)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at ammy.e(:com.google.android.gms@253133032@25.31.33 (190800-795226510):81)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at ammy.a(:com.google.android.gms@253133032@25.31.33 (190800-795226510):124)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at amki.call(:com.google.android.gms@253133032@25.31.33 (190800-795226510):5)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at bash.c(:com.google.android.gms@253133032@25.31.33 (190800-795226510):50)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at bash.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):70)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at baya.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):8)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at java.lang.Thread.run(Thread.java:1119)
+09-14 22:39:50.948 W/ammy    ( 1176): Caused by: fish: No data was found for the table autofill-domain-predictions-prod-spanner.
+09-14 22:39:50.948 W/ammy    ( 1176): 	at fisy.a(:com.google.android.gms@253133032@25.31.33 (190800-795226510):217)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrs.d(:com.google.android.gms@253133032@25.31.33 (190800-795226510):3)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjru.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):38)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjtg.execute(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.f(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.m(:com.google.android.gms@253133032@25.31.33 (190800-795226510):99)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.t(:com.google.android.gms@253133032@25.31.33 (190800-795226510):26)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrs.e(:com.google.android.gms@253133032@25.31.33 (190800-795226510):3)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjru.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):44)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjtg.execute(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.f(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.m(:com.google.android.gms@253133032@25.31.33 (190800-795226510):99)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.q(:com.google.android.gms@253133032@25.31.33 (190800-795226510):13)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjqz.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):120)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjtg.execute(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.f(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.m(:com.google.android.gms@253133032@25.31.33 (190800-795226510):99)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.q(:com.google.android.gms@253133032@25.31.33 (190800-795226510):13)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrt.e(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjru.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):44)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjtg.execute(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.f(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.m(:com.google.android.gms@253133032@25.31.33 (190800-795226510):99)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.q(:com.google.android.gms@253133032@25.31.33 (190800-795226510):13)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjqz.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):120)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjtg.execute(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.f(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.m(:com.google.android.gms@253133032@25.31.33 (190800-795226510):99)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.q(:com.google.android.gms@253133032@25.31.33 (190800-795226510):13)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrt.e(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjru.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):44)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjtg.execute(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.f(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.m(:com.google.android.gms@253133032@25.31.33 (190800-795226510):99)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.t(:com.google.android.gms@253133032@25.31.33 (190800-795226510):26)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjud.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):5)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjtg.execute(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.f(:com.google.android.gms@253133032@25.31.33 (190800-795226510):1)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.m(:com.google.android.gms@253133032@25.31.33 (190800-795226510):99)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrh.t(:com.google.android.gms@253133032@25.31.33 (190800-795226510):26)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjrs.e(:com.google.android.gms@253133032@25.31.33 (190800-795226510):3)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjru.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):44)
+09-14 22:39:50.948 W/ammy    ( 1176): 	at gjvj.run(:com.google.android.gms@253133032@25.31.33 (190800-795226510):64)
+09-14 22:39:50.948 W/ammy    ( 1176): 	... 6 more
+09-14 22:39:50.976 I/amju    ( 1176): (REDACTED) Detector ignoring field with types: %s
+09-14 22:39:51.011 I/SyncManager( 1318): (REDACTED) Executing sync(type=%s%s)
+09-14 22:39:51.021 I/PasswordSaveInfoFactory( 1176): Form has a username and is not a password only form. [CONTEXT service_id=177 ]
+09-14 22:39:51.021 I/PasswordSaveInfoFactory( 1176): Form is not a password only form. [CONTEXT service_id=177 ]
+09-14 22:39:51.021 I/UsernameSaveInfoFactory( 1176): Form has a password and is not a username only form. [CONTEXT service_id=177 ]
+09-14 22:39:51.108 I/SyncManager( 1318): (REDACTED) Executing sync(type=%s) finished in %s
+09-14 22:39:51.123 I/SyncManager( 1318): (REDACTED) Executing sync(type=%s%s)
+09-14 22:39:51.125 I/SyncManager( 1318): (REDACTED) Executing sync(type=%s) finished in %s
+09-14 22:39:51.133 I/SyncManager( 1318): (REDACTED) Executing sync(type=%s%s)
+09-14 22:39:51.133 I/SyncManager( 1318): (REDACTED) Executing sync(type=%s) finished in %s
+09-14 22:39:51.137 I/SyncManager( 1318): (REDACTED) Executing sync(type=%s%s)
+09-14 22:39:51.139 I/SyncManager( 1318): (REDACTED) Executing sync(type=%s) finished in %s
+09-14 22:39:51.152 I/SyncManager( 1318): (REDACTED) Executing sync(type=%s%s)
+09-14 22:39:51.153 I/SyncManager( 1318): (REDACTED) Executing sync(type=%s) finished in %s
+09-14 22:39:51.294 I/SyncManager( 1318): (REDACTED) Executing sync(type=%s%s)
+09-14 22:39:51.301 I/SyncManager( 1318): (REDACTED) Executing sync(type=%s) finished in %s
+09-14 22:39:51.331 D/BoundBrokerSvc( 1318): onBind: Intent { act=com.google.android.gms.auth.api.credentials.internal_service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsInternalBoundBrokerService }
+09-14 22:39:51.331 D/BoundBrokerSvc( 1318): Loading bound service for intent: Intent { act=com.google.android.gms.auth.api.credentials.internal_service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsInternalBoundBrokerService }
+09-14 22:39:51.339 D/AutofillSession(  533): Service did not request to wait for delayed fill response.
+09-14 22:39:51.996 D/BoundBrokerSvc( 1176): onRebind: Intent { act=com.google.android.gms.libs.gmscorelogger.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentDirectBootAwareApiService }
+09-14 22:39:52.162 D/EGL_emulation(16337): app_time_stats: avg=183.47ms min=2.82ms max=500.65ms count=8
+09-14 22:39:53.162 D/EGL_emulation(16337): app_time_stats: avg=500.02ms min=498.45ms max=501.60ms count=2
+09-14 22:39:54.324 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@609b138 is already registered for notification class lnz
+09-14 22:39:54.326 I/Delight5Decoder( 1219): Delight5DecoderWrapper.setKeyboardLayout():537 setKeyboardLayout()
+09-14 22:39:54.338 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:39:54.350 D/EGL_emulation(16337): app_time_stats: avg=395.97ms min=188.30ms max=500.60ms count=3
+09-14 22:39:54.353 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@609b138 is already registered for notification class lnz
+09-14 22:39:54.591 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@609b138 is already registered for notification class lnz
+09-14 22:39:54.593 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:39:54.595 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@609b138 is already registered for notification class lnz
+09-14 22:39:54.840 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@609b138 is already registered for notification class lnz
+09-14 22:39:54.842 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:39:54.847 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@609b138 is already registered for notification class lnz
+09-14 22:39:55.199 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@609b138 is already registered for notification class lnz
+09-14 22:39:55.201 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:39:55.204 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@609b138 is already registered for notification class lnz
+09-14 22:39:55.779 D/EGL_emulation(16337): app_time_stats: avg=158.61ms min=10.69ms max=514.10ms count=9
+09-14 22:39:56.341 I/.gms.persistent( 1176): oneway function results for code 1 on binder at 0x728ad890bcd0 will be dropped but finished with status UNKNOWN_TRANSACTION and reply parcel size 80
+09-14 22:39:56.779 D/EGL_emulation(16337): app_time_stats: avg=499.90ms min=499.35ms max=500.45ms count=2
+09-14 22:39:58.279 D/EGL_emulation(16337): app_time_stats: avg=500.12ms min=498.62ms max=502.14ms count=3
+09-14 22:39:59.778 D/EGL_emulation(16337): app_time_stats: avg=499.59ms min=498.22ms max=500.31ms count=3
+09-14 22:39:59.911 W/PresentationStatsEventLogger(  533): Shouldn't be logging AutofillPresentationEventReported again for same event
+09-14 22:39:59.913 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onFinishInputView():1540 onFinishInputView(true)
+09-14 22:39:59.913 D/InputMethodManager(16337): showSoftInput() view=com.facebook.react.views.textinput.ReactEditText{9bb0bd5 VFED..CL. .F....ID 0,11-802,116 #af aid=1073741826} flags=0 reason=SHOW_SOFT_INPUT
+09-14 22:39:59.913 I/GlobeKeyExtension( 1219): GlobeKeyExtension.onDeactivate():144 
+09-14 22:39:59.913 I/VoiceInputManagerWrapper( 1219): VoiceInputManagerWrapper.shutdown():131 shutdown()
+09-14 22:39:59.914 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020465, callback=gbl@f1f5a69, lastModifier=2, keyCodes=[62], actions=[0]}
+09-14 22:39:59.914 W/ExtensionWrapper( 1219): ExtensionWrapper.setAllowUpdateNavigationBarStyle():818 class jpb is not activate
+09-14 22:39:59.916 W/ExtensionWrapper( 1219): ExtensionWrapper.setAllowUpdateNavigationBarStyle():818 class jpb is not activate
+09-14 22:39:59.917 W/RemoteInputConnectionImpl(16337): requestCursorAnchorInfo on inactive InputConnection
+09-14 22:39:59.918 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+09-14 22:39:59.919 I/InputBundle( 1219): InputBundle.consumeEvent():1005 Skip consuming an event as keyboard status is 0
+09-14 22:39:59.923 W/ModuleManager( 1219): ModuleManager.loadModule():567 Module nyz is not available
+09-14 22:39:59.923 I/AndroidIME( 1219): AbstractIme.onDeactivate():216 LatinIme.onDeactivate()
+09-14 22:39:59.926 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onFinishInput():2054 
+09-14 22:39:59.928 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+09-14 22:39:59.929 I/NebulaeTrainingCacheMetricsProcessor( 1219): NebulaeTrainingCacheMetricsProcessor.processEndSession():510 No input action collection in this session, skip logging.
+09-14 22:39:59.930 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:39:59.931 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onStartInput():1315 onStartInput(EditorInfo{EditorInfo{packageName=com.app.uprise.debug, inputType=80081, inputTypeString=Password[NoSuggestion], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=0, label=null, fieldId=175, fieldName=null, extras=null, hintText=non-empty, hintLocales=[]}}, false)
+09-14 22:39:59.931 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=0, callback=gbl@af6781e, lastModifier=0, keyCodes=[57, 57], actions=[1, 0]}
+09-14 22:39:59.931 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=0, callback=gbl@e231d15, lastModifier=0, keyCodes=[58, 58], actions=[1, 0]}
+09-14 22:39:59.932 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+09-14 22:39:59.933 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onStartInputView():1408 onStartInputView(EditorInfo{EditorInfo{packageName=com.app.uprise.debug, inputType=80081, inputTypeString=Password[NoSuggestion], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=0, label=null, fieldId=175, fieldName=null, extras=null, hintText=non-empty, hintLocales=[]}}, false)
+09-14 22:39:59.933 W/ModuleManager( 1219): ModuleManager.loadModule():567 Module nfr is not available
+09-14 22:39:59.933 I/KeyboardHeightUtil( 1219): KeyboardHeightUtil.getOemKeyboardHeightRatio():108 systemKeyboardHeightRatio:1.000000.
+09-14 22:39:59.936 D/CoreBackPreview(  533): Window{98be6e9 u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@2040ec8, mPriority=0}
+09-14 22:39:59.936 I/OnDeviceWmrCalculator( 1219): OnDeviceWmrCalculator.calculateWmr():94 WMR: 0.0000 (0 / 1)
+09-14 22:39:59.941 I/AndroidIME( 1219): InputBundleManager.loadActiveInputBundleId():528 loadActiveInputBundleId: und-Latn-x-password, password
+09-14 22:39:59.941 I/AndroidIME( 1219): AbstractIme.onActivate():96 PasswordIme.onActivate() : EditorInfo = EditorInfo{packageName=com.app.uprise.debug, inputType=80081, inputTypeString=Password[NoSuggestion], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=0, label=null, fieldId=175, fieldName=null, extras=null, hintText=non-empty, hintLocales=[]}, IncognitoMode = false, DeviceLocked = false
+09-14 22:39:59.941 I/KeyboardWrapper( 1219): KeyboardWrapper.activateKeyboard():580 activateKeyboard(): type=accessory, status=0, imeDef=mib{stringId=password, language=und-Latn-x-password, languageTag=und-Latn-x-password, processedConditions={writing_helper_enable_by_word_revert=false, enable_access_points_in_password_number=true, variant=qwerty, true=true, language=en-US, enable_number_row=true, device=phone, enable_number_row_in_password=true, enable_pk_simulator=false}, className=com.google.android.libraries.inputmethod.ime.password.PasswordIme, label=2132019263, keyEventInterpreter=null, inlineComposing=true, autoCapital=true, announceAutoSelectedCandidate=true, statusIcon=0, indicatorIcon=0, indicatorLabel=null, displayAppCompletions=false, extraValues=mhu{}, processors=mjs@513e038, unacceptableMetaKeys=4098, languageSpecificSettings=0, asciiCapable=false, alwaysShowSuggestions=false, useAsciiPasswordKeyboard=false, keyboardGroupDef=mjb@b17b811, phenotypeFlagId=0, localizationLanguageTag=null, supportsInlineSuggestion=false}
+09-14 22:39:59.941 I/KeyboardManager( 1219): KeyboardManager.requestKeyboard():248 Creating keyboard accessory, imeId=password, cacheKey=theme,!gsf,!pgsans,!pgsf,!use_system_font,BORDER,FLAVOR_DPI=XXHDPI,GOOGLE_ICONS,IS_LIGHT,KEYBOARD_WIDTH_CATEGORY=NORMAL,KEY_BORDER_SHAPE=1,LIGHT_THEME=true,PHYSICAL_DIAGONAL=5.9809904,POPUP,SCREEN_SHORTEST_WIDTH=411,SCREEN_SHORTEST_WIDTH_NO_SCALE=411,SW400DP,XXHDPI,bottom4dp,enable_google_fonts_icons=true,enable_popup_on_keypress=true,keyboard_redesign_google_sans=true,noshadow,overlay_builtin_dynamic_color_light_base.binarypb:gm3-light-fff6faff-ff00668b-56f817bf6f42ccf90a80ef5515de5bdc,silkpopup
+09-14 22:39:59.941 I/KeyboardWrapper( 1219): KeyboardWrapper.onKeyboardReady():223 onKeyboardReady(): type=accessory(accessory), kb=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard@d2dfd38
+09-14 22:39:59.942 I/KeyboardWrapper( 1219): KeyboardWrapper.doActivateKeyboard():610 doActivateKeyboard(): accessory
+09-14 22:39:59.942 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=HEADER, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:59.944 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=BODY, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:59.945 I/GlobeKeyExtension( 1219): GlobeKeyExtension.getKeyboardInitialStates():175 
+09-14 22:39:59.947 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=HEADER, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:59.947 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=BODY, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:59.948 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=FLOATING_CANDIDATES, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:59.948 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=WIDGET, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:59.949 I/KeyboardManager( 1219): KeyboardManager.requestKeyboard():248 Creating keyboard accessory_candidates_consumer, imeId=password, cacheKey=theme,!gsf,!pgsans,!pgsf,!use_system_font,BORDER,FLAVOR_DPI=XXHDPI,GOOGLE_ICONS,IS_LIGHT,KEYBOARD_WIDTH_CATEGORY=NORMAL,KEY_BORDER_SHAPE=1,LIGHT_THEME=true,PHYSICAL_DIAGONAL=5.9809904,POPUP,SCREEN_SHORTEST_WIDTH=411,SCREEN_SHORTEST_WIDTH_NO_SCALE=411,SW400DP,XXHDPI,bottom4dp,enable_google_fonts_icons=true,enable_popup_on_keypress=true,keyboard_redesign_google_sans=true,noshadow,overlay_builtin_dynamic_color_light_base.binarypb:gm3-light-fff6faff-ff00668b-56f817bf6f42ccf90a80ef5515de5bdc,silkpopup
+09-14 22:39:59.950 I/GlobeKeyExtension( 1219): GlobeKeyExtension.getKeyboardInitialStates():175 
+09-14 22:39:59.951 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={global_theme_key=theme,!gsf,!pgsans,!pgsf,!use_system_font,BORDER,FLAVOR_DPI=XXHDPI,GOOGLE_ICONS,IS_LIGHT,KEYBOARD_WIDTH_CATEGORY=NORMAL,KEY_BORDER_SHAPE=1,LIGHT_THEME=true,PHYSICAL_DIAGONAL=5.9809904,POPUP,SCREEN_SHORTEST_WIDTH=411,SCREEN_SHORTEST_WIDTH_NO_SCALE=411,SW400DP,XXHDPI,bottom4dp,enable_google_fonts_icons=true,enable_popup_on_keypress=true,keyboard_redesign_google_sans=true,noshadow,overlay_builtin_dynamic_color_light_base.binarypb:gm3-light-fff6faff-ff00668b-56f817bf6f42ccf90a80ef5515de5bdc,silkpopup, global_locale=en_US, global_density_dpi=420, global_orientation=1}, className=.latin.keyboard.AccessoryKeyboard, resourceIds=[#0x7f17004c], initialStates=0, keyboardViewDefs=[mjj{direction=null, id=#0x7f0b020d, isScalable=false, layoutId=#0x7f0e0032, type=FLOATING_CANDIDATES, touchable=true, defaultShow=false}], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=#0x7f0e05ed, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=HEADER, helpersCreated=[null, null, lvj@49f941a, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:59.952 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={global_theme_key=theme,!gsf,!pgsans,!pgsf,!use_system_font,BORDER,FLAVOR_DPI=XXHDPI,GOOGLE_ICONS,IS_LIGHT,KEYBOARD_WIDTH_CATEGORY=NORMAL,KEY_BORDER_SHAPE=1,LIGHT_THEME=true,PHYSICAL_DIAGONAL=5.9809904,POPUP,SCREEN_SHORTEST_WIDTH=411,SCREEN_SHORTEST_WIDTH_NO_SCALE=411,SW400DP,XXHDPI,bottom4dp,enable_google_fonts_icons=true,enable_popup_on_keypress=true,keyboard_redesign_google_sans=true,noshadow,overlay_builtin_dynamic_color_light_base.binarypb:gm3-light-fff6faff-ff00668b-56f817bf6f42ccf90a80ef5515de5bdc,silkpopup, global_locale=en_US, global_density_dpi=420, global_orientation=1}, className=.latin.keyboard.AccessoryKeyboard, resourceIds=[#0x7f17004c], initialStates=0, keyboardViewDefs=[mjj{direction=null, id=#0x7f0b020d, isScalable=false, layoutId=#0x7f0e0032, type=FLOATING_CANDIDATES, touchable=true, defaultShow=false}], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=#0x7f0e05ed, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=BODY, helpersCreated=[null, null, lvj@49f941a, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:59.954 I/AndroidIME( 1219): InputBundleManager.startInput():358 startInput() with mjf[keyboardType=accessory, payload=null]
+09-14 22:39:59.954 I/GlobeKeyExtension( 1219): GlobeKeyExtension.onActivate():120 
+09-14 22:39:59.956 W/AutoPasteSuggestionHelper( 1219): AutoPasteSuggestionHelper.setMaxWidthOfChipTextView():1066 Failed to get the width of the proactive suggestion view holder in HEADER.
+09-14 22:39:59.956 W/AutoPasteSuggestionHelper( 1219): AutoPasteSuggestionHelper.setMaxWidthOfChipTextView():1066 Failed to get the width of the proactive suggestion view holder in HEADER.
+09-14 22:39:59.957 W/AutoPasteSuggestionHelper( 1219): AutoPasteSuggestionHelper.setMaxWidthOfChipTextView():1066 Failed to get the width of the proactive suggestion view holder in WIDGET.
+09-14 22:39:59.957 I/ProactiveSuggestionsHolderManager( 1219): ProactiveSuggestionsHolderManager$2.display():216 Requesting to show proactive suggestions: CLIPBOARD PREEMPTIVE_WITH_SUPPRESSION in HEADER
+09-14 22:39:59.958 I/ProactiveSuggestionsHolderManager( 1219): ProactiveSuggestionsHolderManager$2.display():228 suggestions CLIPBOARD are pending to show on HEADER
+09-14 22:39:59.960 I/ProactiveSuggestionsHolderManager( 1219): ProactiveSuggestionsHolderManager$2.display():216 Requesting to show proactive suggestions: CLIPBOARD PREEMPTIVE_WITH_SUPPRESSION in WIDGET
+09-14 22:39:59.960 I/ProactiveSuggestionsHolderManager( 1219): ProactiveSuggestionsHolderManager$2.display():228 suggestions CLIPBOARD are pending to show on WIDGET
+09-14 22:39:59.961 I/NewLanguagePromptExtension( 1219): NewLanguagePromptExtension.onActivate():189 Not activated NewLanguagePromptExtension: not a normal text input box.
+09-14 22:39:59.962 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020457, callback=cgn@6c11a65, lastModifier=2, keyCodes=[56], actions=[0]}
+09-14 22:39:59.963 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020457, callback=cgn@9ca58dc, lastModifier=2, keyCodes=[56], actions=[0]}
+09-14 22:39:59.964 I/VoiceInputManagerWrapper( 1219): VoiceInputManagerWrapper.cancelShutdown():109 cancelShutdown()
+09-14 22:39:59.964 I/VoiceInputManagerWrapper( 1219): VoiceInputManagerWrapper.syncLanguagePacks():121 syncLanguagePacks()
+09-14 22:39:59.965 I/VoiceInputManager( 1219): VoiceInputManager.onKeyboardActivated():1120 onKeyboardActivated() [UD]
+09-14 22:39:59.967 I/SpeechFactory( 1219): SpeechRecognitionFactory.maybeScheduleAutoPackDownloadForFallback():217 maybeScheduleAutoPackDownloadForFallback()
+09-14 22:39:59.967 I/FallbackOnDeviceRecognitionProvider( 1219): FallbackOnDeviceRecognitionProvider.maybeScheduleAutoPackDownload():200 maybeScheduleAutoPackDownload() for language tag en-US
+09-14 22:39:59.968 I/PkModeUpdater( 1219): PkModeUpdater.onActivate():74 onActivate true true
+09-14 22:39:59.968 I/AccessoryInputModeManager( 1219): AccessoryInputModeManager.onModeStarted():317 Accessory input mode started: PK
+09-14 22:39:59.969 W/ExtensionWrapper( 1219): ExtensionWrapper.setAllowUpdateNavigationBarStyle():818 class jpb is not activate
+09-14 22:39:59.969 I/WidgetViewShowingController( 1219): WidgetViewShowingController.showWidgetKeyboardInternal():527 Show companion widget
+09-14 22:39:59.971 W/ExtensionWrapper( 1219): ExtensionWrapper.setAllowUpdateNavigationBarStyle():818 class jpb is not activate
+09-14 22:39:59.971 I/WidgetViewShowingPositionHandler( 1219): WidgetViewShowingPositionHandler.updateAvailableArea():194 update available area Rect(21, 153 - 1059, 2270)
+09-14 22:39:59.972 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020465, callback=gbl@6d4cd12, lastModifier=2, keyCodes=[62], actions=[0]}
+09-14 22:39:59.973 I/KeyboardModeUtils( 1219): KeyboardModeUtils.getKeyboardBottomOffset():435 inch: 0.000000 ydpi: 420.000000 adjustKeyboardBottomByDisplaySize: false currentDensityDpi: 420 defaultDensityDpi: 420 keyboardBottomToScreenPx: 0 keyboardBottomToNavBarPx: -126 navBarHeight: 126
+09-14 22:39:59.973 I/KeyboardHeightUtil( 1219): KeyboardHeightUtil.calculateMaxKeyboardBodyHeight():50 leave 281 height for app when ime window height:2142, header height:116 and isFullscreenMode:false, so the max keyboard body height is:1745
+09-14 22:39:59.973 I/KeyboardHeightUtil( 1219): KeyboardHeightUtil.calculateMaxKeyboardBodyHeight():50 leave 281 height for app when ime window height:2142, header height:116 and isFullscreenMode:false, so the max keyboard body height is:1745
+09-14 22:39:59.974 I/KeyboardHeightUtil( 1219): KeyboardHeightUtil.calculateMaxKeyboardBodyHeight():50 leave 281 height for app when ime window height:2142, header height:116 and isFullscreenMode:false, so the max keyboard body height is:1745
+09-14 22:39:59.974 I/KeyboardHeightUtil( 1219): KeyboardHeightUtil.calculateMaxKeyboardBodyHeight():50 leave 281 height for app when ime window height:2142, header height:116 and isFullscreenMode:false, so the max keyboard body height is:1745
+09-14 22:39:59.974 W/ExtensionWrapper( 1219): ExtensionWrapper.setExtensionViewVisibility():809 interface lyo is not activate
+09-14 22:39:59.976 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+09-14 22:39:59.976 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020461, callback=cgn@f573208, lastModifier=2, keyCodes=[48], actions=[0]}
+09-14 22:39:59.976 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020461, callback=cgn@a43b10c, lastModifier=2, keyCodes=[48], actions=[0]}
+09-14 22:39:59.976 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020457, callback=cgn@a8bc2dd, lastModifier=2, keyCodes=[56], actions=[0]}
+09-14 22:39:59.976 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020457, callback=cgn@62326d1, lastModifier=2, keyCodes=[56], actions=[0]}
+09-14 22:39:59.977 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020461, callback=cgn@bc32d9e, lastModifier=2, keyCodes=[48], actions=[0]}
+09-14 22:39:59.977 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020461, callback=cgn@b669ec2, lastModifier=2, keyCodes=[48], actions=[0]}
+09-14 22:39:59.977 I/CurrentMicStatusHolder( 1219): CurrentMicStatusHolder.onStartInputView():81 Current Mic status = {MicIconHidden-PasswordOrNumberOrDateInputType,}
+09-14 22:39:59.977 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020462, callback=cgn@a5ee59b, lastModifier=2, keyCodes=[32], actions=[0]}
+09-14 22:39:59.977 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020462, callback=cgn@fc6fb2f, lastModifier=2, keyCodes=[32], actions=[0]}
+09-14 22:39:59.977 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020462, callback=cgn@655e4e4, lastModifier=2, keyCodes=[32], actions=[0]}
+09-14 22:39:59.978 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020462, callback=cgn@448a928, lastModifier=2, keyCodes=[32], actions=[0]}
+09-14 22:39:59.978 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020462, callback=cgn@7e64149, lastModifier=2, keyCodes=[32], actions=[0]}
+09-14 22:39:59.978 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=2132020462, callback=cgn@cb6257d, lastModifier=2, keyCodes=[32], actions=[0]}
+09-14 22:39:59.980 I/WindowMetricsNotification( 1219): WindowMetricsNotification.notifyWithWindow():166 
+09-14 22:39:59.980 D/InsetsController(16337): show(ime(), fromIme=true)
+09-14 22:39:59.980 I/WindowMetricsNotification( 1219): WindowMetricsNotification.notify():159 pct[bounds=Rect(0, 132 - 1080, 2400), insets=Rect(0, 0 - 0, 126), densityDpi=420, smallestScreenWidthDp=411, displayWidth=1080, displayHeight=2400, xdpi=420.0, ydpi=420.0, isTrustable=true, displayId=0]; DisplayMetrics{density=2.625, width=1080, height=2400, scaledDensity=2.625, xdpi=420.0, ydpi=420.0}
+09-14 22:39:59.983 I/GoogleInputMethodService( 1219): GoogleInputMethodService$1.onKeyboardViewShown():321 onKeyboardViewShown: keyboardType=accessory, keyboardViewType=HEADER keyboardView=null
+09-14 22:39:59.984 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=BODY, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:59.985 I/GoogleInputMethodService( 1219): GoogleInputMethodService$1.onKeyboardViewShown():321 onKeyboardViewShown: keyboardType=accessory, keyboardViewType=BODY keyboardView=null
+09-14 22:39:59.985 D/EGL_emulation( 1219): app_time_stats: avg=335.46ms min=2.43ms max=8853.80ms count=27
+09-14 22:39:59.986 W/Keyboard( 1219): Keyboard.getKeyboardViewHelper():591 null helper is returned: keyboardDef=miv{processedConditions={}, globalConditions={}, className=com.google.android.libraries.inputmethod.keyboard.impl.Keyboard, resourceIds=[#0x7f17004d], initialStates=0, keyboardViewDefs=[], persistentStates=0, persistentStatesPrefKey=null, popupBubbleLayoutId=0, recentKeyLayoutId=0, recentKeyPopupLayoutId=0, recentKeyType=null, rememberRecentKey=NONE, sessionStates=0}, type=BODY, helpersCreated=[null, null, null, null], context.getResources().getConfiguration(): {1.0 310mcc260mnc [en_US] ldltr sw411dp w411dp h840dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 132 - 1080, 2337) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} as.3 s.72 fontWeightAdjustment=0}
+09-14 22:39:59.991 D/CoreBackPreview(  533): Window{98be6e9 u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@eeb6b61, mPriority=0}
+09-14 22:39:59.993 D/InsetsController(16337): show(ime(), fromIme=true)
+09-14 22:40:00.032 I/AiAiEcho( 1286): Predicting[0]: 
+09-14 22:40:00.032 I/AiAiEcho( 1286): Ranked targets strategy: SORT, count: 0, ranking metadata: 
+09-14 22:40:00.033 I/AiAiEcho( 1286): #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0
+09-14 22:40:00.033 I/AiAiEcho( 1286): #postPredictionTargets: Sending updates to UISurface home with targets# 0
+09-14 22:40:00.033 D/EGL_emulation(  748): app_time_stats: avg=14851.38ms min=14851.38ms max=14851.38ms count=1
+09-14 22:40:00.034 I/AiAiEcho( 1286): #postPredictionTargets: Sending updates to UISurface media_data_manager with targets# 0
+09-14 22:40:00.049 D/SsMediaDataProvider(  748): Forwarding Smartspace updates []
+09-14 22:40:00.928 D/EGL_emulation(16337): app_time_stats: avg=382.99ms min=139.20ms max=508.92ms count=3
+09-14 22:40:02.286 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:02.295 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:02.297 D/EGL_emulation(16337): app_time_stats: avg=456.08ms min=368.49ms max=500.05ms count=3
+09-14 22:40:02.313 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:02.313 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:02.316 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:03.254 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:03.261 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:03.263 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:03.328 D/EGL_emulation(16337): app_time_stats: avg=171.80ms min=15.23ms max=449.98ms count=6
+09-14 22:40:04.536 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:04.545 D/EGL_emulation(16337): app_time_stats: avg=405.66ms min=284.04ms max=499.69ms count=3
+09-14 22:40:04.547 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:04.547 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:04.716 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:04.727 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:04.851 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:04.862 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:04.987 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:04.988 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:05.122 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:05.124 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:05.728 D/EGL_emulation(16337): app_time_stats: avg=236.56ms min=67.43ms max=499.43ms count=5
+09-14 22:40:05.798 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:05.800 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:05.811 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:05.811 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:05.814 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:05.995 D/BoundBrokerSvc( 1318): onUnbind: Intent { act=com.google.android.gms.wallet.service.BIND pkg=com.google.android.gms }
+09-14 22:40:06.007 D/BoundBrokerSvc( 1318): onUnbind: Intent { act=com.google.android.gms.auth.api.phone.service.SmsRetrieverApiService.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsApiService }
+09-14 22:40:06.024 D/BoundBrokerSvc( 1176): onUnbind: Intent { act=com.google.android.gms.auth.aang.events.services.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentApiService }
+09-14 22:40:06.179 D/BoundBrokerSvc( 1318): onUnbind: Intent { act=com.google.android.gms.chromesync.service.zeroparty.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsApiService }
+09-14 22:40:06.247 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:06.262 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:06.262 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:06.356 D/BoundBrokerSvc( 1318): onUnbind: Intent { act=com.google.android.mdd.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsBoundBrokerService }
+09-14 22:40:06.366 D/BoundBrokerSvc( 1318): onUnbind: Intent { act=com.google.android.gms.auth.api.credentials.internal_service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.GmsInternalBoundBrokerService }
+09-14 22:40:06.562 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:06.579 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:06.579 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:06.786 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:06.795 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:06.796 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:06.799 D/EGL_emulation(16337): app_time_stats: avg=133.79ms min=19.04ms max=369.32ms count=8
+09-14 22:40:07.004 D/BoundBrokerSvc( 1176): onUnbind: Intent { act=com.google.android.gms.libs.gmscorelogger.service.START dat=chimera-action:/... cmp=com.google.android.gms/.chimera.PersistentDirectBootAwareApiService }
+09-14 22:40:07.102 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:07.112 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:07.112 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:07.485 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:07.494 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:07.495 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:07.995 D/EGL_emulation(16337): app_time_stats: avg=199.27ms min=47.18ms max=448.25ms count=6
+09-14 22:40:08.654 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:08.656 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:08.662 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:08.662 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:08.664 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:08.838 W/ThreadPoolForeg( 1176): type=1400 audit(0.0:1793): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=684 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-14 22:40:08.991 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:08.997 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:08.997 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:08.998 D/EGL_emulation(16337): app_time_stats: avg=200.57ms min=19.17ms max=501.75ms count=5
+09-14 22:40:09.308 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:09.316 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:09.316 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:09.667 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:09.678 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id SUGGESTION_VIEW_EDU_MINI_DIALOG not found in tooltipManager.
+09-14 22:40:09.679 E/NotificationCenter( 1219): NotificationCenter.registerListenerInternal():378 Listener mck@c6f4d3 is already registered for notification class lnz
+09-14 22:40:09.858 W/ThreadPoolForeg( 1318): type=1400 audit(0.0:1794): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=684 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+09-14 22:40:10.180 D/EGL_emulation(16337): app_time_stats: avg=168.66ms min=16.93ms max=451.35ms count=7
+09-14 22:40:11.196 D/EGL_emulation(16337): app_time_stats: avg=338.60ms min=18.06ms max=499.58ms count=3
+09-14 22:40:12.695 D/EGL_emulation(16337): app_time_stats: avg=499.62ms min=483.88ms max=516.30ms count=3
+09-14 22:40:14.196 D/EGL_emulation(16337): app_time_stats: avg=500.16ms min=499.05ms max=500.79ms count=3
+09-14 22:40:15.014 D/BoundBrokerSvc( 1318): onUnbind: Intent { act=com.google.firebase.dynamiclinks.service.START pkg=com.google.android.gms }
+09-14 22:40:15.695 D/EGL_emulation(16337): app_time_stats: avg=499.74ms min=499.49ms max=499.97ms count=3
+09-14 22:40:16.683 D/InputDispatcher(  533): Touch mode switch rejected, caller (pid=0, uid=10200) doesn't own the focused window nor none of the previously interacted window
+09-14 22:40:16.719 D/EGL_emulation(16337): app_time_stats: avg=341.28ms min=24.23ms max=501.45ms count=3
+09-14 22:40:16.828 D/AudioFlinger(  346): mixer(0x778295a989a0) throttle end: throttle time(35)
+09-14 22:40:16.897 E/unknown:ReactModalHost(16337): Creating new dialog from context: com.app.uprise.MainActivity@1182b4c@18361164
+09-14 22:40:16.901 W/Parcel  (16337): Expecting binder but got null!
+09-14 22:40:16.904 D/CompatibilityChangeReporter(  533): Compat change id reported: 168419799; UID 10200; state: DISABLED
+09-14 22:40:16.905 D/CompatibilityChangeReporter(  533): Compat change id reported: 273564678; UID 10200; state: DISABLED
+09-14 22:40:16.908 D/CoreBackPreview(  533): Window{be08c3f u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@5318255, mPriority=0}
+09-14 22:40:16.923 I/ReactNativeJS(16337): 'getRequestURL', { base: 'http://10.0.2.2:8080', path: '/auth/login' }
+09-14 22:40:16.943 E/OpenGLRenderer(16337): Unable to match the desired swap behavior.
+09-14 22:40:16.973 I/ReactNativeJS(16337): 'AUTH RES', { url: 'http://10.0.2.2:8080/auth/login', status: 200 }
+09-14 22:40:16.977 E/unknown:ReactModalHost(16337): Updating existing dialog with context: com.app.uprise.MainActivity@1182b4c@18361164
+09-14 22:40:17.074 D/CoreBackPreview(  533): Window{98be6e9 u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@23cb9f8, mPriority=0}
+09-14 22:40:17.074 D/CoreBackPreview(  533): Window{be08c3f u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@254eed1, mPriority=0}
+09-14 22:40:17.076 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onFinishInputView():1540 onFinishInputView(false)
+09-14 22:40:17.076 I/GlobeKeyExtension( 1219): GlobeKeyExtension.onDeactivate():144 
+09-14 22:40:17.077 I/VoiceInputManagerWrapper( 1219): VoiceInputManagerWrapper.shutdown():131 shutdown()
+09-14 22:40:17.077 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=2132020465, callback=gbl@6d4cd12, lastModifier=2, keyCodes=[62], actions=[0]}
+09-14 22:40:17.081 D/CoreBackPreview(  533): Window{be08c3f u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@87f7da4, mPriority=0}
+09-14 22:40:17.082 D/CoreBackPreview(  533): Window{be08c3f u0 com.app.uprise.debug/com.app.uprise.MainActivity}: Setting back callback null
+09-14 22:40:17.085 W/ExtensionWrapper( 1219): ExtensionWrapper.setAllowUpdateNavigationBarStyle():818 class jpb is not activate
+09-14 22:40:17.089 W/InputManager-JNI(  533): Input channel object 'be08c3f com.app.uprise.debug/com.app.uprise.MainActivity (client)' was disposed without first being removed with the input manager!
+09-14 22:40:17.090 W/ExtensionWrapper( 1219): ExtensionWrapper.setAllowUpdateNavigationBarStyle():818 class jpb is not activate
+09-14 22:40:17.101 W/RemoteInputConnectionImpl(16337): requestCursorAnchorInfo on inactive InputConnection
+09-14 22:40:17.104 W/TooltipLifecycleManager( 1219): TooltipLifecycleManager.dismissTooltips():153 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+09-14 22:40:17.104 V/WindowManager(  533): Unknown focus tokens, dropping reportFocusChanged
+09-14 22:40:17.104 I/AndroidIME( 1219): AbstractIme.onDeactivate():216 PasswordIme.onDeactivate()
+09-14 22:40:17.107 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onFinishInput():2054 
+09-14 22:40:17.108 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+09-14 22:40:17.110 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onStartInput():1315 onStartInput(EditorInfo{EditorInfo{packageName=com.app.uprise.debug, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=-1, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+09-14 22:40:17.110 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=0, callback=gbl@cc46d3b, lastModifier=0, keyCodes=[57, 57], actions=[1, 0]}
+09-14 22:40:17.110 I/HardKeyTracker( 1219): HardKeyTracker.registerKeySequence():170 Register key sequence ndp{labelResId=0, callback=gbl@3ebb696, lastModifier=0, keyCodes=[58, 58], actions=[1, 0]}
+09-14 22:40:17.112 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+09-14 22:40:17.117 D/EGL_emulation( 1219): app_time_stats: avg=2447.12ms min=8.78ms max=17036.97ms count=7
+09-14 22:40:17.124 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onFinishInput():2054 
+09-14 22:40:17.124 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+09-14 22:40:17.126 I/GoogleInputMethodService( 1219): GoogleInputMethodService.onStartInput():1315 onStartInput(EditorInfo{EditorInfo{packageName=com.app.uprise.debug, inputType=80081, inputTypeString=Password[NoSuggestion], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=10, initialSelEnd=10, initialCapsMode=0, label=null, fieldId=175, fieldName=null, extras=null, hintText=non-empty, hintLocales=[]}}, false)
+09-14 22:40:17.126 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=0, callback=gbl@cc46d3b, lastModifier=0, keyCodes=[57, 57], actions=[1, 0]}
+09-14 22:40:17.126 I/HardKeyTracker( 1219): HardKeyTracker.unregisterKeySequence():221 Unregister key sequence ndp{labelResId=0, callback=gbl@3ebb696, lastModifier=0, keyCodes=[58, 58], actions=[1, 0]}
+09-14 22:40:17.127 I/Module  ( 1219): DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+09-14 22:40:18.129 D/EGL_emulation(16337): app_time_stats: avg=101.74ms min=2.63ms max=501.51ms count=13
+09-14 22:40:19.645 D/EGL_emulation(16337): app_time_stats: avg=505.24ms min=498.67ms max=517.52ms count=3
+09-14 22:40:20.646 D/EGL_emulation(16337): app_time_stats: avg=500.23ms min=499.19ms max=501.26ms count=2
+09-14 22:40:21.647 D/EGL_emulation(16337): app_time_stats: avg=500.30ms min=498.02ms max=502.58ms count=2
+09-14 22:40:23.147 D/EGL_emulation(16337): app_time_stats: avg=500.22ms min=497.62ms max=502.54ms count=3
+09-14 22:40:24.644 D/EGL_emulation(16337): app_time_stats: avg=498.91ms min=497.34ms max=499.91ms count=3
+09-14 22:40:25.180 D/EGL_emulation(  748): app_time_stats: avg=25146.77ms min=25146.77ms max=25146.77ms count=1
+09-14 22:40:25.644 D/EGL_emulation(16337): app_time_stats: avg=500.01ms min=498.68ms max=501.33ms count=2
+09-14 22:40:27.160 D/EGL_emulation(16337): app_time_stats: avg=505.31ms min=496.87ms max=516.34ms count=3
+09-14 22:40:28.161 D/EGL_emulation(16337): app_time_stats: avg=500.14ms min=499.31ms max=500.97ms count=2
+09-14 22:40:28.782 D/androidtc(  533): Initializing SystemTextClassifier, type = System
+09-14 22:40:28.784 I/AiAiTextClassifier( 1286): onCreateTextClassificationSession = TextClassificationSessionId {e3fd8b0f-5254-4cd9-9ee3-e4d49f4f4cae}
+09-14 22:40:28.786 I/AiAiTranslate( 1286): C2T - not in a conversation
+09-14 22:40:28.787 D/androidtc( 1219): Initializing SystemTextClassifier, type = System
+09-14 22:40:28.787 I/AiAiTextClassifier( 1286): Initialize textClassifierLib, privileged changed = [true], TC null = [false]
+09-14 22:40:28.789 I/AiAiTextClassifier( 1286): GenerateLinks did not find valid links, returning empty result
+09-14 22:40:28.795 I/AiAiTextClassifier( 1286): GenerateLinks did not find valid links, returning empty result
+09-14 22:40:28.795 I/AiAiTextClassifier( 1286): Initialize textClassifierLib, privileged changed = [true], TC null = [false]
+09-14 22:40:28.797 I/ClipboardListener(  748): Clipboard overlay suppressed.
+09-14 22:40:28.801 I/AiAiTextClassifier( 1286): GenerateLinks did not find valid links, returning empty result
+09-14 22:40:28.815 I/ClipboardListener(  748): Clipboard overlay suppressed.
+09-14 22:40:29.162 D/EGL_emulation(16337): app_time_stats: avg=500.49ms min=500.28ms max=500.69ms count=2
+09-14 22:40:30.663 D/EGL_emulation(16337): app_time_stats: avg=500.27ms min=498.78ms max=501.38ms count=3
+09-14 22:40:32.161 D/EGL_emulation(16337): app_time_stats: avg=499.18ms min=496.96ms max=500.36ms count=3
+09-14 22:40:33.662 D/EGL_emulation(16337): app_time_stats: avg=500.18ms min=499.35ms max=501.40ms count=3

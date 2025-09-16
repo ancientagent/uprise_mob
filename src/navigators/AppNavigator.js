@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useDispatch, useSelector } from 'react-redux';
+import * as RootNavigation from './RootNavigation';
 import AsyncStorage
 from '@react-native-async-storage/async-storage';
 import AuthNavigator from './AuthNavigator';
@@ -13,6 +14,7 @@ import { showminiPlayer } from '../utilities/utilities';
 import {
   currentScreen,
 } from '../state/selectors/UserProfile';
+import { accessToken } from '../state/selectors/UserProfile';
 import OnDemandPlayer from '../screens/MiniPlayer/OnDemandPlayer';
 import Colors from '../theme/colors';
 
@@ -38,6 +40,7 @@ function RootNavigator() {
 const AppNavigator = props => {
   const { navState } = props;
   const dispatch = useDispatch();
+  const token = useSelector(accessToken);
   const isInternetAvailable = useSelector(state => state.network.isConnected);
   const isNetworkPopupDisplayed = useSelector(state => state.networkPopup.showPopup);
   const [playerState, setPlayerState] = useState(false);

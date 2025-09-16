@@ -3,7 +3,15 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
-     <item name="android:statusBarColor">@color/statusBarColour</item>
+        <item name="android:statusBarColor">@color/statusBarColour</item>
+        <!-- Avoid Android 12 EditText background/cursor crashes by removing drawable lookups -->
+        <item name="android:editTextStyle">@style/UR_EditText</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
+    <!-- App EditText style: remove background drawable to prevent NPE in DrawableContainer -->
+    <style name="UR_EditText" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:background">@null</item>
     </style>
 
 </resources>

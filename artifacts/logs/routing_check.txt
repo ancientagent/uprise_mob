@@ -1,0 +1,62 @@
+# Routing intent scan
+
+== Looking for login saga ==
+FOUND: src/state/sagas/login/login.saga.js
+-- Route/navigation calls around login saga --
+6:import * as RootNavigation from '../../../navigators/RootNavigation';
+12:import { userAuthAction } from '../../actions/userAuth/userAuth.action';
+37:      yield put(userAuthAction(authDetails));
+62:      // In Debug, default to forcing Dashboard unless explicitly set to 'false'
+63:      const forceDashboard = __DEV__
+67:      // Route: if fully onboarded (status === 2) AND hasCommunity → Dashboard
+68:      // Otherwise → Home Scene Creation (CommunitySetup)
+69:      if (forceDashboard || (status === 2 && hasCommunity)) {
+70:        try { RootNavigation.navigate('CommunitySetup', { fromLogin: true }); } catch (_) { /* noop */ }
+72:        try { RootNavigation.navigate('CommunitySetup', { fromLogin: true }); } catch (_) { /* noop */ }
+
+== Searching for CommunitySetup registration and navigators ==
+src/screens/userProfile/ProfileTab/ProfileTab.js:291:                onPress={ () => navigation.navigate('CommunitySetup') }
+src/screens/Onboarding/CommunitySetup.js:18:export default function CommunitySetup({ navigation, route }) {
+src/screens/AuthLoading/AuthLoading.js:29:      navigation.navigate('CommunitySetup', { fromLogin: true });
+src/navigators/DiscoveryStack.js:4:import { createNativeStackNavigator } from '@react-navigation/native-stack';
+src/navigators/DiscoveryStack.js:33:const DiscoveryStack = createNativeStackNavigator();
+src/navigators/DiscoveryStack.js:37:    <DiscoveryStack.Navigator
+src/navigators/DiscoveryStack.js:544:    </DiscoveryStack.Navigator>
+src/navigators/HomeStack.js:7:import { createNativeStackNavigator } from '@react-navigation/native-stack';
+src/navigators/HomeStack.js:32:import CommunitySetup from '../screens/Onboarding/CommunitySetup';
+src/navigators/HomeStack.js:35:const HomeStack = createNativeStackNavigator();
+src/navigators/HomeStack.js:39:    <HomeStack.Navigator
+src/navigators/HomeStack.js:353:      <HomeStack.Screen name='CommunitySetup' component={ CommunitySetup } options={ () => ({ headerTitle: 'Community' }) } />
+src/navigators/HomeStack.js:545:    </HomeStack.Navigator>
+src/navigators/BottomTabs.js:3:import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+src/navigators/BottomTabs.js:28:const Tab = createBottomTabNavigator();
+src/navigators/BottomTabs.js:103:                    { strings('BottomNavigator.reportSong') }
+src/navigators/BottomTabs.js:106:                    { strings('BottomNavigator.comments') }
+src/navigators/BottomTabs.js:110:                      placeholder={ strings('BottomNavigator.enterComment') }
+src/navigators/BottomTabs.js:124:                    title={ strings('BottomNavigator.submit') }
+src/navigators/BottomTabs.js:138:      <Tab.Navigator
+src/navigators/BottomTabs.js:168:                  { strings('BottomNavigator.home') }
+src/navigators/BottomTabs.js:213:                  { strings('BottomNavigator.discovery') }
+src/navigators/BottomTabs.js:221:      </Tab.Navigator>
+src/navigators/AuthNavigator.js:3:import { createNativeStackNavigator } from '@react-navigation/native-stack';
+src/navigators/AuthNavigator.js:14:import CommunitySetup from '../screens/Onboarding/CommunitySetup';
+src/navigators/AuthNavigator.js:16:const AuthStack = createNativeStackNavigator();
+src/navigators/AuthNavigator.js:19:    <AuthStack.Navigator
+src/navigators/AuthNavigator.js:44:      <AuthStack.Screen name='CommunitySetup' component={ CommunitySetup } options={ () => ({ headerTitle: 'Community' }) } />
+src/navigators/AuthNavigator.js:83:    </AuthStack.Navigator>
+src/navigators/AppNavigator.js:3:import { createNativeStackNavigator } from '@react-navigation/native-stack';
+src/navigators/AppNavigator.js:8:import AuthNavigator from './AuthNavigator';
+src/navigators/AppNavigator.js:21:const AuthStack = createNativeStackNavigator();
+src/navigators/AppNavigator.js:22:function RootNavigator() {
+src/navigators/AppNavigator.js:24:    <AuthStack.Navigator
+src/navigators/AppNavigator.js:35:      <AuthStack.Screen name='Auth' component={ AuthNavigator } />
+src/navigators/AppNavigator.js:37:    </AuthStack.Navigator>
+src/navigators/AppNavigator.js:40:const AppNavigator = props => {
+src/navigators/AppNavigator.js:89:      <RootNavigator />
+src/navigators/AppNavigator.js:106:export default AppNavigator;
+src/utilities/localization/locales/en.js:11:  BottomNavigator: {
+src/state/sagas/login/login.saga.js:68:      // Otherwise → Home Scene Creation (CommunitySetup)
+src/state/sagas/login/login.saga.js:70:        try { RootNavigation.navigate('CommunitySetup', { fromLogin: true }); } catch (_) { /* noop */ }
+src/state/sagas/login/login.saga.js:72:        try { RootNavigation.navigate('CommunitySetup', { fromLogin: true }); } catch (_) { /* noop */ }
+
+Summary: Login saga routes to 'CommunitySetup' after login; AuthNavigator registers 'CommunitySetup' screen. Evidence: src/state/sagas/login/login.saga.js:69-72; src/navigators/AuthNavigator.js:44; src/navigators/HomeStack.js:353.

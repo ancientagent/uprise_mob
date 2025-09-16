@@ -1,12 +1,79 @@
 **********************
 PowerShell transcript start
-Start time: 20250914183823
+Start time: 20250914191551
 Username: LENNY\baris
 RunAs User: LENNY\baris
 Configuration Name: 
 Machine: LENNY (Microsoft Windows NT 10.0.26100.0)
-Host Application: C:\Program Files\PowerShell\7\pwsh.dll -noexit -command try { . "c:\Users\baris\AppData\Local\Programs\cursor\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
-Process ID: 56396
+Host Application: C:\Program Files\PowerShell\7\pwsh.dll -Command 
+$ErrorActionPreference='Stop'
+$log='artifacts/logs/verify_emulator_build.ps1.log'
+New-Item -ItemType Directory -Force -Path 'artifacts/logs' | Out-Null
+Start-Transcript -Path $log -Force
+
+Write-Host '=== Pulling latest changes ==='
+git pull --rebase origin main
+
+Write-Host '=== Installing dependencies ==='
+if (Get-Command yarn -ErrorAction SilentlyContinue) { 
+    yarn install --frozen-lockfile 
+} else { 
+    npm ci 
+}
+
+Write-Host '=== Building APKs ==='
+Push-Location android
+./gradlew.bat --no-daemon clean assembleDebug assembleRelease
+Pop-Location
+
+$PKG_DEBUG='com.app.uprise.debug'
+$PKG_RELEASE='com.app.uprise'
+$APK_DEBUG='android/app/build/outputs/apk/debug/app-debug.apk'
+$APK_RELEASE='android/app/build/outputs/apk/release/app-release.apk'
+$adb="$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe"
+if(-not (Test-Path $adb)){ $adb='adb' }
+
+Write-Host '=== Installed versions ==='
+& $adb shell dumpsys package $PKG_DEBUG   | Select-String 'version' -SimpleMatch
+& $adb shell dumpsys package $PKG_RELEASE | Select-String 'version' -SimpleMatch
+
+function Get-ApkVersion {
+  param([string]$apk)
+  if (Get-Command apkanalyzer -ErrorAction SilentlyContinue) { 
+    apkanalyzer manifest print $apk | Select-String 'version' 
+  }
+  elseif (Get-Command aapt -ErrorAction SilentlyContinue) { 
+    aapt dump badging $apk | Select-String 'version' 
+  }
+  else { 
+    "(no apkanalyzer/aapt; version unknown)" 
+  }
+}
+
+Write-Host '=== APK versions (files) ==='
+Get-ApkVersion $APK_DEBUG
+Get-ApkVersion $APK_RELEASE
+
+$inst = (& $adb shell dumpsys package $PKG_DEBUG | Select-String 'versionCode=' | ForEach-Object { $_.ToString() }) -join "
+"
+$instCode = ($inst -replace '.versionCode=([0-9]+).','$1' | Select-Object -First 1)
+$apkCode = (Get-ApkVersion $APK_DEBUG | Select-String 'versionCode=' | ForEach-Object { $_.ToString() -replace '.versionCode=([0-9]+).','$1' } | Select-Object -First 1)
+
+Write-Host "Installed debug versionCode: $instCode"
+Write-Host "Debug APK versionCode:      $apkCode"
+
+if ($apkCode -and ($instCode -ne $apkCode)) {
+  Write-Host 'Mismatch → reinstalling debug APK'
+  & $adb uninstall $PKG_DEBUG | Out-Null
+  & $adb install -r -d -t $APK_DEBUG
+} else {
+  Write-Host 'Installed matches (or unknown); skipping reinstall'
+}
+
+Stop-Transcript
+Write-Host "Log: artifacts/logs/verify_emulator_build.ps1.log"
+
+Process ID: 47672
 PSVersion: 7.5.3
 PSEdition: Core
 GitCommitId: 7.5.3
@@ -18,30 +85,35 @@ SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
 Transcript started, output file is artifacts/logs/verify_emulator_build.ps1.log
+=== Pulling latest changes ===
 
+=== Installing dependencies ===
 
+=== Building APKs ===
+See https://docs.gradle.org/7.0.2/userguide/command_line_interface.html#sec:command_line_warnings
 
+Execution optimizations have been disabled for 35 invalid unit(s) of work during this build to ensure corre
+ctness.
+Please consult deprecation warnings for more details.
 
+BUILD SUCCESSFUL in 7m 26s
+1309 actionable tasks: 1161 executed, 148 up-to-date
+=== Installed versions ===
 
-
-
-
-
-Terminate batch job (Y/N)? Get-Process -Name "gradle" -ErrorAction SilentlyContinue | Stop-Process -Force
-Terminate batch job (Y/N)? y
-PS>TerminatingError(): "The pipeline has been stopped."
->> TerminatingError(): "The pipeline has been stopped."
-]633;D;1]633;A]633;P;Cwd=D:\x5cuprise_mob\x5candroidPS D:\uprise_mob\android> ]633;B
-PS>Get-Process -Name "java" -ErrorAction SilentlyContinue | Where-Object {$_.CommandLine -like "*gradle*"} | Stop-Process -Force
-]633;D;0]633;A]633;P;Cwd=D:\x5cuprise_mob\x5candroidPS D:\uprise_mob\android> ]633;B
-PS>Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force
-]633;D;0]633;A]633;P;Cwd=D:\x5cuprise_mob\x5candroidPS D:\uprise_mob\android> ]633;B
-]633;D]633;A]633;P;Cwd=D:\x5cuprise_mob\x5candroidPS D:\uprise_mob\android> ]633;B
-]633;D]633;A]633;P;Cwd=D:\x5cuprise_mob\x5candroidPS D:\uprise_mob\android> ]633;B
-]633;D]633;A]633;P;Cwd=D:\x5cuprise_mob\x5candroidPS D:\uprise_mob\android> ]633;B
-PS>cd ..
-]633;D;0]633;A]633;P;Cwd=D:\x5cuprise_mobPS D:\uprise_mob> ]633;B
+    versionCode=45 minSdk=21 targetSdk=33
+    minExtensionVersions=[]
+    versionName=1.0
+    apkSigningVersion=2
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION 
+ALLOW_AUDIO_PLAYBACK_CAPTURE PARTIALLY_DIRECT_BOOT_AWARE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    signatures=PackageSignatures{10cdfb7 version:2, signatures:[e979fdc], past signatures:[]}
+=== APK versions (files) ===
+(no apkanalyzer/aapt; version unknown)
+(no apkanalyzer/aapt; version unknown)
+Installed debug versionCode:    45minSdk=21 targetSdk=33
+Debug APK versionCode:
+Installed matches (or unknown); skipping reinstall
 **********************
 PowerShell transcript end
-End time: 20250914184346
+End time: 20250914192327
 **********************
