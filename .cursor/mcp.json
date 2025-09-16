@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "mcp-server-filesystem",
+      "args": [
+        "--root",
+        "${workspaceRoot}"
+      ]
+    },
+    "shell": {
+      "command": "mcp-server-shell",
+      "args": [
+        "--shell",
+        "powershell"
+      ]
+    }
+  }
+}
+

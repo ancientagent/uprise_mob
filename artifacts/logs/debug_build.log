@@ -1,1 +1,1236 @@
-{"device":"emulator-5554","apk_path":"D:\\uprise_mob\\android\\app\\build\\outputs\\apk\\debug\\app-debug.apk","logcat":"D:\\uprise_mob\\artifacts\\logcat_health.txt","app_id":"com.app.uprise.debug","configuration":"Debug"}
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/7.0.2/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build 
+
+> Configure project :app
+Reading env from: .env.development
+
+> Configure project :react-native-firebase_analytics
+:react-native-firebase_analytics package.json found at D:\uprise_mob\node_modules\@react-native-firebase\analytics\package.json
+:react-native-firebase_app package.json found at D:\uprise_mob\node_modules\@react-native-firebase\app\package.json
+:react-native-firebase_analytics:firebase.bom using default value: 30.5.0
+:react-native-firebase_analytics package.json found at D:\uprise_mob\node_modules\@react-native-firebase\analytics\package.json
+:react-native-firebase_analytics:version set from package.json: 14.12.0 (14,12,0 - 14012000)
+:react-native-firebase_analytics:android.compileSdk using custom value: 33
+:react-native-firebase_analytics:android.targetSdk using custom value: 33
+:react-native-firebase_analytics:android.minSdk using custom value: 21
+:react-native-firebase_analytics:reactNativeAndroidDir D:\uprise_mob\node_modules\react-native\android
+
+> Configure project :react-native-firebase_app
+:react-native-firebase_app package.json found at D:\uprise_mob\node_modules\@react-native-firebase\app\package.json
+:react-native-firebase_app:firebase.bom using default value: 30.5.0
+:react-native-firebase_app:play.play-services-auth using default value: 20.3.0
+:react-native-firebase_app package.json found at D:\uprise_mob\node_modules\@react-native-firebase\app\package.json
+:react-native-firebase_app:version set from package.json: 14.12.0 (14,12,0 - 14012000)
+:react-native-firebase_app:android.compileSdk using custom value: 33
+:react-native-firebase_app:android.targetSdk using custom value: 33
+:react-native-firebase_app:android.minSdk using custom value: 21
+:react-native-firebase_app:reactNativeAndroidDir D:\uprise_mob\node_modules\react-native\android
+
+> Configure project :react-native-firebase_crashlytics
+:react-native-firebase_crashlytics package.json found at D:\uprise_mob\node_modules\@react-native-firebase\crashlytics\package.json
+:react-native-firebase_app package.json found at D:\uprise_mob\node_modules\@react-native-firebase\app\package.json
+:react-native-firebase_crashlytics:firebase.bom using default value: 30.5.0
+:react-native-firebase_crashlytics package.json found at D:\uprise_mob\node_modules\@react-native-firebase\crashlytics\package.json
+:react-native-firebase_crashlytics:version set from package.json: 14.12.0 (14,12,0 - 14012000)
+:react-native-firebase_crashlytics:android.compileSdk using custom value: 33
+:react-native-firebase_crashlytics:android.targetSdk using custom value: 33
+:react-native-firebase_crashlytics:android.minSdk using custom value: 21
+:react-native-firebase_crashlytics:reactNativeAndroidDir D:\uprise_mob\node_modules\react-native\android
+
+> Configure project :react-native-firebase_messaging
+:react-native-firebase_messaging package.json found at D:\uprise_mob\node_modules\@react-native-firebase\messaging\package.json
+:react-native-firebase_app package.json found at D:\uprise_mob\node_modules\@react-native-firebase\app\package.json
+:react-native-firebase_messaging:firebase.bom using default value: 30.5.0
+:react-native-firebase_messaging package.json found at D:\uprise_mob\node_modules\@react-native-firebase\messaging\package.json
+:react-native-firebase_messaging:version set from package.json: 14.12.0 (14,12,0 - 14012000)
+:react-native-firebase_messaging:android.compileSdk using custom value: 33
+:react-native-firebase_messaging:android.targetSdk using custom value: 33
+:react-native-firebase_messaging:android.minSdk using custom value: 21
+:react-native-firebase_messaging:reactNativeAndroidDir D:\uprise_mob\node_modules\react-native\android
+
+> Configure project :react-native-reanimated
+No AAR for react-native-reanimated found. Attempting to build from source.
+Android gradle plugin: 7.0.4
+Gradle: 7.0.2
+
+> Task :app:clean
+> Task :react-native-async-storage_async-storage:clean
+> Task :react-native-community_masked-view:clean
+> Task :react-native-community_netinfo:clean
+> Task :react-native-config:clean
+> Task :react-native-firebase_analytics:clean
+> Task :react-native-firebase_app:clean
+> Task :react-native-firebase_crashlytics:clean
+> Task :react-native-firebase_messaging:clean
+> Task :react-native-geolocation-service:clean
+> Task :react-native-gesture-handler:clean
+> Task :react-native-google-signin_google-signin:clean
+> Task :react-native-image-colors:clean
+> Task :react-native-image-crop-picker:clean
+> Task :react-native-linear-gradient:clean
+> Task :react-native-pager-view:clean
+> Task :react-native-reanimated:cleanCmakeCache
+> Task :react-native-reanimated:assertLatestReactNativeWithNewArchitectureTask SKIPPED
+> Task :react-native-reanimated:assertNoMultipleInstancesTask
+> Task :react-native-reanimated:assertNoReanimated2WithNewArchitectureTask SKIPPED
+> Task :react-native-reanimated:preBuild
+> Task :react-native-reanimated:preDebugBuild
+> Task :react-native-reanimated:externalNativeBuildCleanDebug
+> Task :react-native-reanimated:preReleaseBuild
+> Task :react-native-reanimated:externalNativeBuildCleanRelease
+> Task :react-native-reanimated:clean
+> Task :react-native-safe-area-context:clean
+> Task :react-native-screens:clean
+> Task :react-native-splash-screen:clean
+> Task :react-native-svg:clean
+> Task :react-native-vector-icons:clean
+> Task :app:generatePackageList
+> Task :app:preBuild
+> Task :app:preDebugBuild
+> Task :react-native-async-storage_async-storage:preBuild UP-TO-DATE
+> Task :react-native-async-storage_async-storage:preDebugBuild UP-TO-DATE
+> Task :react-native-async-storage_async-storage:compileDebugAidl NO-SOURCE
+> Task :react-native-community_masked-view:preBuild UP-TO-DATE
+> Task :react-native-community_masked-view:preDebugBuild UP-TO-DATE
+> Task :react-native-community_masked-view:compileDebugAidl NO-SOURCE
+> Task :react-native-community_netinfo:preBuild UP-TO-DATE
+> Task :react-native-community_netinfo:preDebugBuild UP-TO-DATE
+> Task :react-native-community_netinfo:compileDebugAidl NO-SOURCE
+> Task :react-native-config:preBuild UP-TO-DATE
+> Task :react-native-config:preDebugBuild UP-TO-DATE
+> Task :react-native-config:compileDebugAidl NO-SOURCE
+> Task :react-native-firebase_analytics:preBuild UP-TO-DATE
+> Task :react-native-firebase_analytics:preDebugBuild UP-TO-DATE
+> Task :react-native-firebase_app:preBuild UP-TO-DATE
+> Task :react-native-firebase_app:preDebugBuild UP-TO-DATE
+> Task :react-native-firebase_app:compileDebugAidl NO-SOURCE
+> Task :react-native-firebase_analytics:compileDebugAidl NO-SOURCE
+> Task :react-native-firebase_crashlytics:preBuild UP-TO-DATE
+> Task :react-native-firebase_crashlytics:preDebugBuild UP-TO-DATE
+> Task :react-native-firebase_crashlytics:compileDebugAidl NO-SOURCE
+> Task :react-native-firebase_messaging:preBuild UP-TO-DATE
+> Task :react-native-firebase_messaging:preDebugBuild UP-TO-DATE
+> Task :react-native-firebase_messaging:compileDebugAidl NO-SOURCE
+> Task :react-native-geolocation-service:preBuild UP-TO-DATE
+> Task :react-native-geolocation-service:preDebugBuild UP-TO-DATE
+> Task :react-native-geolocation-service:compileDebugAidl NO-SOURCE
+> Task :react-native-gesture-handler:preBuild UP-TO-DATE
+> Task :react-native-gesture-handler:preDebugBuild UP-TO-DATE
+> Task :react-native-gesture-handler:compileDebugAidl NO-SOURCE
+> Task :react-native-google-signin_google-signin:preBuild UP-TO-DATE
+> Task :react-native-google-signin_google-signin:preDebugBuild UP-TO-DATE
+> Task :react-native-google-signin_google-signin:compileDebugAidl NO-SOURCE
+> Task :react-native-image-colors:preBuild UP-TO-DATE
+> Task :react-native-image-colors:preDebugBuild UP-TO-DATE
+> Task :react-native-image-colors:compileDebugAidl NO-SOURCE
+> Task :react-native-image-crop-picker:preBuild UP-TO-DATE
+> Task :react-native-image-crop-picker:preDebugBuild UP-TO-DATE
+> Task :react-native-image-crop-picker:compileDebugAidl NO-SOURCE
+> Task :react-native-linear-gradient:preBuild UP-TO-DATE
+> Task :react-native-linear-gradient:preDebugBuild UP-TO-DATE
+> Task :react-native-linear-gradient:compileDebugAidl NO-SOURCE
+> Task :react-native-pager-view:preBuild UP-TO-DATE
+> Task :react-native-pager-view:preDebugBuild UP-TO-DATE
+> Task :react-native-pager-view:compileDebugAidl NO-SOURCE
+> Task :react-native-reanimated:compileDebugAidl NO-SOURCE
+> Task :react-native-safe-area-context:preBuild UP-TO-DATE
+> Task :react-native-safe-area-context:preDebugBuild UP-TO-DATE
+> Task :react-native-safe-area-context:compileDebugAidl NO-SOURCE
+> Task :react-native-screens:preBuild UP-TO-DATE
+> Task :react-native-screens:preDebugBuild UP-TO-DATE
+> Task :react-native-screens:compileDebugAidl NO-SOURCE
+> Task :react-native-splash-screen:preBuild UP-TO-DATE
+> Task :react-native-splash-screen:preDebugBuild UP-TO-DATE
+> Task :react-native-splash-screen:compileDebugAidl NO-SOURCE
+> Task :react-native-svg:preBuild UP-TO-DATE
+> Task :react-native-svg:preDebugBuild UP-TO-DATE
+> Task :react-native-svg:compileDebugAidl NO-SOURCE
+> Task :react-native-vector-icons:preBuild UP-TO-DATE
+> Task :react-native-vector-icons:preDebugBuild UP-TO-DATE
+> Task :react-native-vector-icons:compileDebugAidl NO-SOURCE
+> Task :app:compileDebugAidl NO-SOURCE
+> Task :react-native-async-storage_async-storage:packageDebugRenderscript NO-SOURCE
+> Task :react-native-community_masked-view:packageDebugRenderscript NO-SOURCE
+> Task :react-native-community_netinfo:packageDebugRenderscript NO-SOURCE
+> Task :react-native-config:packageDebugRenderscript NO-SOURCE
+> Task :react-native-firebase_analytics:packageDebugRenderscript NO-SOURCE
+> Task :react-native-firebase_app:packageDebugRenderscript NO-SOURCE
+> Task :react-native-firebase_crashlytics:packageDebugRenderscript NO-SOURCE
+> Task :react-native-firebase_messaging:packageDebugRenderscript NO-SOURCE
+> Task :react-native-geolocation-service:packageDebugRenderscript NO-SOURCE
+> Task :react-native-gesture-handler:packageDebugRenderscript NO-SOURCE
+> Task :react-native-google-signin_google-signin:packageDebugRenderscript NO-SOURCE
+> Task :react-native-image-colors:packageDebugRenderscript NO-SOURCE
+> Task :react-native-image-crop-picker:packageDebugRenderscript NO-SOURCE
+> Task :react-native-linear-gradient:packageDebugRenderscript NO-SOURCE
+> Task :react-native-pager-view:packageDebugRenderscript NO-SOURCE
+> Task :react-native-reanimated:packageDebugRenderscript NO-SOURCE
+> Task :react-native-safe-area-context:packageDebugRenderscript NO-SOURCE
+> Task :react-native-screens:packageDebugRenderscript NO-SOURCE
+> Task :react-native-splash-screen:packageDebugRenderscript NO-SOURCE
+> Task :react-native-svg:packageDebugRenderscript NO-SOURCE
+> Task :react-native-vector-icons:packageDebugRenderscript NO-SOURCE
+> Task :app:compileDebugRenderscript NO-SOURCE
+> Task :app:generateDebugBuildConfig
+> Task :app:javaPreCompileDebug
+> Task :react-native-community_masked-view:writeDebugAarMetadata
+> Task :react-native-async-storage_async-storage:writeDebugAarMetadata
+> Task :react-native-community_netinfo:writeDebugAarMetadata
+> Task :react-native-config:writeDebugAarMetadata
+> Task :react-native-firebase_analytics:writeDebugAarMetadata
+> Task :react-native-firebase_app:writeDebugAarMetadata
+> Task :react-native-firebase_crashlytics:writeDebugAarMetadata
+> Task :react-native-firebase_messaging:writeDebugAarMetadata
+> Task :react-native-geolocation-service:writeDebugAarMetadata
+> Task :react-native-gesture-handler:writeDebugAarMetadata
+> Task :react-native-google-signin_google-signin:writeDebugAarMetadata
+> Task :react-native-image-colors:writeDebugAarMetadata
+> Task :react-native-image-crop-picker:writeDebugAarMetadata
+> Task :react-native-linear-gradient:writeDebugAarMetadata
+> Task :react-native-pager-view:writeDebugAarMetadata
+> Task :react-native-reanimated:writeDebugAarMetadata
+> Task :react-native-safe-area-context:writeDebugAarMetadata
+> Task :react-native-screens:writeDebugAarMetadata
+> Task :react-native-splash-screen:writeDebugAarMetadata
+> Task :react-native-svg:writeDebugAarMetadata
+> Task :react-native-vector-icons:writeDebugAarMetadata
+
+> Task :app:bundleDebugJsAndAssets
+Execution optimizations have been disabled for task ':app:bundleDebugJsAndAssets' to ensure correctness due to the following reasons:
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-async-storage_async-storage:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-async-storage_async-storage:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-async-storage_async-storage:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-community_masked-view:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-community_masked-view:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-community_masked-view:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-community_netinfo:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-community_netinfo:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-community_netinfo:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-config:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-config:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-config:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-firebase_analytics:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-firebase_analytics:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-firebase_analytics:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-firebase_app:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-firebase_app:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-firebase_app:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-firebase_crashlytics:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-firebase_crashlytics:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-firebase_crashlytics:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-firebase_messaging:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-firebase_messaging:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-firebase_messaging:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-geolocation-service:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-geolocation-service:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-geolocation-service:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-gesture-handler:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-gesture-handler:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-gesture-handler:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-google-signin_google-signin:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-google-signin_google-signin:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-google-signin_google-signin:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-image-colors:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-image-colors:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-image-colors:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-image-crop-picker:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-image-crop-picker:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-image-crop-picker:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-linear-gradient:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-linear-gradient:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-linear-gradient:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-pager-view:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-pager-view:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-pager-view:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-reanimated:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-reanimated:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-reanimated:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-safe-area-context:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-safe-area-context:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-safe-area-context:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-screens:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-screens:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-screens:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-splash-screen:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-splash-screen:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-splash-screen:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-svg:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-svg:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-svg:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-vector-icons:compileDebugAidl' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-vector-icons:packageDebugRenderscript' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob'. Reason: Task ':app:bundleDebugJsAndAssets' uses this output of task ':react-native-vector-icons:writeDebugAarMetadata' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+warning: the transform cache was reset.
+                    Welcome to Metro!
+              Fast - Scalable - Integrated
+
+
+info Writing bundle output to:, D:\uprise_mob\android\app\build\generated\assets\react\debug\index.android.bundle
+info Writing sourcemap output to:, D:\uprise_mob\android\app\build\generated\sourcemaps\react\debug\index.android.bundle.map
+info Done writing bundle output
+info Done writing sourcemap output
+info Copying 64 asset files
+info Done copying assets
+
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeDebugShaders
+> Task :react-native-async-storage_async-storage:compileDebugShaders NO-SOURCE
+> Task :react-native-async-storage_async-storage:generateDebugAssets UP-TO-DATE
+> Task :react-native-async-storage_async-storage:packageDebugAssets
+> Task :react-native-community_masked-view:mergeDebugShaders
+> Task :react-native-community_masked-view:compileDebugShaders NO-SOURCE
+> Task :react-native-community_masked-view:generateDebugAssets UP-TO-DATE
+> Task :react-native-community_masked-view:packageDebugAssets
+> Task :react-native-community_netinfo:mergeDebugShaders
+> Task :react-native-community_netinfo:compileDebugShaders NO-SOURCE
+> Task :react-native-community_netinfo:generateDebugAssets UP-TO-DATE
+> Task :react-native-community_netinfo:packageDebugAssets
+> Task :react-native-config:mergeDebugShaders
+> Task :react-native-config:compileDebugShaders NO-SOURCE
+> Task :react-native-config:generateDebugAssets UP-TO-DATE
+> Task :react-native-config:packageDebugAssets
+> Task :react-native-firebase_analytics:mergeDebugShaders
+> Task :react-native-firebase_analytics:compileDebugShaders NO-SOURCE
+> Task :react-native-firebase_analytics:generateDebugAssets UP-TO-DATE
+> Task :react-native-firebase_analytics:packageDebugAssets
+> Task :react-native-firebase_app:mergeDebugShaders
+> Task :react-native-firebase_app:compileDebugShaders NO-SOURCE
+> Task :react-native-firebase_app:generateDebugAssets UP-TO-DATE
+> Task :react-native-firebase_app:packageDebugAssets
+> Task :react-native-firebase_crashlytics:mergeDebugShaders
+> Task :react-native-firebase_crashlytics:compileDebugShaders NO-SOURCE
+> Task :react-native-firebase_crashlytics:generateDebugAssets UP-TO-DATE
+> Task :react-native-firebase_crashlytics:packageDebugAssets
+> Task :react-native-firebase_messaging:mergeDebugShaders
+> Task :react-native-firebase_messaging:compileDebugShaders NO-SOURCE
+> Task :react-native-firebase_messaging:generateDebugAssets UP-TO-DATE
+> Task :react-native-firebase_messaging:packageDebugAssets
+> Task :react-native-geolocation-service:mergeDebugShaders
+> Task :react-native-geolocation-service:compileDebugShaders NO-SOURCE
+> Task :react-native-geolocation-service:generateDebugAssets UP-TO-DATE
+> Task :react-native-geolocation-service:packageDebugAssets
+> Task :react-native-gesture-handler:mergeDebugShaders
+> Task :react-native-gesture-handler:compileDebugShaders NO-SOURCE
+> Task :react-native-gesture-handler:generateDebugAssets UP-TO-DATE
+> Task :react-native-gesture-handler:packageDebugAssets
+> Task :react-native-google-signin_google-signin:mergeDebugShaders
+> Task :react-native-google-signin_google-signin:compileDebugShaders NO-SOURCE
+> Task :react-native-google-signin_google-signin:generateDebugAssets UP-TO-DATE
+> Task :react-native-google-signin_google-signin:packageDebugAssets
+> Task :react-native-image-colors:mergeDebugShaders
+> Task :react-native-image-colors:compileDebugShaders NO-SOURCE
+> Task :react-native-image-colors:generateDebugAssets UP-TO-DATE
+> Task :react-native-image-colors:packageDebugAssets
+> Task :react-native-image-crop-picker:mergeDebugShaders
+> Task :react-native-image-crop-picker:compileDebugShaders NO-SOURCE
+> Task :react-native-image-crop-picker:generateDebugAssets UP-TO-DATE
+> Task :react-native-image-crop-picker:packageDebugAssets
+> Task :react-native-linear-gradient:mergeDebugShaders
+> Task :react-native-linear-gradient:compileDebugShaders NO-SOURCE
+> Task :react-native-linear-gradient:generateDebugAssets UP-TO-DATE
+> Task :react-native-linear-gradient:packageDebugAssets
+> Task :react-native-pager-view:mergeDebugShaders
+> Task :react-native-pager-view:compileDebugShaders NO-SOURCE
+> Task :react-native-pager-view:generateDebugAssets UP-TO-DATE
+> Task :react-native-pager-view:packageDebugAssets
+> Task :react-native-reanimated:mergeDebugShaders
+> Task :react-native-reanimated:compileDebugShaders NO-SOURCE
+> Task :react-native-reanimated:generateDebugAssets UP-TO-DATE
+> Task :react-native-reanimated:packageDebugAssets
+> Task :react-native-safe-area-context:mergeDebugShaders
+> Task :react-native-safe-area-context:compileDebugShaders NO-SOURCE
+> Task :react-native-safe-area-context:generateDebugAssets UP-TO-DATE
+> Task :react-native-safe-area-context:packageDebugAssets
+> Task :react-native-screens:mergeDebugShaders
+> Task :react-native-screens:compileDebugShaders NO-SOURCE
+> Task :react-native-screens:generateDebugAssets UP-TO-DATE
+> Task :react-native-screens:packageDebugAssets
+> Task :react-native-splash-screen:mergeDebugShaders
+> Task :react-native-splash-screen:compileDebugShaders NO-SOURCE
+> Task :react-native-splash-screen:generateDebugAssets UP-TO-DATE
+> Task :react-native-splash-screen:packageDebugAssets
+> Task :react-native-svg:mergeDebugShaders
+> Task :react-native-svg:compileDebugShaders NO-SOURCE
+> Task :react-native-svg:generateDebugAssets UP-TO-DATE
+> Task :react-native-svg:packageDebugAssets
+> Task :react-native-vector-icons:mergeDebugShaders
+> Task :react-native-vector-icons:compileDebugShaders NO-SOURCE
+> Task :react-native-vector-icons:generateDebugAssets UP-TO-DATE
+> Task :react-native-vector-icons:packageDebugAssets
+> Task :app:mergeDebugAssets
+> Task :app:copyDebugBundledJs
+> Task :app:generateDebugResValues
+> Task :app:generateDebugResources
+> Task :app:injectCrashlyticsMappingFileIdDebug
+> Task :react-native-async-storage_async-storage:compileDebugRenderscript NO-SOURCE
+> Task :react-native-async-storage_async-storage:generateDebugResValues
+> Task :react-native-async-storage_async-storage:generateDebugResources
+> Task :react-native-async-storage_async-storage:packageDebugResources
+> Task :react-native-community_masked-view:compileDebugRenderscript NO-SOURCE
+> Task :react-native-community_masked-view:generateDebugResValues
+> Task :react-native-community_masked-view:generateDebugResources
+> Task :react-native-community_masked-view:packageDebugResources
+> Task :react-native-community_netinfo:compileDebugRenderscript NO-SOURCE
+> Task :react-native-community_netinfo:generateDebugResValues
+> Task :react-native-community_netinfo:generateDebugResources
+> Task :react-native-community_netinfo:packageDebugResources
+> Task :react-native-config:compileDebugRenderscript NO-SOURCE
+> Task :react-native-config:generateDebugResValues
+> Task :react-native-config:generateDebugResources
+> Task :react-native-config:packageDebugResources
+> Task :react-native-firebase_analytics:compileDebugRenderscript NO-SOURCE
+> Task :react-native-firebase_analytics:generateDebugResValues
+> Task :react-native-firebase_analytics:generateDebugResources
+> Task :react-native-firebase_analytics:packageDebugResources
+> Task :react-native-firebase_app:compileDebugRenderscript NO-SOURCE
+> Task :react-native-firebase_app:generateDebugResValues
+> Task :react-native-firebase_app:generateDebugResources
+> Task :react-native-firebase_app:packageDebugResources
+> Task :react-native-firebase_crashlytics:compileDebugRenderscript NO-SOURCE
+> Task :react-native-firebase_crashlytics:generateDebugResValues
+> Task :react-native-firebase_crashlytics:generateDebugResources
+> Task :react-native-firebase_crashlytics:packageDebugResources
+> Task :react-native-firebase_messaging:compileDebugRenderscript NO-SOURCE
+> Task :react-native-firebase_messaging:generateDebugResValues
+> Task :react-native-firebase_messaging:generateDebugResources
+> Task :react-native-firebase_messaging:packageDebugResources
+> Task :react-native-geolocation-service:compileDebugRenderscript NO-SOURCE
+> Task :react-native-geolocation-service:generateDebugResValues
+> Task :react-native-geolocation-service:generateDebugResources
+> Task :react-native-geolocation-service:packageDebugResources
+> Task :react-native-gesture-handler:compileDebugRenderscript NO-SOURCE
+> Task :react-native-gesture-handler:generateDebugResValues
+> Task :react-native-gesture-handler:generateDebugResources
+> Task :react-native-gesture-handler:packageDebugResources
+> Task :react-native-google-signin_google-signin:compileDebugRenderscript NO-SOURCE
+> Task :react-native-google-signin_google-signin:generateDebugResValues
+> Task :react-native-google-signin_google-signin:generateDebugResources
+> Task :react-native-google-signin_google-signin:packageDebugResources
+> Task :react-native-image-colors:compileDebugRenderscript NO-SOURCE
+> Task :react-native-image-colors:generateDebugResValues
+> Task :react-native-image-colors:generateDebugResources
+> Task :react-native-image-colors:packageDebugResources
+> Task :react-native-image-crop-picker:compileDebugRenderscript NO-SOURCE
+> Task :react-native-image-crop-picker:generateDebugResValues
+> Task :react-native-image-crop-picker:generateDebugResources
+> Task :react-native-image-crop-picker:packageDebugResources
+> Task :react-native-linear-gradient:compileDebugRenderscript NO-SOURCE
+> Task :react-native-linear-gradient:generateDebugResValues
+> Task :react-native-linear-gradient:generateDebugResources
+> Task :react-native-linear-gradient:packageDebugResources
+> Task :react-native-pager-view:compileDebugRenderscript NO-SOURCE
+> Task :react-native-pager-view:generateDebugResValues
+> Task :react-native-pager-view:generateDebugResources
+> Task :react-native-pager-view:packageDebugResources
+> Task :react-native-reanimated:compileDebugRenderscript NO-SOURCE
+> Task :react-native-reanimated:generateDebugResValues
+> Task :react-native-reanimated:generateDebugResources
+> Task :react-native-reanimated:packageDebugResources
+> Task :react-native-safe-area-context:compileDebugRenderscript NO-SOURCE
+> Task :react-native-safe-area-context:generateDebugResValues
+> Task :react-native-safe-area-context:generateDebugResources
+> Task :react-native-safe-area-context:packageDebugResources
+> Task :react-native-screens:compileDebugRenderscript NO-SOURCE
+> Task :react-native-screens:generateDebugResValues
+> Task :react-native-screens:generateDebugResources
+> Task :react-native-screens:packageDebugResources
+> Task :react-native-splash-screen:compileDebugRenderscript NO-SOURCE
+> Task :react-native-splash-screen:generateDebugResValues
+> Task :react-native-splash-screen:generateDebugResources
+> Task :react-native-splash-screen:packageDebugResources
+> Task :react-native-svg:compileDebugRenderscript NO-SOURCE
+> Task :react-native-svg:generateDebugResValues
+> Task :react-native-svg:generateDebugResources
+> Task :react-native-svg:packageDebugResources
+> Task :react-native-vector-icons:compileDebugRenderscript NO-SOURCE
+> Task :react-native-vector-icons:generateDebugResValues
+> Task :react-native-vector-icons:generateDebugResources
+> Task :react-native-vector-icons:packageDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :react-native-async-storage_async-storage:extractDeepLinksDebug
+> Task :react-native-community_masked-view:extractDeepLinksDebug
+> Task :react-native-community_netinfo:extractDeepLinksDebug
+> Task :react-native-config:extractDeepLinksDebug
+> Task :react-native-firebase_analytics:extractDeepLinksDebug
+> Task :app:checkDebugAarMetadata
+> Task :react-native-firebase_app:extractDeepLinksDebug
+> Task :react-native-firebase_analytics:processDebugManifest
+> Task :react-native-community_masked-view:processDebugManifest
+> Task :react-native-community_netinfo:processDebugManifest
+> Task :react-native-firebase_app:processDebugManifest
+> Task :react-native-config:processDebugManifest
+> Task :react-native-async-storage_async-storage:processDebugManifest
+> Task :react-native-firebase_crashlytics:extractDeepLinksDebug
+> Task :react-native-firebase_messaging:extractDeepLinksDebug
+> Task :react-native-geolocation-service:extractDeepLinksDebug
+> Task :react-native-firebase_crashlytics:processDebugManifest
+> Task :react-native-firebase_messaging:processDebugManifest
+> Task :react-native-gesture-handler:extractDeepLinksDebug
+> Task :react-native-geolocation-service:processDebugManifest
+> Task :react-native-google-signin_google-signin:extractDeepLinksDebug
+> Task :react-native-gesture-handler:processDebugManifest
+> Task :react-native-image-colors:extractDeepLinksDebug
+> Task :react-native-google-signin_google-signin:processDebugManifest
+> Task :react-native-image-crop-picker:extractDeepLinksDebug
+> Task :react-native-image-colors:processDebugManifest
+> Task :react-native-linear-gradient:extractDeepLinksDebug
+> Task :react-native-image-crop-picker:processDebugManifest
+> Task :react-native-pager-view:extractDeepLinksDebug
+> Task :react-native-linear-gradient:processDebugManifest
+> Task :react-native-reanimated:extractDeepLinksDebug
+> Task :react-native-pager-view:processDebugManifest
+> Task :react-native-safe-area-context:extractDeepLinksDebug
+> Task :react-native-reanimated:processDebugManifest
+> Task :react-native-safe-area-context:processDebugManifest
+> Task :react-native-screens:extractDeepLinksDebug
+> Task :react-native-splash-screen:extractDeepLinksDebug
+> Task :react-native-screens:processDebugManifest
+> Task :react-native-svg:extractDeepLinksDebug
+> Task :react-native-splash-screen:processDebugManifest
+> Task :react-native-vector-icons:extractDeepLinksDebug
+> Task :react-native-svg:processDebugManifest
+> Task :react-native-vector-icons:processDebugManifest
+> Task :react-native-async-storage_async-storage:compileDebugLibraryResources
+> Task :react-native-community_masked-view:compileDebugLibraryResources
+> Task :react-native-community_netinfo:compileDebugLibraryResources
+> Task :react-native-config:compileDebugLibraryResources
+> Task :react-native-firebase_analytics:compileDebugLibraryResources
+> Task :react-native-firebase_app:compileDebugLibraryResources
+> Task :react-native-firebase_crashlytics:compileDebugLibraryResources
+> Task :app:mergeDebugResources
+> Task :react-native-firebase_messaging:compileDebugLibraryResources
+> Task :react-native-geolocation-service:compileDebugLibraryResources
+> Task :react-native-gesture-handler:compileDebugLibraryResources
+> Task :react-native-community_netinfo:parseDebugLocalResources
+> Task :react-native-firebase_analytics:parseDebugLocalResources
+> Task :react-native-firebase_app:parseDebugLocalResources
+> Task :react-native-geolocation-service:parseDebugLocalResources
+> Task :react-native-gesture-handler:parseDebugLocalResources
+> Task :react-native-community_masked-view:parseDebugLocalResources
+> Task :react-native-async-storage_async-storage:parseDebugLocalResources
+> Task :react-native-config:parseDebugLocalResources
+> Task :react-native-firebase_crashlytics:parseDebugLocalResources
+> Task :react-native-google-signin_google-signin:compileDebugLibraryResources
+> Task :react-native-firebase_messaging:parseDebugLocalResources
+> Task :react-native-async-storage_async-storage:generateDebugRFile
+> Task :react-native-community_netinfo:generateDebugRFile
+> Task :react-native-config:generateDebugRFile
+> Task :react-native-community_masked-view:generateDebugRFile
+> Task :react-native-firebase_app:generateDebugRFile
+> Task :react-native-geolocation-service:generateDebugRFile
+> Task :react-native-google-signin_google-signin:parseDebugLocalResources
+> Task :react-native-image-colors:compileDebugLibraryResources
+> Task :react-native-gesture-handler:generateDebugRFile
+> Task :react-native-image-colors:parseDebugLocalResources
+> Task :react-native-image-crop-picker:compileDebugLibraryResources
+> Task :react-native-google-signin_google-signin:generateDebugRFile
+> Task :react-native-image-crop-picker:parseDebugLocalResources
+> Task :react-native-linear-gradient:compileDebugLibraryResources
+> Task :react-native-image-colors:generateDebugRFile
+> Task :react-native-linear-gradient:parseDebugLocalResources
+> Task :react-native-pager-view:compileDebugLibraryResources
+> Task :react-native-image-crop-picker:generateDebugRFile
+> Task :react-native-pager-view:parseDebugLocalResources
+> Task :react-native-reanimated:compileDebugLibraryResources
+> Task :react-native-linear-gradient:generateDebugRFile
+> Task :react-native-reanimated:parseDebugLocalResources
+> Task :react-native-safe-area-context:compileDebugLibraryResources
+> Task :react-native-pager-view:generateDebugRFile
+> Task :react-native-safe-area-context:parseDebugLocalResources
+> Task :react-native-reanimated:generateDebugRFile
+> Task :react-native-screens:compileDebugLibraryResources
+> Task :react-native-screens:parseDebugLocalResources
+> Task :react-native-splash-screen:compileDebugLibraryResources
+> Task :react-native-safe-area-context:generateDebugRFile
+> Task :react-native-splash-screen:parseDebugLocalResources
+> Task :react-native-svg:compileDebugLibraryResources
+> Task :react-native-screens:generateDebugRFile
+> Task :react-native-svg:parseDebugLocalResources
+> Task :react-native-vector-icons:compileDebugLibraryResources
+> Task :react-native-splash-screen:generateDebugRFile
+> Task :react-native-vector-icons:parseDebugLocalResources
+> Task :react-native-async-storage_async-storage:generateDebugBuildConfig
+> Task :react-native-async-storage_async-storage:javaPreCompileDebug
+> Task :react-native-svg:generateDebugRFile
+> Task :react-native-community_masked-view:generateDebugBuildConfig
+
+> Task :react-native-async-storage_async-storage:compileDebugJavaWithJavac
+
+> Task :react-native-community_masked-view:javaPreCompileDebug
+> Task :react-native-community_netinfo:generateDebugBuildConfig
+> Task :react-native-firebase_analytics:generateDebugRFile
+> Task :react-native-async-storage_async-storage:bundleLibCompileToJarDebug
+> Task :react-native-firebase_crashlytics:generateDebugRFile
+> Task :react-native-firebase_messaging:generateDebugRFile
+
+> Task :app:processDebugMainManifest
+Execution optimizations have been disabled for task ':app:processDebugMainManifest' to ensure correctness due to the following reasons:
+  - Gradle detected a problem with the following location: 'D:\uprise_mob\android\app\build\intermediates\navigation_json\debug\navigation.json'. Reason: Task ':app:processDebugMainManifest' uses this output of task ':app:copyDebugBundledJs' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+
+> Task :app:processDebugManifest
+Execution optimizations have been disabled for task ':app:processDebugManifest' to ensure correctness due to the following reasons:
+  - Gradle detected a problem with the following location: 'D:\uprise_mob\android\app\build\intermediates\compatible_screen_manifest\debug'. Reason: Task ':app:processDebugManifest' uses this output of task ':app:copyDebugBundledJs' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob\android\app\build\intermediates\merged_manifest\debug\AndroidManifest.xml'. Reason: Task ':app:processDebugManifest' uses this output of task ':app:copyDebugBundledJs' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+
+> Task :react-native-vector-icons:generateDebugRFile
+> Task :react-native-community_masked-view:compileDebugJavaWithJavac
+> Task :react-native-community_netinfo:javaPreCompileDebug
+> Task :react-native-config:generateDebugBuildConfig
+> Task :react-native-community_masked-view:bundleLibCompileToJarDebug
+
+> Task :react-native-community_netinfo:compileDebugJavaWithJavac
+
+> Task :react-native-config:javaPreCompileDebug
+> Task :react-native-community_netinfo:bundleLibCompileToJarDebug
+> Task :react-native-firebase_analytics:generateDebugBuildConfig
+> Task :react-native-config:compileDebugJavaWithJavac
+> Task :react-native-firebase_analytics:javaPreCompileDebug
+> Task :react-native-firebase_app:generateDebugBuildConfig
+> Task :react-native-firebase_app:javaPreCompileDebug
+> Task :react-native-firebase_crashlytics:generateDebugBuildConfig
+> Task :react-native-config:bundleLibCompileToJarDebug
+
+> Task :app:processDebugManifestForPackage
+Execution optimizations have been disabled for task ':app:processDebugManifestForPackage' to ensure correctness due to the following reasons:
+  - Gradle detected a problem with the following location: 'D:\uprise_mob\android\app\build\intermediates\merged_manifests\debug'. Reason: Task ':app:processDebugManifestForPackage' uses this output of task ':app:copyDebugBundledJs' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+
+> Task :react-native-firebase_app:compileDebugJavaWithJavac
+
+> Task :react-native-firebase_crashlytics:javaPreCompileDebug
+> Task :react-native-firebase_messaging:generateDebugBuildConfig
+> Task :react-native-firebase_app:bundleLibCompileToJarDebug
+> Task :react-native-firebase_messaging:javaPreCompileDebug
+> Task :react-native-geolocation-service:generateDebugBuildConfig
+> Task :react-native-geolocation-service:javaPreCompileDebug
+> Task :react-native-gesture-handler:generateDebugBuildConfig
+
+> Task :react-native-firebase_messaging:compileDebugJavaWithJavac
+
+> Task :react-native-firebase_messaging:bundleLibCompileToJarDebug
+
+> Task :react-native-geolocation-service:compileDebugJavaWithJavac
+
+> Task :react-native-gesture-handler:javaPreCompileDebug
+> Task :react-native-google-signin_google-signin:generateDebugBuildConfig
+> Task :react-native-geolocation-service:bundleLibCompileToJarDebug
+
+> Task :react-native-gesture-handler:compileDebugJavaWithJavac
+
+> Task :react-native-gesture-handler:bundleLibCompileToJarDebug
+
+> Task :react-native-firebase_crashlytics:compileDebugJavaWithJavac
+
+> Task :react-native-google-signin_google-signin:javaPreCompileDebug
+> Task :react-native-firebase_crashlytics:bundleLibCompileToJarDebug
+> Task :react-native-image-colors:generateDebugBuildConfig
+> Task :react-native-image-colors:compileDebugKotlin
+> Task :react-native-image-colors:javaPreCompileDebug
+> Task :react-native-image-crop-picker:generateDebugBuildConfig
+> Task :react-native-image-colors:compileDebugJavaWithJavac
+> Task :react-native-image-crop-picker:javaPreCompileDebug
+> Task :react-native-linear-gradient:generateDebugBuildConfig
+> Task :react-native-image-colors:bundleLibCompileToJarDebug
+
+> Task :react-native-image-crop-picker:compileDebugJavaWithJavac
+
+> Task :react-native-linear-gradient:javaPreCompileDebug
+> Task :react-native-image-crop-picker:bundleLibCompileToJarDebug
+> Task :react-native-pager-view:generateDebugBuildConfig
+> Task :react-native-linear-gradient:compileDebugJavaWithJavac
+> Task :react-native-pager-view:javaPreCompileDebug
+> Task :react-native-reanimated:generateDebugBuildConfig
+> Task :react-native-reanimated:packageNdkLibs NO-SOURCE
+> Task :react-native-reanimated:javaPreCompileDebug
+> Task :react-native-linear-gradient:bundleLibCompileToJarDebug
+> Task :react-native-safe-area-context:generateDebugBuildConfig
+
+> Task :react-native-reanimated:compileDebugJavaWithJavac
+
+> Task :react-native-safe-area-context:javaPreCompileDebug
+> Task :react-native-screens:generateDebugBuildConfig
+> Task :react-native-reanimated:bundleLibCompileToJarDebug
+
+> Task :react-native-safe-area-context:compileDebugJavaWithJavac
+
+> Task :react-native-safe-area-context:bundleLibCompileToJarDebug
+
+> Task :react-native-google-signin_google-signin:compileDebugJavaWithJavac
+
+> Task :react-native-google-signin_google-signin:bundleLibCompileToJarDebug
+
+> Task :react-native-screens:compileDebugKotlin
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\Screen.kt: (75, 26): 'constructor GuardedRunnable(ReactContext!)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenStackFragment.kt: (65, 28): 'setter for targetElevation: Float' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenStackFragment.kt: (150, 28): 'setter for targetElevation: Float' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenStackHeaderConfig.kt: (21, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenStackHeaderConfig.kt: (68, 47): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenStackHeaderConfig.kt: (69, 15): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenStackHeaderConfig.kt: (163, 56): 'getter for systemWindowInsetTop: Int' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenStackHeaderConfig.kt: (231, 29): 'setColorFilter(Int, PorterDuff.Mode): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (56, 22): 'constructor GuardedRunnable(ReactContext!)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (84, 57): 'getter for systemUiVisibility: Int' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (86, 53): 'SYSTEM_UI_FLAG_LIGHT_STATUS_BAR: Int' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (88, 54): 'SYSTEM_UI_FLAG_LIGHT_STATUS_BAR: Int' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (90, 27): 'setter for systemUiVisibility: Int' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (106, 22): 'constructor GuardedRunnable(ReactContext!)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (115, 43): 'replaceSystemWindowInsets(Int, Int, Int, Int): WindowInsets' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (116, 47): 'getter for systemWindowInsetLeft: Int' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (118, 47): 'getter for systemWindowInsetRight: Int' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (119, 47): 'getter for systemWindowInsetBottom: Int' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (138, 69): 'FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (139, 71): 'FLAG_FORCE_NOT_FULLSCREEN: Int' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (141, 69): 'FLAG_FORCE_NOT_FULLSCREEN: Int' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\ScreenWindowTraits.kt: (142, 71): 'FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\SearchBarView.kt: (9, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\SearchBarView.kt: (117, 47): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\SearchBarView.kt: (118, 15): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\HeaderBackButtonClickedEvent.kt: (5, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\HeaderBackButtonClickedEvent.kt: (7, 51): 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\HeaderBackButtonClickedEvent.kt: (17, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\HeaderBackButtonClickedEvent.kt: (18, 25): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenAppearEvent.kt: (5, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenAppearEvent.kt: (7, 40): 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenAppearEvent.kt: (13, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenAppearEvent.kt: (14, 25): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenDisappearEvent.kt: (5, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenDisappearEvent.kt: (7, 43): 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenDisappearEvent.kt: (13, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenDisappearEvent.kt: (14, 25): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenDismissedEvent.kt: (5, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenDismissedEvent.kt: (7, 43): 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenDismissedEvent.kt: (13, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenDismissedEvent.kt: (17, 25): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenTransitionProgressEvent.kt: (5, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenTransitionProgressEvent.kt: (13, 5): 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenTransitionProgressEvent.kt: (22, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenTransitionProgressEvent.kt: (27, 25): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenWillAppearEvent.kt: (5, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenWillAppearEvent.kt: (7, 44): 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenWillAppearEvent.kt: (13, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenWillAppearEvent.kt: (14, 25): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenWillDisappearEvent.kt: (5, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenWillDisappearEvent.kt: (7, 47): 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenWillDisappearEvent.kt: (13, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\ScreenWillDisappearEvent.kt: (14, 25): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\StackFinishTransitioningEvent.kt: (5, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\StackFinishTransitioningEvent.kt: (7, 52): 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\StackFinishTransitioningEvent.kt: (13, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-screens\android\src\main\java\com\swmansion\rnscreens\events\StackFinishTransitioningEvent.kt: (14, 25): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+
+> Task :react-native-screens:javaPreCompileDebug
+> Task :react-native-splash-screen:generateDebugBuildConfig
+> Task :react-native-screens:compileDebugJavaWithJavac
+> Task :react-native-splash-screen:javaPreCompileDebug
+> Task :react-native-svg:generateDebugBuildConfig
+> Task :react-native-screens:bundleLibCompileToJarDebug
+> Task :react-native-splash-screen:compileDebugJavaWithJavac
+> Task :react-native-svg:javaPreCompileDebug
+> Task :react-native-vector-icons:generateDebugBuildConfig
+> Task :react-native-splash-screen:bundleLibCompileToJarDebug
+
+> Task :react-native-svg:compileDebugJavaWithJavac
+
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :react-native-vector-icons:javaPreCompileDebug
+> Task :react-native-svg:bundleLibCompileToJarDebug
+
+> Task :app:compressDebugAssets
+Execution optimizations have been disabled for task ':app:compressDebugAssets' to ensure correctness due to the following reasons:
+  - Gradle detected a problem with the following location: 'D:\uprise_mob\android\app\build\intermediates\merged_assets\debug\out'. Reason: Task ':app:compressDebugAssets' uses this output of task ':app:copyDebugBundledJs' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+
+> Task :react-native-vector-icons:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :react-native-async-storage_async-storage:processDebugJavaRes NO-SOURCE
+> Task :react-native-async-storage_async-storage:bundleLibResDebug NO-SOURCE
+> Task :react-native-community_masked-view:processDebugJavaRes NO-SOURCE
+> Task :react-native-community_masked-view:bundleLibResDebug NO-SOURCE
+> Task :react-native-community_netinfo:processDebugJavaRes NO-SOURCE
+> Task :react-native-community_netinfo:bundleLibResDebug NO-SOURCE
+> Task :react-native-config:processDebugJavaRes NO-SOURCE
+> Task :react-native-config:bundleLibResDebug NO-SOURCE
+> Task :react-native-firebase_analytics:processDebugJavaRes NO-SOURCE
+> Task :react-native-firebase_analytics:bundleLibResDebug NO-SOURCE
+> Task :react-native-firebase_app:processDebugJavaRes NO-SOURCE
+> Task :react-native-firebase_app:bundleLibResDebug NO-SOURCE
+> Task :react-native-firebase_crashlytics:processDebugJavaRes NO-SOURCE
+> Task :react-native-firebase_crashlytics:bundleLibResDebug NO-SOURCE
+> Task :react-native-firebase_messaging:processDebugJavaRes NO-SOURCE
+> Task :react-native-firebase_messaging:bundleLibResDebug NO-SOURCE
+> Task :react-native-geolocation-service:processDebugJavaRes NO-SOURCE
+> Task :react-native-geolocation-service:bundleLibResDebug NO-SOURCE
+> Task :react-native-gesture-handler:processDebugJavaRes NO-SOURCE
+> Task :react-native-gesture-handler:bundleLibResDebug NO-SOURCE
+> Task :react-native-google-signin_google-signin:processDebugJavaRes NO-SOURCE
+> Task :react-native-google-signin_google-signin:bundleLibResDebug NO-SOURCE
+> Task :react-native-image-colors:processDebugJavaRes NO-SOURCE
+> Task :react-native-image-colors:bundleLibResDebug NO-SOURCE
+> Task :react-native-image-crop-picker:processDebugJavaRes NO-SOURCE
+> Task :react-native-image-crop-picker:bundleLibResDebug NO-SOURCE
+> Task :react-native-linear-gradient:processDebugJavaRes NO-SOURCE
+> Task :react-native-linear-gradient:bundleLibResDebug NO-SOURCE
+> Task :react-native-pager-view:processDebugJavaRes NO-SOURCE
+> Task :react-native-reanimated:processDebugJavaRes NO-SOURCE
+> Task :react-native-reanimated:bundleLibResDebug NO-SOURCE
+> Task :react-native-safe-area-context:processDebugJavaRes NO-SOURCE
+> Task :react-native-safe-area-context:bundleLibResDebug NO-SOURCE
+> Task :react-native-screens:processDebugJavaRes NO-SOURCE
+> Task :react-native-vector-icons:bundleLibCompileToJarDebug
+> Task :react-native-splash-screen:processDebugJavaRes NO-SOURCE
+> Task :react-native-splash-screen:bundleLibResDebug NO-SOURCE
+> Task :react-native-svg:processDebugJavaRes NO-SOURCE
+> Task :react-native-svg:bundleLibResDebug NO-SOURCE
+> Task :react-native-vector-icons:processDebugJavaRes NO-SOURCE
+> Task :react-native-vector-icons:bundleLibResDebug NO-SOURCE
+> Task :react-native-screens:bundleLibResDebug
+> Task :app:checkDebugDuplicateClasses
+> Task :app:desugarDebugFileDependencies
+> Task :react-native-splash-screen:bundleLibRuntimeToJarDebug
+> Task :react-native-async-storage_async-storage:bundleLibRuntimeToJarDebug
+> Task :react-native-community_masked-view:bundleLibRuntimeToJarDebug
+> Task :react-native-community_netinfo:bundleLibRuntimeToJarDebug
+> Task :react-native-firebase_crashlytics:bundleLibRuntimeToJarDebug
+> Task :react-native-firebase_app:bundleLibRuntimeToJarDebug
+> Task :react-native-firebase_messaging:bundleLibRuntimeToJarDebug
+> Task :react-native-google-signin_google-signin:bundleLibRuntimeToJarDebug
+> Task :react-native-config:bundleLibRuntimeToJarDebug
+
+> Task :app:mergeExtDexDebug
+Execution optimizations have been disabled for task ':app:mergeExtDexDebug' to ensure correctness due to the following reasons:
+  - Gradle detected a problem with the following location: 'D:\uprise_mob\android\app\build\intermediates\duplicate_classes_check\debug'. Reason: Task ':app:mergeExtDexDebug' uses this output of task ':app:copyDebugBundledJs' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+  - Gradle detected a problem with the following location: 'D:\uprise_mob\android\app\build\intermediates\external_file_lib_dex_archives\debug'. Reason: Task ':app:mergeExtDexDebug' uses this output of task ':app:copyDebugBundledJs' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+
+> Task :react-native-pager-view:compileDebugKotlin
+w: Runtime JAR files in the classpath should have the same version. These files were found in the classpath:
+    C:/Users/baris/.gradle/caches/transforms-3/15d72fb4e252b9af630e6dd3ec422957/transformed/jetified-kotlin-stdlib-jdk8-1.4.10.jar (version 1.4)
+    C:/Users/baris/.gradle/caches/transforms-3/105e00d118d202eca465c56846469b23/transformed/jetified-kotlin-stdlib-jdk7-1.4.10.jar (version 1.4)
+    C:/Users/baris/.gradle/caches/transforms-3/e9b59015e89db3142e6a4ff94d95799b/transformed/jetified-kotlin-stdlib-1.5.31.jar (version 1.5)
+    C:/Users/baris/.gradle/caches/transforms-3/9312b5c53f3a96fc85b4d2eac9f5aa76/transformed/jetified-kotlin-stdlib-common-1.5.31.jar (version 1.5)
+w: Some runtime JAR files in the classpath have an incompatible version. Consider removing them from the classpath
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\PagerViewViewManager.kt: (220, 11): 'receiveCommand(T, Int, ReadableArray?): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\event\PageScrollEvent.kt: (6, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\event\PageScrollEvent.kt: (21, 82): 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\event\PageScrollEvent.kt: (27, 42): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\event\PageScrollEvent.kt: (28, 21): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\event\PageScrollStateChangedEvent.kt: (6, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\event\PageScrollStateChangedEvent.kt: (15, 89): 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\event\PageScrollStateChangedEvent.kt: (20, 42): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\event\PageScrollStateChangedEvent.kt: (21, 21): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\event\PageSelectedEvent.kt: (6, 44): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\event\PageSelectedEvent.kt: (15, 69): 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\event\PageSelectedEvent.kt: (20, 42): 'RCTEventEmitter' is deprecated. Deprecated in Java
+w: D:\uprise_mob\node_modules\react-native-pager-view\android\src\main\java\com\reactnativepagerview\event\PageSelectedEvent.kt: (21, 21): 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+
+> Task :react-native-pager-view:compileDebugJavaWithJavac
+> Task :react-native-pager-view:bundleLibResDebug
+> Task :react-native-geolocation-service:bundleLibRuntimeToJarDebug
+> Task :react-native-pager-view:bundleLibCompileToJarDebug
+> Task :react-native-image-colors:bundleLibRuntimeToJarDebug
+> Task :react-native-gesture-handler:bundleLibRuntimeToJarDebug
+> Task :react-native-image-crop-picker:bundleLibRuntimeToJarDebug
+> Task :react-native-linear-gradient:bundleLibRuntimeToJarDebug
+> Task :react-native-pager-view:bundleLibRuntimeToJarDebug
+> Task :react-native-reanimated:bundleLibRuntimeToJarDebug
+
+> Task :react-native-firebase_analytics:compileDebugJavaWithJavac
+
+> Task :react-native-firebase_analytics:bundleLibCompileToJarDebug
+> Task :react-native-firebase_analytics:bundleLibRuntimeToJarDebug
+> Task :react-native-safe-area-context:bundleLibRuntimeToJarDebug
+> Task :react-native-vector-icons:bundleLibRuntimeToJarDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :react-native-screens:bundleLibRuntimeToJarDebug
+> Task :react-native-async-storage_async-storage:mergeDebugJniLibFolders
+> Task :react-native-async-storage_async-storage:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-async-storage_async-storage:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-svg:bundleLibRuntimeToJarDebug
+> Task :react-native-community_masked-view:mergeDebugJniLibFolders
+> Task :react-native-community_masked-view:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-community_masked-view:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-community_masked-view:copyDebugJniLibsProjectOnly
+> Task :react-native-async-storage_async-storage:copyDebugJniLibsProjectOnly
+> Task :react-native-community_netinfo:mergeDebugJniLibFolders
+> Task :react-native-community_netinfo:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-community_netinfo:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-community_netinfo:copyDebugJniLibsProjectOnly
+> Task :react-native-config:mergeDebugJniLibFolders
+> Task :react-native-config:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-config:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-config:copyDebugJniLibsProjectOnly
+> Task :react-native-firebase_analytics:mergeDebugJniLibFolders
+> Task :react-native-firebase_analytics:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-firebase_analytics:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-firebase_analytics:copyDebugJniLibsProjectOnly
+> Task :react-native-firebase_app:mergeDebugJniLibFolders
+> Task :react-native-firebase_app:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-firebase_app:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-firebase_app:copyDebugJniLibsProjectOnly
+> Task :react-native-firebase_crashlytics:mergeDebugJniLibFolders
+> Task :react-native-firebase_crashlytics:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-firebase_crashlytics:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-firebase_crashlytics:copyDebugJniLibsProjectOnly
+> Task :react-native-firebase_messaging:mergeDebugJniLibFolders
+> Task :react-native-firebase_messaging:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-firebase_messaging:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-firebase_messaging:copyDebugJniLibsProjectOnly
+> Task :react-native-geolocation-service:mergeDebugJniLibFolders
+> Task :react-native-geolocation-service:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-geolocation-service:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-geolocation-service:copyDebugJniLibsProjectOnly
+> Task :react-native-gesture-handler:mergeDebugJniLibFolders
+> Task :react-native-gesture-handler:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-gesture-handler:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-gesture-handler:copyDebugJniLibsProjectOnly
+> Task :react-native-google-signin_google-signin:mergeDebugJniLibFolders
+> Task :react-native-google-signin_google-signin:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-google-signin_google-signin:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-google-signin_google-signin:copyDebugJniLibsProjectOnly
+> Task :react-native-image-colors:mergeDebugJniLibFolders
+> Task :react-native-image-colors:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-image-colors:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-image-colors:copyDebugJniLibsProjectOnly
+> Task :react-native-image-crop-picker:mergeDebugJniLibFolders
+> Task :react-native-image-crop-picker:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-image-crop-picker:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-image-crop-picker:copyDebugJniLibsProjectOnly
+> Task :react-native-linear-gradient:mergeDebugJniLibFolders
+> Task :react-native-linear-gradient:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-linear-gradient:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-linear-gradient:copyDebugJniLibsProjectOnly
+> Task :react-native-pager-view:mergeDebugJniLibFolders
+> Task :react-native-pager-view:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-pager-view:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-pager-view:copyDebugJniLibsProjectOnly
+> Task :app:processDebugResources
+> Task :react-native-reanimated:prepareJSC
+
+> Task :app:mergeDebugJavaResource
+Execution optimizations have been disabled for task ':app:mergeDebugJavaResource' to ensure correctness due to the following reasons:
+  - Gradle detected a problem with the following location: 'D:\uprise_mob\android\app\build\intermediates\java_res\debug\out'. Reason: Task ':app:mergeDebugJavaResource' uses this output of task ':app:copyDebugBundledJs' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+
+> Task :app:compileDebugJavaWithJavac
+
+> Task :app:compileDebugSources
+> Task :react-native-reanimated:createNativeDepsDirectories UP-TO-DATE
+> Task :react-native-reanimated:resolveBoost SKIPPED
+
+> Task :react-native-reanimated:downloadBoost
+Download https://github.com/react-native-community/boost-for-react-native/releases/download/v1.63.0-0/boost_1_63_0.tar.gz
+
+> Task :react-native-reanimated:resolveDoubleConversion SKIPPED
+
+> Task :react-native-reanimated:downloadDoubleConversion
+Download https://github.com/google/double-conversion/archive/v1.1.6.tar.gz
+
+> Task :react-native-reanimated:resolveFolly SKIPPED
+
+> Task :react-native-reanimated:downloadFolly
+Download https://github.com/facebook/folly/archive/v2021.06.28.00.tar.gz
+
+> Task :react-native-reanimated:resolveGlog SKIPPED
+
+> Task :react-native-reanimated:downloadGlog
+Download https://github.com/google/glog/archive/v0.3.5.tar.gz
+
+> Task :react-native-reanimated:downloadNdkBuildDependencies
+> Task :react-native-reanimated:prepareBoost
+> Task :react-native-reanimated:prepareDoubleConversion
+> Task :react-native-reanimated:prepareFolly
+> Task :react-native-reanimated:prepareGlog
+> Task :react-native-reanimated:unpackReactNativeAAR UP-TO-DATE
+> Task :react-native-reanimated:prepareThirdPartyNdkHeaders
+> Task :react-native-reanimated:extractAARHeaders
+> Task :react-native-reanimated:extractSOFiles
+> Task :react-native-reanimated:configureCMakeDebug
+> Task :react-native-reanimated:buildCMakeDebug
+> Task :react-native-reanimated:externalNativeBuildDebug
+> Task :react-native-reanimated:mergeDebugJniLibFolders
+> Task :react-native-safe-area-context:mergeDebugJniLibFolders
+> Task :react-native-safe-area-context:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-safe-area-context:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-safe-area-context:copyDebugJniLibsProjectOnly
+> Task :react-native-screens:mergeDebugJniLibFolders
+> Task :react-native-screens:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-screens:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-screens:copyDebugJniLibsProjectOnly
+> Task :react-native-splash-screen:mergeDebugJniLibFolders
+> Task :react-native-splash-screen:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-splash-screen:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-splash-screen:copyDebugJniLibsProjectOnly
+> Task :react-native-svg:mergeDebugJniLibFolders
+> Task :react-native-svg:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-svg:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-svg:copyDebugJniLibsProjectOnly
+> Task :react-native-vector-icons:mergeDebugJniLibFolders
+> Task :react-native-vector-icons:mergeDebugNativeLibs NO-SOURCE
+> Task :react-native-vector-icons:stripDebugDebugSymbols NO-SOURCE
+> Task :react-native-vector-icons:copyDebugJniLibsProjectOnly
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+> Task :react-native-async-storage_async-storage:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-reanimated:mergeDebugNativeLibs
+> Task :react-native-async-storage_async-storage:extractDebugAnnotations
+> Task :react-native-reanimated:stripDebugDebugSymbols
+> Task :react-native-async-storage_async-storage:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-async-storage_async-storage:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-async-storage_async-storage:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-async-storage_async-storage:compileDebugSources
+> Task :react-native-community_masked-view:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-async-storage_async-storage:mergeDebugJavaResource
+> Task :react-native-community_masked-view:extractDebugAnnotations
+> Task :react-native-async-storage_async-storage:syncDebugLibJars
+> Task :react-native-async-storage_async-storage:bundleDebugAar
+> Task :react-native-async-storage_async-storage:assembleDebug
+> Task :react-native-community_masked-view:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-community_masked-view:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-community_masked-view:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-community_masked-view:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-community_masked-view:compileDebugSources
+> Task :react-native-community_netinfo:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-community_masked-view:mergeDebugJavaResource
+> Task :react-native-reanimated:copyDebugJniLibsProjectOnly
+> Task :react-native-community_netinfo:extractDebugAnnotations
+> Task :react-native-community_masked-view:syncDebugLibJars
+> Task :react-native-community_masked-view:bundleDebugAar
+> Task :react-native-community_masked-view:assembleDebug
+> Task :react-native-community_netinfo:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-community_netinfo:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-community_netinfo:prepareDebugArtProfile UP-TO-DATE
+> Task :app:dexBuilderDebug
+> Task :react-native-community_netinfo:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-community_netinfo:compileDebugSources
+> Task :react-native-config:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-community_netinfo:mergeDebugJavaResource
+> Task :react-native-config:extractDebugAnnotations
+> Task :react-native-community_netinfo:syncDebugLibJars
+> Task :react-native-community_netinfo:bundleDebugAar
+> Task :react-native-community_netinfo:assembleDebug
+> Task :react-native-config:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-config:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-config:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-config:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-config:compileDebugSources
+> Task :react-native-firebase_analytics:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-config:mergeDebugJavaResource
+> Task :react-native-firebase_analytics:extractDebugAnnotations
+> Task :react-native-config:syncDebugLibJars
+> Task :react-native-config:bundleDebugAar
+> Task :react-native-config:assembleDebug
+> Task :react-native-firebase_analytics:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-firebase_analytics:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-firebase_analytics:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-firebase_analytics:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-firebase_analytics:compileDebugSources
+> Task :react-native-firebase_app:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-firebase_analytics:mergeDebugJavaResource
+> Task :react-native-firebase_app:extractDebugAnnotations
+> Task :react-native-firebase_analytics:syncDebugLibJars
+> Task :react-native-firebase_analytics:bundleDebugAar
+> Task :react-native-firebase_analytics:assembleDebug
+
+> Task :app:mergeLibDexDebug
+Execution optimizations have been disabled for task ':app:mergeLibDexDebug' to ensure correctness due to the following reasons:
+  - Gradle detected a problem with the following location: 'D:\uprise_mob\android\app\build\intermediates\duplicate_classes_check\debug'. Reason: Task ':app:mergeLibDexDebug' uses this output of task ':app:copyDebugBundledJs' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+
+> Task :react-native-firebase_app:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-firebase_app:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-firebase_app:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-firebase_app:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-firebase_app:compileDebugSources
+> Task :react-native-firebase_crashlytics:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-firebase_app:mergeDebugJavaResource
+> Task :react-native-firebase_crashlytics:extractDebugAnnotations
+> Task :react-native-firebase_app:syncDebugLibJars
+> Task :react-native-firebase_app:bundleDebugAar
+> Task :react-native-firebase_app:assembleDebug
+> Task :react-native-firebase_crashlytics:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-firebase_crashlytics:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-firebase_crashlytics:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-firebase_crashlytics:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-firebase_crashlytics:compileDebugSources
+> Task :react-native-firebase_messaging:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-firebase_crashlytics:mergeDebugJavaResource
+> Task :react-native-firebase_messaging:extractDebugAnnotations
+> Task :react-native-firebase_crashlytics:syncDebugLibJars
+> Task :app:mergeProjectDexDebug
+> Task :react-native-firebase_crashlytics:bundleDebugAar
+> Task :react-native-firebase_crashlytics:assembleDebug
+> Task :react-native-firebase_messaging:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-firebase_messaging:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-firebase_messaging:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-firebase_messaging:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-firebase_messaging:compileDebugSources
+> Task :react-native-geolocation-service:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-firebase_messaging:mergeDebugJavaResource
+> Task :react-native-geolocation-service:extractDebugAnnotations
+> Task :react-native-firebase_messaging:syncDebugLibJars
+> Task :react-native-firebase_messaging:bundleDebugAar
+> Task :react-native-firebase_messaging:assembleDebug
+> Task :react-native-geolocation-service:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-geolocation-service:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-geolocation-service:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-geolocation-service:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-geolocation-service:compileDebugSources
+> Task :react-native-gesture-handler:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-geolocation-service:mergeDebugJavaResource
+> Task :react-native-gesture-handler:extractDebugAnnotations
+> Task :react-native-geolocation-service:syncDebugLibJars
+> Task :react-native-geolocation-service:bundleDebugAar
+> Task :react-native-geolocation-service:assembleDebug
+> Task :react-native-gesture-handler:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-gesture-handler:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-gesture-handler:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-gesture-handler:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-gesture-handler:compileDebugSources
+> Task :react-native-google-signin_google-signin:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-gesture-handler:mergeDebugJavaResource
+> Task :react-native-google-signin_google-signin:extractDebugAnnotations
+> Task :react-native-gesture-handler:syncDebugLibJars
+> Task :react-native-gesture-handler:bundleDebugAar
+> Task :react-native-gesture-handler:assembleDebug
+> Task :react-native-google-signin_google-signin:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-google-signin_google-signin:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-google-signin_google-signin:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-google-signin_google-signin:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-google-signin_google-signin:compileDebugSources
+> Task :react-native-image-colors:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-google-signin_google-signin:mergeDebugJavaResource
+> Task :react-native-image-colors:extractDebugAnnotations
+> Task :react-native-google-signin_google-signin:syncDebugLibJars
+> Task :react-native-google-signin_google-signin:bundleDebugAar
+> Task :react-native-google-signin_google-signin:assembleDebug
+> Task :react-native-image-colors:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-image-colors:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-image-colors:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-image-colors:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-image-colors:compileDebugSources
+> Task :react-native-image-crop-picker:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-image-colors:mergeDebugJavaResource
+> Task :react-native-image-crop-picker:extractDebugAnnotations
+> Task :react-native-image-colors:syncDebugLibJars
+> Task :react-native-image-colors:bundleDebugAar
+> Task :react-native-image-colors:assembleDebug
+> Task :react-native-image-crop-picker:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-image-crop-picker:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-image-crop-picker:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-image-crop-picker:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-image-crop-picker:compileDebugSources
+> Task :react-native-linear-gradient:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-image-crop-picker:mergeDebugJavaResource
+> Task :react-native-linear-gradient:extractDebugAnnotations
+> Task :react-native-image-crop-picker:syncDebugLibJars
+> Task :react-native-image-crop-picker:bundleDebugAar
+> Task :react-native-image-crop-picker:assembleDebug
+> Task :react-native-linear-gradient:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-linear-gradient:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-linear-gradient:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-linear-gradient:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-linear-gradient:compileDebugSources
+> Task :react-native-pager-view:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-linear-gradient:mergeDebugJavaResource
+> Task :react-native-pager-view:extractDebugAnnotations
+> Task :react-native-linear-gradient:syncDebugLibJars
+> Task :react-native-linear-gradient:bundleDebugAar
+> Task :react-native-linear-gradient:assembleDebug
+> Task :react-native-pager-view:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-pager-view:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-pager-view:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-pager-view:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-pager-view:mergeDebugJavaResource
+> Task :react-native-pager-view:syncDebugLibJars
+> Task :react-native-pager-view:bundleDebugAar
+> Task :react-native-pager-view:compileDebugSources
+> Task :react-native-pager-view:assembleDebug
+> Task :react-native-reanimated:extractDebugAnnotations
+> Task :react-native-reanimated:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-reanimated:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-reanimated:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-reanimated:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-reanimated:compileDebugSources
+> Task :react-native-safe-area-context:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-reanimated:mergeDebugJavaResource
+> Task :react-native-safe-area-context:extractDebugAnnotations
+> Task :react-native-reanimated:syncDebugLibJars
+> Task :react-native-safe-area-context:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-safe-area-context:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-safe-area-context:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-safe-area-context:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-safe-area-context:compileDebugSources
+> Task :react-native-screens:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-safe-area-context:mergeDebugJavaResource
+> Task :react-native-screens:extractDebugAnnotations
+> Task :react-native-safe-area-context:syncDebugLibJars
+> Task :react-native-safe-area-context:bundleDebugAar
+> Task :react-native-safe-area-context:assembleDebug
+> Task :react-native-reanimated:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-screens:mergeDebugGeneratedProguardFiles UP-TO-DATE
+
+> Task :app:mergeDebugNativeLibs
+Execution optimizations have been disabled for task ':app:mergeDebugNativeLibs' to ensure correctness due to the following reasons:
+  - Gradle detected a problem with the following location: 'D:\uprise_mob\android\app\build\intermediates\merged_jni_libs\debug\out'. Reason: Task ':app:mergeDebugNativeLibs' uses this output of task ':app:copyDebugBundledJs' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+
+> Task :react-native-reanimated:bundleDebugAar
+
+> Task :app:stripDebugDebugSymbols
+Execution optimizations have been disabled for task ':app:stripDebugDebugSymbols' to ensure correctness due to the following reasons:
+  - Gradle detected a problem with the following location: 'D:\uprise_mob\android\app\build\intermediates\merged_native_libs\debug\out'. Reason: Task ':app:stripDebugDebugSymbols' uses this output of task ':app:copyDebugBundledJs' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.0.2/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+Unable to strip the following libraries, packaging them as they are: libucrop.so.
+
+> Task :react-native-reanimated:assembleDebug
+> Task :react-native-screens:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-screens:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-screens:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-screens:compileDebugSources
+> Task :react-native-splash-screen:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-screens:mergeDebugJavaResource
+> Task :react-native-splash-screen:extractDebugAnnotations
+> Task :react-native-screens:syncDebugLibJars
+> Task :react-native-screens:bundleDebugAar
+> Task :react-native-screens:assembleDebug
+> Task :react-native-splash-screen:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-splash-screen:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-splash-screen:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-splash-screen:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-splash-screen:compileDebugSources
+> Task :react-native-svg:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-splash-screen:mergeDebugJavaResource
+> Task :react-native-svg:extractDebugAnnotations
+> Task :react-native-splash-screen:syncDebugLibJars
+> Task :react-native-splash-screen:bundleDebugAar
+> Task :react-native-splash-screen:assembleDebug
+> Task :react-native-svg:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-svg:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-svg:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-svg:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-svg:compileDebugSources
+> Task :react-native-svg:mergeDebugJavaResource
+> Task :react-native-vector-icons:copyDebugJniLibsProjectAndLocalJars
+> Task :react-native-vector-icons:extractDebugAnnotations
+> Task :react-native-svg:syncDebugLibJars
+> Task :react-native-svg:bundleDebugAar
+> Task :react-native-svg:assembleDebug
+> Task :react-native-vector-icons:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-vector-icons:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :react-native-vector-icons:prepareDebugArtProfile UP-TO-DATE
+> Task :react-native-vector-icons:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-vector-icons:compileDebugSources
+> Task :react-native-vector-icons:mergeDebugJavaResource
+> Task :react-native-vector-icons:syncDebugLibJars
+> Task :react-native-vector-icons:bundleDebugAar
+> Task :react-native-vector-icons:assembleDebug
+> Task :app:packageDebug
+> Task :app:assembleDebug
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 8.0.
+Use '--warning-mode all' to show the individual deprecation warnings.
+See https://docs.gradle.org/7.0.2/userguide/command_line_interface.html#sec:command_line_warnings
+
+Execution optimizations have been disabled for 10 invalid unit(s) of work during this build to ensure correctness.
+Please consult deprecation warnings for more details.
+
+BUILD SUCCESSFUL in 3m 33s
+626 actionable tasks: 542 executed, 84 up-to-date

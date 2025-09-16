@@ -2,6 +2,13 @@
 apply plugin: "com.android.application"
 // wrapped by google-services-apply.gradle
 apply plugin: 'com.google.firebase.crashlytics'
+
+// Map build variants to environment files
+project.ext.envConfigFiles = [
+  debug  : ".env.development",
+  release: ".env",
+]
+
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 // Note: AGP 7.x removed com.android.build.OutputFile; avoid using it

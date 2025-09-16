@@ -1,0 +1,11 @@
+src/navigators/HomeStack.js:32:import CommunitySetup from '../screens/Onboarding/CommunitySetup';
+src/navigators/HomeStack.js:353:      <HomeStack.Screen name='CommunitySetup' component={ CommunitySetup } options={ () => ({ headerTitle: 'Community' }) } />
+src/navigators/AuthNavigator.js:14:import CommunitySetup from '../screens/Onboarding/CommunitySetup';
+src/navigators/AuthNavigator.js:44:      <AuthStack.Screen name='CommunitySetup' component={ CommunitySetup } options={ () => ({ headerTitle: 'Community' }) } />
+src/screens/userProfile/ProfileTab/ProfileTab.js:291:                onPress={ () => navigation.navigate('CommunitySetup') }
+src/screens/Onboarding/CommunitySetup.js:18:export default function CommunitySetup({ navigation, route }) {
+src/screens/AuthLoading/AuthLoading.js:29:      navigation.navigate('CommunitySetup', { fromLogin: true });
+src/state/sagas/login/login.saga.js:47:        console.log('LOGIN route decision', {
+src/state/sagas/login/login.saga.js:68:      // Otherwise → Home Scene Creation (CommunitySetup)
+src/state/sagas/login/login.saga.js:70:        try { RootNavigation.navigate('CommunitySetup', { fromLogin: true }); } catch (_) { /* noop */ }
+src/state/sagas/login/login.saga.js:72:        try { RootNavigation.navigate('CommunitySetup', { fromLogin: true }); } catch (_) { /* noop */ }

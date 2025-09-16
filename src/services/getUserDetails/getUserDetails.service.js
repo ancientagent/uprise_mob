@@ -6,9 +6,11 @@ import {
 import { getRequestURL } from '../../utilities/utilities';
 
 export default function getUserDetailsRequest(payload) {
+  // Safe fallback for getUserDetails endpoint
+  const endpoint = Config.UPDATED_USERDETAILS || '/user/me';
   const requestOptions = {
     method: GET,
-    url: getRequestURL(Config.UPDATED_USERDETAILS),
+    url: getRequestURL(endpoint),
     headers: { Authorization: `Bearer ${payload.accessToken}` },
   };
   return request(requestOptions)
