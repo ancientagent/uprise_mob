@@ -8,6 +8,9 @@ export default function TypeaheadInput({
   minChars = 2,
   debounceMs = 300,
   initialText = '',
+  showOnFocus = false,
+  onChangeText: onChangeTextProp,
+  dropdownMaxHeight = 200,
 }) {
   const [text, setText] = useState(initialText);
   const [items, setItems] = useState([]);
@@ -21,14 +24,16 @@ export default function TypeaheadInput({
   useEffect(() => {
     if (!fetchSuggestions) return () => {};
     if (timer.current) clearTimeout(timer.current);
-    if (!text || text.trim().length < minChars) {
+    const t = (text || '').trim();
+    const shouldFetchEmpty = (minChars <= 0 && t.length === 0);
+    if (!shouldFetchEmpty && t.length < minChars) {
       setItems([]);
       setOpen(false);
       return () => {};
     }
     timer.current = setTimeout(async () => {
       try {
-        const res = await fetchSuggestions(text.trim());
+        const res = await fetchSuggestions(t);
         setItems(Array.isArray(res) ? res : []);
         setOpen(true);
       } catch (_) {
@@ -42,9 +47,12 @@ export default function TypeaheadInput({
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={ styles.item }
+      accessibilityRole='button'
+      accessibilityLabel={`Select ${item.label}`}
       onPress={() => {
         setText(item.label);
         setOpen(false);
+        setItems([]);
         onSelect && onSelect(item);
       }}
     >
@@ -57,12 +65,23 @@ export default function TypeaheadInput({
       <TextInput
         placeholder={ placeholder }
         value={ text }
-        onChangeText={ setText }
+        onChangeText={ t => { setText(t); if (onChangeTextProp) onChangeTextProp(t); } }
+        onFocus={ async () => {
+          if (showOnFocus && (!text || text.trim().length === 0) && fetchSuggestions) {
+            try {
+              const res = await fetchSuggestions('');
+              setItems(Array.isArray(res) ? res : []);
+              setOpen(true);
+            } catch (_) { setItems([]); setOpen(false); }
+          }
+        } }
+        accessible
+        accessibilityLabel={ placeholder || 'Type to search' }
         style={ styles.input }
         placeholderTextColor="#aaa"
       />
       {open && items.length > 0 && (
-        <View style={ styles.dropdown }>
+        <View style={ [styles.dropdown, { maxHeight: dropdownMaxHeight }] }>
           <FlatList
             keyboardShouldPersistTaps='handled'
             data={ items }
