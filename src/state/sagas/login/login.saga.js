@@ -40,36 +40,51 @@ export function* loginWorkerSaga(action) {
           token: yield AsyncStorage.getItem('fcmToken'),
         }));
       }
-      yield put(getUserDetailsSagaAction());
       const status = resp?.user?.onBoardingStatus;
-      if (__DEV__) {
-        // eslint-disable-next-line no-console
-        console.log('LOGIN route decision', {
-          status,
-          hasCommunity:
-            !!resp?.user?.primary?.community_key ||
-            !!resp?.user?.community_key ||
-            !!resp?.user?.communityKey,
-        });
-      }
+
       // Consider either of these fields for determining if the user has a community:
       const hasCommunity =
         !!resp?.user?.primary?.community_key ||
         !!resp?.user?.community_key ||
         !!resp?.user?.communityKey;
 
-      const rawForce = String((Config && Config.FORCE_DASHBOARD_AFTER_LOGIN) || '').toLowerCase();
-      // In Debug, default to forcing Dashboard unless explicitly set to 'false'
-      const forceDashboard = __DEV__
-        ? !(rawForce === 'false' || rawForce === '0')
-        : (rawForce === 'true' || rawForce === '1');
+      const forceEnvRaw = String((Config && Config.FORCE_DASHBOARD_AFTER_LOGIN) || '');
+      const rawForce = forceEnvRaw.trim().toLowerCase();
+      const truthyForce = ['true', '1', 'yes', 'y', 'on'];
+      const falsyForce = ['false', '0', 'no', 'n', 'off'];
+      let forceDashboard;
+      if (truthyForce.includes(rawForce)) {
+        forceDashboard = true;
+      } else if (falsyForce.includes(rawForce)) {
+        forceDashboard = false;
+      } else {
+        forceDashboard = false;
+      }
+
+      try {
+        // eslint-disable-next-line no-console
+        console.log('LOGIN route decision', {
+          status,
+          hasCommunity,
+          forceEnv: forceEnvRaw,
+          forceResolved: forceDashboard,
+        });
+      } catch (_) {}
 
       // Route: if fully onboarded (status === 2) AND hasCommunity → Dashboard
       // Otherwise → Home Scene Creation (CommunitySetup)
       if (forceDashboard || (status === 2 && hasCommunity)) {
-        try { RootNavigation.navigate('CommunitySetup', { fromLogin: true }); } catch (_) { /* noop */ }
+        try {
+          // eslint-disable-next-line no-console
+          console.log('LOGIN nav → Dashboard', { forceDashboard, status, hasCommunity });
+          RootNavigation.navigate('Dashboard');
+        } catch (e) { try { console.log('LOGIN nav Dashboard error', e?.message || e); } catch (_) {} }
       } else {
-        try { RootNavigation.navigate('CommunitySetup', { fromLogin: true }); } catch (_) { /* noop */ }
+        try {
+          // eslint-disable-next-line no-console
+          console.log('LOGIN nav → Auth/CommunitySetup', { forceDashboard, status, hasCommunity });
+          RootNavigation.navigate('Auth', { screen: 'CommunitySetup', params: { fromLogin: true } });
+        } catch (e) { try { console.log('LOGIN nav CommunitySetup error', e?.message || e); } catch (_) {} }
       }
     }
   } catch (e) {
@@ -77,3 +92,8 @@ export function* loginWorkerSaga(action) {
     yield call(showAlert, e.error);
   }
 }
+
+
+
+
+

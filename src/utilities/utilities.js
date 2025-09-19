@@ -22,7 +22,6 @@ export function getRequestURL(path) {
   }
   // If base is still empty at runtime, fall back to common emulator default.
   const base = baseRaw || 'http://10.0.2.2:3000';
-  if (!baseRaw) return p;
   if (base.endsWith('/') && p.startsWith('/')) return base + p.slice(1);
   if (!base.endsWith('/') && !p.startsWith('/')) return `${base}/${p}`;
   return base + p;

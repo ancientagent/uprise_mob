@@ -1,5 +1,15 @@
 2025-09-15 - Docs: Added Emulator Networking standard (10.0.2.2:3000) and verification steps to PHASE2_EXECUTION_PLAN.md.
 
+2025-09-18 - Dev-backend ZIP + Community Validation + Ordered Launcher
+- Endpoints (dev-backend):
+  - GET /geo/zip-lookup → returns { city, state_abbr, state_name, county, coords:{lat,lng}, metroArea } using in-repo seed (Austin/Buda + few).
+  - GET/POST /onboarding/validate-community → accepts sub-genre id/slug; returns { active, needed, nearestActive, primary.community_key }.
+- DB scaffolding: added zip tables + indexes (dev-backend/sql/001_create_zip_tables.sql); sample CSV seed (dev-backend/seeds/zips_sample.csv).
+- Seed script: docs/scripts/seed_zip_codes.sh (COPY staging + UPSERT; idempotent).
+- Mobile: ZIP_LOOKUP_ENDPOINT=/geo/zip-lookup supported; service accepts city/state_name and coords.
+- Windows: one-click ordered launcher added (docs/scripts/windows/launch_debug_in_order.ps1) and yarn alias `launch:debug:ordered`.
+- Smokes: prepared WSL/Windows endpoint checks; logs go to artifacts/logs/* when executed locally.
+
 2025-09-14 - Refactor: RadioStations → Uprises (Component & UI)
 - **Component Rename**: `src/screens/Feed/RadioStations/` → `src/screens/Feed/Uprises/`
 - **File Rename**: `RadioStations.js` → `Uprises.js`, `RadioStations.styles.js` → `Uprises.styles.js`
@@ -1451,3 +1461,49 @@ Signup flow status
 - Updated login flow to route to Home Scene Creation (CommunitySetup) after successful login.
 - Removed temporary Dashboard redirect and related smoke flag usage.
 - Helper script no longer writes FORCE_DASHBOARD_AFTER_LOGIN.
+## 2025-09-16 - Auth routing corrections (main)
+- Fix: Login saga now routes to nested Auth→CommunitySetup unless fully onboarded with a community (or forced in debug), otherwise to Dashboard.
+- Fix: SSO login saga now uses nested Auth routes for `UserLocation`, `GenreSelection`, and `MailConfirmation`; Dashboard remains root.
+- Chore: Added `src/navigators/navHelpers.js` with helpers for nested routing to avoid future slips.
+- Docs: Standardize on `FORCE_DASHBOARD_AFTER_LOGIN`; remove stray `rnFORCE_DASHBOARD_AFTER_LOGIN` from envs.
+
+## 2025-09-17 - Post-login deterministic routing + launch tooling (PASS)
+
+Summary
+- Ensured successful login (HTTP 200) deterministically navigates to Home Scene Creation (`CommunitySetup`) in Debug without requiring a native rebuild. Hardened navigation helpers and added a one‑shot ordered launcher for Windows.
+
+Changes
+- Navigation helpers
+  - Added root reset utilities to `src/navigators/RootNavigation.js`:
+    - `resetTo(name, params)` and `resetToNested(parent, child, params)` for deterministic route changes.
+  - Dev logs: `[nav] resetTo*` to aid triage.
+- Login flow
+  - `src/state/sagas/login/login.saga.js`: after login success, emits `[login] route decision: success 200; forcing root reset to CommunitySetup` and calls `resetToNested('Auth','CommunitySetup',{ fromLogin:true })`, falling back to `resetTo('CommunitySetup', ...)`.
+  - `src/screens/Login/Login.js`: UI fallback side‑effect added with guarded `replace('CommunitySetup')` and a root reset call to eliminate any nested stack timing edge cases. Dev logs: `LOGIN UI side-effect: ...`.
+- CommunitySetup UX
+  - `src/components/TypeaheadInput/TypeaheadInput.js`: supports `showOnFocus`, `minChars=0`, free‑text `onChangeText` to allow immediate listing and narrowing as the user types.
+  - `src/screens/Onboarding/CommunitySetup.js`: 
+    - Sub‑genre field lists all items on focus and narrows with each keystroke; free‑text accepted (slugged) if no suggestion is tapped.
+    - City/State field accepts free‑text “City, State” with optional suggestions; GPS helper remains optional.
+- Launch & dev scripts (Windows)
+  - `docs/scripts/windows/launch_debug_in_order.ps1`: one‑click ordered launcher.
+    - Frees port 8081, starts Metro with `--reset-cache`, applies `adb reverse`, optionally starts backend, boots emulator, builds, installs, and launches Debug.
+    - Fixed `$Host` name collision and netstat dependency; uses `Get-NetTCPConnection`.
+  - `docs/scripts/windows/local_backend_emulator_debug.ps1`: robust device selection; avoids targeting malformed ids (e.g., `e`), picks first running `emulator-XXXX` when unset.
+  - `docs/scripts/wsl/quick_kickoff.sh`: WSL helper to run health checks, PostGIS checks, migrations, and smokes with artifacts.
+- Networking
+  - `src/utilities/utilities.js`: `getRequestURL` now consistently joins base+path and defaults to `http://10.0.2.2:3000` for Debug if the env base is empty.
+
+Artifacts (Debug session)
+- Metro: `artifacts/logs/metro_start.log`, `artifacts/logs/metro_start.err.log`
+- ADB install/start: `artifacts/logs/adb_install_postlogin_fix.txt`, `artifacts/logs/adb_start_postlogin_fix.txt`
+- Post-login logcat (filtered): `artifacts/logs/logcat_postlogin_fix.txt`
+  - Observed: `AUTH RES 200`, `LOGIN UI side-effect: ...`, `RootNavigation.resetToAuthCommunitySetup`
+
+Usage
+- Ordered launch: `yarn launch:debug:ordered` (replaces multi‑step manual flow).
+- WSL kickoff: `bash docs/scripts/wsl/quick_kickoff.sh` (runs non‑destructive checks and smokes; logs to `artifacts/logs`).
+
+Acceptance
+- POST /auth/login returns 200 and app navigates to `CommunitySetup` (unless fully onboarded with a community).
+- Sub‑genre typeahead loads full list on focus and narrows live; city/state free‑text accepted.

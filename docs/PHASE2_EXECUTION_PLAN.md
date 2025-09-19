@@ -1,10 +1,12 @@
-# Phase 2 Execution Plan
+# Sprint 2 Execution Plan (formerly Phase 2)
 
 For daily carryover protocol, see [PHASE2_CARRYOVER_TEMPLATE.md](./PHASE2_CARRYOVER_TEMPLATE.md).  
 For navigation, see [INDEX.md](./INDEX.md).  
 For current state, see [CHANGELOG.md](./CHANGELOG.md).
 
-## Doc Canonicalization (Phase 2)
+> Terminology: This plan covers Sprint 2. Legacy references to “Phase 2” remain in some filenames and links until we complete a safe refactor. See `docs/TERMINOLOGY.md`.
+
+## Doc Canonicalization (Sprint 2)
 - Community/Location spec = 04_UPRISE_Community_Location_System.md (treat other location docs as archived).
 - "Station" references in code are legacy; all new logic must route through src/contracts/community helpers.
 - Discovery = visualization + recommendations; Location = authoritative source of geo/genre keys.
@@ -23,11 +25,11 @@ For current state, see [CHANGELOG.md](./CHANGELOG.md).
 
 
 ## Purpose  
-Unify the July Model realignments with current Phase 2 specs so that **mobile, API, and webapp** all converge on one canonical architecture. This document is the single source of truth for backend integration, onboarding, and smokes.
+Unify the July Model realignments with current Sprint 2 specs so that **mobile, API, and webapp** all converge on one canonical architecture. This document is the single source of truth for backend integration, onboarding, and smokes.
 
 ---
 
-## Core Realignments (Phase 2 Foundations)
+## Core Realignments (Sprint 2 Foundations)
 
 ### 1. Artist/Band Unification  
 - Canonical model: **ArtistProfile**  
