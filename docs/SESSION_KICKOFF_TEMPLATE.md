@@ -32,7 +32,7 @@ ENV_FILE=$API_DIR/.env
 ## Quick Context Loader
 ```
 rg --files docs | rg -n "PHASE2_EXECUTION_PLAN|SYSTEM_OVERVIEW|_fragments/params.geo-genre|CHANGELOG|CI_WORKFLOWS|CHECKLISTS|CODEX-PHASE2-INTAKE-REPORT|03_AUTHENTICATION|04_COMMUNITY_LOCATION|05_FAIR_PLAY_ALGO|06_SONG_MANAGEMENT|07_DISCOVERY_MAP|08_EVENTS|09_PROMOTIONS_BUSINESS" -S
-sed -n '1,160p' docs/PHASE2_EXECUTION_PLAN.md
+sed -n '1,160p' docs/SPRINT2_EXECUTION_PLAN.md
 sed -n '1,140p' docs/architecture/SYSTEM_OVERVIEW.md
 sed -n '1,160p' docs/Session-Logs/CODEX-PHASE2-INTAKE-REPORT.md
 sed -n '1,160p' docs/specs/_fragments/params.geo-genre.md
@@ -76,7 +76,7 @@ chmod +x docs/scripts/community_key.sh && ./docs/scripts/community_key.sh "Austi
 ```
 
 ## Essential Files
-- docs/PHASE2_EXECUTION_PLAN.md — workstreams, tasks, acceptance, migrations, test hooks
+- docs/SPRINT2_EXECUTION_PLAN.md — workstreams, tasks, acceptance, migrations, test hooks
 - docs/architecture/SYSTEM_OVERVIEW.md — unified model + cross‑module contracts
 - docs/specs/_fragments/params.geo-genre.md — standard API params
 - docs/specs/03..09_*.md - specs aligned to Sprint 2
@@ -145,3 +145,4 @@ Expected output for seed attempts: "created" or "already‑present".
 ```
 chmod +x docs/scripts/session_kickoff.sh && ./docs/scripts/session_kickoff.sh
 ```
+

@@ -1507,3 +1507,7 @@ Usage
 Acceptance
 - POST /auth/login returns 200 and app navigates to `CommunitySetup` (unless fully onboarded with a community).
 - Sub‑genre typeahead loads full list on focus and narrows live; city/state free‑text accepted.
+## 2025-09-20
+- docs: canonicalized layout (Execution Plans, Knowledge-Base, ops, scripts, Session-Logs, july-model, _archive stubs)
+- guards: added docs/ops/guards/guard-doc-duplicates.ps1 and wired instructions for CI
+- carryover/kickoff/index aligned to canonical paths
