@@ -25,7 +25,7 @@
 ### Implementation Status
 - **Current Progress**: `docs/Repository-Status/PROJECT_OVERVIEW.md`
 - **Change Log**: `docs/CHANGELOG.md`
-- **Android Runbook**: `docs/RUNBOOK_ANDROID.md`
+- **Android Runbook**: `docs/Repository-Status/runbook_android.md`
 
 ### Previous Investigations
 - **API Audit**: `docs/july model/COMPREHENSIVE-API-ENDPOINT-AUDIT.md`
@@ -353,3 +353,4 @@
 
 **Last Updated**: September 7, 2025  
 **Next Review**: After Phase 1 completion
+
