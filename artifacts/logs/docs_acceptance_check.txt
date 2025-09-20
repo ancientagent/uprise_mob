@@ -1,0 +1,14 @@
+# PHASE2_EXECUTION_PLAN.md — Acceptance Criteria scan
+
+== Lines matching 'Acceptance Criteria' ==
+115:**Acceptance Criteria**  
+
+== Lines mentioning routing or CommunitySetup ==
+26:Unify the July Model realignments with current Phase 2 specs so that **mobile, API, and webapp** all converge on one canonical architecture. This document is the single source of truth for backend integration, onboarding, and smokes.
+61:  - `/onboarding/all-genres` → flat 97 list  
+62:  - `/onboarding/super-genres` → hierarchy  
+63:- Used during artist onboarding.  
+119:- After login: app routes to Home Scene Creation (CommunitySetup); 97-genre taxonomy visible; home scene set without AppRegistry/TrackPlayer issues.
+181:Goal: Community is first‑class; discovery/radio use `community_key`; onboarding uses direct sub‑genre selection (no super‑genre/families).
+188:  - Services (alpha): `GET /onboarding/approved-genres`, `GET /onboarding/genre-suggestions`, `POST /onboarding/request-genre`
+242:  - Client (Debug/staging): `COMMUNITY_VIABILITY_BYPASS=true` in react-native-config (guards onboarding validate)

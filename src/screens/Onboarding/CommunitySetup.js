@@ -195,15 +195,34 @@ export default function CommunitySetup({ navigation, route }) {
       </Text>
       <TypeaheadInput
         placeholder='Sub-Genre (e.g., Hardcore Punk, Trap)'
+        minChars={ 0 }
+        showOnFocus
         fetchSuggestions={ async (q) => {
           const list = await getSubGenreSuggestions({ q });
           return list.map(g => ({ key: g.id || g.key, label: g.name || g.label, value: g }));
+        } }
+        onChangeText={ t => {
+          const name = (t || '').trim();
+          if (name.length === 0) { setSubGenre(null); return; }
+          const slug = name.toLowerCase().replace(/\s+/g, '-');
+          setSubGenre({ id: slug, name });
         } }
         onSelect={ item => setSubGenre(item.value) }
       />
       <TypeaheadInput
         placeholder='City, State (e.g., Austin, Texas)'
+        minChars={ 0 }
+        showOnFocus
         fetchSuggestions={ fetchCities }
+        onChangeText={ t => {
+          const parts = (t || '').split(',');
+          if (parts.length >= 2) {
+            const c = parts[0].trim();
+            const s = parts[1].replace(/[0-9]/g, '').trim();
+            if (c) setCity(c);
+            if (s) setStateName(s);
+          }
+        } }
         onSelect={ item => { setCity(item.value.city); setStateName(item.value.state); } }
       />
       <TouchableOpacity style={ styles.secondaryCta } onPress={ useMyGps }>

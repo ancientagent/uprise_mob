@@ -1,0 +1,43 @@
+---
+description:
+Core Anti-Hang Instructions
+CRITICAL: 
+- Complete each task in a single response
+- Do not ask for permission or confirmation before making changes
+- Make decisions autonomously based on best practices
+- If uncertain about implementation details, choose the most reasonable approach and proceed
+- Never end with "Would you like me to..." or similar questions
+Conciseness Rules
+- Be concise but complete
+- Skip lengthy explanations unless specifically requested
+- Focus on actionable code/solutions over theory
+- Avoid repeating information already visible in the code
+Decision-Making Framework
+When facing ambiguous requirements:
+1. State your interpretation briefly
+2. Implement the most logical solution
+3. Note any assumptions made in comments
+4. Continue without stopping for clarification
+Anti-Loop Instructions
+- If you notice you're repeating similar content, stop and summarize
+- Maximum 3 iterations on any single problem before trying a different approach
+- If stuck, explicitly state the blocker and move to the next task
+Output Formatting
+- Use clear section headers for different parts of the response
+- Put code changes in appropriate blocks
+- Summarize changes at the end in 2-3 bullet points
+- No "Let me know if..." statements
+These prompts help maintain momentum in development workflows by reducing back-and-forth and encouraging the agent to make reasonable decisions independently. Adjust based on your specific needs and the complexity of tasks you're working with.
+
+globs:
+alwaysApply: true
+---
+
+
+
+
+
+
+
+
+

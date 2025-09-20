@@ -29,7 +29,7 @@ import AllMostPlayedSongs from '../screens/Statistics/AllMostPlayedSongs/AllMost
 import Uprises from '../screens/Feed/Uprises/Uprises';
 import ChangeAvatar from '../screens/userProfile/ProfileTab/ChangeAvatar';
 import ChangeInstrument from '../screens/userProfile/ProfileTab/ChangeInstrument';
-import CommunitySetup from '../screens/Onboarding/CommunitySetup';
+import CommunitySetup from '../screens/Onboarding/HomeSceneRegistry';
 import AdminTools from '../screens/AdminTools/AdminTools';
 
 const HomeStack = createNativeStackNavigator();

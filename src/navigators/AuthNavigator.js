@@ -11,7 +11,7 @@ import MailConfirmation from '../screens/mailConfirmation/mailConfirmation';
 import WelcomeScreen from '../screens/WelcomeScreen/WelcomeScreen';
 import GenreSelection from '../screens/GenreSelection/GenreSelection';
 import AuthLoading from '../screens/AuthLoading/AuthLoading';
-import CommunitySetup from '../screens/Onboarding/CommunitySetup';
+import HomeSceneRegistry from '../screens/Onboarding/HomeSceneRegistry';
 
 const AuthStack = createNativeStackNavigator();
 function AuthStackScreen() {
@@ -41,7 +41,7 @@ function AuthStackScreen() {
       <AuthStack.Screen name='AuthLoading' component={ AuthLoading } options={ () => ({ headerShown: false }) } />
       <AuthStack.Screen name='WelcomeScreen' component={ WelcomeScreen } options={ () => ({ headerShown: false }) } />
       <AuthStack.Screen name='GenreSelection' component={ GenreSelection } options={ () => ({ headerShown: false }) } />
-      <AuthStack.Screen name='CommunitySetup' component={ CommunitySetup } options={ () => ({ headerTitle: 'Community' }) } />
+      <AuthStack.Screen name='CommunitySetup' component={ HomeSceneRegistry } options={ () => ({ headerTitle: 'Join Your Home Scene' }) } />
       <AuthStack.Screen name='SignupUserName' component={ SignupUserName } options={ () => ({ headerShown: false }) } />
       <AuthStack.Screen name='Signup' component={ Signup } options={ () => ({ headerShown: false }) } />
       <AuthStack.Screen

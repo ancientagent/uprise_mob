@@ -6,6 +6,8 @@
     "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-native start",
     "android": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-native run-android",
     "bundle:android": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-native bundle --platform android --dev false --entry-file index.js --bundle-output android\\app\\src\\main\\assets\\index.android.bundle --assets-dest android\\app\\src\\main\\res",
+    "android:local:debug": "pwsh -NoLogo -NoProfile -ExecutionPolicy Bypass -File docs/scripts/windows/local_backend_emulator_debug.ps1",
+    "android:build:verbose": "pwsh -NoLogo -NoProfile -ExecutionPolicy Bypass -File docs/scripts/windows/build_debug_verbose.ps1",
     "ci:list": "powershell -File ./ci/ci-tools.ps1 list",
     "ci:jobs": "powershell -File ./ci/ci-tools.ps1 jobs",
     "ci:rerun": "powershell -File ./ci/ci-tools.ps1 rerun",
@@ -14,7 +16,18 @@
     "pods": "cd ios && pod install",
     "test": "jest",
     "lint": "eslint .",
-    "postinstall": "node scripts/patch-screens-if-needed.js"
+    "postinstall": "node scripts/patch-screens-if-needed.js",
+    "mobile:debug": "pwsh -NoLogo -NoProfile -ExecutionPolicy Bypass -File docs/scripts/windows/local_backend_emulator_debug.ps1",
+    "wsl:smokes": "wsl -e bash -lc \"cd /mnt/d/uprise_mob && chmod +x docs/scripts/*.sh && ./docs/scripts/health_checks.sh && ./docs/scripts/psql_postgis_check.sh && ./docs/scripts/migration_guard.sh\"",
+    "wsl:phase2-smoke": "wsl -e bash -lc \"cd /mnt/d/uprise_mob && API_BASE_URL=http://127.0.0.1:3000 ./docs/scripts/phase2_smoke.sh\"",
+    "handoff:win:done": "pwsh -NoLogo -NoProfile -ExecutionPolicy Bypass -File docs/scripts/windows/handoff_notify.ps1 -To codex-wsl -Msg 'mobile finished current step' -Kind done",
+    "handoff:wsl:done": "wsl -e bash -lc \"cd /mnt/d/uprise_mob && bash docs/scripts/wsl/handoff_notify.sh --to mobile-win --msg 'codex finished current step' --kind done\"",
+    "handoff:watch": "pwsh -NoLogo -NoProfile -Command Get-Content docs/handoff/events.jsonl -Tail 10 -Wait",
+    "watch:auto:win": "pwsh -NoLogo -NoProfile -ExecutionPolicy Bypass -File docs/scripts/windows/handoff_auto.ps1",
+    "watch:auto:wsl": "wsl -e bash -lc \"cd /mnt/d/uprise_mob && bash docs/scripts/wsl/handoff_auto.sh\"",
+    "orchestrate:mobile": "pwsh -NoLogo -NoProfile -ExecutionPolicy Bypass -File docs/scripts/windows/mobile_autorun.ps1",
+    "orchestrate:wsl": "wsl -e bash -lc \"cd /mnt/d/uprise_mob && bash docs/scripts/wsl/codex_autorun.sh\"",
+    "launch:debug:ordered": "pwsh -NoLogo -NoProfile -ExecutionPolicy Bypass -File docs/scripts/windows/launch_debug_in_order.ps1"
   },
   "dependencies": {
     "@homielab/react-native-auto-scroll": "^0.0.8",

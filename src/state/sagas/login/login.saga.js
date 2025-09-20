@@ -11,6 +11,7 @@ import showAlert from '../AlertUtility';
 import { getUserDetailsSagaAction, registerDeviceTokenSagaAction } from '../../actions/sagas';
 import { userAuthAction } from '../../actions/userAuth/userAuth.action';
 import TokenService from '../../../utilities/TokenService';
+import Config from 'react-native-config';
 
 export default function* loginWatcherSaga() {
   yield takeLatest(loginReqSagaType, loginWorkerSaga);
@@ -24,11 +25,13 @@ export function* loginWorkerSaga(action) {
     };
     const response = yield call(loginRequest, payload);
     if (response !== null) {
+      // Support both shapes: request.service returns res.data; some callers expect { data: ... }
+      const resp = (response && response.data) ? response.data : response;
       const authDetails = {
-        accessToken: response.data.accessToken,
-        refreshToken: response.data.refreshToken,
+        accessToken: resp?.accessToken,
+        refreshToken: resp?.refreshToken,
       };
-      yield put(loginRequestActions.succeed(response));
+      yield put(loginRequestActions.succeed(resp));
       yield TokenService.setAccessToken(authDetails.accessToken);
       yield TokenService.setRefreshToken(authDetails.refreshToken);
       yield put(userAuthAction(authDetails));
@@ -37,15 +40,51 @@ export function* loginWorkerSaga(action) {
           token: yield AsyncStorage.getItem('fcmToken'),
         }));
       }
-      yield put(getUserDetailsSagaAction());
-      if (response.data.user.onBoardingStatus === 0) {
-        RootNavigation.navigate({ name: 'UserLocation' });
-      } else if (response.data.user.onBoardingStatus === 1) {
-        RootNavigation.navigate({ name: 'GenreSelection' });
-      } else if (response.data.user.onBoardingStatus === 2) {
-        RootNavigation.navigate({ name: 'Dashboard' });
-      } else if (response.data.user.onBoardingStatus === 3) {
-        RootNavigation.navigate({ name: 'MailConfirmation', params: { showData: false } });
+      const status = resp?.user?.onBoardingStatus;
+
+      // Consider either of these fields for determining if the user has a community:
+      const hasCommunity =
+        !!resp?.user?.primary?.community_key ||
+        !!resp?.user?.community_key ||
+        !!resp?.user?.communityKey;
+
+      const forceEnvRaw = String((Config && Config.FORCE_DASHBOARD_AFTER_LOGIN) || '');
+      const rawForce = forceEnvRaw.trim().toLowerCase();
+      const truthyForce = ['true', '1', 'yes', 'y', 'on'];
+      const falsyForce = ['false', '0', 'no', 'n', 'off'];
+      let forceDashboard;
+      if (truthyForce.includes(rawForce)) {
+        forceDashboard = true;
+      } else if (falsyForce.includes(rawForce)) {
+        forceDashboard = false;
+      } else {
+        forceDashboard = false;
+      }
+
+      try {
+        // eslint-disable-next-line no-console
+        console.log('LOGIN route decision', {
+          status,
+          hasCommunity,
+          forceEnv: forceEnvRaw,
+          forceResolved: forceDashboard,
+        });
+      } catch (_) {}
+
+      // Route: if fully onboarded (status === 2) AND hasCommunity → Dashboard
+      // Otherwise → Home Scene Creation (CommunitySetup)
+      if (forceDashboard || (status === 2 && hasCommunity)) {
+        try {
+          // eslint-disable-next-line no-console
+          console.log('LOGIN nav → Dashboard', { forceDashboard, status, hasCommunity });
+          RootNavigation.navigate('Dashboard');
+        } catch (e) { try { console.log('LOGIN nav Dashboard error', e?.message || e); } catch (_) {} }
+      } else {
+        try {
+          // eslint-disable-next-line no-console
+          console.log('LOGIN nav → Auth/CommunitySetup', { forceDashboard, status, hasCommunity });
+          RootNavigation.navigate('Auth', { screen: 'CommunitySetup', params: { fromLogin: true } });
+        } catch (e) { try { console.log('LOGIN nav CommunitySetup error', e?.message || e); } catch (_) {} }
       }
     }
   } catch (e) {
@@ -53,4 +92,8 @@ export function* loginWorkerSaga(action) {
     yield call(showAlert, e.error);
   }
 }
+
+
+
+
 

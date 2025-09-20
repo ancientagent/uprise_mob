@@ -5,9 +5,30 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import Config from 'react-native-config';
 import RNSplashScreen from 'react-native-splash-screen';
+
+if (__DEV__) {
+  try {
+    const C = require('react-native-config');
+    // eslint-disable-next-line no-console
+    console.log('CONFIG (App.js)', {
+      API_BASE_URL: C.API_BASE_URL,
+      SIGNUP_URL: C.SIGNUP_URL,
+      VERIFY_USERNAME: C.VERIFY_USERNAME,
+      VERIFY_USER: C.VERIFY_USER,
+      LOGIN_URL: C.LOGIN_URL,
+      REFRESH_TOKEN_URL: C.REFRESH_TOKEN_URL,
+      UPDATED_USERDETAILS: C.UPDATED_USERDETAILS,
+      REGISTER_DEVICE_TOKEN: C.REGISTER_DEVICE_TOKEN,
+      APPROVED_GENRES_ENDPOINT: C.APPROVED_GENRES_ENDPOINT,
+      GENRE_SUGGESTIONS_ENDPOINT: C.GENRE_SUGGESTIONS_ENDPOINT,
+      REQUEST_GENRE_ENDPOINT: C.REQUEST_GENRE_ENDPOINT,
+    });
+  } catch (_) {}
+}
 import { Alert } from 'react-native';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { navigationRef } from './src/navigators/RootNavigation';
 // Avoid importing app modules at top-level to isolate init crashes.
 
 let store, storePersistor;
@@ -136,8 +157,11 @@ class App extends Component {
           { /* we used onStateChange to know the state of current nav e.g:
             onStateChange={ state => console.log('New state is', state) } */ }
           <NavigationContainer
-            // ref={ navigationRef }
+            ref={ navigationRef }
             onStateChange={ state => this.setState({ navState: state }) }
+            onReady={ () => {
+              try { require('./src/navigators/RootNavigation').onNavReady(); } catch (_) {}
+            } }
             theme={ DarkTheme }
           >
             <AppNavigatorCmp navState={ navState } />

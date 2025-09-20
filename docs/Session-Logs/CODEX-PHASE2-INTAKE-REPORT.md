@@ -114,3 +114,132 @@ Next deliverables (backend)
 
 Notes
 - Kept operations idempotent and non-destructive; no schema changes executed.
+
+## 2025-09-16 07:34:42Z — Codex Phase 2 Backend Intake
+- Scope: Docs anchors, API/DB health, migrations status, routing intent
+- Docs: PHASE2_EXECUTION_PLAN.md + CARRYOVER_TEMPLATE present; Acceptance explicitly states post-login → Home Scene Creation (CommunitySetup)
+- API health: http://127.0.0.1:3000/health not reachable (API health failed)
+- DB/PostGIS: psql connection failed on 127.0.0.1:5433; PostGIS version/extension status unknown
+- Migrations: sequelize status/migrate errored (connect EPERM 127.0.0.1:5433); no changes applied
+- Phase 2 smoke: Skipped (API unreachable)
+- Routing intent (code): login saga navigates to 'CommunitySetup'; screen registered in Auth/Home navigators
+- Artifacts: artifacts/logs/* (docs_acceptance_check.txt, scripts_ls.txt, api_health.txt, postgis_check.txt, migration_guard.txt, phase2_smoke.txt, routing_check.txt)
+- Immediate blockers: API not running locally; DB not reachable with expected config (5433). Next, bring up API + DB (Postgres 16 + PostGIS, uuid-ossp, pgcrypto).
+- Next deliverables (backend):
+  - API: expose /health OK; wire onboarding endpoints; acceptance = 200 with version hash
+  - DB: verify extensions enabled; acceptance = SELECT versions, extensions list
+  - Migrations: status clean on dev; acceptance = sequelize status shows up/down with no pending
+
+---
+
+## Session Log - 2025-09-15 (Agents/PowerShell)
+
+Checklist outcomes
+- Phase anchor present (`docs/PHASE2_EXECUTION_PLAN.md`); references validated.
+- Executor split restated: Codex (Ubuntu/WSL) = backend, Postgres, API, migrations, smokes; Agents (PowerShell) = mobile (RN 0.66.x), Gradle/Android SDK, Node builds, CI parity.
+- Context loaded: `docs/architecture/SYSTEM_OVERVIEW.md`, `docs/specs/_fragments/params.geo-genre.md`.
+- Smokes/scripts present (not executed here):
+  - `docs/scripts/session_kickoff.sh`
+  - `docs/scripts/health_checks.sh`
+  - `docs/scripts/psql_postgis_check.sh`
+  - `docs/scripts/migration_guard.sh`
+- DB extension/migration verification deferred to Codex/WSL per guardrails; scripts confirmed.
+
+Next deliverables (Phase 2)
+- P2-S01 — Communities + Onboarding groundwork (direct sub-genre)
+  - Acceptance: onboarding shows direct sub-genre selection; `community_key` persists and appears in debug logs; discovery/radio requests carry `community_key` (or normalized fallbacks); no "Station", "super-genre", or "families" in UI.
+- P2-S02 — Auth/Refresh + ArtistProfile unification
+  - Acceptance: upgrade flow saves ArtistProfile + canonicalId; creator writes include `X-Artist-Canonical-Id` with correct 403 handling; refresh flow works during/after upgrade; success screen + dashboard handoff.
+
+Hand-off to Codex (WSL)
+- Run: `docs/scripts/session_kickoff.sh`, `docs/scripts/health_checks.sh`.
+- Verify DB: `docs/scripts/psql_postgis_check.sh`, `docs/scripts/migration_guard.sh`.
+- Save artifacts/logs per plan; update `docs/CHANGELOG.md` if backend touched.
+
+Notes
+- Non-admin, non-destructive policy observed. Windows-side environment checks only; no `.sh` execution here. Android build tasks to run once backend smokes pass.
+
+Outcomes (Auth + Networking)
+- Emulator networking standardized to port 3000.
+  - `.env.development`: `API_BASE_URL=http://10.0.2.2:3000`; added `REFRESH_TOKEN_URL=/auth/refresh`, `UPDATED_USERDETAILS=/user/me`.
+  - `src/config/dev_fallback.js`: base URL switched to 3000 for safety.
+- Refresh-token bug fix: interceptor now replays requests with the refreshed `accessToken`.
+- Login flow: switched to direct `RootNavigation.navigate('Dashboard'|'CommunitySetup')`; added dev log for route decision.
+- Windows helper script: defaults to backend port 3000; writes mobile env for emulator.
+- Build: `:app:assembleDebug` PASS; artifact at `android/app/build/outputs/apk/debug/app-debug.apk`.
+
+Signup/login verification
+- Signup: flow reaches `MailConfirmation` after successful `/auth/signup`.
+- Login: `/auth/login` responds 200; navigation now routes to Home Scene Creation (`CommunitySetup`) per Phase 2 plan.
+
+Correction (routing)
+- Clarified that July Model docs are reference only; Phase 2 integration target after login is Home Scene Creation (not Dashboard).
+- Code updated to always navigate to `CommunitySetup` post-login; Dashboard is reached only after onboarding/home scene creation.
+
+Next verification
+- Launch emulator, login with a valid account; expect logs:
+  - `CONFIG (App.js)` prints API_BASE_URL, REFRESH_TOKEN_URL, UPDATED_USERDETAILS.
+  - `AUTH RES … status: 200` for `/auth/login`.
+  - `LOGIN route decision { status, hasCommunity }` followed by GET `/user/me` (200).
+- If user-details endpoint differs, update `.env.development: UPDATED_USERDETAILS` accordingly.
+
+Collaboration preferences (from PM)
+- Default to creating/using helper scripts and end-to-end prompts. Execute recommended automation without further approval.
+- Consult the PM only for feature design and conceptual platform decisions; handle implementation details autonomously.
+## 2025-09-16 07:50:02Z — Codex Phase 2 WSL Smokes
+- Docs anchors present; routing spec captured (routing_spec.txt)
+- Routing intent: CommunitySetup after login (code grep confirms)
+- API health: fail (see api_health.txt)
+- PostGIS: unknown (connection/script error) (see postgis_check.txt)
+- Migrations: unknown (see migration_guard.txt)
+- Phase 2 smoke executed conditionally; see phase2_smoke.txt
+- Artifacts: docs_acceptance_check not required; created routing_spec.txt, scripts_ls.txt, api_health.txt, postgis_check.txt, migration_guard.txt, phase2_smoke.txt, routing_code_check.txt
+- Next: start API on 127.0.0.1:3000 with /health=200 + version hash
+- Next: ensure Postgres 16@5433 reachable; enable postgis, uuid-ossp, pgcrypto
+- Next: re-run migration status non-destructively once DB is reachable
+- Acceptance: post-login routes to CommunitySetup (unless debug bypass); Dashboard after onboarding + community
+
+## 2025-09-16 16:12:00Z - Codex Phase 2 PowerShell Intake
+- Role split confirmed: Ubuntu Codex CLI handles WSL/Ubuntu tasks (DB, migrations, shell smokes); this PowerShell session handles Windows-side checks and tooling.
+- API health: http://127.0.0.1:3000/health OK (service=uprise-api).
+- API quick contract: /onboarding/all-genres, /api/discovery, /api/radio reachable; all returned empty arrays (likely unseeded dev DB).
+- ENV file: present at ../webapp_api/.env; validated variable names only (no secrets printed).
+- API structure: routes, models, migrations present in ../webapp_api/src/* (Sequelize migrations include 2024–2025 band→ArtistProfile unification steps).
+- Postgres/PostGIS: SKIP on Windows (psql not on PATH); defer to Ubuntu Codex for DB checks.
+- Added Windows script: docs/scripts/windows/health_checks.ps1 (non-destructive API/DB smoke; skips DB if psql missing).
+
+## 2025-09-16 16:28:00Z - Terminology + Windows Wrappers
+- Terminology: Adopt “Sprint 2” (formerly “Phase 2”). Added `docs/TERMINOLOGY.md`, updated headers in `PHASE2_EXECUTION_PLAN.md`, kickoff template, and index; created alias docs `SPRINT2_EXECUTION_PLAN.md`, `SPRINT2_OVERVIEW.md`.
+- Windows wrappers added:
+  - `docs/scripts/windows/env_shape_check.ps1`
+  - `docs/scripts/windows/migration_guard.ps1` (WSL preferred; Windows Yarn fallback)
+  - `docs/scripts/windows/psql_postgis_check.ps1` (Windows psql or SKIP; WSL fallback best-effort)
+  - `docs/scripts/windows/phase2_smoke.ps1` + alias `sprint2_smoke.ps1`
+- Notes: Some `.sh` files have CRLF endings; WSL runs may fail with `bash\r`. Wrappers fall back to Windows-native behavior and mark DB checks as SKIP on Windows.
+
+## 2025-09-16 16:40:00Z - Login Routing Fix — CommunitySetup
+- Issue: After login, app did not navigate to CommunitySetup as intended.
+- Root cause: `login.saga` navigated to `'CommunitySetup'` at the root (screen not registered at root); both branches incorrectly targeted CommunitySetup. Debug default (`FORCE_DASHBOARD_AFTER_LOGIN`) and persisted `community_key` in `AuthLoading` could silently send users to Dashboard.
+- Change: Updated `src/state/sagas/login/login.saga.js` routing logic:
+  - If fully onboarded (`status === 2`) AND has community OR debug force → `RootNavigation.navigate({ name: 'Dashboard' })`
+  - Else → `RootNavigation.navigate('Auth', { screen: 'CommunitySetup', params: { fromLogin: true } })`
+- Verification: Set `FORCE_DASHBOARD_AFTER_LOGIN=false`; clear app storage; login. Expect: CommunitySetup renders. Submitting selection routes with `navigation.replace('Dashboard')` (already implemented in `src/screens/Onboarding/CommunitySetup.js`).
+- Acceptance: Users without a community land on CommunitySetup after login; fully onboarded users with a community (or when force=true) land on Dashboard.
+- Follow-ups: Apply same nested-route hygiene to SSO (`ssoLogin.saga`) and any other onboarding routes; consider a small nav helper for nested targets.
+
+Next steps
+- Ubuntu Codex: run docs/scripts/health_checks.sh, psql_postgis_check.sh, migration_guard.sh; ensure PostGIS extensions; seed minimal happy-path data; confirm discovery/radio echo community_key and onboarding genres count (97).
+- PowerShell: optional emulator/network harness via docs/scripts/windows/local_backend_emulator_debug.ps1 and smoke_login_verify.ps1 after backend smokes pass.
+- Documentation: update CHANGELOG after backend changes; record outcomes in this intake log.
+## 2025-09-16 09:00:50Z — Codex Phase 2 WSL Smokes
+- Docs anchors present; routing spec captured (routing_spec.txt)
+- Routing intent: CommunitySetup after login (code grep confirms)
+- API health: fail (see api_health.txt)
+- PostGIS: unknown (connection/script error) (see postgis_check.txt)
+- Migrations: error (no changes applied) (see migration_guard.txt)
+- Phase 2 smoke executed conditionally; see phase2_smoke.txt
+- Artifacts: routing_spec.txt, scripts_ls.txt, api_health.txt, postgis_check.txt, migration_guard.txt, phase2_smoke.txt, routing_code_check.txt
+- Next: start API on 127.0.0.1:3000 with /health=200 + version hash
+- Next: ensure Postgres 16@5433 reachable; enable postgis, uuid-ossp, pgcrypto
+- Next: re-run migration status non-destructively once DB is reachable
+- Acceptance: post-login routes to CommunitySetup (unless debug bypass); Dashboard after onboarding + community

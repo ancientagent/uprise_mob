@@ -1,0 +1,14 @@
+total 28
+drwxrwxrwx 1 baris baris 4096 Sep 16 02:41 .
+drwxrwxrwx 1 baris baris 4096 Sep 16 01:38 ..
+-rwxrwxrwx 1 baris baris 1580 Sep 14 18:21 api_contract_check.sh
+-rwxrwxrwx 1 baris baris  447 Sep 14 18:21 community_key.sh
+-rwxrwxrwx 1 baris baris 5612 Sep 14 18:21 db_bootstrap.sh
+-rwxrwxrwx 1 baris baris 1036 Sep 14 18:21 env_shape_check.sh
+-rwxrwxrwx 1 baris baris 1961 Sep 14 18:21 health_checks.sh
+-rwxrwxrwx 1 baris baris  616 Sep 14 18:21 migration_guard.sh
+-rwxrwxrwx 1 baris baris 1188 Sep 14 18:21 phase2_smoke.sh
+-rwxrwxrwx 1 baris baris 2458 Sep 14 18:21 psql_postgis_check.sh
+-rwxrwxrwx 1 baris baris  701 Sep 14 18:21 session_kickoff.sh
+drwxrwxrwx 1 baris baris 4096 Sep 16 02:41 windows
+drwxrwxrwx 1 baris baris 4096 Sep 16 02:41 wsl

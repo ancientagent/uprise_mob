@@ -67,11 +67,27 @@ export async function request(requestOptions, omitAuth) {
       }
       const res = await API(requestData);
       if (__DEV__) {
-        // eslint-disable-next-line no-console
-        console.log('res', { status: res.status, url: requestData.url });
+        const u = String(requestData.url || '');
+        const isAuth = /signup|login|verify-user|verify-username|register-device-token/i.test(u);
+        if (isAuth) {
+          // eslint-disable-next-line no-console
+          console.log('AUTH RES', { url: requestData.url, status: res?.status });
+        }
       }
       return res.data;
     } catch (error) {
+      try {
+        const u = String(requestData?.url || '');
+        const isAuth = /signup|login|verify-user|verify-username|register-device-token/i.test(u);
+        if (isAuth) {
+          // eslint-disable-next-line no-console
+          console.log('AUTH ERR', {
+            url: requestData?.url,
+            status: error?.response?.status,
+            data: error?.response?.data,
+          });
+        }
+      } catch (_) {}
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
