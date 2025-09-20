@@ -102,13 +102,9 @@
 │  to go live. Time to recruit    │
 │  your fellow rebels:            │
 │                                  │
-│  [Share] [SMS] [Facebook]       │
+│  [Share] [Find Nearest] [Change Genre]  │
 │                                  │
-│  [Random Quote Generator Below] │
-│  "Every empire falls. We're     │
-│   just the soundtrack."         │
-│                                  │
-│  🎯 Pioneer Bonus: +50 AP       │
+│  Random quote appended in modal │
 │                                  │
 │  ─────── OR ───────             │
 │                                  │
@@ -124,27 +120,22 @@
 - Revolutionary: "They control the airwaves. We're building our own."
 - Community: "It takes a village to raise a scene."
 
-**Activity Points (AP) System:**
-- Pioneer Bonus: +50 AP for being first 10 members
-- Recruiter Bonus: +10 AP per successful invite
-- Scene Activator: +100 AP if your invites trigger launch
-- Early Adopter Badge: Permanent profile distinction
-
 **Options:**
-- **Share buttons**: Invite contacts with attached quote
-- **Change Genre**: Refreshes genre field with only active genres in Buda
-- **Find Nearest**: Shows nearest city with active Thrash Punk scene
+- **Share**: Opens system share sheet with rallying copy (quote included when viability fails).
+- **Find Nearest**: Joins the nearest active community if returned by the API.
+- **Change Genre**: Returns to the genre selector to try another option.
 
-### Scenario C: User Changes to Active Genre
-- Genre field clears and updates to show only active local genres
-- User selects from filtered list
-- Preview updates to new Home Scene
-- Confirms to join active community
+**Future Enhancements:**
+- Dedicated SMS/Facebook share buttons.
+- Pioneer/Recruiter activity points and badges.
 
-### Scenario D: User Chooses Nearest Active
-- System calculates nearest city with user's original genre active
-- Shows: "Join Austin, TX Thrash Punk Uprise (12 miles away)?"
-- User confirms to join nearest active scene
+### Scenario C: User Chooses Change Genre
+- Alert closes; user selects a new genre from the typeahead.
+- Preview updates to reflect the new choice.
+- User confirms to join.
+
+### Scenario D: User Chooses Find Nearest
+- App dispatches the nearest active community key (if returned) and navigates to Dashboard.
 
 ## Technical Implementation
 
@@ -185,9 +176,16 @@ updateHomeScenePreview(city, state, genre);
 ## Edge Cases
 
 ### Invalid ZIP
-- Field highlights red
-- Error message: "Please enter valid 5-digit ZIP"
-- City/state display remains empty
+- Alert: "Please enter a valid 5-digit ZIP."
+- City/state preview remains empty until valid ZIP resolves.
+
+### Input Field Behavior
+- ZIP field: numeric; lookup triggers once five digits are present.
+- Genre field: suggestions available on focus (0+ chars), filters as user types.
+
+### Visual Feedback
+- Preview updates when city/state resolves from ZIP.
+- Verification row toggles warning icon (Unverified) and checkbox (Verified) based on GPS.
 
 ### No Active Genres in City
 - Message: "No active scenes in Buda yet. Try nearby Austin?"

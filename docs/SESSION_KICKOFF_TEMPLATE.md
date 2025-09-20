@@ -1,4 +1,4 @@
-# UPRISE Phase 2 — Session Kickoff Template
+# UPRISE Sprint 2 - Session Kickoff Template
 
 Purpose
 - Paste this at the start of any new conversation to quickly restore context and alignment.
@@ -24,10 +24,10 @@ ENV_FILE=$API_DIR/.env
 ```
 
 ## Starter Prompt (copy/paste)
-- You are Codex acting as Tech Lead + Documentation Steward for UPRISE Phase 2.
+- You are Codex acting as Tech Lead + Documentation Steward for UPRISE Sprint 2.
 - Use `docs/` as the single source of truth; no app code changes without explicit approval.
 - DB is Postgres on port 5433 with PostGIS. Read env from `$ENV_FILE` (do not print secrets).
-- Phase 2 priorities: identity unification (ArtistProfile), correct location filters, Radio=Community projection, genre taxonomy/targeting, non‑destructive smokes.
+- Sprint 2 priorities: identity unification (ArtistProfile), correct location filters, Radio=Community projection, genre taxonomy/targeting, non-destructive smokes.
 
 ## Quick Context Loader
 ```
@@ -79,9 +79,9 @@ chmod +x docs/scripts/community_key.sh && ./docs/scripts/community_key.sh "Austi
 - docs/PHASE2_EXECUTION_PLAN.md — workstreams, tasks, acceptance, migrations, test hooks
 - docs/architecture/SYSTEM_OVERVIEW.md — unified model + cross‑module contracts
 - docs/specs/_fragments/params.geo-genre.md — standard API params
-- docs/specs/03..09_*.md — specs aligned to Phase 2
-- docs/ops/CI_WORKFLOWS.md — Phase 2 smokes (emulator optional)
-- docs/ops/CHECKLISTS.md — Phase‑2 daily driver
+- docs/specs/03..09_*.md - specs aligned to Sprint 2
+- docs/ops/CI_WORKFLOWS.md - Sprint 2 smokes (emulator optional)
+- docs/ops/CHECKLISTS.md - Sprint-2 daily driver
 - docs/Session-Logs/CODEX-PHASE2-INTAKE-REPORT.md — findings + decisions
 
 ## Standard API Inputs/Headers
@@ -105,7 +105,7 @@ git push -u origin fix/docs-phase2-alignment
 ## Session Checklist (every new thread)
 - Confirm repo path and sibling API presence
 - Load SYSTEM_OVERVIEW, EXECUTION_PLAN, and params fragment
-- State Phase 2 goals in one sentence
+- State Sprint 2 goals in one sentence
 - Run non‑destructive smokes (API + PostGIS)
 - Propose next 2–3 steps with acceptance criteria
 - Record material decisions in the intake report
@@ -132,7 +132,7 @@ Expected output for seed attempts: "created" or "already‑present".
   - "docs/july model/architecture realignment/*"
   - "docs/july model/Feature realignment/*"
 - Then produce a short delta report to `docs/Session-Logs/CODEX-JULY-MODEL-DELTA.md`:
-  - What’s already implemented in Phase 2 specs
+  - What's already implemented in Sprint 2 specs
   - What remains (artist/band, location filters, radio/community, genres)
   - Which migrations or endpoints must be added/modified
 

@@ -7,7 +7,7 @@ Prevent configuration, artifact, and spec/code drift while keeping developer vel
 - Secrets scan (regex-based): warn on likely keys in diffs.
 - Artifact guard: warn if `android/app/src/main/assets/index.android.bundle` or `androidappsrcmainassetsindex.android.bundle` exists in the tree.
 - Env shape check: run `docs/scripts/env_shape_check.sh` against `.env.example` and fail missing keys in enforce mode.
-- Docs touch: when changing `src/navigators/*` or `src/services/onboarding/*`, require a docs change (CHANGELOG or spec).
+- Docs touch guard (planned): once implemented it will alert when `src/navigators/*` or `src/services/onboarding/*` change without a companion docs update (CHANGELOG/spec). Not enforced by `scripts/ci/anti_drift.sh` yet.
 
 ## Local Hooks (optional)
 - Pre-commit: lint + unit tests on staged files.
@@ -17,4 +17,3 @@ Prevent configuration, artifact, and spec/code drift while keeping developer vel
 
 ## Commands
 - CI script: `scripts/ci/anti_drift.sh` (runs on Linux/macOS runners)
-

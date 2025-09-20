@@ -1,19 +1,22 @@
 # UPRISE Docs – Index
 
-Welcome to Phase 2. This folder is the **single source of truth** for UPRISE documentation.
+Welcome to Sprint 2 (formerly “Phase 2”). This folder is the **single source of truth** for UPRISE documentation.
 
 ## Start Here
 - [PHASE2_OVERVIEW.md](./PHASE2_OVERVIEW.md)
 - [CHANGELOG.md](./CHANGELOG.md)
 
-## Phase 2 Anchors
-- [PHASE2_CARRYOVER_TEMPLATE.md](./PHASE2_CARRYOVER_TEMPLATE.md) — Daily carryover instructions (Codex/Mobile/PM roles, guardrails, workflows).
+## Sprint 2 Anchors
+- [PHASE2_CARRYOVER_TEMPLATE.md](./PHASE2_CARRYOVER_TEMPLATE.md) - Daily carryover instructions (Codex/Mobile/PM roles, guardrails, workflows).
+- [SPRINT2_EXECUTION_PLAN.md](./SPRINT2_EXECUTION_PLAN.md) - Alias to the current execution plan.
+- [SPRINT2_CARRYOVER_TEMPLATE.md](./SPRINT2_CARRYOVER_TEMPLATE.md) - Updated carryover template for Sprint 2.
 
 ## Runbooks
 - Android: [RUNBOOK_ANDROID.md](./RUNBOOK_ANDROID.md)
 - Crash Triage (Android): [RUNBOOK_ANDROID.md#crash-triage-android](./RUNBOOK_ANDROID.md#crash-triage-android)
 - Backend (Postgres/PostGIS & API): [runbooks/runbook_backend.md](./runbooks/runbook_backend.md)
 - Webapp: [runbooks/runbook_web.md](./runbooks/runbook_web.md)
+- ZIP Seeding: [runbooks/ZIP_SEEDING.md](./runbooks/ZIP_SEEDING.md)
 
 ## Architecture
 - System Overview: [architecture/SYSTEM_OVERVIEW.md](./architecture/SYSTEM_OVERVIEW.md)
@@ -42,6 +45,7 @@ Welcome to Phase 2. This folder is the **single source of truth** for UPRISE doc
 - Mobile Flow: [ops/MOBILE_FLOW.md](./ops/MOBILE_FLOW.md)
 - WSL Flow: [ops/WSL_FLOW.md](./ops/WSL_FLOW.md)
 - Test Plan: [ops/TEST_PLAN_PHASE2.md](./ops/TEST_PLAN_PHASE2.md)
+ - WSL Quick Kickoff: [ops/WSL_QUICK_KICKOFF.md](./ops/WSL_QUICK_KICKOFF.md)
 
 ## Tools & Scripts
 - Tools Index: [TOOLS_INDEX.md](./TOOLS_INDEX.md)
@@ -53,3 +57,7 @@ Welcome to Phase 2. This folder is the **single source of truth** for UPRISE doc
 
 ## Previous Build Documentation
 - [July Build Postmortem](july-model/JULY_BUILD_POSTMORTEM.md) — Legacy stabilization lessons and architectural realities.
+
+## UX
+- Home Scene Registry UI: [UX/HOME_SCENE_REGISTRY_UI_TEMPLATE.md](./UX/HOME_SCENE_REGISTRY_UI_TEMPLATE.md)
+

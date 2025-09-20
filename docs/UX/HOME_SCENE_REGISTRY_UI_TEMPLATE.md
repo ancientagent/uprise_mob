@@ -1,7 +1,7 @@
 # Home Scene Registry – Revolutionary UI Template (Updated)
 
 ## Core Design Principles
-- Revolutionary Tone: Bold typography, activist visuals, black flag verification markers, and resist‑fist loading.
+- Revolutionary Tone: Bold typography, activist visuals, and clear verification status indicators (checkbox + warning icon).
 - Clear Hierarchy: Top‑to‑bottom stacked funnel.
 - Responsive Autocomplete: Dropdown collapses after selection.
 - Symbolic Language: Black flag = Verified, Grey flag = Pending.
@@ -12,7 +12,6 @@
 **Title:** Home Scene Registry
 
 **Subtext:**
-> Join Your Home Scene  
 > Home Scenes represent the core music communities in your city of residence. These are the communities where you’ll have influence through your music and your vote. (GPS Verification Required)
 
 ---
@@ -22,17 +21,16 @@
 - Field Label: City of Residence
 - Input: Zipcode field with placeholder: Enter Zip Code
 - Action Button: Verify with GPS
-- Verification Icon: Black flag = Verified, Grey flag = Not Verified
+- Verification status row: Checked checkbox = Verified, warning icon = Not Verified
 
 **Behavior:**
-- If zip verified with GPS → Black flag raises, and community name displays in confirmation box.
+- When ZIP matches GPS → checkbox shows as checked and community name displays in confirmation box.
 - If verification fails due to GPS issue → Error modal with retry options (Open Settings / Try Again / Verify Later).
 - If verification fails due to mismatch → Prompt: “GPS shows [xxxxx]. Confirm or Verify Later.”
 - If Verify Later → Confirmation text: “To enable voting from Home Scene dashboard go to Profile > Settings > GPS Verification.” with Continue.
 
 **Loading State:**
-- Instead of a spinner, show Resist Fist emoji cycling through skin tones (✊🏻 ✊🏼 ✊🏽 ✊🏾 ✊🏿).
-- Loop until verification completes.
+- Rely on the Verify with GPS button and OS permission dialogs; no custom animation in v1.
 
 ---
 
@@ -52,14 +50,14 @@
 - If user presses Join without verifying → Modal:  
   Title: Zip Verification  
   Copy: You chose not to verify your home zip. This means you will not have the ability to vote in your Home Scene.  
-  Actions: [Verify Now] [Join Without Voting]
+  Actions: [Verify] [Join Home Scene]
 
 ---
 
 ## UX Enhancements
-- Replace checkboxes with black flags for success (wave animation on verify).
+- Checkbox + warning icon communicate verification status; consider black flag treatment in a later polish pass.
 - Red accents for failed states, subtle pulsing grey for pending.
-- Loading = Resist Fist cycling through skin tones.
+- No custom loader in v1; animation polish may follow under `HOME_SCENE_UI_V2`.
 - Revolutionary typography consistent with UPRISE brand.
 - Space‑efficient stacked layout: Title → City → Genre → Confirmation → Action.
 
@@ -85,4 +83,3 @@ Feature Flags (recommended):
 ## Backend Notes
 - GET /geo/zip-lookup?zip=XXXXX → { city, state_abbr, state_name, county, coords:{lat,lng}, metroArea }
 - GET/POST /onboarding/validate-community → { active, needed, nearestActive, primary.community_key }
-

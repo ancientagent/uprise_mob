@@ -15,6 +15,16 @@ Ready‑to‑run Signals
 - Windows → Codex/WSL: `yarn handoff:win:done`
 - Codex/WSL → Windows: `yarn handoff:wsl:done`
 
+Auto‑Watchers (optional)
+- Windows (auto‑respond to events): `yarn watch:auto:win`
+  - Acts on events addressed to `mobile-win`:
+    - kind=run-mobile → `yarn orchestrate:mobile`
+    - kind=run-login-smoke → login smoke verifier
+- WSL (auto‑respond to events): `yarn watch:auto:wsl`
+  - Acts on events addressed to `codex-wsl`:
+    - kind=run-wsl → Codex autorun (smokes + log + handoff)
+    - kind=run-smokes → `yarn wsl:smokes`
+
 Phases (minimal happy‑path)
 1) Mobile build + clean install + launch (Windows)
    - `set UPRISE_ADB_DEVICE`, then `yarn mobile:debug`
@@ -33,4 +43,3 @@ Phases (minimal happy‑path)
 Authoritative Routing
 - After successful login, route to Home Scene Creation (`CommunitySetup`) unless explicitly bypassed in debug.
 - Dashboard appears only after onboarding completes and a community exists.
-

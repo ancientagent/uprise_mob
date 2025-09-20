@@ -157,6 +157,11 @@ $ids = Get-EmulatorIds
 if (-not $ids -or $ids.Count -eq 0) { Fail "No running emulator found after boot." }
 
 if ($targetDeviceEnv -and ($ids -contains $targetDeviceEnv)) { $device = $targetDeviceEnv } else { $device = $ids[0] }
+# Guard against malformed device id (e.g., single character)
+if (-not $device -or ($device -replace '\s','').Length -lt 6) {
+  $device = (& $adb devices) | ForEach-Object { if ($_ -match '^\s*(emulator-\d+)\s+device') { $matches[1] } } | Select-Object -First 1
+}
+if (-not $device) { Fail "Unable to resolve emulator device id from adb devices" }
 Write-Host ("Target device: {0}" -f $device) -ForegroundColor Cyan
 
 function ADB {

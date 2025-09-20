@@ -94,7 +94,7 @@ Unify the July Model realignments with current Sprint 2 specs so that **mobile, 
   - Echo back params for consistency.  
 
 ### Post-Login Routing (Authoritative)
-- After successful login, route to Home Scene Creation (`CommunitySetup`) unless explicitly bypassed in debug; Dashboard only after onboarding completes and a community exists.
+- After successful login, route to Home Scene Registry (`CommunitySetup` route alias) unless explicitly bypassed in debug; Dashboard only after onboarding completes and a community exists.
 
 ---
 
@@ -121,7 +121,7 @@ Unify the July Model realignments with current Sprint 2 specs so that **mobile, 
 - Build & smoke PASS; artifacts saved with standard names/paths.
 - Release logs show no fatal runtime and no Metro references.
 - Requests include community_key when available.
-- After login: route to Home Scene Creation (`CommunitySetup`) unless explicitly bypassed in debug; 97-genre taxonomy visible; home scene set without AppRegistry/TrackPlayer issues; Dashboard only after onboarding completes and a community exists.
+- After login: route to Home Scene Registry (`CommunitySetup` route alias) unless explicitly bypassed in debug; 97-genre taxonomy visible; home scene set without AppRegistry/TrackPlayer issues; Dashboard only after onboarding completes and a community exists.
 - Docs updated (CHANGELOG + any runbook/KB touched).  
 
 ---
@@ -191,7 +191,7 @@ Goal: Community is first‑class; discovery/radio use `community_key`; onboardin
   - Selector: `getCommunityKey()`
 - Onboarding (client)
   - Services (alpha): `GET /onboarding/approved-genres`, `GET /onboarding/genre-suggestions`, `POST /onboarding/request-genre`
-  - UI: Home Scene Creation (first login)
+  - UI: Home Scene Registry (first login)
     - Sub‑genre picker (required) via typeahead/autocomplete
     - City/State picker (required) with typeahead + optional “Use my GPS (recommended)”
     - Note: GPS verification is optional, but only GPS‑verified users can upvote songs in Home Scene
