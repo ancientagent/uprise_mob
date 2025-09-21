@@ -3,8 +3,17 @@ name: Android Test Release
 on:
   workflow_dispatch:
   push:
+    branches: [ main ]
     tags:
       - 'test-v*'
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
 
 jobs:
   build:
