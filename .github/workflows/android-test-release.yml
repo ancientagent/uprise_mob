@@ -46,7 +46,6 @@ jobs:
       - name: Env shape check (warn mode)
         shell: bash
         run: |
-          set -euo pipefail
           echo "== Env shape check (warn mode) =="
           file=".env.development"
           if [[ -f "$file" ]]; then
@@ -57,10 +56,16 @@ jobs:
                 miss=1
               fi
             done
-            [[ $miss -eq 0 ]] && echo "[OK] $file contains required keys"
+            if [[ $miss -eq 0 ]]; then
+              echo "[OK] $file contains required keys"
+            else
+              echo "[WARN] Missing required keys in $file (warn mode only)"
+            fi
           else
             echo "[WARN] $file not found; emulator will rely on defaults"
           fi
+          # Always warn-only; never fail this step
+          exit 0
 
       - name: Setup Java 11 (Gradle)
         id: j11
