@@ -44,6 +44,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Docs duplicate guard
+        shell: pwsh
+        run: ./docs/ops/guards/guard-doc-duplicates.ps1
+
       - name: Initialize CI Monitoring
         shell: bash
         run: |
