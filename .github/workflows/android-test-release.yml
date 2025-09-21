@@ -93,6 +93,12 @@ jobs:
         run: |
           yarn install --frozen-lockfile
 
+      - name: Pre-bundle JS for Release (warn on failure)
+        shell: bash
+        run: |
+          set +e
+          yarn bundle:android || echo "[WARN] bundle:android failed; relying on Gradle bundling"
+
       - name: Ensure SDK 33 + Build-Tools 33.0.2
         env:
           JAVA_HOME: ${{ steps.j17.outputs.path }}
@@ -104,7 +110,7 @@ jobs:
           JAVA_HOME: ${{ steps.j11.outputs.path }}
         run: |
           cd android
-          ./gradlew --no-daemon :app:assembleRelease
+          ./gradlew --no-daemon :app:assembleRelease --stacktrace --no-parallel
 
       - name: Release bundle integrity (warn)
         shell: bash

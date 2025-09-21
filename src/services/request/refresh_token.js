@@ -103,8 +103,10 @@ export default (axiosClient, customOptions = {}) => {
       options.handleTokenRefresh.call(options.handleTokenRefresh)
         .then(tokenData => {
           options.setTokenData(tokenData, axiosClient);
-          options.attachTokenToRequest(originalRequest, tokenData.idToken);
-          processQueue(null, tokenData.idToken);
+          // Use refreshed access token for subsequent requests
+          const nextToken = tokenData.accessToken;
+          options.attachTokenToRequest(originalRequest, nextToken);
+          processQueue(null, nextToken);
           resolve(axiosClient.request(originalRequest));
         })
         .catch(err => {

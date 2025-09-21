@@ -34,6 +34,31 @@ jobs:
     timeout-minutes: 30
 
     steps:
+      - name: Anti-drift guard (warn mode)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "== Anti-drift (warn mode) =="
+          git ls-files | grep -E "(^|/)index\.android\.bundle$|\.log$|(^|/)artifacts/" || true
+
+      - name: Env shape check (warn mode)
+        shell: bash
+        run: |
+          echo "== Env shape check (warn mode) =="
+          file=".env.development"
+          if [[ -f "$file" ]]; then
+            miss=0
+            for key in API_BASE_URL REFRESH_TOKEN_URL UPDATED_USERDETAILS; do
+              if ! grep -E "^${key}=" "$file" >/dev/null; then
+                echo "[WARN] Missing $key in $file"
+                miss=1
+              fi
+            done
+            [[ $miss -eq 0 ]] && echo "[OK] $file contains required keys" || echo "[WARN] Missing required keys (warn mode)"
+          else
+            echo "[WARN] $file not found; emulator will rely on defaults"
+          fi
+          exit 0
       - name: Guard fail if CRLF present in workflow
         run: |
           if grep -U $'\r' -n ".github/workflows/android-debug-build.yml"; then
@@ -54,6 +79,11 @@ jobs:
           # Load monitoring functions (non-invasive)
           source .github/workflows/monitoring-functions.sh || true
           init_monitoring || true
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       - name: Start lightweight dev backend (background)
         shell: bash
@@ -253,6 +283,10 @@ jobs:
           cd android
           ./gradlew :app:assembleDebug  --build-cache --no-parallel --stacktrace
           ./gradlew :app:assembleRelease --build-cache --no-parallel --stacktrace
+
+      - name: Run unit tests (refresh interceptor)
+        run: |
+          yarn test -i src/__tests__/refresh_interceptor.test.js --coverage=false
 
       - name: Print artifact sizes
         run: |
