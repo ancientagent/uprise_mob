@@ -199,6 +199,16 @@ Collaboration preferences (from PM)
 - Next: re-run migration status non-destructively once DB is reachable
 - Acceptance: post-login routes to CommunitySetup (unless debug bypass); Dashboard after onboarding + community
 
+## 2025-09-21 00:00:00Z — Android Test Release CI aligned to RFC (warn mode)
+- Updated `.github/workflows/android-test-release.yml`:
+  - Dual JDK: Java 11 (Gradle) + Java 17 (sdkmanager)
+  - Emulator image: API 33 `google_apis;x86_64`
+  - Env shape check (warn): ensure `.env.development` has `API_BASE_URL`, `REFRESH_TOKEN_URL`, `UPDATED_USERDETAILS`
+  - Anti-drift guard (warn): warn on committed bundles/logs and `artifacts/`
+  - Release bundle integrity (warn): `aapt` check for `index.android.bundle` in APK
+- Rationale: Implements RFC_MOBILE_STABILIZATION guardrails in warn mode to reduce drift and stabilize release lane without failing existing builds.
+- Next: Optional harden to enforce mode after soak; consider centralizing guards into scripts for reuse across workflows.
+
 ## 2025-09-16 16:12:00Z - Codex Phase 2 PowerShell Intake
 - Role split confirmed: Ubuntu Codex CLI handles WSL/Ubuntu tasks (DB, migrations, shell smokes); this PowerShell session handles Windows-side checks and tooling.
 - API health: http://127.0.0.1:3000/health OK (service=uprise-api).
