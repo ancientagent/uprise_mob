@@ -84,3 +84,7 @@ src/config/google_calender.json
 # CCPM Framework - Local workspace (epics directory)
 .claude/epics/.env
 docs/env/*.local
+# keep installers and build artifacts out of the repo
+*.apk
+*.exe
+artifacts/

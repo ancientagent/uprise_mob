@@ -3,8 +3,17 @@ name: Android Test Release
 on:
   workflow_dispatch:
   push:
+    branches: [ main ]
     tags:
       - 'test-v*'
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
 
 jobs:
   build:
@@ -15,11 +24,57 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Java 11
+      - name: Anti-drift guard (warn mode)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "== Anti-drift (warn mode) =="
+          drift=0
+          # Warn if JS bundle or log artifacts are committed
+          if git ls-files | grep -E "(^|/)index\.android\.bundle$|\.log$|(^|/)artifacts/" >/dev/null; then
+            echo "[WARN] Potential drift: committed bundles/logs or artifacts directory present"
+            git ls-files | grep -E "(^|/)index\.android\.bundle$|\.log$|(^|/)artifacts/" || true
+            drift=1
+          fi
+          # Warn if android assets bundle exists in source tree
+          if git ls-files | grep -E "android/app/src/main/assets/index\.android\.bundle" >/dev/null; then
+            echo "[WARN] Potential drift: android/app/src/main/assets/index.android.bundle committed"
+            drift=1
+          fi
+          echo "Drift flag: $drift (warn only)"
+
+      - name: Env shape check (warn mode)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "== Env shape check (warn mode) =="
+          file=".env.development"
+          if [[ -f "$file" ]]; then
+            miss=0
+            for key in API_BASE_URL REFRESH_TOKEN_URL UPDATED_USERDETAILS; do
+              if ! grep -E "^${key}=" "$file" >/dev/null; then
+                echo "[WARN] Missing $key in $file"
+                miss=1
+              fi
+            done
+            [[ $miss -eq 0 ]] && echo "[OK] $file contains required keys"
+          else
+            echo "[WARN] $file not found; emulator will rely on defaults"
+          fi
+
+      - name: Setup Java 11 (Gradle)
+        id: j11
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '11'
+
+      - name: Setup Java 17 (sdkmanager tools)
+        id: j17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -34,13 +89,37 @@ jobs:
           yarn install --frozen-lockfile
 
       - name: Ensure SDK 33 + Build-Tools 33.0.2
+        env:
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
         run: |
           sdkmanager "platforms;android-33" "build-tools;33.0.2"
 
       - name: Assemble Release APK
+        env:
+          JAVA_HOME: ${{ steps.j11.outputs.path }}
         run: |
           cd android
           ./gradlew --no-daemon :app:assembleRelease
+
+      - name: Release bundle integrity (warn)
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="android/app/build/outputs/apk/release/app-release.apk"
+          if [[ -f "$APK" ]]; then
+            AAPT="${ANDROID_HOME:-/usr/local/lib/android/sdk}/build-tools/33.0.2/aapt"
+            if [[ -x "$AAPT" ]]; then
+              if "$AAPT" list "$APK" | grep -q "index.android.bundle"; then
+                echo "[OK] index.android.bundle embedded in Release APK"
+              else
+                echo "[WARN] index.android.bundle NOT found in Release APK (warn mode)"
+              fi
+            else
+              echo "[WARN] aapt not found; skipping bundle integrity check"
+            fi
+          else
+            echo "[WARN] APK not found at $APK"
+          fi
 
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
@@ -55,11 +134,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Java 11
+      - name: Setup Java 11 (Gradle)
+        id: j11-smoke
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '11'
+
+      - name: Setup Java 17 (sdkmanager tools)
+        id: j17-smoke
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -71,9 +158,11 @@ jobs:
           path: artifacts
 
       - name: Boot emulator, install and launch
+        env:
+          JAVA_HOME: ${{ steps.j17-smoke.outputs.path }}
         run: |
-          sdkmanager "platforms;android-33" "system-images;android-30;google_apis;x86_64"
-          echo "no" | avdmanager create avd -n ci_avd -k "system-images;android-30;google_apis;x86_64" -d pixel || true
+          sdkmanager "platforms;android-33" "system-images;android-33;google_apis;x86_64"
+          echo "no" | avdmanager create avd -n ci_avd -k "system-images;android-33;google_apis;x86_64" -d pixel || true
           nohup emulator -avd ci_avd -no-window -no-audio -gpu swiftshader_indirect -no-boot-anim -memory 1024 >/dev/null 2>&1 &
           adb wait-for-device
           # wait for boot completed
@@ -91,4 +180,3 @@ jobs:
         with:
           name: smoke-logs
           path: smoke-logcat.txt
-

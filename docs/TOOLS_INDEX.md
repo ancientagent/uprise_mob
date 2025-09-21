@@ -31,6 +31,15 @@ Docs scripts (bash)
 - docs/scripts/community_key.sh
   - Generates normalized community_key from City, State, Genre inputs.
   - Usage: ./docs/scripts/community_key.sh "Austin" "Texas" "Hip Hop"
+ - docs/scripts/seed_zip_codes.sh
+   - Seeds `zip_codes` from CSV via COPY into staging + UPSERT. Idempotent.
+   - Env: PG_HOST, PG_PORT, PG_DB, PG_USER, optional CSV_PATH (defaults to dev-backend/seeds/zips_sample.csv)
+- WSL Quick Kickoff
+  - Paste-and-run checklist for WSL to run health checks, PostGIS checks, env shape, migrations, and API smokes with logs.
+  - See: docs/ops/WSL_QUICK_KICKOFF.md
+ - WSL Start/Stop Backend + Smokes
+   - Start: `bash docs/scripts/wsl/start_backend_and_smokes.sh` (nohup backend on :3000, writes PID, runs quick smokes)
+   - Stop: `bash docs/scripts/wsl/stop_backend.sh`
 
 Project scripts (Windows/macOS/Linux helpers)
 - scripts/local-env-check.ps1
@@ -41,6 +50,8 @@ Project scripts (Windows/macOS/Linux helpers)
   - Installs and launches a local APK on emulator; captures logcat and dumpsys (optional).
 - scripts/local-build.ps1, scripts/build-local.bat
   - Local build helpers for Windows PowerShell/CMD.
+ - docs/scripts/windows/launch_debug_in_order.ps1
+   - One-click ordered launch: starts Metro, sets adb reverse, optionally starts backend, boots emulator, builds, installs, and launches Debug app.
 
 Guardrails & environment
 - tools.json documents local dev toolchain guardrails (Node 20.19.0; JDK 11; no global installs; user‑writable paths).

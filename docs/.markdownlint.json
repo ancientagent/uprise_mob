@@ -1,0 +1,19 @@
+<<<<<<< HEAD
+{
+  "default": true,
+  "MD013": false,
+  "MD033": false,
+  "MD041": false,
+  "MD024": {
+    "siblings_only": true
+  },
+  "MD025": {
+    "level": 1
+  },
+  "MD026": {
+    "punctuation": ".,;:!"
+  }
+}
+=======
+{"default":true,"MD013":false,"MD033":false}
+>>>>>>> 9709617 (ci(docs): add minimal markdownlint config)

@@ -44,12 +44,35 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Docs duplicate guard
+        shell: pwsh
+        run: ./docs/ops/guards/guard-doc-duplicates.ps1
+
       - name: Initialize CI Monitoring
         shell: bash
         run: |
           # Load monitoring functions (non-invasive)
           source .github/workflows/monitoring-functions.sh || true
           init_monitoring || true
+
+      - name: Start lightweight dev backend (background)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Starting lightweight dev backend on :3000 (background)"
+          if command -v node >/dev/null 2>&1; then
+            nohup env PORT=3000 node dev-backend/devserver.js >/dev/null 2>&1 &
+            # Wait up to 20s for health
+            for i in {1..20}; do
+              if curl -sSf http://127.0.0.1:3000/health >/dev/null; then
+                echo "Backend is up"
+                break
+              fi
+              sleep 1
+            done
+          else
+            echo "[WARN] Node is not available; skipping dev backend startup"
+          fi
 
       - name: Setup Java 11 (Gradle)
         id: j11
