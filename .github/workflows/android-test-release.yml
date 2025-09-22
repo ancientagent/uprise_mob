@@ -93,6 +93,33 @@ jobs:
         run: |
           yarn install --frozen-lockfile
 
+      - name: Prepare Android SDK (isolated, pinned cmdline-tools)
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
+        shell: bash
+        run: |
+          set -e
+          rm -rf "$ANDROID_SDK_ROOT"
+          mkdir -p "$ANDROID_SDK_ROOT"
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > ./android/local.properties
+          # Pin cmdline-tools to 8512546 for AGP 7.0.x compatibility
+          CT_REV=8512546
+          curl -sSL "https://dl.google.com/android/repository/commandlinetools-linux-${CT_REV}_latest.zip" -o cmdtools.zip
+          unzip -q cmdtools.zip -d "$ANDROID_SDK_ROOT"
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/bin" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/lib" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/source.properties" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/NOTICE.txt" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          printf 'y\ny\ny\ny\ny\ny\ny\ny\n' | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --licenses >/dev/null || true
+          "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" \
+            "platform-tools" \
+            "platforms;android-33" \
+            "build-tools;33.0.2"
+          echo "Installed SDK components:"
+          ls -la "$ANDROID_SDK_ROOT" || true
+
       - name: Pre-bundle JS for Release (warn on failure)
         shell: bash
         run: |
@@ -108,6 +135,7 @@ jobs:
       - name: Assemble Release APK
         env:
           JAVA_HOME: ${{ steps.j11.outputs.path }}
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
         run: |
           cd android
           ./gradlew --no-daemon :app:assembleRelease --stacktrace --no-parallel
