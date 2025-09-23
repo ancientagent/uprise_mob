@@ -84,3 +84,12 @@ src/config/google_calender.json
 # CCPM Framework - Local workspace (epics directory)
 .claude/epics/.env
 docs/env/*.local
+
+# Build artifacts
+*.apk
+artifacts/
+
+# React Native generated Android resources (do not commit)
+android/app/src/main/res/drawable-*/node_modules_*
+android/app/build/generated/res/react/**
+android/app/src/main/assets/index.android.bundle

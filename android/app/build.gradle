@@ -1,7 +1,6 @@
 // Note: This build file may need to be reloaded in Android Studio after changes
 apply plugin: "com.android.application"
 // wrapped by google-services-apply.gradle
-apply plugin: 'com.google.firebase.crashlytics'
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 // Note: AGP 7.x removed com.android.build.OutputFile; avoid using it
@@ -224,12 +223,10 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
     }
-    implementation platform('com.google.firebase:firebase-bom:29.0.3')
-    implementation 'com.google.firebase:firebase-crashlytics:18.2.6'
-
-    // Recommended: Add the Google Analytics SDK
-    implementation 'com.google.firebase:firebase-analytics:20.0.2'
-//    implementation 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
+    // Firebase temporarily disabled during CI stabilization (peel-back)
+    // implementation platform('com.google.firebase:firebase-bom:29.0.3')
+    // implementation 'com.google.firebase:firebase-crashlytics:18.2.6'
+    // implementation 'com.google.firebase:firebase-analytics:20.0.2'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
