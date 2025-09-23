@@ -102,14 +102,24 @@ jobs:
           JAVA_HOME: ${{ steps.j11.outputs.path }}
           ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
         run: |
+          set -e
+          mkdir -p artifacts/logs
           cd android
-          ./gradlew --no-daemon :app:assembleRelease --stacktrace --no-parallel
+          ./gradlew --no-daemon :app:assembleRelease --stacktrace --info --warning-mode all --no-parallel \
+            2>&1 | tee ../artifacts/logs/gradle_release_build.log
 
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
           path: android/app/build/outputs/apk/release/app-release.apk
+
+      - name: Upload build logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-build-logs
+          path: artifacts/logs/gradle_release_build.log
 
   smoke-emulator:
     runs-on: ubuntu-latest
