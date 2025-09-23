@@ -15,11 +15,45 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Java 11
+      - name: Anti-drift guard (warn mode)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "== Anti-drift (warn mode) =="
+          git ls-files | grep -E "(^|/)index\.android\.bundle$|\.log$|(^|/)artifacts/" || true
+
+      - name: Env shape check (warn mode)
+        shell: bash
+        run: |
+          echo "== Env shape check (warn mode) =="
+          file=".env.development"
+          if [[ -f "$file" ]]; then
+            miss=0
+            for key in API_BASE_URL REFRESH_TOKEN_URL UPDATED_USERDETAILS; do
+              if ! grep -E "^${key}=" "$file" >/dev/null; then
+                echo "[WARN] Missing $key in $file"
+                miss=1
+              fi
+            done
+            [[ $miss -eq 0 ]] && echo "[OK] $file contains required keys" || echo "[WARN] Missing required keys (warn mode)"
+          else
+            echo "[WARN] $file not found; emulator will rely on defaults"
+          fi
+          exit 0
+
+      - name: Setup Java 11 (Gradle)
+        id: j11
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '11'
+
+      - name: Setup Java 17 (sdkmanager tools)
+        id: j17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -33,14 +67,43 @@ jobs:
         run: |
           yarn install --frozen-lockfile
 
-      - name: Ensure SDK 33 + Build-Tools 33.0.2
+      - name: Prepare Android SDK (isolated, pinned cmdline-tools)
+        env:
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
+          JAVA_HOME: ${{ steps.j17.outputs.path }}
+        shell: bash
         run: |
-          sdkmanager "platforms;android-33" "build-tools;33.0.2"
+          set -e
+          rm -rf "$ANDROID_SDK_ROOT"
+          mkdir -p "$ANDROID_SDK_ROOT"
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > ./android/local.properties
+          CT_REV=8512546
+          curl -sSL "https://dl.google.com/android/repository/commandlinetools-linux-${CT_REV}_latest.zip" -o cmdtools.zip
+          unzip -q cmdtools.zip -d "$ANDROID_SDK_ROOT"
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/bin" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/lib" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/source.properties" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          mv "$ANDROID_SDK_ROOT/cmdline-tools/NOTICE.txt" "$ANDROID_SDK_ROOT/cmdline-tools/latest/" || true
+          printf 'y\ny\ny\ny\ny\ny\ny\ny\n' | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --licenses >/dev/null || true
+          "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" \
+            "platform-tools" \
+            "platforms;android-33" \
+            "build-tools;33.0.2"
+
+      - name: Pre-bundle JS for Release (warn on failure)
+        shell: bash
+        run: |
+          set +e
+          yarn bundle:android || echo "[WARN] bundle:android failed; relying on Gradle bundling"
 
       - name: Assemble Release APK
+        env:
+          JAVA_HOME: ${{ steps.j11.outputs.path }}
+          ANDROID_SDK_ROOT: ${{ github.workspace }}/.android-sdk
         run: |
           cd android
-          ./gradlew --no-daemon :app:assembleRelease
+          ./gradlew --no-daemon :app:assembleRelease --stacktrace --no-parallel
 
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
@@ -55,11 +118,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Java 11
+      - name: Setup Java 11 (Gradle)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '11'
+
+      - name: Setup Java 17 (sdkmanager tools)
+        id: j17-smoke
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -71,9 +141,11 @@ jobs:
           path: artifacts
 
       - name: Boot emulator, install and launch
+        env:
+          JAVA_HOME: ${{ steps.j17-smoke.outputs.path }}
         run: |
-          sdkmanager "platforms;android-33" "system-images;android-30;google_apis;x86_64"
-          echo "no" | avdmanager create avd -n ci_avd -k "system-images;android-30;google_apis;x86_64" -d pixel || true
+          sdkmanager "platforms;android-33" "system-images;android-33;google_apis;x86_64"
+          echo "no" | avdmanager create avd -n ci_avd -k "system-images;android-33;google_apis;x86_64" -d pixel || true
           nohup emulator -avd ci_avd -no-window -no-audio -gpu swiftshader_indirect -no-boot-anim -memory 1024 >/dev/null 2>&1 &
           adb wait-for-device
           # wait for boot completed
@@ -91,4 +163,3 @@ jobs:
         with:
           name: smoke-logs
           path: smoke-logcat.txt
-
