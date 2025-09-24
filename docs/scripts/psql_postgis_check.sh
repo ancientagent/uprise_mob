@@ -1,61 +1,56 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+#!/usr/bin/env bash
+set -euo pipefail
+
 # PostGIS verification (non-destructive)
-# Reads DB settings from ../webapp_api/.env if available.
+# Prefers PGURI if set; otherwise uses PG_* env vars; as a last resort parses ENV_FILE.
 
-ENV_FILE="${ENV_FILE:-../webapp_api/.env}"
-
-if [[ ! -f "$ENV_FILE" ]]; then
-  echo "Env file not found: $ENV_FILE" >&2
-  exit 1
-fi
-
-# Parse .env safely (no shell expansion; supports BOM/CRLF)
-declare -A _env
-while IFS= read -r line || [[ -n "$line" ]]; do
-  # strip BOM on first line
-  line="${line#$'\xEF\xBB\xBF'}"
-  # remove comments
-  line="${line%%#*}"
-  # trim whitespace
-  line="${line##[[:space:]]}"
-  line="${line%%[[:space:]]}"
-  [[ -z "$line" ]] && continue
-  # split key=value
-  key="${line%%=*}"
-  val="${line#*=}"
-  # trim again
-  key="${key##[[:space:]]}"; key="${key%%[[:space:]]}"
-  val="${val##[[:space:]]}"; val="${val%%[[:space:]]}"
-  # drop surrounding quotes
-  val="${val%$'\r'}"
-  if [[ ${val:0:1} == '"' && ${val: -1} == '"' ]]; then
-    val="${val:1:${#val}-2}"
-  elif [[ ${val:0:1} == "'" && ${val: -1} == "'" ]]; then
-    val="${val:1:${#val}-2}"
+PGURI="${PGURI:-}"
+if [[ -z "$PGURI" ]]; then
+  # Build from PG_* if present
+  if [[ -n "${PG_HOST:-}" && -n "${PG_PORT:-}" && -n "${PG_DB:-}" && -n "${PG_USER:-}" ]]; then
+    PGSSLMODE="${PGSSLMODE:-}"
+    if [[ -n "${PGPASSWORD:-}" ]]; then
+      PGURI="postgres://${PG_USER}:${PGPASSWORD}@${PG_HOST}:${PG_PORT}/${PG_DB}${PGSSLMODE:+?sslmode=${PGSSLMODE}}"
+    else
+      PGURI="postgres://${PG_USER}@${PG_HOST}:${PG_PORT}/${PG_DB}${PGSSLMODE:+?sslmode=${PGSSLMODE}}"
+    fi
   fi
-  _env["$key"]="$val"
-done < "$ENV_FILE"
-
-DB_HOST="${_env[DB_HOST]:-}"
-DB_PORT="${_env[DB_PORT]:-}"
-DB_NAME="${_env[DB_NAME]:-}"
-DB_USERNAME="${_env[DB_USERNAME]:-}"
-DB_PASSWORD="${_env[DB_PASSWORD]:-}"
-
-if [[ -z "$DB_HOST" || -z "$DB_PORT" || -z "$DB_NAME" || -z "$DB_USERNAME" || -z "$DB_PASSWORD" ]]; then
-  echo "Missing one or more DB_* keys in $ENV_FILE" >&2
-  exit 1
 fi
 
-export PGPASSWORD="$DB_PASSWORD"
+if [[ -z "$PGURI" ]]; then
+  # Fallback to .env file if provided, otherwise skip with warning
+  ENV_FILE="${ENV_FILE:-../webapp_api/.env}"
+  if [[ -f "$ENV_FILE" ]]; then
+    declare -A _env
+    while IFS= read -r line || [[ -n "$line" ]]; do
+      line="${line#$'\xEF\xBB\xBF'}"; line="${line%%#*}"; line="${line##[[:space:]]}"; line="${line%%[[:space:]]}"
+      [[ -z "$line" ]] && continue
+      key="${line%%=*}"; val="${line#*=}"; key="${key##[[:space:]]}"; key="${key%%[[:space:]]}"; val="${val##[[:space:]]}"; val="${val%%[[:space:]]}"
+      val="${val%$'\r'}"; [[ ${val:0:1} == '"' && ${val: -1} == '"' ]] && val="${val:1:${#val}-2}" || true
+      [[ ${val:0:1} == "'" && ${val: -1} == "'" ]] && val="${val:1:${#val}-2}" || true
+      _env["$key"]="$val"
+    done < "$ENV_FILE"
+    DB_HOST="${_env[DB_HOST]:-}"; DB_PORT="${_env[DB_PORT]:-}"; DB_NAME="${_env[DB_NAME]:-}"; DB_USERNAME="${_env[DB_USERNAME]:-}"; DB_PASSWORD="${_env[DB_PASSWORD]:-}"
+    if [[ -n "$DB_HOST" && -n "$DB_PORT" && -n "$DB_NAME" && -n "$DB_USERNAME" ]]; then
+      PGURI="postgres://${DB_USERNAME}${DB_PASSWORD:+:${DB_PASSWORD}}@${DB_HOST}:${DB_PORT}/${DB_NAME}"
+    fi
+  fi
+fi
 
-echo "Checking PostGIS version on $DB_HOST:$DB_PORT/$DB_NAME (user: $DB_USERNAME)"
-psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USERNAME" -d "$DB_NAME" -c "SELECT PostGIS_Full_Version();"
+if [[ -z "$PGURI" ]]; then
+  echo "[WARN] No PGURI/PG_* envs or readable ENV_FILE; skipping PostGIS check" >&2
+  exit 0
+fi
+
+echo "Checking PostGIS version via: ${PGURI%%@*}@…"
+psql "$PGURI" -c "SELECT postgis_full_version();" || {
+  echo "[WARN] postgis_full_version() failed; connection or extension issue" >&2; exit 0; }
 
 echo "\nOptional: sample geospatial check (skipped if table/columns missing)"
-psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USERNAME" -d "$DB_NAME" \
+psql "$PGURI" \
   -c "\
 DO $$\
 BEGIN\

@@ -14,7 +14,7 @@ hit() {
   echo "# $label"
   echo curl -sS "$@"
   # shellcheck disable=SC2068
-  http_code=$(curl -sS -o /dev/null -w "%{http_code}" $@ || true)
+  http_code=$(curl -sS --max-time "${CURL_MAX_TIME:-5}" -o /dev/null -w "%{http_code}" $@ || true)
   echo "HTTP $http_code"
 }
 
@@ -31,4 +31,3 @@ banner "Events discovery (geo filters where supported)"
 hit "GET /api/eventmanagement" "$BASE_URL/api/eventmanagement?city=Austin&state=Texas&genre=Hip%20Hop"
 
 echo "\nDone. Note: These are non-destructive reads. Use COMMUNITY_KEY env to change target."
-
