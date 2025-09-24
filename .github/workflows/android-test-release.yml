@@ -116,11 +116,15 @@ jobs:
         run: |
           bash tools/ci/summarize-gradle-log.sh artifacts/logs/gradle_release_build.log > artifacts/logs/gradle_release_summary.txt || true
 
-      - name: Upload Release APK
+      - name: List release outputs
+        run: |
+          ls -la android/app/build/outputs/apk/release || true
+
+      - name: Upload Release APK(s)
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-apk
-          path: android/app/build/outputs/apk/release/app-release.apk
+          name: release-apks
+          path: android/app/build/outputs/apk/release/*.apk
 
       - name: Upload build logs (always)
         if: always()
@@ -157,7 +161,7 @@ jobs:
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
-          name: app-release-apk
+          name: release-apks
           path: artifacts
 
       - name: Boot emulator, install and launch
@@ -171,7 +175,9 @@ jobs:
           # wait for boot completed
           for i in {1..90}; do
             if adb shell getprop sys.boot_completed | grep -m 1 '1'; then break; fi; sleep 2; done
-          adb install -r artifacts/app-release.apk
+          APK=$(ls -1 artifacts/*.apk | head -n 1)
+          echo "Installing $APK"
+          adb install -r "$APK"
           adb logcat -c
           adb shell monkey -p com.app.uprise -c android.intent.category.LAUNCHER 1
           adb logcat -d -t 300 > smoke-logcat.txt
