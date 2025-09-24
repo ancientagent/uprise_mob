@@ -108,6 +108,12 @@ jobs:
           ./gradlew --no-daemon :app:assembleRelease --stacktrace --info --warning-mode all --no-parallel \
             2>&1 | tee ../artifacts/logs/gradle_release_build.log
 
+      - name: Summarize Gradle log
+        if: always()
+        shell: bash
+        run: |
+          bash tools/ci/summarize-gradle-log.sh artifacts/logs/gradle_release_build.log artifacts/logs/gradle_release_summary.txt || true
+
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
@@ -119,7 +125,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-build-logs
-          path: artifacts/logs/gradle_release_build.log
+          path: |
+            artifacts/logs/gradle_release_build.log
+            artifacts/logs/gradle_release_summary.txt
 
   smoke-emulator:
     runs-on: ubuntu-latest
