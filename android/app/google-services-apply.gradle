@@ -1,6 +1,19 @@
-if (file("$projectDir/google-services.json").exists()) {
+// Conditional application of Google Services plugin for CI stability
+def hasGmsClasspath = false
+try {
+  hasGmsClasspath = buildscript.configurations.classpath.dependencies.find { dep ->
+    dep.group == 'com.google.gms' && dep.name == 'google-services'
+  } != null
+} catch (Exception ignored) {
+  hasGmsClasspath = false
+}
+
+def ciDisable = System.getenv('CI_DISABLE_GOOGLE_SERVICES') == '1'
+def gsFile = file("$projectDir/google-services.json")
+
+if (!ciDisable && gsFile.exists() && hasGmsClasspath) {
   apply plugin: 'com.google.gms.google-services'
-  logger.lifecycle("google-services.json found; applied google-services plugin.")
+  logger.lifecycle("google-services applied (hasClasspath=${hasGmsClasspath}).")
 } else {
-  logger.lifecycle("google-services.json missing; skipping google-services plugin for CI.")
+  logger.lifecycle("Skipping google-services (disable=${ciDisable}, exists=${gsFile.exists()}, hasClasspath=${hasGmsClasspath}).")
 }
