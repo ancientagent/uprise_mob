@@ -7,6 +7,34 @@ on:
       - 'test-v*'
 
 jobs:
+  db-health:
+    runs-on: ubuntu-latest
+    env:
+      PGURI: ${{ secrets.UPRISE_SUPABASE_DB_URL }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Skip if secret not set
+        shell: bash
+        run: |
+          if [ -z "${PGURI}" ]; then
+            echo "No UPRISE_SUPABASE_DB_URL secret; skipping DB health." && exit 0
+          fi
+
+      - name: Install psql client
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y postgresql-client
+
+      - name: DB version
+        run: |
+          psql "$PGURI" -c "select version();"
+
+      - name: PostGIS version
+        run: |
+          psql "$PGURI" -c "select postgis_full_version();"
+
   build:
     runs-on: ubuntu-latest
     env:
