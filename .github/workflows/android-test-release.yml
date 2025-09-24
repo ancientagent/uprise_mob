@@ -88,8 +88,8 @@ jobs:
           printf 'y\ny\ny\ny\ny\ny\ny\ny\n' | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" --licenses >/dev/null || true
           "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_SDK_ROOT" \
             "platform-tools" \
-            "platforms;android-33" \
-            "build-tools;33.0.2"
+            "platforms;android-31" \
+            "build-tools;31.0.0"
 
       - name: Pre-bundle JS for Release (warn on failure)
         shell: bash
@@ -105,14 +105,15 @@ jobs:
           set -e
           mkdir -p artifacts/logs
           cd android
-          ./gradlew --no-daemon :app:assembleRelease --stacktrace --info --warning-mode all --no-parallel \
+          ./gradlew --no-daemon clean \
+            && ./gradlew --no-daemon :app:assembleRelease --stacktrace --info --warning-mode all --no-parallel \
             2>&1 | tee ../artifacts/logs/gradle_release_build.log
 
       - name: Summarize Gradle log
         if: always()
         shell: bash
         run: |
-          bash tools/ci/summarize-gradle-log.sh artifacts/logs/gradle_release_build.log artifacts/logs/gradle_release_summary.txt || true
+          bash tools/ci/summarize-gradle-log.sh artifacts/logs/gradle_release_build.log > artifacts/logs/gradle_release_summary.txt || true
 
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
@@ -162,8 +163,8 @@ jobs:
         env:
           JAVA_HOME: ${{ steps.j17-smoke.outputs.path }}
         run: |
-          sdkmanager "platforms;android-33" "system-images;android-33;google_apis;x86_64"
-          echo "no" | avdmanager create avd -n ci_avd -k "system-images;android-33;google_apis;x86_64" -d pixel || true
+          sdkmanager "platforms;android-31" "system-images;android-31;google_apis;x86_64"
+          echo "no" | avdmanager create avd -n ci_avd -k "system-images;android-31;google_apis;x86_64" -d pixel || true
           nohup emulator -avd ci_avd -no-window -no-audio -gpu swiftshader_indirect -no-boot-anim -memory 1024 >/dev/null 2>&1 &
           adb wait-for-device
           # wait for boot completed
