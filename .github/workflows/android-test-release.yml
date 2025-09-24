@@ -115,6 +115,8 @@ jobs:
         shell: bash
         run: |
           bash tools/ci/summarize-gradle-log.sh artifacts/logs/gradle_release_build.log > artifacts/logs/gradle_release_summary.txt || true
+          echo "=== Gradle Summary (inline) ==="
+          tail -n +1 artifacts/logs/gradle_release_summary.txt || true
 
       - name: List release outputs
         run: |
