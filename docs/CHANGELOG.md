@@ -1,3 +1,13 @@
+2025-09-14 - Docs Enforcement & Ownership Infrastructure
+- **CODEOWNERS**: Added `.github/CODEOWNERS` with docs ownership (@baris @ancientagent)
+- **PR Template**: Enhanced `.github/PULL_REQUEST_TEMPLATE.md` with docs checklist
+- **Docs Enforcement**: Created `.github/workflows/docs-enforcement.yml` requiring CHANGELOG updates on code changes
+- **Docs-Only Workflow**: Added `.github/workflows/docs-only.yml` with markdown validation and link checking
+- **Path Filters**: Added `paths-ignore` to Android workflows to skip builds on docs-only changes
+- **Link Validation**: Automated checking for broken internal links in changed documentation
+- **Android Runbook Warnings**: Warns when Android changes don't update `docs/RUNBOOK_ANDROID.md`
+- **Impact**: Ensures documentation never gets missed, improves CI efficiency, maintains link integrity
+
 2025-09-14 - Refactor: RadioStations → Uprises (Component & UI)
 - **Component Rename**: `src/screens/Feed/RadioStations/` → `src/screens/Feed/Uprises/`
 - **File Rename**: `RadioStations.js` → `Uprises.js`, `RadioStations.styles.js` → `Uprises.styles.js`
