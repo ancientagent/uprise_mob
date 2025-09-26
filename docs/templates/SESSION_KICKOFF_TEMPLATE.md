@@ -32,57 +32,57 @@ ENV_FILE=$API_DIR/.env
 ## Quick Context Loader
 ```
 rg --files docs | rg -n "PHASE2_EXECUTION_PLAN|SYSTEM_OVERVIEW|_fragments/params.geo-genre|CHANGELOG|CI_WORKFLOWS|CHECKLISTS|CODEX-PHASE2-INTAKE-REPORT|03_AUTHENTICATION|04_COMMUNITY_LOCATION|05_FAIR_PLAY_ALGO|06_SONG_MANAGEMENT|07_DISCOVERY_MAP|08_EVENTS|09_PROMOTIONS_BUSINESS" -S
-sed -n '1,160p' docs/PHASE2_EXECUTION_PLAN.md
-sed -n '1,140p' docs/architecture/SYSTEM_OVERVIEW.md
-sed -n '1,160p' docs/Session-Logs/CODEX-PHASE2-INTAKE-REPORT.md
+sed -n '1,160p' docs/overview/PHASE2_EXECUTION_PLAN.md
+sed -n '1,140p' docs/reference/architecture/SYSTEM_OVERVIEW.md
+sed -n '1,160p' docs/archives/session-logs/CODEX-PHASE2-INTAKE-REPORT.md
 sed -n '1,160p' docs/specs/_fragments/params.geo-genre.md
-ls -1 "docs/july model/architecture realignment" "docs/july model/Feature realignment"
+ls -1 "docs/archives/july-model/architecture realignment" "docs/archives/july-model/Feature realignment"
 ```
 
 ## Non‑Destructive Verification
 ```
-chmod +x docs/scripts/phase2_smoke.sh docs/scripts/psql_postgis_check.sh
-COMMUNITY_KEY=austin-texas-hip-hop BASE_URL=$API_BASE_URL ./docs/scripts/phase2_smoke.sh
-./docs/scripts/psql_postgis_check.sh
+chmod +x docs/automation/scripts/phase2_smoke.sh docs/automation/scripts/psql_postgis_check.sh
+COMMUNITY_KEY=austin-texas-hip-hop BASE_URL=$API_BASE_URL ./docs/automation/scripts/phase2_smoke.sh
+./docs/automation/scripts/psql_postgis_check.sh
 ls -1 $API_DIR/src/routes
 ls -1 $API_DIR/src/database/{models,migrations}
 ```
 
 ## Health Checks (run, parse, and summarize)
 ```
-chmod +x docs/scripts/health_checks.sh
-API_BASE_URL=$API_BASE_URL PG_HOST=$PG_HOST PG_PORT=$PG_PORT PG_DB=$PG_DB PG_USER=$PG_USER ./docs/scripts/health_checks.sh
+chmod +x docs/automation/scripts/health_checks.sh
+API_BASE_URL=$API_BASE_URL PG_HOST=$PG_HOST PG_PORT=$PG_PORT PG_DB=$PG_DB PG_USER=$PG_USER ./docs/automation/scripts/health_checks.sh
 
 # Under the hood, it runs the following (non-destructive):
 # - curl -sf $API_BASE_URL/health | jq . || echo "API health failed"
 # - psql "postgres://$PG_USER@${PG_HOST}:${PG_PORT}/${PG_DB}" -c "select version();" >/dev/null
 # - psql "postgres://$PG_USER@${PG_HOST}:${PG_PORT}/${PG_DB}" -c "select postgis_full_version();" >/dev/null
-# If any fail, it prints the failing command and stderr, and points to DOC: docs/ops/TROUBLESHOOTING.md
+# If any fail, it prints the failing command and stderr, and points to DOC: docs/operations/TROUBLESHOOTING.md
 ```
 
 ## Optional Scripted Checks (quick wins)
 ```
 # Validate env shape (no secrets printed)
-chmod +x docs/scripts/env_shape_check.sh && ENV_FILE=$ENV_FILE ./docs/scripts/env_shape_check.sh
+chmod +x docs/automation/scripts/env_shape_check.sh && ENV_FILE=$ENV_FILE ./docs/automation/scripts/env_shape_check.sh
 
 # Run idempotent migrations and show status before/after
-chmod +x docs/scripts/migration_guard.sh && API_DIR=$API_DIR ./docs/scripts/migration_guard.sh
+chmod +x docs/automation/scripts/migration_guard.sh && API_DIR=$API_DIR ./docs/automation/scripts/migration_guard.sh
 
 # Verify basic API contract (health, onboarding genres, discovery/radio with community_key)
-chmod +x docs/scripts/api_contract_check.sh && API_BASE_URL=$API_BASE_URL COMMUNITY_KEY=austin-texas-hip-hop ./docs/scripts/api_contract_check.sh || true
+chmod +x docs/automation/scripts/api_contract_check.sh && API_BASE_URL=$API_BASE_URL COMMUNITY_KEY=austin-texas-hip-hop ./docs/automation/scripts/api_contract_check.sh || true
 
 # Generate a normalized community_key from city/state/genre (helper)
-chmod +x docs/scripts/community_key.sh && ./docs/scripts/community_key.sh "Austin" "Texas" "Hip Hop"
+chmod +x docs/automation/scripts/community_key.sh && ./docs/automation/scripts/community_key.sh "Austin" "Texas" "Hip Hop"
 ```
 
 ## Essential Files
-- docs/PHASE2_EXECUTION_PLAN.md — workstreams, tasks, acceptance, migrations, test hooks
-- docs/architecture/SYSTEM_OVERVIEW.md — unified model + cross‑module contracts
+- docs/overview/PHASE2_EXECUTION_PLAN.md — workstreams, tasks, acceptance, migrations, test hooks
+- docs/reference/architecture/SYSTEM_OVERVIEW.md — unified model + cross‑module contracts
 - docs/specs/_fragments/params.geo-genre.md — standard API params
 - docs/specs/03..09_*.md — specs aligned to Phase 2
-- docs/ops/CI_WORKFLOWS.md — Phase 2 smokes (emulator optional)
-- docs/ops/CHECKLISTS.md — Phase‑2 daily driver
-- docs/Session-Logs/CODEX-PHASE2-INTAKE-REPORT.md — findings + decisions
+- docs/operations/CI_WORKFLOWS.md — Phase 2 smokes (emulator optional)
+- docs/operations/CHECKLISTS.md — Phase‑2 daily driver
+- docs/archives/session-logs/CODEX-PHASE2-INTAKE-REPORT.md — findings + decisions
 
 ## Standard API Inputs/Headers
 - Query params: `city, state, genre, lat, lng, radius, community_key`
@@ -129,9 +129,9 @@ Expected output for seed attempts: "created" or "already‑present".
 
 ## July Model Alignment Hook
 - Read (don’t echo secrets):
-  - "docs/july model/architecture realignment/*"
-  - "docs/july model/Feature realignment/*"
-- Then produce a short delta report to `docs/Session-Logs/CODEX-JULY-MODEL-DELTA.md`:
+  - "docs/archives/july-model/architecture realignment/*"
+  - "docs/archives/july-model/Feature realignment/*"
+- Then produce a short delta report to `docs/archives/session-logs/CODEX-JULY-MODEL-DELTA.md`:
   - What’s already implemented in Phase 2 specs
   - What remains (artist/band, location filters, radio/community, genres)
   - Which migrations or endpoints must be added/modified
@@ -143,5 +143,5 @@ Expected output for seed attempts: "created" or "already‑present".
 
 ## One-shot Kickoff Script
 ```
-chmod +x docs/scripts/session_kickoff.sh && ./docs/scripts/session_kickoff.sh
+chmod +x docs/automation/scripts/session_kickoff.sh && ./docs/automation/scripts/session_kickoff.sh
 ```

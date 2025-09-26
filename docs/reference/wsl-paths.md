@@ -10,7 +10,7 @@
   - Project root: /mnt/d/uprise_mob
   - Docs root: /mnt/d/uprise_mob/docs/
   - Specs: /mnt/d/uprise_mob/docs/specs/
-  - Architecture: /mnt/d/uprise_mob/docs/architecture/
+  - Architecture: /mnt/d/uprise_mob/docs/reference/architecture/
 
   So when you start Claude in WSL, you'll run:
   cd /mnt/d/uprise_mob

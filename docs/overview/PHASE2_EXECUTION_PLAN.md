@@ -36,8 +36,8 @@ Unify the July Model realignments with current Phase 2 specs so that **mobile, A
   - `PUT /user/artist-profile` → update profile & logo  
 - Remove Band-only calls in mobile/web.  
 - References:  
-  - `docs/july model/architecture realignment/ARTIST-UNIFICATION-IMPLEMENTATION.md`  
-  - `docs/july model/architecture realignment/FRONTEND-ARTIST-UNIFICATION-REFACTORING.md`  
+  - `docs/archives/july-model/architecture realignment/ARTIST-UNIFICATION-IMPLEMENTATION.md`  
+  - `docs/archives/july-model/architecture realignment/FRONTEND-ARTIST-UNIFICATION-REFACTORING.md`  
   - `docs/specs/06_SONG_MANAGEMENT.md` (canonical IDs)
 
 ### 2. Community & Location Filtering  
@@ -46,14 +46,14 @@ Unify the July Model realignments with current Phase 2 specs so that **mobile, A
 - GPS fraud checks via PostGIS (`ST_DWithin`)  
 - References:  
   - `docs/specs/04_COMMUNITY_LOCATION.md`  
-  - `docs/july model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md`
+  - `docs/archives/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md`
 
 ### 3. Radio/Community Unification  
 - Radio is a projection of community queues.  
 - Discovery responses echo back `community_key`.  
 - Feed = notifications only (no music payloads).  
 - References:  
-  - `docs/july model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md`  
+  - `docs/archives/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md`  
   - (this doc)
 
 ### 4. Genre Upgrade (Modern 97 Taxonomy)  
@@ -62,8 +62,8 @@ Unify the July Model realignments with current Phase 2 specs so that **mobile, A
   - `/onboarding/super-genres` → hierarchy  
 - Used during artist onboarding.  
 - References:  
-  - `docs/july model/Feature realignment/MODERN-GENRES-SYSTEM.md`  
-  - `docs/architecture/SYSTEM_OVERVIEW.md`
+  - `docs/archives/july-model/Feature realignment/MODERN-GENRES-SYSTEM.md`  
+  - `docs/reference/architecture/SYSTEM_OVERVIEW.md`
 
 ### 5. Business & Promotions Alignment  
 - Local businesses + events target communities via `community_key`.  
@@ -95,10 +95,10 @@ Unify the July Model realignments with current Phase 2 specs so that **mobile, A
 
 ## Smokes & Verification
 
-- `docs/scripts/session_kickoff.sh`  
-- `docs/scripts/phase2_smoke.sh`  
-- `docs/scripts/psql_postgis_check.sh`  
-- `docs/scripts/health_checks.sh`
+- `docs/automation/scripts/session_kickoff.sh`  
+- `docs/automation/scripts/phase2_smoke.sh`  
+- `docs/automation/scripts/psql_postgis_check.sh`  
+- `docs/automation/scripts/health_checks.sh`
 
 **Acceptance Criteria**  
 - Build & smoke PASS; artifacts saved with standard names/paths.
@@ -145,7 +145,7 @@ Use these to avoid flaky installs, empty artifacts, and missing JS bundles durin
 
 ## References (Single Source)
 
-- `docs/architecture/SYSTEM_OVERVIEW.md`  
+- `docs/reference/architecture/SYSTEM_OVERVIEW.md`
 - `docs/specs/03_AUTHENTICATION.md`  
 - `docs/specs/04_COMMUNITY_LOCATION.md`  
 - `docs/specs/05_FAIR_PLAY_ALGO.md`  

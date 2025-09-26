@@ -55,12 +55,12 @@ Date: 2025-09-08
 ## July Model Alignment — Architecture + Feature Reports (Ingested)
 
 Sources
-- docs/july model/architecture realignment/ARCHITECTURAL-REALIGNMENT-IMPLEMENTATION.md
-- docs/july model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md
-- docs/july model/architecture realignment/ARTIST-UNIFICATION-IMPLEMENTATION.md
-- docs/july model/architecture realignment/FRONTEND-ARTIST-UNIFICATION-REFACTORING.md
-- docs/july model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md
-- docs/july model/Feature realignment/MODERN-GENRES-SYSTEM.md
+- docs/archives/july-model/architecture realignment/ARCHITECTURAL-REALIGNMENT-IMPLEMENTATION.md
+- docs/archives/july-model/architecture realignment/BACKEND-FORENSIC-ANALYSIS.md
+- docs/archives/july-model/architecture realignment/ARTIST-UNIFICATION-IMPLEMENTATION.md
+- docs/archives/july-model/architecture realignment/FRONTEND-ARTIST-UNIFICATION-REFACTORING.md
+- docs/archives/july-model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md
+- docs/archives/july-model/Feature realignment/MODERN-GENRES-SYSTEM.md
 
 Key problems identified
 - Feed logic mixed songs/events; should be notifications only (music via radio).
@@ -81,7 +81,7 @@ Mapped actions (Phase 2)
 ## Session Log — 2025-09-10 (Codex/WSL)
 
 Checklist outcomes
-- Phase anchor present (`docs/PHASE2_EXECUTION_PLAN.md`), context docs loaded.
+- Phase anchor present (`docs/overview/PHASE2_EXECUTION_PLAN.md`), context docs loaded.
 - Smokes: API discovery/radio endpoints unreachable at time of run; health endpoint OK.
 - Health checks: API `/health` OK; Postgres and PostGIS checks OK.
 - DB checks: Added safe `.env` parser to `psql_postgis_check.sh` (handles BOM/CRLF and `$` in secrets); verified migration status via `yarn db:migrate:status` (read‑only).
@@ -99,9 +99,9 @@ Notes
 ## Session Log — 2025-09-11 (Codex/WSL)
 
 Checklist outcomes
-- Phase anchor present (`docs/PHASE2_EXECUTION_PLAN.md`), SYSTEM_OVERVIEW and params fragment loaded.
+- Phase anchor present (`docs/overview/PHASE2_EXECUTION_PLAN.md`), SYSTEM_OVERVIEW and params fragment loaded.
 - Smokes: `session_kickoff.sh` + `phase2_smoke.sh` executed; API discovery/radio endpoints not reachable at run time.
-- Health checks: `docs/scripts/health_checks.sh` → API `/health` OK; Postgres and PostGIS OK (jq missing).
+- Health checks: `docs/automation/scripts/health_checks.sh` → API `/health` OK; Postgres and PostGIS OK (jq missing).
 - DB checks: `psql_postgis_check.sh` reports PostGIS 3.4.2 on PG 16; `migration_guard.sh` shows schema up-to-date.
 
 Next deliverables (backend)

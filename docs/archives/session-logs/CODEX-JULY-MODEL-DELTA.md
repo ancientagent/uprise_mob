@@ -3,8 +3,8 @@
 Date: 2025-09-08
 
 Sources (read only)
-- docs/july model/architecture realignment/*
-- docs/july model/Feature realignment/*
+- docs/archives/july-model/architecture realignment/*
+- docs/archives/july-model/Feature realignment/*
 
 Summary
 - Purpose: Capture what July Model reports demand, what Phase 2 specs already cover, and what remains to align the backend/mobile.

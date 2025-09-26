@@ -11,13 +11,13 @@ Scope: Imported safe artifacts from `/mnt/d/july model files` into repo and prod
   - postgresql.conf.txt (config)
 
 ## Import Actions
-- Imported safe types into `docs/july-model/imported/` (md/txt/pdf/png). Then removed any potentially sensitive files by pattern to ensure nothing credential-like remains.
-- Created sanitized templates in `docs/env/`:
+- Imported safe types into `docs/archives/july-model/imported/` (md/txt/pdf/png). Then removed any potentially sensitive files by pattern to ensure nothing credential-like remains.
+- Created sanitized templates in `docs/reference/environment/`:
   - `.env.api.example` (API service env shape)
   - `.env.mobile.example` (mobile app env shape)
   - `postgresql.conf.example` (non-sensitive settings only)
   - `pg_hba.conf.example` (non-sensitive example rules)
-- Added `docs/ops/CONFIG_NOTES.md` with pointers to local originals (no values).
+- Added `docs/operations/CONFIG_NOTES.md` with pointers to local originals (no values).
 
 ## Classification
 - Env/Config (sensitive): `.env.*.txt`, `postgresql.conf.txt`
@@ -31,10 +31,10 @@ Scope: Imported safe artifacts from `/mnt/d/july model files` into repo and prod
 ## Phase-2 Pointers
 - Identity Unification → link with `docs/specs/06_SONG_MANAGEMENT.md`, `docs/specs/03_AUTHENTICATION.md`
 - Location Filters / Community Keys → `docs/specs/04_COMMUNITY_LOCATION.md`, `docs/specs/_fragments/params.geo-genre.md`
-- Radio/Community Unification → `docs/architecture/SYSTEM_OVERVIEW.md`
-- Modern Genres (97) → `docs/july model/Feature realignment/MODERN-GENRES-SYSTEM.md` (add when available)
+- Radio/Community Unification → `docs/reference/architecture/SYSTEM_OVERVIEW.md`
+- Modern Genres (97) → `docs/archives/july-model/Feature realignment/MODERN-GENRES-SYSTEM.md` (add when available)
 
 ## Next Steps
 1. Team to populate local `.env` files from templates (do not commit values).
 2. Confirm if there are additional July Model docs to ingest (architecture/feature notes) and re-run import.
-3. Cross-link final imported docs into Phase-2 execution plan at `docs/PHASE2_EXECUTION_PLAN.md`.
+3. Cross-link final imported docs into Phase-2 execution plan at `docs/overview/PHASE2_EXECUTION_PLAN.md`.

@@ -27,9 +27,9 @@
 ---
 
 ## Doc Relocation Map
-- docs/RUNBOOK_ANDROID.md → docs/runbooks/runbook_android.md
-- docs/Repository-Status/runbook_android.md → docs/runbooks/runbook_android.md
-- docs/Specifications/01_UPRISE_Master_Overview.md → docs/architecture/SYSTEM_OVERVIEW.md (appended)
+- docs/guides/runbooks/android.md — canonical Android runbook (replaces former root-level version)
+- docs/archives/repository-status/runbook_android.md — legacy status page (reference only)
+- docs/Specifications/01_UPRISE_Master_Overview.md → docs/reference/architecture/SYSTEM_OVERVIEW.md (appended)
 - docs/Specifications/03_UPRISE_Authentication_System.md → docs/specs/03_AUTHENTICATION.md
 - docs/Specifications/04_UPRISE_Community_Location_System.md → docs/specs/04_COMMUNITY_LOCATION.md
 - docs/Specifications/05_UPRISE_Fair_Play_Algorithm.md → docs/specs/05_FAIR_PLAY_ALGO.md
@@ -38,4 +38,4 @@
 - docs/Specifications/08_UPRISE_Events_System.md → docs/specs/08_EVENTS.md
 - docs/Specifications/09_UPRISE_Promotions_Business.md → docs/specs/09_PROMOTIONS_BUSINESS.md
 - docs/Specifications/STATION-COMMUNITY-SYSTEM-ANALYSIS.md → Section in architecture/SYSTEM_OVERVIEW.md (Legacy)
-- docs/Repository-Status/# UPRISE Project – CHANGELOG.md → merged into docs/CHANGELOG.md
+- docs/archives/repository-status/# UPRISE Project – CHANGELOG.md → merged into docs/overview/CHANGELOG.md

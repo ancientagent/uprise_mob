@@ -40,7 +40,7 @@ done
 if (( ${#missing[@]} > 0 )); then
   echo "Missing required keys in $ENV_FILE:" >&2
   for k in "${missing[@]}"; do echo "- $k" >&2; done
-  echo "See DOC: docs/ops/TROUBLESHOOTING.md" >&2
+  echo "See DOC: docs/operations/TROUBLESHOOTING.md" >&2
   exit 1
 fi
 

@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Health Checks (run, parse, and summarize)
 # - Uses env vars if set, otherwise defaults from System Facts
-# - Non-destructive. Prints failing command + stderr and points to docs/ops/TROUBLESHOOTING.md
+# - Non-destructive. Prints failing command + stderr and points to docs/operations/TROUBLESHOOTING.md
 
 API_BASE_URL="${API_BASE_URL:-http://127.0.0.1:3000}"
 PG_HOST="${PG_HOST:-127.0.0.1}"
@@ -29,7 +29,7 @@ run_check() {
       echo "stderr:" >&2
       echo "$err" >&2
     fi
-    echo "See DOC: docs/ops/TROUBLESHOOTING.md" >&2
+    echo "See DOC: docs/operations/TROUBLESHOOTING.md" >&2
     failures=$((failures+1))
     summary+=("$name: FAIL")
   else
@@ -62,7 +62,7 @@ echo "\n== Summary =="
 for line in "${summary[@]}"; do echo "- $line"; done
 
 if [[ $failures -gt 0 ]]; then
-  echo "\n$failures check(s) failed. See DOC: docs/ops/TROUBLESHOOTING.md" >&2
+  echo "\n$failures check(s) failed. See DOC: docs/operations/TROUBLESHOOTING.md" >&2
   exit 1
 fi
 

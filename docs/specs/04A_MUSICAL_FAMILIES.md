@@ -72,6 +72,6 @@ Folk/Country
 - Discovery/Radio send `community_key` in requests.
 
 ## References
-- `docs/PHASE2_EXECUTION_PLAN.md` (Workstreams/Onboarding)
+- `docs/overview/PHASE2_EXECUTION_PLAN.md` (Workstreams/Onboarding)
 - `docs/specs/04_COMMUNITY_LOCATION.md` (Geo & keys)
 
