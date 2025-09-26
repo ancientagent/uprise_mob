@@ -1,15 +1,6 @@
 # UPRISE Discovery & Map View System - Detailed Technical Specification
 
-## Phase 2 Alignment: Layers & Filters
-- Map layers include: community centroids, activity heatmaps, events, promoted songs.
-- Filter set: `city`, `state`, `genre`, `radius`, plus advanced `genre_tags[]`.
-- All discovery queries accept `community_key` or lat/lng+radius; responses include `community_key` for client state sync.
-- PostGIS tiles: server aggregates clustered points via `ST_ClusterDBSCAN` for scalable rendering.
-- Genre taxonomy drives layer legend and filter hierarchies.
-
 ## 🎯 **MODULE OVERVIEW**
-
-Standard Parameters: see `docs/specs/_fragments/params.geo-genre.md` for `city,state,genre,lat,lng,radius,community_key`.
 
 ### **Purpose**
 Comprehensive discovery and exploration system that provides users with an intuitive, visually engaging way to explore music communities across geographic locations. Combines interactive mapping, intelligent recommendations, and seamless community navigation to create UPRISE's core user experience.

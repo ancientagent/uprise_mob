@@ -1,6 +1,4 @@
-# [Deprecated] CCPM Usage Guide
-
-Strategy note: CCPM and .claude-based workflows are no longer used in UPRISE Phase 2. This document is retained for historical reference only. Prefer docs/PHASE2_EXECUTION_PLAN.md and docs/ops/CHECKLISTS.md for current process.
+# CCPM Usage Guide
 
 ## Overview
 CCPM (Claude Code Project Management) is a lightweight project management workflow for managing epics and tasks using GitHub Issues.
@@ -115,7 +113,7 @@ TASK1=$(gh issue create --title "Task 1" --label task \
   --body "Description #$(echo $EPIC_URL | grep -o '[0-9]*$')")
 
 # 4. Document
-echo "Created epic and tasks" >> docs/CHANGELOG.md
+echo "Created epic and tasks" >> uprise_docs/CHANGELOG.md
 ```
 
 ## Troubleshooting

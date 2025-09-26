@@ -1,7 +1,5 @@
 # CLAUDE KNOWLEDGE SNAPSHOT - September 7, 2025
 
-Note: CCPM and `.claude` paths mentioned below are deprecated and not part of the current Phase 2 strategy. Use docs/specs/*, docs/architecture/SYSTEM_OVERVIEW.md, and docs/PHASE2_EXECUTION_PLAN.md as the single source of truth.
-
 ## 🏗️ PROJECT OVERVIEW
 
 **UPRISE Mobile App Development Session**
@@ -17,10 +15,10 @@ Note: CCPM and `.claude` paths mentioned below are deprecated and not part of th
 - **WebApp UI**: `/mnt/d/webapp_ui/` (React frontend)
 - **API Backup**: `/mnt/d/webapp_api_backup/` (Backup copy)
 
-### **Documentation Structure (Current):**
-- **Architecture**: `docs/architecture/SYSTEM_OVERVIEW.md`
-- **Specs**: `docs/specs/03..09_*.md`
-- **Execution Plan**: `docs/PHASE2_EXECUTION_PLAN.md`
+### **CCPM Framework Integration:**
+- **Agents**: `/mnt/d/uprise_mob/.claude/agents/` (100+ specialized agents in 10 categories)
+- **Context**: `/mnt/d/uprise_mob/.claude/context/` (Organized documentation)
+- **Workflows**: CCPM commands ready (`/pm:prd-new`, `/pm:issue-start`, etc.)
 
 ## 🚨 CRITICAL ARCHITECTURAL ISSUES IDENTIFIED
 
@@ -106,7 +104,7 @@ Note: CCPM and `.claude` paths mentioned below are deprecated and not part of th
 
 ### **Decided Approach:**
 1. **Foundation First**: Stabilize mobile app before architectural changes
-2. **Systematic Fixes**: Follow docs/PHASE2_EXECUTION_PLAN.md and checklists in docs/ops/
+2. **Systematic Fixes**: Use CCPM workflow for structured development
 3. **Separate Repos**: Abandoned monorepo attempt, working with 3 separate repositories
 4. **Agent-Assisted**: Leverage specialized agents for each domain
 
@@ -180,9 +178,10 @@ Note: CCPM and `.claude` paths mentioned below are deprecated and not part of th
 
 ## 🤖 AUTOMATION READINESS
 
-### **Automation Ready (No CCPM):**
-- Use CI workflows and checklists for predictable execution
-- Reference curl/psql hooks defined in docs/PHASE2_EXECUTION_PLAN.md
+### **CCPM Workflow Ready:**
+- **Commands**: `/pm:prd-new`, `/pm:prd-parse`, `/pm:epic-oneshot`
+- **Issue Management**: `/pm:issue-start`, `/pm:issue-sync`, `/pm:next`
+- **Specialized Agents**: Auto-invocation for domain-specific tasks
 
 ### **Development Efficiency:**
 - **Context Optimization**: File-analyzer and code-analyzer for large file analysis

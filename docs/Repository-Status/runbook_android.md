@@ -155,15 +155,15 @@ cd .\android
 
 **D) `.bashrc: … command not found`**  → Ignore; ensure you’re using PowerShell as in §0.
 
-**E) ExoPlayer conflicts**  → Keep `react-native-track-player` disabled until alignment; document changes in `docs/CHANGELOG.md`.
+**E) ExoPlayer conflicts**  → Keep `react-native-track-player` disabled until alignment; document changes in `uprise_docs/CHANGELOG.md`.
 
 ---
 
 ## 8) Documentation hygiene (what to update after changes)
 
-- `docs/CHANGELOG.md` — note build fixes, dependency toggles
-- `docs/runbooks/runbook_android.md` — keep this page current
-- `docs/ADR/0001-no-symlinks.md` — if the policy changes, update it
+- `uprise_docs/CHANGELOG.md` — note build fixes, dependency toggles
+- `uprise_docs/RUNBOOK_ANDROID.md` — keep this page current
+- `uprise_docs/ADR/0001-no-symlinks.md` — if the policy changes, update it
 
 ---
 

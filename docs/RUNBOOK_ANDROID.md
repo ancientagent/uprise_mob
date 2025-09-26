@@ -3,47 +3,6 @@
 ## Overview
 This document provides step-by-step instructions for building, testing, and deploying the UPRISE Android application.
 
----
-
-## Quickstart: Past Title Screen (Emulator)
-
-Goal: Install and launch the debug APK on Android Emulator so the app gets past the title/splash screen and renders React Native UI.
-
-What you need (Windows/PowerShell 7):
-- Node 20.19.0 portable at `C:\\tools\\node-v20.19.0-win-x64` (or on PATH)
-- JDK 11 (Temurin) for Gradle
-- Android SDK at `%LOCALAPPDATA%\\Android\\Sdk` (emulator + platform-tools installed)
-- PowerShell 7 (`pwsh.exe`), not Windows PowerShell 5.1
-
-Steps
-1) Boot an emulator
-   PowerShell 7 → `D:\\uprise_mob\\scripts\\boot_emulator.ps1 -AvdName "Pixel_6_API_31"`
-
-2) Start Metro bundler
-   PowerShell 7 → `D:\\uprise_mob\\scripts\\windows\\start-metro.ps1`
-
-3) Start a local dev backend stub (WSL)
-   WSL (Ubuntu) → `./scripts/wsl/bootstrap_title_flow.sh`
-   - Serves `/health` and common GET endpoints on `http://localhost:8080`
-   - Emulator reaches it via `http://10.0.2.2:8080`
-
-4) Install, launch, and wire ports
-   PowerShell 7 → `D:\\uprise_mob\\scripts\\build_install_verify.ps1 -AppId "com.app.uprise.debug"`
-   - Ensures `.env.development` has `API_BASE_URL=http://10.0.2.2:8080`
-   - Performs `adb reverse tcp:8081 tcp:8081` and launches the app
-
-Acceptance
-- You see the RN UI after splash (not stuck on title)
-- `artifacts\\logcat_health.txt` shows HTTP logs and ReactNativeJS lines
-- Optional: `Invoke-WebRequest http://localhost:8080/health` returns JSON
-
-If stuck on splash
-- Confirm Metro: `Get-Content artifacts\\metro_health.txt`
-- Check backend stub: `curl http://localhost:8080/health` in WSL
-- Ensure `API_BASE_URL=http://10.0.2.2:8080` in `.env.development`
-- Reinstall the app: rerun `build_install_verify.ps1`
-- As needed, temporarily disable features that require real services (e.g., maps, player) and retry
-
 ## Prerequisites
 
 ### System Requirements
@@ -104,45 +63,6 @@ yarn start
 $env:NODE_OPTIONS="--openssl-legacy-provider"; yarn start
 ```
 
-### Dev Server Auto-Config (Debug)
-The debug run script now auto-configures the React Native dev server host:
-- Metro host set via `adb reverse tcp:8081 tcp:8081` (emulator ↔ host)
-- `.env.development` ensures `API_BASE_URL=http://10.0.2.2:8080`
-- Persists `ReactNativeDevServerHost` inside the app sandbox so RN targets `10.0.2.2:8081`
-- Also broadcasts `RN_DEBUG_SERVER_HOST` as a fallback
-
-Example snippet the script executes:
-```powershell
-# Persist dev server host inside app sandbox
-$adb = "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe"
-$device = 'emulator-5554'  # first device is auto-detected by the script
-$appId = 'com.app.uprise.debug'
-& $adb -s $device reverse tcp:8081 tcp:8081
-& $adb -s $device shell "am broadcast -a com.facebook.react.modules.systeminfo.RN_DEBUG_SERVER_HOST -e host 10.0.2.2:8081"
-& $adb -s $device shell "run-as $appId sh -c 'mkdir -p files && echo 10.0.2.2:8081 > files/ReactNativeDevServerHost'"
-```
-
-## First Login Flow (Home Scene)
-
-- After first login, the app opens the Home Scene Creation page:
-  - Sub‑Genre: typeahead suggestions (via alpha list or `GET /onboarding/genre-suggestions`)
-  - City, State: typeahead (plus “Use my GPS” to auto‑fill)
-  - Note: GPS verification is optional, but only GPS‑verified users can upvote songs in their Home Scene.
-- Submit behavior:
-  - App validates the community; if active → proceeds to Dashboard
-  - If inactive → shows Revolutionary modal (Invite + Continue to nearest active hub) and proceeds
-- Revolutionary summon: app prompts users to return when their local community becomes active
-
-### Admin Tools (SUPERADMIN)
-
-- Profile → Admin Tools is visible only if JWT `roles[]` contains `SUPERADMIN`.
-- Staging controls (server recommended):
-  - Viability bypass toggle (server env or admin endpoint)
-  - Seed minutes / Force activate a community
-- Client testing flag (Debug/staging only):
-  - `COMMUNITY_VIABILITY_BYPASS=true` in react-native-config → onboarding treats communities as active
-
-
 ### 4. Launch App
 ```powershell
 # Forward Metro port
@@ -151,34 +71,6 @@ adb reverse tcp:8081 tcp:8081
 # Launch app
 adb shell monkey -p com.app.uprise.dev -c android.intent.category.LAUNCHER 1
 ```
-
-## Crash Triage (Android)
-
-Use this when the app installs but immediately returns to background or shows a RedBox.
-
-- Quick capture (PowerShell)
-  - ADB path: `$adb = "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe"`
-  - Clear buffers: `& $adb logcat -c`
-  - Launch app: `& $adb shell monkey -p com.app.uprise -c android.intent.category.LAUNCHER 1`
-  - Crash buffers: `& $adb logcat -b crash -v time -d | Out-File -Encoding utf8 artifacts\logs\crash_buffer.txt`
-  - Tail filtered: `& $adb logcat -d | Select-String "AndroidRuntime|FATAL EXCEPTION|ReactNativeJS|Process com.app.uprise|RuntimeInit|libc" | Select-Object -Last 200 | Out-File -Encoding utf8 artifacts\logs\crash_tail.txt`
-  - PID logs (optional): `$pid = (& $adb shell pidof com.app.uprise); if($pid){ & $adb logcat --pid $pid -v time -d | Out-File -Encoding utf8 artifacts\logs\app_pid_log.txt }`
-
-- Scripted capture
-  - Use `scripts\windows\capture-logcat.ps1` after reproducing the crash.
-  - Share: `crash_tail.txt`, `crash_buffer.txt`, `app_pid_log.txt` (if present), `dumpsys_crashes.txt` (if supported).
-
-- Debug RedBox (JS stacks)
-  - `yarn start --reset-cache`
-  - `scripts\build_install_verify_v2.ps1 -Configuration Debug`
-  - Screenshot the RedBox (file + line).
-
-- Reduce native noise while debugging
-  - `.env`: set `DISABLE_TRACK_PLAYER=true`, `DISABLE_FIREBASE_MESSAGING=true`.
-
-- Install issues
-  - Storage/incremental: clear Play Store & WebView data or push APK + `pm install` from `/data/local/tmp`.
-  - Manifest parse: `apkanalyzer manifest print <apk>`; ensure `android:exported` present on API 31+ components.
 
 ## CI/CD Pipeline
 
@@ -205,41 +97,6 @@ Use this when the app installs but immediately returns to background or shows a 
 4. **Emulator**: Boot with platform-optimized settings and boot progress monitoring
 5. **Testing**: Install APK, launch app, collect comprehensive diagnostics
 6. **Artifacts**: smoke-logs with monitoring data and failure diagnostics
-
-### Documentation Requirements (2025-09-14)
-**Enforcement**: All code changes now require documentation updates via automated CI checks.
-
-#### Required Updates
-- **CHANGELOG.md**: Must be updated for any code changes (src/, android/, scripts/, .github/workflows/)
-- **RUNBOOK_ANDROID.md**: Should be updated when Android-specific processes change
-- **Link Validation**: Internal documentation links are automatically validated
-
-#### CI Enforcement
-- **Docs Enforcement Workflow**: `.github/workflows/docs-enforcement.yml` runs on all PRs
-- **Path Filters**: Documentation-only changes skip heavy Android builds for efficiency
-- **Link Checker**: Validates internal links in changed documentation files
-- **Ownership**: All docs changes require review from @baris @ancientagent (CODEOWNERS)
-
-#### Best Practices
-- Update CHANGELOG.md with specific changes, impact, and resolution steps
-- Update RUNBOOK_ANDROID.md when build processes, dependencies, or troubleshooting steps change
-- Use descriptive commit messages that explain the "why" behind changes
-- Link related documentation files for better discoverability
-
-### Smoke Test – Debug & Release Parity
-- Purpose: Validate that both Debug and Release APKs install, launch, and reach React Native JS without crashes under identical emulator conditions.
-- Scope:
-  - Install and launch both `app-debug.apk` and `app-release.apk` in separate runs on the same AVD profile.
-  - Collect identical diagnostics for each variant: adb logs, boot state, TTJS (time-to-first ReactNativeJS log), package id, APK size.
-- Artifacts produced:
-  - `smoke-ubuntu/monitoring/summary.txt` and `summary.json` per variant
-  - `smoke-ubuntu/smoke-logs/` per variant with logcat excerpts and install/launch traces
-  - Equivalent set for macOS HVF job when enabled
-- Acceptance:
-  - Both variants complete install and launch with non-empty `summary.json`
-  - No TrackPlayer-related crashes in early lifecycle logs
-  - Parity check passes: package id shape, main activity, and TTJS within reasonable bounds
-
 
 ### Concurrency & Reliability Features
 ```yaml
@@ -317,8 +174,8 @@ With the new run naming system, you can easily identify which commit is running:
 ### Branch Consistency
 All major branches now have identical, up-to-date workflows:
 - ✅ **main**: Production-ready with all fixes
+- ✅ **feat/ccpm-framework**: CCPM development with monitoring
 - ✅ **ci/macos-hvf-install-launch**: Latest CI improvements
-Note: CCPM-related branches and workflows are deprecated and no longer part of the strategy.
 
 ## Troubleshooting
 
@@ -478,41 +335,3 @@ adb shell curl http://localhost:8081/status
 - **Unified flow**: Same uninstall/install/launch sequence as Ubuntu smoke test
 - **ADB restart**: Kills and restarts ADB server before emulator operations
 - **summary.json**: Includes app_id, boot_ok, ttjs_s (null), debug/release APK sizes, run_id, run_url
-
-Windows Run: device 'emulator-5556'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-09T17:50:51
-
-Windows Run: device 'emulator-5556'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-09T17:52:26
-
-2025-09-09 18:08:24 - Build Troubleshooting: Gradle error 'Project app not found' marked as non-fatal since APK exists. Backend healthy at localhost:8080. Metro running on 8081. ADB reverse configured. App relaunched successfully. Network log captured to net_boot.txt.
-
-2025-09-09 18:15:50 - Build agent: Gradle build failed but APK exists, .env.development updated, app reinstalled on emulator-5554
-
-2025-09-09T18:24:54  Gradle diagnose/build attempted; see artifacts/gradle_build_full.log
-
-2025-09-09T18:39:09  Gradle diagnose/build attempted; see artifacts/gradle_build_full.log
-
-2025-09-09T19:48:22  agent: device=emulator-5554, apk=True, metro=False, backend=False
-
-2025-09-09T19:50:44  agent: device=emulator-5554, apk=True, metro=False, backend=False
-
-Windows Run: device 'emulator-5554'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-10T18:05:30
-
-Windows Run: device 'emulator-5554'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-10T18:18:06
-
-Windows Run: device 'emulator-5554'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-10T18:29:51
-
-Windows Run: device 'emulator-5554'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-10T18:30:05
-
-Windows Run: device 'emulator-5554'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-10T18:36:28
-
-Windows Run: device 'emulator-5554'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-10T18:49:53
-
-Windows Run: device 'emulator-5554'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-10T22:33:43
-
-Windows Run: device 'emulator-5554'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-10T22:44:52
-
-Windows Run: device 'emulator-5554'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-10T22:53:23
-
-Windows Run: device 'emulator-5554'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-10T23:19:54
-
-Windows Run: device 'emulator-5554'; APK installed; API_BASE_URL=http://10.0.2.2:8080; HealthPath=/health; 2025-09-11T07:50:54
