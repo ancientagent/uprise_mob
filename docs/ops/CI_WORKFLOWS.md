@@ -10,3 +10,7 @@
 - API: curl health and routes for `auth`, `radio`, `communities`, `discovery` with `city/state/genre` params.
 - Mobile: launch app once; verify Radio fetch with `community_key` set; skip deep UI flows in CI.
 - CI: gate on build success + lightweight route checks; emulator boot optional and can be deferred.
+
+Networking (Android emulator)
+- Use `http://10.0.2.2:3000` for API base in emulator.
+- Ensure `REFRESH_TOKEN_URL=/auth/refresh` and `UPDATED_USERDETAILS=/user/me` present in `.env.development`.
