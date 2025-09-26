@@ -31,6 +31,9 @@ Docs scripts (bash)
 - docs/automation/scripts/community_key.sh
   - Generates normalized community_key from City, State, Genre inputs.
   - Usage: ./docs/automation/scripts/community_key.sh "Austin" "Texas" "Hip Hop"
+- docs/automation/scripts/supabase_login.sh
+  - Logs the Supabase CLI using SUPABASE_ACCESS_TOKEN (no secrets printed).
+  - Usage: chmod +x docs/automation/scripts/supabase_login.sh && SUPABASE_ACCESS_TOKEN="<pat>" ./docs/automation/scripts/supabase_login.sh
 
 Project scripts (Windows/macOS/Linux helpers)
 - scripts/local-env-check.ps1
@@ -45,6 +48,11 @@ Project scripts (Windows/macOS/Linux helpers)
 Guardrails & environment
 - tools.json documents local dev toolchain guardrails (Node 20.19.0; JDK 11; no global installs; user‑writable paths).
 - Emulator independence: All critical validation and smokes succeed without an emulator; CI/emulator steps are optional.
+- Supabase CLI (WSL) quick start:
+  - Install: `curl -fsSL https://supabase.com/cli/install | sh -s -- --bin-dir $HOME/.local/bin`
+  - PATH: `echo "export PATH=\"$HOME/.local/bin:$PATH\"" >> ~/.bashrc && source ~/.bashrc`
+  - Login: `export SUPABASE_ACCESS_TOKEN="<pat>"` then `./docs/automation/scripts/supabase_login.sh`
+  - Optional link: `supabase link --project-ref $SUPABASE_PROJECT_REF --password $SUPABASE_DB_PASSWORD` (stores creds under `~/.config/supabase/`).
 
 Notes
 - Do not print secrets; scripts avoid echoing env values.
@@ -57,3 +65,4 @@ Planned additions (tracked for later)
 
 Agent helpers
 - See docs/Agent-HQ/PHASE2_AGENT_CONVERSIONS.md for Spec-Radar, API-Auditor, and Smoke-Runner roles and how to invoke them in prompts.
+
