@@ -1,5 +1,0 @@
-SUMMARY:
-- Existence log: artifacts/logs/carryover_verify_existence.txt
-- Heads/WC log: artifacts/logs/carryover_heads_wc.txt
-- INDEX link check: artifacts/logs/carryover_index_link_check.txt
-- PLAN reference snippet: artifacts/logs/carryover_plan_reference_snippet.txt

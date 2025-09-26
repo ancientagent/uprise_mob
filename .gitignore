@@ -84,3 +84,17 @@ src/config/google_calender.json
 # CCPM Framework - Local workspace (epics directory)
 .claude/epics/.env
 docs/env/*.local
+
+# Generated build artifacts (kept locally only)
+artifacts/*
+!artifacts/.gitkeep
+app-debug-apk/
+app-release-apk/
+ci-artifacts/
+androidappsrcmainassetsindex.android.bundle
+androidappsrcmainres/
+ci-log.txt
+hs_err_pid*.log
+local_smoke_logcat.txt
+metro.log
+Screenshot*.png

@@ -1,4 +1,0 @@
-
-09-11 21:12:52.325 30104 30104 W System.err: java.lang.UnsatisfiedLinkError: dlopen failed: library "libjsc.so" not found: needed by /data/app/~~cUIzECB1fiiquWrd4UUiZA==/com.app.uprise-wvoy_1rX9mQ2YxI8dZDNjQ==/lib/x86_64/libjscexecutor.so in namespace clns-4
-09-11 21:12:54.432 30104 30155 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
-

@@ -1,9 +1,0 @@
-[OK] pwsh 7.5.2
-[ERR] node/npm not visible on PATH (session)
-[OK] yarn install completed
-[OK] Backend @ http://localhost:8080/health
-[OK] ADB device: emulator-5554
-WARNING: TCP connect to (::1 : 8081) failed
-WARNING: TCP connect to (127.0.0.1 : 8081) failed
-[ERR] Metro 8081
-JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-11.0.28.6-hotspot

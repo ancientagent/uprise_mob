@@ -1,6 +1,0 @@
-yarn install v1.22.22
-[1/4] Resolving packages...
-success Already up-to-date.
-$ node scripts/patch-screens-if-needed.js
-screens patch: nothing to patch
-Done in 0.33s.
