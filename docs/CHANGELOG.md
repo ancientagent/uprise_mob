@@ -1,20 +1,4 @@
-2025-09-25 - Docs Enforcement & CI Infrastructure (PR #24)
-- **CODEOWNERS**: Added `.github/CODEOWNERS` with automated review assignment
-- **PR Template**: Added `.github/PULL_REQUEST_TEMPLATE.md` for consistent PR format
-- **Docs Enforcement**: Added `.github/workflows/docs-enforcement.yml` for documentation validation
-- **Docs-Only Workflow**: Added `.github/workflows/docs-only.yml` for documentation-only changes
-- **WSL Health Script**: Added `scripts/windows/orchestrate_wsl_checks.ps1` for WSL monitoring
-- **Impact**: Establishes documentation enforcement, improves CI efficiency, adds infrastructure monitoring
-
-2025-09-14 - Docs Enforcement & Ownership Infrastructure
-- **CODEOWNERS**: Added `.github/CODEOWNERS` with docs ownership (@baris @ancientagent)
-- **PR Template**: Enhanced `.github/PULL_REQUEST_TEMPLATE.md` with docs checklist
-- **Docs Enforcement**: Created `.github/workflows/docs-enforcement.yml` requiring CHANGELOG updates on code changes
-- **Docs-Only Workflow**: Added `.github/workflows/docs-only.yml` with markdown validation and link checking
-- **Path Filters**: Added `paths-ignore` to Android workflows to skip builds on docs-only changes
-- **Link Validation**: Automated checking for broken internal links in changed documentation
-- **Android Runbook Warnings**: Warns when Android changes don't update `docs/RUNBOOK_ANDROID.md`
-- **Impact**: Ensures documentation never gets missed, improves CI efficiency, maintains link integrity
+2025-09-15 - Docs: Added Emulator Networking standard (10.0.2.2:3000) and verification steps to PHASE2_EXECUTION_PLAN.md.
 
 2025-09-14 - Refactor: RadioStations → Uprises (Component & UI)
 - **Component Rename**: `src/screens/Feed/RadioStations/` → `src/screens/Feed/Uprises/`
@@ -1446,3 +1430,24 @@ Ask ChatGPT
   - Added `src/config/alpha_genres.js` (editable list).
   - Added `src/services/onboarding/genreAlpha.service.js` (approved list, suggestions, request stub; prefers API if configured).
   - Updated `src/screens/Onboarding/CommunitySetup.js` to use direct sub-genre selection and build community_key from sub-genre.
+2025-09-15 - Mobile auth + emulator networking alignment (Agents)
+- Standardized emulator backend port to 3000
+  - .env.development: `API_BASE_URL=http://10.0.2.2:3000`
+  - Added `REFRESH_TOKEN_URL=/auth/refresh`, `UPDATED_USERDETAILS=/user/me`
+  - `src/config/dev_fallback.js`: `API_BASE_URL=http://10.0.2.2:3000` (safety when env missing)
+- Auth stability fixes
+  - Refresh interceptor now attaches the refreshed `accessToken` (was using non-existent `idToken`)
+  - Login saga navigates with direct signature and logs decision branch in dev
+- Windows helper updated
+  - `docs/scripts/windows/local_backend_emulator_debug.ps1` defaults to backend port 3000 and writes mobile env accordingly
+- Build verification
+  - `:app:assembleDebug` successful; APK at `android/app/build/outputs/apk/debug/app-debug.apk`
+  - Next: run emulator smoke; verify login -> `/user/me` fetch and route decision in logs
+
+Signup flow status
+- Verified signup progresses: `/auth/signup` -> MailConfirmation screen.
+- Using the new account, login returns 200 and proceeds to route decision (Dashboard or CommunitySetup).
+2025-09-16 - Auth routing correction (Agents)
+- Updated login flow to route to Home Scene Creation (CommunitySetup) after successful login.
+- Removed temporary Dashboard redirect and related smoke flag usage.
+- Helper script no longer writes FORCE_DASHBOARD_AFTER_LOGIN.

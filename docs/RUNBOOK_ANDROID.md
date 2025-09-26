@@ -206,26 +206,6 @@ Use this when the app installs but immediately returns to background or shows a 
 5. **Testing**: Install APK, launch app, collect comprehensive diagnostics
 6. **Artifacts**: smoke-logs with monitoring data and failure diagnostics
 
-### Documentation Requirements (2025-09-14)
-**Enforcement**: All code changes now require documentation updates via automated CI checks.
-
-#### Required Updates
-- **CHANGELOG.md**: Must be updated for any code changes (src/, android/, scripts/, .github/workflows/)
-- **RUNBOOK_ANDROID.md**: Should be updated when Android-specific processes change
-- **Link Validation**: Internal documentation links are automatically validated
-
-#### CI Enforcement
-- **Docs Enforcement Workflow**: `.github/workflows/docs-enforcement.yml` runs on all PRs
-- **Path Filters**: Documentation-only changes skip heavy Android builds for efficiency
-- **Link Checker**: Validates internal links in changed documentation files
-- **Ownership**: All docs changes require review from @baris @ancientagent (CODEOWNERS)
-
-#### Best Practices
-- Update CHANGELOG.md with specific changes, impact, and resolution steps
-- Update RUNBOOK_ANDROID.md when build processes, dependencies, or troubleshooting steps change
-- Use descriptive commit messages that explain the "why" behind changes
-- Link related documentation files for better discoverability
-
 ### Smoke Test – Debug & Release Parity
 - Purpose: Validate that both Debug and Release APKs install, launch, and reach React Native JS without crashes under identical emulator conditions.
 - Scope:
