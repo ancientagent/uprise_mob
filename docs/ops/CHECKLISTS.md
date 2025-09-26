@@ -14,7 +14,3 @@
 8) DB: run PostGIS version check (5433) and 1 ST_DWithin query (read-only)
 9) Mobile: cold start, verify persisted filters and active profile context
 10) CI: ensure build passes; emulator boot optional, defer if constrained
-
-Emulator parity checks (Phase 2)
-- `.env.development`: `API_BASE_URL=http://10.0.2.2:3000`, `REFRESH_TOKEN_URL=/auth/refresh`, `UPDATED_USERDETAILS=/user/me`.
-- After login, confirm `/user/me` fetch succeeds and route decision logs appear.

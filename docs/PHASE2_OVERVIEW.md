@@ -27,8 +27,8 @@
 ---
 
 ## Doc Relocation Map
-- docs/Repository-Status/runbook_android.md → docs/Repository-Status/runbook_android.md
-- docs/Repository-Status/runbook_android.md → docs/Repository-Status/runbook_android.md
+- docs/RUNBOOK_ANDROID.md → docs/runbooks/runbook_android.md
+- docs/Repository-Status/runbook_android.md → docs/runbooks/runbook_android.md
 - docs/Specifications/01_UPRISE_Master_Overview.md → docs/architecture/SYSTEM_OVERVIEW.md (appended)
 - docs/Specifications/03_UPRISE_Authentication_System.md → docs/specs/03_AUTHENTICATION.md
 - docs/Specifications/04_UPRISE_Community_Location_System.md → docs/specs/04_COMMUNITY_LOCATION.md
@@ -39,4 +39,3 @@
 - docs/Specifications/09_UPRISE_Promotions_Business.md → docs/specs/09_PROMOTIONS_BUSINESS.md
 - docs/Specifications/STATION-COMMUNITY-SYSTEM-ANALYSIS.md → Section in architecture/SYSTEM_OVERVIEW.md (Legacy)
 - docs/Repository-Status/# UPRISE Project – CHANGELOG.md → merged into docs/CHANGELOG.md
-

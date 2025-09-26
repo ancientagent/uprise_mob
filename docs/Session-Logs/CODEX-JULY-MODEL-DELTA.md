@@ -1,38 +1,62 @@
-# Codex July Model Delta — Phase 2 Alignment
+# July Model → Phase 2 Delta Report (Read‑Only Import)
 
-Date: 2025-09-16
+Date: 2025-09-08
 
-Purpose
-- Summarize what the July Model realignments already cover in current Phase 2 docs, what remains to implement, and which migrations/endpoints are implicated.
+Sources (read only)
+- docs/july model/architecture realignment/*
+- docs/july model/Feature realignment/*
 
-Already Implemented (in Phase 2 specs)
-- ArtistProfile unification: ArtistProfile is the canonical creator model; band-only calls deprecated. Target endpoints: `GET /user/band` (returns ArtistProfile), `PUT /user/artist-profile`.
-- Community/Location filters: Normalized `community_key=city-state-genre`; standard params `city,state,genre,lat,lng,radius,community_key` defined; responses echo `community_key`.
-- Radio=Community projection: Radio and Discovery operate on community queues; responses return the effective filters and community_key; feed is notifications-only.
-- Genre taxonomy (97): Onboarding uses `/onboarding/all-genres` (flat) and `/onboarding/super-genres` (hierarchical).
-- Routing intent: Post-login goes to Home Scene Creation (CommunitySetup); Dashboard only after onboarding completes and a community exists.
+Summary
+- Purpose: Capture what July Model reports demand, what Phase 2 specs already cover, and what remains to align the backend/mobile.
 
-Remains / Gaps
-- Onboarding data: Ensure `/onboarding/all-genres` returns the 97-genre set (dev DB seed or idempotent loader required).
-- Discovery/Radio inputs: Accept standard geo/genre params or `community_key` and consistently echo `community_key` in responses (verify across handlers/middleware).
-- Identity headers: For creator mutations, require `X-Artist-Canonical-Id` and enforce 403 on mismatch; confirm GET `/user/band` returns the unified ArtistProfile.
-- Location filters: Ensure PostGIS usage (`ST_DWithin`, proper SRID) for `lat/lng/radius`; normalize city/state and map `genre` slugs to `genre_id`.
-- Promotions/Events: Confirm targeting via `community_key` and genre taxonomy; align any legacy “Station” terminology in responses.
+Already implemented in Phase 2 specs
+- Identity unification
+  - Canonical performer model documented: ArtistProfile + optional Band linkage.
+  - Auth spec includes `X-Artist-Canonical-Id` header and ownership checks.
+  - SYSTEM_OVERVIEW defines canonical IDs used by Songs/Events/Promotions.
+- Location filters
+  - Standard params defined and linked: `city,state,genre,lat,lng,radius,community_key`.
+  - PostGIS usage, GIST indexes, and sample queries documented.
+- Radio ↔ Community unification
+  - Radio defined as a projection of Community queues; same filters and identity.
+  - Response contract to echo `community_key` documented.
+- Genre upgrade
+  - 97-genre alignment captured; taxonomy + optional `genre_tags[]` for discovery/promotions.
 
-Migrations / Endpoints to Add or Modify
-- Migrations (present in repo, need idempotent run/verify):
-  - `unify-bands-into-artist-profiles.js`
-  - `add-location-to-bands.js`, `add-location-to-artist-profiles.js`
-  - Supporting 2024–2025 migrations (song likes/skips/priority) as per `src/database/migrations`.
-- Endpoints:
-  - Confirm/implement: `PUT /user/artist-profile`, `GET /user/band` (ArtistProfile projection), `/onboarding/all-genres`, `/onboarding/super-genres`.
-  - Discovery/Radio: ensure handlers accept standard params and return `community_key` in payloads/metadata.
-- Health/version:
-  - `/health` returns 200; include a version hash/build info for CI smokes.
+What remains to implement
+- Mobile onboarding
+  - Ensure mobile uses `/onboarding/all-genres` and sets home scene (city/state).
+  - After signup, create/confirm ArtistProfile; present profile switcher context.
+- Discovery geo filtering
+  - Discovery endpoints must apply `community_key` or city/state/genre; echo `community_key` in responses.
+- Radio queue context
+  - Guarantee tier↔community mapping is consistent (CITY/STATE/NATIONAL) and honors `community_key`.
+- Feed contract
+  - Keep `/home/feed` as notifications only (no songs/events payloads); ensure referenced notifications reflect user station.
+- Auth ownership
+  - Enforce that writes referencing an `artist_canonical_id` (and optional `band_id`) are authorized for the user.
 
-DB Requirements
-- Postgres 16 with PostGIS extension; consider `uuid-ossp` and `pgcrypto` if used.
-- All migrations must be idempotent; status clean after execution on dev.
+Migrations or endpoints to add/modify (webapp_api)
+- Shared community context resolver (new)
+  - Utility/middleware to normalize `community_key` from query OR user station (with genre), attach to `req.context`.
+- Radio (routes/radio.js)
+  - Accept standard params; require/derive `community_key`; echo in response.
+  - Ensure tier mapping and fallback selection respect community filters.
+- Discovery (routes/discovery.js)
+  - Apply `community_key` or city/state/genre filters; use PostGIS when columns exist, fallback to string filters otherwise.
+  - Echo `community_key`, include a `filters` block; paginate.
+- Home Feed (routes/home.js)
+  - Verify notifications-only behavior remains; remove any residual song/event rows from feed payloads.
+- Artist write paths (e.g., song/event/promotions)
+  - Validate presence of `X-Artist-Canonical-Id` and user→artist ownership; reject unauthorized writes.
+- Optional migrations (only if missing)
+  - Add `genres.parent_genre_id` and `songs.genre_tags text[]` for taxonomy and tags.
+  - Ensure geography columns have GIST indexes; create community view if needed.
+
+Acceptance checkpoints
+- curl smokes return 200 with correct `community_key` echo for discovery and radio.
+- Feed endpoint payload contains only notification records.
+- Onboarding endpoints return 97-genre set; mobile requests reflect new filters and header usage.
 
 Notes
-- This delta focuses on aligning current Phase 2 docs with July Model intent and the live API structure discovered under `../webapp_api`.
+- All steps remain non‑destructive; database writes limited to approved migrations/seeds.

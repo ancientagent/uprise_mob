@@ -1,12 +1,10 @@
-# Sprint 2 Execution Plan (formerly Phase 2)
+# Phase 2 Execution Plan
 
 For daily carryover protocol, see [PHASE2_CARRYOVER_TEMPLATE.md](./PHASE2_CARRYOVER_TEMPLATE.md).  
 For navigation, see [INDEX.md](./INDEX.md).  
 For current state, see [CHANGELOG.md](./CHANGELOG.md).
 
-> Terminology: This plan covers Sprint 2. Legacy references to “Phase 2” remain in some filenames and links until we complete a safe refactor. See `docs/TERMINOLOGY.md`.
-
-## Doc Canonicalization (Sprint 2)
+## Doc Canonicalization (Phase 2)
 - Community/Location spec = 04_UPRISE_Community_Location_System.md (treat other location docs as archived).
 - "Station" references in code are legacy; all new logic must route through src/contracts/community helpers.
 - Discovery = visualization + recommendations; Location = authoritative source of geo/genre keys.
@@ -25,11 +23,11 @@ For current state, see [CHANGELOG.md](./CHANGELOG.md).
 
 
 ## Purpose  
-Unify the July Model realignments with current Sprint 2 specs so that **mobile, API, and webapp** all converge on one canonical architecture. This document is the single source of truth for backend integration, onboarding, and smokes.
+Unify the July Model realignments with current Phase 2 specs so that **mobile, API, and webapp** all converge on one canonical architecture. This document is the single source of truth for backend integration, onboarding, and smokes.
 
 ---
 
-## Core Realignments (Sprint 2 Foundations)
+## Core Realignments (Phase 2 Foundations)
 
 ### 1. Artist/Band Unification  
 - Canonical model: **ArtistProfile**  
@@ -93,9 +91,6 @@ Unify the July Model realignments with current Sprint 2 specs so that **mobile, 
   - Always filtered by `community_key`.  
   - Echo back params for consistency.  
 
-### Post-Login Routing (Authoritative)
-- After successful login, route to Home Scene Registry (`CommunitySetup` route alias) unless explicitly bypassed in debug; Dashboard only after onboarding completes and a community exists.
-
 ---
 
 ## Smokes & Verification
@@ -105,23 +100,11 @@ Unify the July Model realignments with current Sprint 2 specs so that **mobile, 
 - `docs/scripts/psql_postgis_check.sh`  
 - `docs/scripts/health_checks.sh`
 
-### Emulator Networking (Standard)
-- **API Base URL**: `http://10.0.2.2:3000` for Android emulator backend connectivity
-- **Environment Variables**: Ensure `.env.development` contains:
-  - `API_BASE_URL=http://10.0.2.2:3000`
-  - `REFRESH_TOKEN_URL=/auth/refresh`
-  - `UPDATED_USERDETAILS=/user/me`
-- **Verification Steps**:
-  1. Launch emulator and install debug APK
-  2. Verify backend health: `curl http://localhost:3000/health` (from host)
-  3. Check mobile logs for successful API calls to `10.0.2.2:3000`
-  4. Confirm authentication flow works (login → `/user/me` fetch)
-
 **Acceptance Criteria**  
 - Build & smoke PASS; artifacts saved with standard names/paths.
 - Release logs show no fatal runtime and no Metro references.
 - Requests include community_key when available.
-- After login: route to Home Scene Registry (`CommunitySetup` route alias) unless explicitly bypassed in debug; 97-genre taxonomy visible; home scene set without AppRegistry/TrackPlayer issues; Dashboard only after onboarding completes and a community exists.
+- Onboarding: 97-genre taxonomy visible; home scene set; Dashboard opens without AppRegistry/TrackPlayer issues.
 - Docs updated (CHANGELOG + any runbook/KB touched).  
 
 ---
@@ -191,7 +174,7 @@ Goal: Community is first‑class; discovery/radio use `community_key`; onboardin
   - Selector: `getCommunityKey()`
 - Onboarding (client)
   - Services (alpha): `GET /onboarding/approved-genres`, `GET /onboarding/genre-suggestions`, `POST /onboarding/request-genre`
-  - UI: Home Scene Registry (first login)
+  - UI: Home Scene Creation (first login)
     - Sub‑genre picker (required) via typeahead/autocomplete
     - City/State picker (required) with typeahead + optional “Use my GPS (recommended)”
     - Note: GPS verification is optional, but only GPS‑verified users can upvote songs in Home Scene

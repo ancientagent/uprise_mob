@@ -84,13 +84,8 @@
 - Build & smoke PASS; artifacts saved with standard names/paths.
 - Release logs show no fatal runtime and no Metro references.
 - Requests include community_key when available.
-- Post-login routing: user is taken directly to Home Scene Creation (`CommunitySetup`). Onboarding shows 97‑genre taxonomy; user completes home scene. Dashboard is only shown after onboarding/home scene is set.
+- Onboarding: 97-genre taxonomy visible; home scene set; Dashboard opens without AppRegistry/TrackPlayer issues.
 - Docs updated (CHANGELOG + any runbook/KB touched).
-
-## Post-Login Routing (Authoritative)
-- After successful login (200), the app must navigate to `CommunitySetup`.
-- Do not route to Dashboard on login. Dashboard appears only after onboarding/home scene creation completes.
-- Smokes should validate: login → `CommunitySetup`, genre and city/state pickers appear, and `community_key` persists.
 
 ## Status update format (when blocked or switching)
 - One sentence on what just happened.
