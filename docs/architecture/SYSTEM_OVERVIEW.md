@@ -1,6 +1,40 @@
 # System Overview
 (Add high-level components, data flows, and service boundaries here.)
 
+## Phase 2: July Model Consolidation
+- Artist/Band unification: canonical identity across Auth, Catalog, UI
+- Location filtering: PostGIS-backed communities and API filters
+- Radio/Community unification: one entity, different projections
+- Genre upgrade: taxonomy + tagging across discovery/promotions
+
+### Unified Domain Model (Phase 2)
+- Identity
+  - `User` authenticates; may own one or more `ArtistProfile` records.
+  - `Band` is a group entity with `BandMembers` that reference `ArtistProfile` or `User`.
+  - Canonical performer identifier: `artist_canonical_id` used by Songs, Events, Promotions.
+- Community
+  - Community key: `city-state-genre` (e.g., `austin-texas-hip-hop`).
+  - Radio is a view over Community queues (RaDIYo = community rotation projection).
+- Genre
+  - Hierarchical taxonomy (parent/child) + freeform tags.
+  - Primary `genre_id` per song, optional `genre_tags[]` for discovery/promotions.
+- Location
+  - PostGIS coordinates for Users, Artists/Bands, Songs, and Events.
+  - City/state lookup tables provide stable keys; queries use geofences and centroids.
+
+### Cross‑Module Contracts
+- Authentication → Identity/Profiles
+  - Login issues tokens bound to `user_id`; profile switching exposes `artist_canonical_id`.
+  - Roles include Artist, Band Admin, Venue, Promoter, Business, Admin.
+- Community/Radio → API
+  - Standard query params: `city`, `state`, `genre`, `lat`, `lng`, `radius`, `community_key`.
+  - Radio endpoints accept `community_key` and return tiered queues.
+- Discovery/Map → Data
+  - Map layers: community centroids, activity heat, events, promoted songs.
+  - Filters: location radius + genre taxonomy.
+- Promotions/Events → Targeting
+  - Targeting predicates include `genre_id`, `genre_tags[]`, `community_key`, and `ST_Contains(geom, point)`.
+
 ## Legacy Notes
 - Station Community System Analysis (imported)
 \n---\n\n## Imported from 01_UPRISE_Master_Overview.md

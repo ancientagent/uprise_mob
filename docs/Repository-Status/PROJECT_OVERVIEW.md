@@ -3,7 +3,7 @@
 ## Active Repositories
 - **uprise_mob**: React Native mobile client (current focus). Target: Android first, iOS later.
 - **webapp_ui**: React-based rewrite of an earlier Angular web application. Not developed in parallel with mobile; requires archeological investigation before resuming.
-- **webapp_api**: Firebase backend (to be integrated after mobile stabilization).
+- **webapp_api**: Express.js + PostgreSQL (Sequelize) API (to be integrated after mobile stabilization; PostGIS on port 5433 per Phase 2).
 - **docs**: Source of truth documentation. Contains runbooks, changelogs, ADRs, and build notes.
 
 ## Development History
@@ -27,7 +27,7 @@
 ## Project Rules & Habits
 - **No symlinks**: Past infinite nesting problems; use vendoring and Gradle subprojects instead.
 - **Secrets hygiene**: Never commit API tokens/keys. Rotate if leaked. Use `.gitignore` for sensitive files.
-- **Documentation**: All changes documented in `docs` (e.g., `runbooks/runbook_android.md`, `CHANGELOG.md`).
+- **Documentation**: All changes documented in `docs` (e.g., `RUNBOOK_ANDROID.md`, `CHANGELOG.md`).
 - **Resource overrides**: Debug/release `app_name` handled in `src/debug/.../strings.xml`, not via `resValue`.
 
 ## External Tools & Subagents

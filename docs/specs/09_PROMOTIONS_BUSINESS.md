@@ -1,6 +1,14 @@
 # UPRISE Promotions & Business Features - Detailed Technical Specification
 
+## Phase 2 Alignment: Targeting by Genre/Location/Community
+- Campaign targeting supports `genre_id`, `genre_tags[]`, `community_key`, and geofence (lat/lng + radius) predicates.
+- Audience building integrates Community activity metrics and genre taxonomy rollups.
+- Reporting slices by community and genre for ROI attribution.
+- API contracts: accept `community_key` or `city`/`state` and `genre` params; responses echo effective targeting for transparency.
+
 ## 🎯 **MODULE OVERVIEW**
+
+Standard Parameters: see `docs/specs/_fragments/params.geo-genre.md` for `city,state,genre,lat,lng,radius,community_key`.
 
 ### **Purpose**
 Comprehensive business monetization ecosystem that transforms UPRISE's engaged music communities into valuable advertising and partnership opportunities. Enables businesses to reach targeted audiences through music-driven marketing, while providing artists and venues with additional revenue streams through strategic partnerships and promotional opportunities.

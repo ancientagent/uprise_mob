@@ -162,11 +162,12 @@ cd .\android
 ## 8) Documentation hygiene (what to update after changes)
 
 - `docs/CHANGELOG.md` — note build fixes, dependency toggles
-- `docs/runbooks/runbook_android.md` — keep this page current
+- `docs/Repository-Status/runbook_android.md` — keep this page current
 - `docs/ADR/0001-no-symlinks.md` — if the policy changes, update it
 
 ---
 
 ### That’s it
 If the steps above are followed exactly, you should get a green **assembleDebug** and a debuggable APK that installs as `com.app.uprise.dev`.
+
 

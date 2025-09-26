@@ -1,4 +1,6 @@
-# CCPM Usage Guide
+# [Deprecated] CCPM Usage Guide
+
+Strategy note: CCPM and .claude-based workflows are no longer used in UPRISE Phase 2. This document is retained for historical reference only. Prefer docs/PHASE2_EXECUTION_PLAN.md and docs/ops/CHECKLISTS.md for current process.
 
 ## Overview
 CCPM (Claude Code Project Management) is a lightweight project management workflow for managing epics and tasks using GitHub Issues.

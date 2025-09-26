@@ -1,6 +1,25 @@
 # UPRISE Community & Location System - Detailed Technical Specification
 
+> Phase 2 Migration Note (Alpha Update)
+> - Onboarding classification now uses Direct Sub‑Genres. See specs/GENRE_SYSTEM_ALPHA.md.
+> - Community key for alpha flows: city-state-sub-genre-id (e.g., austin-texas-hardcore-punk).
+> - Families/Alliances are deprecated for Alpha; legacy references remain for archival context only.
+> - When sending filters, prefer `community_key`; `genre` may be used as a fallback.
+
+## Phase 2 Alignment: Location Filters, PostGIS, API Params
+- Standard API params for geo queries: `city`, `state`, `genre`, `community_key`, `lat`, `lng`, `radius`.
+- Community key format: `city-state-genre` (normalized, lowercase, dash-separated).
+- PostGIS is the source of truth for spatial filtering; DB is PostgreSQL on port 5433.
+- Indexing: `USING GIST` on geography columns (e.g., `geom geography(POINT, 4326)`).
+- Example queries:
+  - Containment: `SELECT * FROM songs WHERE ST_Contains(city_geom, ST_SetSRID(ST_MakePoint($1,$2),4326)::geography);`
+  - Radius: `... WHERE ST_DWithin(artist_geom, ST_SetSRID(ST_MakePoint($1,$2),4326)::geography, $radius_meters);`
+- API response contracts include `community_key`, `genre_id`, and `location` (lat/lng) for clients to keep filters in sync.
+- Anti-fraud: GPS verification hooks on vote/engagement endpoints must validate that point lies within the user’s home scene boundary.
+
 ## 🎯 **MODULE OVERVIEW**
+
+Standard Parameters: see `docs/specs/_fragments/params.geo-genre.md` for `city,state,genre,lat,lng,radius,community_key`.
 
 ### **Purpose**
 Creates the geographic + genre-based community system that is the foundation of UPRISE's local-to-national music discovery model. Fixes the critical issue where communities are currently only genre-based.
