@@ -1,13 +1,12 @@
 # 🧠 UPRISE Phase 2 Carryover Template
 
 ## Roles
-- **Ubuntu Executor ("Codex cli")**: Backend, Postgres, API integration, migrations, backend smokes.
-- **Windows Executor (cursor Auto (Claude sonnet 4)**: React Native 0.66.x, Gradle/Android SDK, Node builds, CI parity.
-- **Project Lead developer (codex IDE) strategy/execution, automation  
- **PM (Strategy Steward)**: Phase alignment, task assignment, guardrails.
+- **Ubuntu Executor ("Codex")**: Backend, Postgres, API integration, migrations, backend smokes.
+- **Windows Executor ("Mobile Agent")**: React Native 0.66.x, Gradle/Android SDK, Node builds, CI parity.
+- **PM (Strategy Steward)**: Phase alignment, task assignment, guardrails.
 
 ## Phase Anchor (single source of truth)
-- `docs/overview/PHASE2_EXECUTION_PLAN.md`
+- `docs/PHASE2_EXECUTION_PLAN.md`
 - Always verify this file exists and is current before starting any work.
 
 ## Working roots
@@ -29,15 +28,15 @@
 ## Environment guardrails
 - No admin privileges, no symlinks, no registry edits.
 - PowerShell 7 (pwsh) only on Windows; avoid long one-liners to bypass PSReadLine issues.
-- WSL Ubuntu: Postgres 16 @ 5433; extensions: postgis, uuid-ossp, pgcrypto; scripts `docs/automation/scripts/*.sh` must be idempotent/non-destructive.
+- WSL Ubuntu: Postgres 16 @ 5433; extensions: postgis, uuid-ossp, pgcrypto; scripts `docs/scripts/*.sh` must be idempotent/non-destructive.
 
 ## Kickoff checklist (every session)
-1) Confirm `docs/overview/PHASE2_EXECUTION_PLAN.md` (phase scope) and restate role split.
+1) Confirm `docs/PHASE2_EXECUTION_PLAN.md` (phase scope) and restate role split.
 2) Load SYSTEM_OVERVIEW + params fragment if applicable.
 3) Run smokes (debug/release + DB) and save artifacts to `artifacts/logs`.
 4) Verify DB extensions and migrations (`psql_postgis_check.sh`, `migration_guard.sh`).
 5) Restate next 2–3 deliverables with acceptance criteria.
-6) Update `docs/overview/CHANGELOG.md` with outcomes.
+6) Update `docs/CHANGELOG.md` with outcomes.
 
 ## Logging and artifacts convention
 - Always capture stdout+stderr and use UTF-8:
@@ -61,13 +60,13 @@
 - If an agent requires conversion, note scope, time-box to 30 minutes, and fall back if not productive.
 
 ## References
-- `docs/overview/PHASE2_EXECUTION_PLAN.md`
-- `docs/knowledge-base/UPRISE_CONTEXT_FOR_SPRINTS.md`
-- `docs/knowledge-base/FIREBASE_MIGRATION_ONBOARDING.md`
-- `docs/knowledge-base/ARTIST_ONBOARDING_FLOW.md`
-- `docs/archives/july-model/JULY_BUILD_POSTMORTEM.md`
-- `docs/README.md` (navigation)
-- `docs/overview/CHANGELOG.md` (current state)
+- `docs/PHASE2_EXECUTION_PLAN.md`
+- `docs/Knowledge-Base/UPRISE_CONTEXT_FOR_SPRINTS.md`
+- `docs/Knowledge-Base/FIREBASE_MIGRATION_ONBOARDING.md`
+- `docs/Knowledge-Base/ARTIST_ONBOARDING_FLOW.md`
+- `docs/july-model/JULY_BUILD_POSTMORTEM.md`
+- `docs/INDEX.md` (navigation)
+- `docs/CHANGELOG.md` (current state)
 
 ## Sprint scaffolding
 - **Branch**: `<area>/P2-S0X-<slug>`
