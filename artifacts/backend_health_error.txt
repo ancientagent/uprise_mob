@@ -1,0 +1,8 @@
+﻿Invoke-WebRequest : Unable to connect to the remote server
+At line:2 char:4
++   (Invoke-WebRequest -UseBasicParsing $HealthUrlWin -TimeoutSec 8).Co ...
++    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebExc 
+   eption
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
+ 

@@ -1,0 +1,48 @@
+09-11 22:27:44.416   523   600 W PackageManager: Not removing package com.google.android.trichromelibrary hosting lib com.google.android.trichromelibrary version 725814338 used by [VersionedPackage[com.google.android.webview/725814338]] for user 0
+09-11 22:28:43.689   523   578 I ActivityManager: Start proc 1382:com.google.android.partnersetup/u0a109 for service {com.google.android.partnersetup/com.google.android.partnersetup.InstalledAppJobService}
+09-11 22:28:44.116   523  1230 W JobScheduler: Job didn't exist in JobStore: 62c397c #u0a109/4096 com.google.android.partnersetup/.InstalledAppJobService
+09-11 22:47:05.448  1196  1307 I Wear_Controller: Wearable module requires a companion app to be installed.
+09-11 22:51:23.464  1196  1307 I Wear_Controller: Wearable module requires a companion app to be installed.
+09-11 23:35:01.579   523   600 W PackageManager: Not removing non-existent package com.app.uprise
+09-11 23:35:17.219   523   600 W PackageManager: Not removing non-existent package com.app.uprise.debug
+09-11 23:35:46.557  4049  4049 I abb     : StartCommandInProcess(7061636b61676500696e7374616c6c00 package.install. [truncated])
+09-11 23:35:47.039   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.validateApkInstallLocked(PackageInstallerSession.java:2745)
+09-11 23:35:47.039   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.streamValidateAndCommit(PackageInstallerSession.java:1857)
+09-11 23:35:47.039   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.handleStreamValidateAndCommit(PackageInstallerSession.java:1705)
+09-11 23:35:47.039   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.-$$Nest$mhandleStreamValidateAndCommit(Unknown Source:0)
+09-11 23:35:47.039   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession$4.handleMessage(PackageInstallerSession.java:736)
+09-11 23:35:47.047   451 18568 E installd: Couldn't opendir /data/app/vmdl1158870580.tmp: No such file or directory
+09-11 23:35:47.048   451 18568 E installd: Failed to delete /data/app/vmdl1158870580.tmp: No such file or directory
+09-11 23:37:07.482   523   561 W JobScheduler: Job didn't exist in JobStore: 2d066ab #u0a109/4096 com.google.android.partnersetup/.InstalledAppJobService
+09-11 23:38:17.230   523   600 W PackageManager: Not removing package com.google.android.trichromelibrary hosting lib com.google.android.trichromelibrary version 725814338 used by [VersionedPackage[com.google.android.webview/725814338]] for user 0
+09-11 23:40:15.464   523   600 W PackageManager: Not removing non-existent package com.app.uprise
+09-11 23:40:15.564   523   600 W PackageManager: Not removing non-existent package com.app.uprise.debug
+09-11 23:40:15.623  4049  4049 I abb     : StartCommandInProcess(7061636b61676500696e7374616c6c00 package.install. [truncated])
+09-11 23:40:16.270   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.validateApkInstallLocked(PackageInstallerSession.java:2745)
+09-11 23:40:16.270   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.streamValidateAndCommit(PackageInstallerSession.java:1857)
+09-11 23:40:16.270   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.handleStreamValidateAndCommit(PackageInstallerSession.java:1705)
+09-11 23:40:16.270   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.-$$Nest$mhandleStreamValidateAndCommit(Unknown Source:0)
+09-11 23:40:16.270   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession$4.handleMessage(PackageInstallerSession.java:736)
+09-11 23:40:16.277   451 18568 E installd: Couldn't opendir /data/app/vmdl665346786.tmp: No such file or directory
+09-11 23:40:16.278   451 18568 E installd: Failed to delete /data/app/vmdl665346786.tmp: No such file or directory
+09-11 23:40:24.874   523   600 W PackageManager: Not removing non-existent package com.app.uprise
+09-11 23:40:24.971   523   600 W PackageManager: Not removing non-existent package com.app.uprise.debug
+09-11 23:40:25.012  4049  4049 I abb     : StartCommandInProcess(7061636b61676500696e7374616c6c00 package.install. [truncated])
+09-11 23:40:25.508   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.validateApkInstallLocked(PackageInstallerSession.java:2745)
+09-11 23:40:25.508   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.streamValidateAndCommit(PackageInstallerSession.java:1857)
+09-11 23:40:25.508   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.handleStreamValidateAndCommit(PackageInstallerSession.java:1705)
+09-11 23:40:25.508   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.-$$Nest$mhandleStreamValidateAndCommit(Unknown Source:0)
+09-11 23:40:25.508   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession$4.handleMessage(PackageInstallerSession.java:736)
+09-11 23:40:25.513   451 18568 E installd: Couldn't opendir /data/app/vmdl1175253511.tmp: No such file or directory
+09-11 23:40:25.513   451 18568 E installd: Failed to delete /data/app/vmdl1175253511.tmp: No such file or directory
+09-11 23:43:25.071   523   600 W PackageManager: Not removing package com.google.android.trichromelibrary hosting lib com.google.android.trichromelibrary version 725814338 used by [VersionedPackage[com.google.android.webview/725814338]] for user 0
+09-11 23:43:34.513  4049  4049 I abb     : StartCommandInProcess(7061636b61676500696e7374616c6c00 package.install. [truncated])
+09-11 23:43:35.258   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.validateApkInstallLocked(PackageInstallerSession.java:2745)
+09-11 23:43:35.258   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.streamValidateAndCommit(PackageInstallerSession.java:1857)
+09-11 23:43:35.258   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.handleStreamValidateAndCommit(PackageInstallerSession.java:1705)
+09-11 23:43:35.258   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession.-$$Nest$mhandleStreamValidateAndCommit(Unknown Source:0)
+09-11 23:43:35.258   523   608 W ApkLiteParseUtils: 	at com.android.server.pm.PackageInstallerSession$4.handleMessage(PackageInstallerSession.java:736)
+09-11 23:43:54.964  3713  3741 I Finsky:background: [139] IV2: found recoverable installs: []
+09-11 23:43:55.108  3713  3738 I Finsky:background: [136] IQ: start evaluating install requests.
+09-11 23:43:55.187  3713  3753 I Finsky:background: [149] IQ: Pruning inactive install requests
+09-11 23:43:55.329  3713  3738 I Finsky:background: [136] IQ: 0 scheduled install statuses found to proceed. 

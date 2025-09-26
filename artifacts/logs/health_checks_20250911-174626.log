@@ -1,0 +1,8 @@
+== Health Checks ==
+[OK] API /health
+[WARN] jq not found; skipping JSON parse
+\n== Summary ==
+- API /health: OK
+- Postgres version: OK
+- PostGIS version: OK
+\nAll health checks passed.

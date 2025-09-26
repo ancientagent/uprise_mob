@@ -1,0 +1,68 @@
+
+09-12 22:03:30.195 10120 10120 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-12 22:03:30.206 10120 10120 I AndroidRuntime: Using default boot image
+09-12 22:03:30.206 10120 10120 I AndroidRuntime: Leaving lock profiling enabled
+09-12 22:03:30.413 10120 10120 D AndroidRuntime: Calling main entry com.android.commands.monkey.Monkey
+09-12 22:03:30.814 10120 10120 I AndroidRuntime: VM exiting with result code 0.
+09-12 22:03:31.860 10141 10167 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+09-12 22:03:31.933 10141 10167 W ReactNativeJS: `new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method.
+09-12 22:03:31.934 10141 10167 W ReactNativeJS: `new NativeEventEmitter()` was called with a non-null argument without the required `removeListeners` method.
+09-12 22:03:32.249 10141 10167 E ReactNativeJS: TypeError: Cannot read property 'source' of undefined, js engine: hermes
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: FATAL EXCEPTION: mqt_native_modules
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: Process: com.app.uprise, PID: 10141
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: com.facebook.react.common.JavascriptException: TypeError: Cannot read property 'source' of undefined, js engine: hermes, stack:
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: anonymous@1:2107042
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: loadModuleImplementation@1:72885
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: guardedLoadModule@1:72434
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: metroRequire@1:72062
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: anonymous@1:2102634
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: loadModuleImplementation@1:72885
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: guardedLoadModule@1:72434
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: metroRequire@1:72062
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: anonymous@1:2044748
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: loadModuleImplementation@1:72885
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: guardedLoadModule@1:72434
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: metroRequire@1:72062
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: anonymous@1:2021979
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: loadModuleImplementation@1:72885
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: guardedLoadModule@1:72434
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: metroRequire@1:72062
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: anonymous@1:2016793
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: loadModuleImplementation@1:72885
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: guardedLoadModule@1:72434
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: metroRequire@1:72062
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: anonymous@1:1980931
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: loadModuleImplementation@1:72885
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: guardedLoadModule@1:72434
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: metroRequire@1:72062
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: anonymous@1:1031781
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: loadModuleImplementation@1:72885
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: guardedLoadModule@1:72391
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: metroRequire@1:72062
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: metroImportAll@1:72232
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: anonymous@1:1031534
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: tryCallOne@53:15
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: anonymous@139:26
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: anonymous@1:192454
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: _callTimer@1:191398
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: _callReactNativeMicrotasksPass@1:191603
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: callReactNativeMicrotasks@1:193537
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: __callReactNativeMicrotasks@1:177889
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: anonymous@1:177022
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: __guard@1:177766
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: flushedQueue@1:176933
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: callFunctionReturnFlushedQueue@1:176789
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 	at com.facebook.react.modules.core.ExceptionsManagerModule.reportException(ExceptionsManagerModule.java:83)
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 	at com.facebook.react.bridge.JavaMethodWrapper.invoke(JavaMethodWrapper.java:372)
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 	at com.facebook.react.bridge.JavaModuleWrapper.invoke(JavaModuleWrapper.java:188)
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 	at com.facebook.react.bridge.queue.NativeRunnable.run(Native Method)
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 	at android.os.Handler.handleCallback(Handler.java:942)
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 	at com.facebook.react.bridge.queue.MessageQueueThreadHandler.dispatchMessage(MessageQueueThreadHandler.java:27)
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:201)
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:288)
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$4.run(MessageQueueThreadImpl.java:226)
+09-12 22:03:32.257 10141 10168 E AndroidRuntime: 	at java.lang.Thread.run(Thread.java:1119)
+

@@ -1,0 +1,50 @@
+
+09-12 20:57:32.980   307   307 D AndroidRuntime: >>>>>> START com.android.internal.os.ZygoteInit uid 0 <<<<<<
+09-12 20:57:32.986   307   307 I AndroidRuntime: Using default boot image
+09-12 20:57:32.986   307   307 I AndroidRuntime: Leaving lock profiling enabled
+09-12 20:57:39.299   767   767 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+09-12 21:00:14.591  4505  4505 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-12 21:00:14.693  4505  4505 I AndroidRuntime: Using default boot image
+09-12 21:00:14.693  4505  4505 I AndroidRuntime: Leaving lock profiling enabled
+09-12 21:00:15.237  4505  4505 D AndroidRuntime: Calling main entry com.android.commands.monkey.Monkey
+09-12 21:00:15.666  4505  4505 I AndroidRuntime: VM exiting with result code 0.
+09-12 21:00:20.298  4574  4618 I ReactNativeJS: 'Firebase messaging disabled (no default app):', 'No Firebase App \'[DEFAULT]\' has been created - call firebase.initializeApp()'
+09-12 21:00:20.424  4574  4618 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+09-12 21:00:20.557  4574  4618 E ReactNativeJS: TypeError: Cannot read property 'source' of undefined, js engine: hermes
+09-12 21:00:20.566  4574  4618 I ReactNativeJS: Unable to symbolicate stack trace: Bundle was not loaded from Metro.
+09-12 21:00:21.007  4574  4618 I ReactNativeJS: redux-persist: no inbound state, skipping migration
+09-12 21:00:21.160  4574  4618 I ReactNativeJS: FCM disabled (no default Firebase app)
+09-12 21:00:27.892  4707  4707 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-12 21:00:27.921  4707  4707 I AndroidRuntime: Using default boot image
+09-12 21:00:27.921  4707  4707 I AndroidRuntime: Leaving lock profiling enabled
+09-12 21:00:28.143  4707  4707 D AndroidRuntime: Calling main entry com.android.commands.monkey.Monkey
+09-12 21:00:28.241  4707  4707 I AndroidRuntime: VM exiting with result code 0.
+09-12 21:04:05.005  4915  4939 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+09-12 21:07:06.931  5186  5186 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-12 21:07:06.970  5186  5186 I AndroidRuntime: Using default boot image
+09-12 21:07:06.970  5186  5186 I AndroidRuntime: Leaving lock profiling enabled
+09-12 21:07:07.369  5186  5186 D AndroidRuntime: Calling main entry com.android.commands.monkey.Monkey
+09-12 21:07:07.994  5186  5186 I AndroidRuntime: VM exiting with result code 0.
+09-12 21:07:30.822  5237  5430 I ReactNativeJS: 'Firebase messaging disabled (no default app):', 'No Firebase App \'[DEFAULT]\' has been created - call firebase.initializeApp()'
+09-12 21:07:31.083  5237  5430 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+09-12 21:07:32.164  5237  5430 E ReactNativeJS: TypeError: Cannot read property 'source' of undefined, js engine: hermes
+09-12 21:07:32.200  5237  5430 I ReactNativeJS: redux-persist: no inbound state, skipping migration
+09-12 21:07:32.370  5237  5430 I ReactNativeJS: FCM disabled (no default Firebase app)
+09-12 21:10:23.525  5237  5430 W ReactNativeJS: Cannot connect to Metro.
+09-12 21:10:23.525  5237  5430 W ReactNativeJS: 
+09-12 21:10:23.525  5237  5430 W ReactNativeJS: Try the following to fix the issue:
+09-12 21:10:23.525  5237  5430 W ReactNativeJS: - Ensure that Metro is running and available on the same network
+09-12 21:10:23.525  5237  5430 W ReactNativeJS: - Ensure that your device/emulator is connected to your machine and has USB debugging enabled - run 'adb devices' to see a list of connected devices
+09-12 21:10:23.525  5237  5430 W ReactNativeJS: - If you're on a physical device connected to the same machine, run 'adb reverse tcp:8081 tcp:8081' to forward requests from your device
+09-12 21:10:23.525  5237  5430 W ReactNativeJS: - If your device is on the same Wi-Fi network, set 'Debug server host & port for device' in 'Dev settings' to your machine's IP address and the port of the local dev server - e.g. 10.0.1.1:8081
+09-12 21:10:23.525  5237  5430 W ReactNativeJS: 
+09-12 21:10:23.525  5237  5430 W ReactNativeJS: URL: localhost:8081
+09-12 21:10:23.525  5237  5430 W ReactNativeJS: 
+09-12 21:10:23.525  5237  5430 W ReactNativeJS: Error: null
+09-12 21:10:42.038  5662  5711 I ReactNativeJS: 'Firebase messaging disabled (no default app):', 'No Firebase App \'[DEFAULT]\' has been created - call firebase.initializeApp()'
+09-12 21:10:42.206  5662  5711 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+09-12 21:10:42.646  5662  5711 E ReactNativeJS: TypeError: undefined is not an object (evaluating '_reactNativeVideo.default.propTypes.source')
+09-12 21:10:42.655  5662  5711 I ReactNativeJS: Unable to symbolicate stack trace: Bundle was not loaded from Metro.
+09-12 21:10:42.679  5662  5711 I ReactNativeJS: redux-persist: versions match, noop migration
+09-12 21:10:42.847  5662  5711 I ReactNativeJS: FCM disabled (no default Firebase app)
+

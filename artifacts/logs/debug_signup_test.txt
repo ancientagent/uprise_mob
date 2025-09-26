@@ -1,0 +1,11 @@
+
+09-12 22:03:31.860 10141 10167 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+09-12 22:04:02.436 10188 10209 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+09-12 22:04:17.226 10318 10345 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+09-12 22:05:04.206 10456 10531 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+09-12 22:06:42.664 10768 10793 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+09-12 22:11:16.901 10940 11067 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+09-12 22:11:33.451 11238 11313 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+09-12 22:15:15.331 11772 11798 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+09-12 22:17:00.536 11928 11976 I ReactNativeJS: Running "Uprise" with {"rootTag":1}
+

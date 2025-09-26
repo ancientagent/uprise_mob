@@ -1,0 +1,353 @@
+10:docs/PHASE2_EXECUTION_PLAN.md
+15:docs/specs/06_SONG_MANAGEMENT.md
+17:docs/specs/04_COMMUNITY_LOCATION.md
+18:docs/specs/03_AUTHENTICATION.md
+33:docs/CHANGELOG.md
+60:docs/ops/CI_WORKFLOWS.md
+61:docs/ops/CHECKLISTS.md
+97:docs/architecture/SYSTEM_OVERVIEW.md
+100:docs/specs/_fragments/params.geo-genre.md
+104:docs/july-model/july-model  build state/CHANGELOG-SESSION-2025-07-29.md
+105:docs/july-model/july-model  build state/CHANGELOG-SESSION-2025-01-17.md
+# System Overview
+(Add high-level components, data flows, and service boundaries here.)
+
+## Phase 2: July Model Consolidation
+- Artist/Band unification: canonical identity across Auth, Catalog, UI
+- Location filtering: PostGIS-backed communities and API filters
+- Radio/Community unification: one entity, different projections
+- Genre upgrade: taxonomy + tagging across discovery/promotions
+
+### Unified Domain Model (Phase 2)
+- Identity
+  - `User` authenticates; may own one or more `ArtistProfile` records.
+  - `Band` is a group entity with `BandMembers` that reference `ArtistProfile` or `User`.
+  - Canonical performer identifier: `artist_canonical_id` used by Songs, Events, Promotions.
+- Community
+  - Community key: `city-state-genre` (e.g., `austin-texas-hip-hop`).
+  - Radio is a view over Community queues (RaDIYo = community rotation projection).
+- Genre
+  - Hierarchical taxonomy (parent/child) + freeform tags.
+  - Primary `genre_id` per song, optional `genre_tags[]` for discovery/promotions.
+- Location
+  - PostGIS coordinates for Users, Artists/Bands, Songs, and Events.
+  - City/state lookup tables provide stable keys; queries use geofences and centroids.
+
+### Cross‑Module Contracts
+- Authentication → Identity/Profiles
+  - Login issues tokens bound to `user_id`; profile switching exposes `artist_canonical_id`.
+  - Roles include Artist, Band Admin, Venue, Promoter, Business, Admin.
+- Community/Radio → API
+  - Standard query params: `city`, `state`, `genre`, `lat`, `lng`, `radius`, `community_key`.
+  - Radio endpoints accept `community_key` and return tiered queues.
+- Discovery/Map → Data
+  - Map layers: community centroids, activity heat, events, promoted songs.
+  - Filters: location radius + genre taxonomy.
+- Promotions/Events → Targeting
+  - Targeting predicates include `genre_id`, `genre_tags[]`, `community_key`, and `ST_Contains(geom, point)`.
+
+## Legacy Notes
+- Station Community System Analysis (imported)
+\n---\n\n## Imported from 01_UPRISE_Master_Overview.md
+# UPRISE Platform - Master Overview & System Integration Map
+
+## 📋 **DOCUMENT STRUCTURE & ORGANIZATION**
+
+This overview document maps the complete UPRISE platform architecture across 9 detailed technical specifications. Each document contains comprehensive implementation details, user flows, testing requirements, and success metrics.
+
+---
+
+## 🏗️ **COMPLETE SYSTEM ARCHITECTURE**
+
+### **Platform Development Priorities**
+- **🖥️ WebApp-First**: Business tools, complex dashboards, professional workflows
+- **📱 Mobile-First**: Consumer discovery, listening, basic social features  
+- **🔄 Cross-Platform**: Core functionality optimized for both platforms
+
+---
+
+## 📚 **SYSTEM SPECIFICATIONS INDEX**
+
+### **1. Master Skeleton Framework**
+**Purpose**: High-level platform architecture and system relationships  
+**Platform**: Cross-Platform Planning Document  
+**Key Components**:
+- Complete platform overview
+- User role definitions (8 user types)
+- System integration architecture
+- Development phases and priorities
+
+**Integration Points**: Foundation for all other systems
+
+---
+
+### **2. Authentication & User Management**
+**Purpose**: User accounts, roles, permissions, and security  
+**Platform**: Cross-Platform (WebApp management, Mobile access)  
+**Key Components**:
+- Multi-role authentication (Listeners, Artists, Venues, Promoters, Business Partners, Labels, Mixologists, Ambassadors)
+- Community-based verification
+- Security and fraud prevention
+- Home scene assignment
+
+**Integration Points**:
+- **→ Community System**: User community assignment and verification
+- **→ All Systems**: User identity and permissions foundation
+
+---
+
+### **3. Community & Location System**
+**Purpose**: Geographic + genre-based community infrastructure  
+**Platform**: Cross-Platform  
+**Key Components**:
+- City + State + Genre community structure
+- GPS verification and location services
+- Community statistics and activity tracking
+- Real-time data synchronization
+
+**Integration Points**:
+- **→ Authentication**: Community assignment and verification
+- **→ Fair Play Algorithm**: Community-based music rotation
+- **→ Discovery**: Geographic music exploration
+- **→ Events**: Community event promotion
+- **→ Business Features**: Local business targeting
+- **→ Phase 2**: Service provider geographic coverage
+
+---
+
+### **4. Fair Play Algorithm & RaDIYo System**
+**Purpose**: Democratic music rotation and community radio streaming  
+**Platform**: Cross-Platform (WebApp management, Mobile consumption)  
+**Key Components**:
+- Democratic voting-based music rotation
+- Anti-gaming and fraud prevention
+- Community radio streaming (RaDIYo)
+- Real-time algorithm optimization
+
+**Integration Points**:
+- **→ Community System**: Community-specific music rotation
+- **→ Song Management**: Song intake and processing
+- **→ Discovery**: Algorithm-driven recommendations
+- **→ Events**: Event impact on song promotion
+- **→ Phase 2 Mixologist**: Professional curation integration
+
+---
+
+### **5. Song Management & Upload System**
+**Purpose**: Music content creation, processing, and management  
+**Platform**: WebApp-First (Complex management tools)  
+**Key Components**:
+- Professional audio processing pipeline
+- Comprehensive metadata management
+- Multi-tier storage and CDN distribution
+- Artist portfolio integration
+
+**Integration Points**:
+- **→ Fair Play Algorithm**: Processed songs feeding rotation system
+- **→ Community System**: Automatic community assignment
+- **→ Discovery**: Content for recommendation system
+- **→ Events**: Artist music for event promotion
+- **→ Business Features**: Sponsored content opportunities
+
+---
+
+### **6. Discovery & Map View System**
+**Purpose**: Music and community exploration interface  
+**Platform**: Cross-Platform (Advanced features WebApp-First)  
+**Key Components**:
+- Interactive community map with activity visualization
+- AI-powered music recommendations
+- Advanced search and filtering
+- Personalized discovery feeds
+
+**Integration Points**:
+- **→ Community System**: Geographic community visualization
+- **→ Fair Play Algorithm**: Trending content integration
+- **→ Song Management**: Music content discovery
+- **→ Events**: Event discovery and promotion
+- **→ Business Features**: Native advertising integration
+- **→ Phase 2**: Mixologist and Ambassador service discovery
+
+---
+# Phase 2 Execution Plan
+
+## Workstreams
+- Auth & Identity
+- Locations & Geo
+- Radio/Community
+- Genre Taxonomy
+- API Integration
+- Mobile UI hooks
+
+---
+
+
+# UPRISE Phase 2 Execution Plan
+
+## Purpose  
+Unify the July Model realignments with current Phase 2 specs so that **mobile, API, and webapp** all converge on one canonical architecture. This document is the single source of truth for backend integration, onboarding, and smokes.
+
+---
+
+## Core Realignments (Phase 2 Foundations)
+
+### 1. Artist/Band Unification  
+- Canonical model: **ArtistProfile**  
+- Endpoints:  
+  - `GET /user/band` → returns ArtistProfile  
+  - `PUT /user/artist-profile` → update profile & logo  
+- Remove Band-only calls in mobile/web.  
+- References:  
+  - `docs/july model/architecture realignment/ARTIST-UNIFICATION-IMPLEMENTATION.md`  
+  - `docs/july model/architecture realignment/FRONTEND-ARTIST-UNIFICATION-REFACTORING.md`  
+  - `docs/specs/06_SONG_MANAGEMENT.md` (canonical IDs)
+
+### 2. Community & Location Filtering  
+- Canonical key: **`city-state-genre`** (e.g. `austin-texas-hip-hop`)  
+- Params: `city, state, genre, lat, lng, radius, community_key`  
+- GPS fraud checks via PostGIS (`ST_DWithin`)  
+- References:  
+  - `docs/specs/04_COMMUNITY_LOCATION.md`  
+  - `docs/july model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md`
+
+### 3. Radio/Community Unification  
+- Radio is a projection of community queues.  
+- Discovery responses echo back `community_key`.  
+- Feed = notifications only (no music payloads).  
+- References:  
+  - `docs/july model/architecture realignment/STATION-COMMUNITY-SYSTEM-ANALYSIS.md`  
+  - (this doc)
+
+### 4. Genre Upgrade (Modern 97 Taxonomy)  
+- Endpoints:  
+  - `/onboarding/all-genres` → flat 97 list  
+  - `/onboarding/super-genres` → hierarchy  
+- Used during artist onboarding.  
+- References:  
+  - `docs/july model/Feature realignment/MODERN-GENRES-SYSTEM.md`  
+  - `docs/architecture/SYSTEM_OVERVIEW.md`
+
+### 5. Business & Promotions Alignment  
+- Local businesses + events target communities via `community_key`.  
+- Promotions system plugs into community + genre targeting.  
+- References:  
+  - `docs/specs/09_PROMOTIONS_BUSINESS.md`  
+  - `docs/specs/08_EVENTS.md`
+
+---
+
+## Integration Targets
+
+- **Auth (JWT + refresh)**  
+  - Confirm refresh token handling + 401 responses.  
+  - Secrets and expirations aligned in API.  
+  - Header for creator actions: `X-Artist-Canonical-Id`.
+
+- **Onboarding (Artist)**  
+  - Signup → capture city/state + genre.  
+  - Create ArtistProfile if missing.  
+  - Set active profile context.  
+
+- **Radio & Discovery**  
+  - Always filtered by `community_key`.  
+  - Echo back params for consistency.  
+
+---
+
+## Smokes & Verification
+
+- `docs/scripts/session_kickoff.sh`  
+- `docs/scripts/phase2_smoke.sh`  
+- `docs/scripts/psql_postgis_check.sh`  
+- `docs/scripts/health_checks.sh`
+
+**Acceptance Criteria**  
+- Login/refresh works reliably.  
+- Onboarding shows 97-genre list + home scene.  
+- ArtistProfile is linked and editable.  
+- Radio responses include `community_key`.  
+- Feed = notifications only.  
+
+---
+
+## References (Single Source)
+
+- `docs/architecture/SYSTEM_OVERVIEW.md`  
+- `docs/specs/03_AUTHENTICATION.md`  
+- `docs/specs/04_COMMUNITY_LOCATION.md`  
+- `docs/specs/05_FAIR_PLAY_ALGO.md`  
+- `docs/specs/06_SONG_MANAGEMENT.md`  
+- `docs/specs/07_DISCOVERY_MAP.md`  
+- `docs/specs/08_EVENTS.md`  
+- `docs/specs/09_PROMOTIONS_BUSINESS.md`  
+
+
+---
+
+## Sprint Plan (Phase 2)
+
+### P2-00 — Bootstrapping (Done)
+- Emulator: Debug + Release stable; Hermes enabled; Release avoids Metro
+- Dev server host auto-config: persists `ReactNativeDevServerHost`, ADB reverse 8081
+- CI: Android Test Release workflow builds APK + emulator smoke
+- Copy: user-visible “Station” → “Community”
+
+### P2-S01 — Communities + Onboarding Groundwork
+Goal: make Community first-class; ensure discovery/radio use `community_key`; wire onboarding to super‑genres.
+
+- Contracts + State
+  - Helpers: `toCommunityKey`, `fromCommunityKey`, `buildGeoGenreParams`
+  - Persist `community_key` in redux; hydrate on app start
+  - Selector: `getCommunityKey()`
+- Onboarding (client)
+  - Services: `GET /onboarding/super-genres`, `GET /onboarding/all-genres`
+  - UI: Home Scene Creation (first login)
+    - Super‑genre picker (required) via typeahead
+    - City/State picker (required) with typeahead + optional “Use my GPS (recommended)”
+    - Note: GPS verification is optional, but only GPS‑verified users can upvote songs in Home Scene
+  - Persist: location (city/state), superGenre, `community_key={city}-{state}-{supergenre}` (sub‑genres stored later)
+  - Revolutionary flow:
+    - `validate-community` determines if local community is active
+    - If inactive: tag user as revolutionary, show invite modal, route to nearest active hub, persist `active_community_key`
+    - Summon back: on app start, if local becomes active, prompt user to return to home community
+- Requests
+  - Use `buildGeoGenreParams` for discovery/radio/events (prefer `community_key`, else normalized geo, else radius)
+  - Minimal param debug logs guarded by `__DEV__`
+- Copy/Terminology
+  - All user‑visible references “Station” → “Community”; Radio title “Community Radio”
+
+Acceptance
+- Onboarding shows super‑genres; optional sub‑genre tags
+- `community_key` persists and appears in Debug logs before discovery/radio
+- Discovery/radio requests carry `community_key` (or normalized fallbacks)
+- No “Station” in UI
+
+### P2-S02 — Auth/Refresh + ArtistProfile Unification
+Goal: align mobile with webapp/API: refresh flows, canonical ArtistProfile identity, creator context.
+
+- Auth/Refresh
+  - Keep 401→refresh→retry interceptor; add smoke verification
+- Artist Upgrade
+  - Profile CTA: “Become an Artist”
+
+=== Discovery by community_key ===
+# GET /api/discovery
+curl -sS http://127.0.0.1:3000/api/discovery?community_key=austin-texas-hip-hop
+HTTP 000
+
+=== Radio queue by community_key ===
+# GET /api/radio
+curl -sS http://127.0.0.1:3000/api/radio?community_key=austin-texas-hip-hop
+HTTP 000
+
+=== Communities listing (optional filters) ===
+# GET /api/communities
+curl -sS http://127.0.0.1:3000/api/communities?state=Texas&genre=Hip%20Hop
+HTTP 000
+
+=== Events discovery (geo filters where supported) ===
+# GET /api/eventmanagement
+curl -sS http://127.0.0.1:3000/api/eventmanagement?city=Austin&state=Texas&genre=Hip%20Hop
+HTTP 000
+\nDone. Note: These are non-destructive reads. Use COMMUNITY_KEY env to change target.
+\nKickoff complete. For full health checks run: docs/scripts/health_checks.sh
