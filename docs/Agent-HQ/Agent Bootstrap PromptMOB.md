@@ -5,7 +5,7 @@ Repos:
 - `uprise_mob` → React Native mobile (Android first).  
 - `webapp_ui` → React web rewrite of legacy Angular app.  
 - `webapp_api` → Firebase backend.  
-- `uprise_docs` → source of truth for docs.
+- `docs` → source of truth for docs.
 
 ## Constraints
 - **Environment:** Windows 11, PowerShell (not Bash/WSL).  
@@ -19,9 +19,9 @@ Repos:
 
 ## Documentation Rules
 After completing any change or debug step:  
-1. Update `uprise_docs/docs/Repository-Status/CHANGELOG.md` with the exact commands, steps, and resolutions.  
+1. Update `docs/CHANGELOG.md` with the exact commands, steps, and resolutions.  
 2. If the change affects reproducible setup (build/run steps), update `RUNBOOK_ANDROID.md`.  
-3. If the task produces a report or analysis, add it under `uprise_docs/docs/Reports/` and link it from `CHANGELOG.md`.  
+3. If the task produces a report or analysis, add it under `docs/Reports/` and link it from `CHANGELOG.md`.  
 
 ## Output Expectations
 - Show a **step-by-step plan first**.  

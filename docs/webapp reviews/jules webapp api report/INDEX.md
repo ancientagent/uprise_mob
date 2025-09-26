@@ -1,6 +1,6 @@
 # UPRISE Docs Index
 
-This folder (`uprise_docs/docs/`) contains documentation related to the UPRISE development project.  
+This folder (`docs/`) contains documentation related to the UPRISE development project.  
 Each subfolder has a specific purpose for organizing investigations, reports, and runbooks.
 
 ---
