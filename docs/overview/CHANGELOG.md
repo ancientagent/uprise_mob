@@ -1,3 +1,15 @@
+2025-09-15 - Docs: Added Emulator Networking standard (10.0.2.2:3000) and verification steps to PHASE2_EXECUTION_PLAN.md.
+
+2025-09-14 - Docs Enforcement & Ownership Infrastructure
+- **CODEOWNERS**: Added `.github/CODEOWNERS` with docs ownership (@baris @ancientagent)
+- **PR Template**: Enhanced `.github/PULL_REQUEST_TEMPLATE.md` with docs checklist
+- **Docs Enforcement**: Created `.github/workflows/docs-enforcement.yml` requiring CHANGELOG updates on code changes
+- **Docs-Only Workflow**: Added `.github/workflows/docs-only.yml` with markdown validation and link checking
+- **Path Filters**: Added `paths-ignore` to Android workflows to skip builds on docs-only changes
+- **Link Validation**: Automated checking for broken internal links in changed documentation
+- **Android Runbook Warnings**: Warns when Android changes don't update `docs/RUNBOOK_ANDROID.md`
+- **Impact**: Ensures documentation never gets missed, improves CI efficiency, maintains link integrity
+
 2025-09-14 - Refactor: RadioStations → Uprises (Component & UI)
 - **Component Rename**: `src/screens/Feed/RadioStations/` → `src/screens/Feed/Uprises/`
 - **File Rename**: `RadioStations.js` → `Uprises.js`, `RadioStations.styles.js` → `Uprises.styles.js`
@@ -5,7 +17,7 @@
 - **Navigation Update**: Updated imports and references in `HomeStack.js` and `DiscoveryStack.js`
 - **Function Rename**: `renderRadioStations` → `renderUprises` in Feed.js and DiscoveryPage.js
 - **i18n Verified**: Localization strings already correctly set to "Uprises"
-- **Documentation**: Swept docs (excluding `docs/archives/july-model/` per instructions)
+- **Documentation**: Swept docs (excluding `docs/july-model/` per instructions)
 - **Impact**: Complete UI refactor following naming convention "Radio Station(s)" → "Uprise(s)"
 
 2025-09-12 - Android build verification (Windows)
@@ -15,16 +27,16 @@
 - Artifacts: artifacts/logs/*.log, android/app/build/outputs
 
 ## 2025-09-12 - Phase 2 Carryover Template Documentation
-- **Created**: `docs/templates/PHASE2_CARRYOVER_TEMPLATE.md` as canonical carryover doc (roles, guardrails, kickoff, smokes, CI/DB acceptance, blocker escalation)
-- **Updated**: `docs/README.md` with new "Phase 2 Anchors" section linking to carryover template
-- **Updated**: `docs/overview/PHASE2_EXECUTION_PLAN.md` with reference to carryover template at top
+- **Created**: `docs/PHASE2_CARRYOVER_TEMPLATE.md` as canonical carryover doc (roles, guardrails, kickoff, smokes, CI/DB acceptance, blocker escalation)
+- **Updated**: `docs/INDEX.md` with new "Phase 2 Anchors" section linking to carryover template
+- **Updated**: `docs/PHASE2_EXECUTION_PLAN.md` with reference to carryover template at top
 - **Purpose**: Standardize daily carryover protocol for Codex/Mobile/PM roles across sessions
 
 ## 2025-01-11 - Artist Onboarding Flow Documentation - 15:45 UTC
 
 ### 📚 KNOWLEDGE-BASE EXPANSION
-- **Created**: `docs/knowledge-base/ARTIST_ONBOARDING_FLOW.md` with definitive user/artist onboarding flow
-- **Updated**: `docs/README.md` with new "Knowledge-Base" section
+- **Created**: `docs/Knowledge-Base/ARTIST_ONBOARDING_FLOW.md` with definitive user/artist onboarding flow
+- **Updated**: `docs/INDEX.md` with new "Knowledge-Base" section
 - **Content**: Complete step-by-step flow from listener signup to artist profile creation and webapp dashboard access
 - **Purpose**: Document exact user journey for listener → artist upgrade process
 
@@ -40,16 +52,16 @@
 
 ## 2025-09-13 - Musical Families Spec (Phase 2)
 - **Created**: `docs/specs/04A_MUSICAL_FAMILIES.md` — replaces super/sub‑genre onboarding with Musical Families; community key = `{city}-{state}-{family-id}`; all families selectable in all cities.
-- **Updated**: `docs/README.md` to include the new spec under Specs.
-- **Updated**: `docs/overview/PHASE2_EXECUTION_PLAN.md` Doc Canonicalization to reference the Musical Families spec.
+- **Updated**: `docs/INDEX.md` to include the new spec under Specs.
+- **Updated**: `docs/PHASE2_EXECUTION_PLAN.md` Doc Canonicalization to reference the Musical Families spec.
 - **Client (flag-ready)**: Added feature flag `FAMILY_COMMUNITIES_ENABLED` and family-based community key helper for onboarding (see `src/contracts/families.js`, `src/contracts/community.js`).
 
 
 ## 2025-01-11 - July Build Postmortem Documentation - 15:30 UTC
 
 ### 📚 DOCUMENTATION ARCHIVAL
-- **Created**: `docs/archives/july-model/JULY_BUILD_POSTMORTEM.md` with comprehensive July build analysis
-- **Updated**: `docs/README.md` with new "Previous Build Documentation" section
+- **Created**: `docs/july-model/JULY_BUILD_POSTMORTEM.md` with comprehensive July build analysis
+- **Updated**: `docs/INDEX.md` with new "Previous Build Documentation" section
 - **Content**: Executive summary, key pitfalls, lessons learned, architectural realities, environment recovery, and knowledge base delta report
 - **Purpose**: Preserve legacy stabilization lessons and architectural decisions for future reference
 
@@ -73,12 +85,12 @@
 ### 🔧 Scripts Updated
 - `scripts/build_install_verify.ps1` - Updated `$DocsRoot` to `D:\uprise_mob\docs`
 - `scripts/README_RUN.txt` - Updated documentation paths and filenames
-- `docs/automation/scripts/windows/local_backend_emulator_debug.ps1` - Updated docs path
+- `docs/scripts/windows/local_backend_emulator_debug.ps1` - Updated docs path
 
 ### 📚 Documentation References Fixed
-- `docs/overview/PLATFORM_SOURCE_OF_TRUTH.md` - Updated Android runbook path
-- `docs/overview/PROJECT_OVERVIEW.md` - Updated documentation references
-- `docs/README.md` - Updated Android runbook link
+- `docs/PLATFORM_SOURCE_OF_TRUTH.md` - Updated Android runbook path
+- `docs/Repository-Status/PROJECT_OVERVIEW.md` - Updated documentation references
+- `docs/INDEX.md` - Updated Android runbook link
 
 ### ✅ Verification Complete
 - All target files exist at new paths
@@ -154,10 +166,10 @@
 - Genre upgrade: taxonomy + tagging rolled into discovery, radio, and promotions targeting.
 
 ### Documentation Updates
-- Updated `docs/reference/architecture/SYSTEM_OVERVIEW.md` with unified model and cross-module contracts.
+- Updated `docs/architecture/SYSTEM_OVERVIEW.md` with unified model and cross-module contracts.
 - Aligned specs 03–09 with Phase 2 notes: identity linkage, geo filters, PostGIS usage, and targeting.
-- Added `docs/overview/PHASE2_EXECUTION_PLAN.md` outlining workstreams, gaps, tasks, and test hooks.
-- Expanded `docs/operations/CI_WORKFLOWS.md` with Phase 2 smoke tests.
+- Added `docs/PHASE2_EXECUTION_PLAN.md` outlining workstreams, gaps, tasks, and test hooks.
+- Expanded `docs/ops/CI_WORKFLOWS.md` with Phase 2 smoke tests.
 
 ### Verification Notes
 - Sibling `webapp_api` inspected: Sequelize models/migrations present including band→artist profile unification and PostGIS usage.
@@ -227,15 +239,15 @@
 ## 2025-09-10 - Phase 2 Kickoff (Codex/WSL) - 18:00 UTC
 
 ### ✅ Session Checklist
-- Phase anchor confirmed: `docs/overview/PHASE2_EXECUTION_PLAN.md` is source of truth.
-- Loaded context: `docs/reference/architecture/SYSTEM_OVERVIEW.md`, `docs/specs/_fragments/params.geo-genre.md`.
+- Phase anchor confirmed: `docs/PHASE2_EXECUTION_PLAN.md` is source of truth.
+- Loaded context: `docs/architecture/SYSTEM_OVERVIEW.md`, `docs/specs/_fragments/params.geo-genre.md`.
 - Ran kickoff smokes: discovery/radio endpoints not reachable at `127.0.0.1:3000` during smoke (HTTP 000).
-- Ran health checks: `./docs/automation/scripts/health_checks.sh` → API `/health` OK, Postgres version OK, PostGIS version OK.
+- Ran health checks: `./docs/scripts/health_checks.sh` → API `/health` OK, Postgres version OK, PostGIS version OK.
 - DB verification: patched `psql_postgis_check.sh` to safely parse `.env` (handles BOM/CRLF and `$` in secrets without sourcing).
 - Migration status (read‑only): `yarn --cwd ../webapp_api db:migrate:status` shows migrations applied; no writes executed.
 
 ### 🔧 Script Update
-- `docs/automation/scripts/psql_postgis_check.sh`
+- `docs/scripts/psql_postgis_check.sh`
   - Replaced direct `. env` sourcing with safe parser (no shell expansion; supports BOM/CRLF).
   - Prevents failures on passwords containing `$` and avoids leaking secrets.
 
@@ -249,7 +261,7 @@
 
 ### Notes
 - Respecting non‑destructive DB guardrails; migrations not executed in this session.
-- If desired, run `docs/automation/scripts/phase2_smoke.sh` after starting the API to see 200s on discovery/radio.
+- If desired, run `docs/scripts/phase2_smoke.sh` after starting the API to see 200s on discovery/radio.
 
 ## 2025-09-10 - Emulator Past Title Screen Quickstart (Windows + WSL)
 
@@ -299,10 +311,10 @@
 ## 2025-09-11 - Phase 2 Session Kickoff (WSL/Codex) - 17:47 UTC
 
 ### ✅ Session Checklist
-- Phase anchor confirmed: `docs/overview/PHASE2_EXECUTION_PLAN.md` is the source of truth.
-- Loaded context: `docs/reference/architecture/SYSTEM_OVERVIEW.md` and params fragment `docs/specs/_fragments/params.geo-genre.md`.
+- Phase anchor confirmed: `docs/PHASE2_EXECUTION_PLAN.md` is the source of truth.
+- Loaded context: `docs/architecture/SYSTEM_OVERVIEW.md` and params fragment `docs/specs/_fragments/params.geo-genre.md`.
 - Ran kickoff smokes: discovery/radio/community/event reads attempted against `127.0.0.1:3000` (API not listening during smoke; HTTP 000 as expected).
-- Ran health checks: `./docs/automation/scripts/health_checks.sh` → API `/health` OK, Postgres version OK, PostGIS version OK (PG 5433).
+- Ran health checks: `./docs/scripts/health_checks.sh` → API `/health` OK, Postgres version OK, PostGIS version OK (PG 5433).
 - DB migrations: guarded run deferred — API repo path not present; see “Follow‑ups”.
 
 ### 🧾 Artifacts
@@ -314,8 +326,8 @@
 
 ### ⚠️ Noted Gaps
 - Missing docs referenced in kickoff: 
-  - `docs/knowledge-base/UPRISE_CONTEXT_FOR_SPRINTS.md`
-  - `docs/knowledge-base/FIREBASE_MIGRATION_ONBOARDING.md`
+  - `docs/Knowledge-Base/UPRISE_CONTEXT_FOR_SPRINTS.md`
+  - `docs/Knowledge-Base/FIREBASE_MIGRATION_ONBOARDING.md`
   Propose adding placeholders or updating Phase 2 references.
 - `psql_postgis_check.sh` expects `../webapp_api/.env`; local API repo isn’t linked here.
 
@@ -331,7 +343,7 @@
   - Acceptance: no user‑visible errors; requests succeed after refresh.
 
 ### 🔜 Follow‑ups
-- Point migration guard to API repo once available: set `API_DIR=/path/to/webapp_api` then run `docs/automation/scripts/migration_guard.sh`.
+- Point migration guard to API repo once available: set `API_DIR=/path/to/webapp_api` then run `docs/scripts/migration_guard.sh`.
 - If desired, set `ENV_FILE` for `psql_postgis_check.sh` to a local `.env` containing DB creds to run non‑destructive extension checks.
 
 ### Code Change (Stability Guard)
@@ -1354,14 +1366,14 @@ Ask ChatGPT
 ## 2025-09-11 - Phase 2 Session Kickoff & Health Checks
 
 ### ✅ Session Kickoff Completed
-- Phase anchor confirmed: `docs/overview/PHASE2_EXECUTION_PLAN.md`
-- Context loaded: `docs/reference/architecture/SYSTEM_OVERVIEW.md`, `docs/specs/_fragments/params.geo-genre.md`
-- Ran smokes: `docs/automation/scripts/session_kickoff.sh`, `docs/automation/scripts/phase2_smoke.sh`
+- Phase anchor confirmed: `docs/PHASE2_EXECUTION_PLAN.md`
+- Context loaded: `docs/architecture/SYSTEM_OVERVIEW.md`, `docs/specs/_fragments/params.geo-genre.md`
+- Ran smokes: `docs/scripts/session_kickoff.sh`, `docs/scripts/phase2_smoke.sh`
 
 ### 🩺 Health & DB Status
-- `docs/automation/scripts/health_checks.sh`: API `/health` OK; Postgres/PostGIS checks OK (jq not installed → JSON parse skipped)
-- `docs/automation/scripts/psql_postgis_check.sh`: PostGIS OK → `POSTGIS="3.4.2"`, PGSQL="160"
-- `docs/automation/scripts/migration_guard.sh`: Sequelize migrations up-to-date (no pending migrations)
+- `docs/scripts/health_checks.sh`: API `/health` OK; Postgres/PostGIS checks OK (jq not installed → JSON parse skipped)
+- `docs/scripts/psql_postgis_check.sh`: PostGIS OK → `POSTGIS="3.4.2"`, PGSQL="160"
+- `docs/scripts/migration_guard.sh`: Sequelize migrations up-to-date (no pending migrations)
 
 ### 🎯 Next Deliverables (Backend Focus)
 - Auth refresh + mobile state: token/refresh flow reliable; mobile shows authenticated state on app start
@@ -1398,8 +1410,8 @@ Ask ChatGPT
 
 ### Added
 - RUNBOOK_ANDROID.md: new section "Crash Triage (Android)" with step-by-step capture, RedBox workflow, install triage, and manifest/ABI tips.
-- Knowledge Base: `docs/knowledge-base/ONBOARDING_SMOKES.md` documenting onboarding smoke steps, observations, and acceptance.
-- README.md updated with links to Crash Triage anchor and Onboarding Smokes.
+- Knowledge Base: `docs/Knowledge-Base/ONBOARDING_SMOKES.md` documenting onboarding smoke steps, observations, and acceptance.
+- INDEX.md updated with links to Crash Triage anchor and Onboarding Smokes.
 
 ### Bug
 - Debug builds crashed with `TypeError: undefined is not an object (evaluating '_reactNativeVideo.default.propTypes.source')` when using `react-native-video-player`.
@@ -1422,9 +1434,30 @@ Ask ChatGPT
 ## 2025-09-14 - Genre System (Alpha) — Direct Sub-Genre Communities
 - Finalized alpha direction: direct sub-genre registration; removed families/alliances hierarchy from plan.
 - Added spec: `docs/specs/GENRE_SYSTEM_ALPHA.md` (editable alpha list, admin endpoints, viability unchanged).
-- Updated: `docs/overview/PHASE2_EXECUTION_PLAN.md` P2-S01 to use sub-genre selection; acceptance updated.
-- Updated: `docs/README.md` to link new spec and mark families doc deprecated for alpha.
+- Updated: `docs/PHASE2_EXECUTION_PLAN.md` P2-S01 to use sub-genre selection; acceptance updated.
+- Updated: `docs/INDEX.md` to link new spec and mark families doc deprecated for alpha.
 - Code (alpha wiring):
   - Added `src/config/alpha_genres.js` (editable list).
   - Added `src/services/onboarding/genreAlpha.service.js` (approved list, suggestions, request stub; prefers API if configured).
   - Updated `src/screens/Onboarding/CommunitySetup.js` to use direct sub-genre selection and build community_key from sub-genre.
+2025-09-15 - Mobile auth + emulator networking alignment (Agents)
+- Standardized emulator backend port to 3000
+  - .env.development: `API_BASE_URL=http://10.0.2.2:3000`
+  - Added `REFRESH_TOKEN_URL=/auth/refresh`, `UPDATED_USERDETAILS=/user/me`
+  - `src/config/dev_fallback.js`: `API_BASE_URL=http://10.0.2.2:3000` (safety when env missing)
+- Auth stability fixes
+  - Refresh interceptor now attaches the refreshed `accessToken` (was using non-existent `idToken`)
+  - Login saga navigates with direct signature and logs decision branch in dev
+- Windows helper updated
+  - `docs/scripts/windows/local_backend_emulator_debug.ps1` defaults to backend port 3000 and writes mobile env accordingly
+- Build verification
+  - `:app:assembleDebug` successful; APK at `android/app/build/outputs/apk/debug/app-debug.apk`
+  - Next: run emulator smoke; verify login -> `/user/me` fetch and route decision in logs
+
+Signup flow status
+- Verified signup progresses: `/auth/signup` -> MailConfirmation screen.
+- Using the new account, login returns 200 and proceeds to route decision (Dashboard or CommunitySetup).
+2025-09-16 - Auth routing correction (Agents)
+- Updated login flow to route to Home Scene Creation (CommunitySetup) after successful login.
+- Removed temporary Dashboard redirect and related smoke flag usage.
+- Helper script no longer writes FORCE_DASHBOARD_AFTER_LOGIN.
